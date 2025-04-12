@@ -1,0 +1,5 @@
+numpy
+prettytable
+psutil
+py-cpuinfo
+pydantic

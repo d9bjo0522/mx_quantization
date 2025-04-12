@@ -1,0 +1,5 @@
+neural-compressor
+runipy
+notebook
+matplotlib
+tensorflow
