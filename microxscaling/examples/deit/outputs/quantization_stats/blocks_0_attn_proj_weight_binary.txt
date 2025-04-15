@@ -1,0 +1,4800 @@
+Token Index 0
+  Block 0
+    Shared Exponent: -4.0
+    Values: -1 3 3 -1 1 1 -6 0 -4 -2 2 -5 5 -5 -1 1 4 -1 -5 -1 3 6 -6 -4 -4 2 -6 0 0 4 -3 1 
+
+  Block 1
+    Shared Exponent: -4.0
+    Values: -1 -3 -2 2 4 2 -2 -1 -1 0 1 -2 -1 1 2 -2 -3 1 3 2 -2 -3 0 1 -1 0 2 1 2 2 0 -5 
+
+  Block 2
+    Shared Exponent: -3.0
+    Values: 0 2 -2 -2 -2 -2 -1 -1 -5 3 2 0 -5 0 1 -1 -1 -1 1 1 1 3 1 6 3 3 1 1 -2 2 -1 2 
+
+  Block 3
+    Shared Exponent: -3.0
+    Values: -1 -4 -1 -4 2 0 0 0 -3 1 -1 -2 -3 -2 2 -1 5 -1 0 -3 -2 -2 -1 0 -4 1 0 -2 -1 1 0 -3 
+
+  Block 4
+    Shared Exponent: -3.0
+    Values: 0 -3 -2 0 0 2 4 -1 1 -2 0 0 1 0 1 1 -1 0 0 2 3 -1 0 0 -3 -1 4 -3 2 4 -5 6 
+
+  Block 5
+    Shared Exponent: -3.0
+    Values: -2 0 5 -1 5 -4 0 -2 2 -3 -2 0 -1 -1 -2 2 2 -3 -1 2 0 1 1 -2 1 -1 -3 -2 -1 -1 -3 1 
+
+Token Index 1
+  Block 0
+    Shared Exponent: -4.0
+    Values: 0 3 2 2 1 1 -2 3 2 1 3 -2 3 -1 1 0 3 -1 3 4 1 -2 -4 1 0 2 -1 2 -2 -1 0 -1 
+
+  Block 1
+    Shared Exponent: -4.0
+    Values: 2 0 -2 1 -1 1 1 -1 -2 0 2 3 -1 -1 -1 1 2 2 0 1 -1 0 -6 -4 0 2 0 -1 -2 2 -1 1 
+
+  Block 2
+    Shared Exponent: -3.0
+    Values: -2 -1 -4 0 0 1 -1 1 1 1 1 -1 2 -1 -5 -2 -1 1 -4 -2 3 2 3 0 2 2 0 4 0 -1 2 0 
+
+  Block 3
+    Shared Exponent: -3.0
+    Values: 4 -1 4 -1 1 -1 0 -1 0 0 0 -3 0 1 1 -1 -3 1 0 0 -1 1 0 0 -3 -1 1 1 0 -1 -2 4 
+
+  Block 4
+    Shared Exponent: -4.0
+    Values: -4 5 1 0 3 1 4 -2 -3 -1 0 -2 -6 3 -2 -3 0 -7 3 -6 3 0 0 4 4 6 3 3 -2 5 -6 -2 
+
+  Block 5
+    Shared Exponent: -3.0
+    Values: -3 0 1 -4 -2 1 6 -1 -1 -2 3 2 3 0 -2 1 4 5 1 -1 -2 0 2 2 1 2 0 3 -1 1 -2 -4 
+
+Token Index 2
+  Block 0
+    Shared Exponent: -3.0
+    Values: 0 0 -3 -5 5 4 0 -4 3 -2 5 -1 -4 -1 -2 -2 -4 -3 0 -4 4 0 0 -2 -2 1 2 2 5 4 2 -3 
+
+  Block 1
+    Shared Exponent: -2.0
+    Values: 0 1 1 0 -3 -2 -3 -1 0 -2 -3 -3 -2 -1 -1 1 -1 0 0 2 4 1 1 -1 5 1 2 0 0 -2 1 2 
+
+  Block 2
+    Shared Exponent: -3.0
+    Values: 1 1 4 0 0 1 -1 -1 1 0 1 0 1 -1 -1 0 -1 2 3 0 1 0 2 1 -1 0 -5 -1 0 -1 -3 0 
+
+  Block 3
+    Shared Exponent: -4.0
+    Values: 1 1 0 -1 2 1 4 3 4 -2 4 -4 -2 -5 -2 -4 1 3 -2 1 2 -1 2 -2 3 2 1 2 -3 1 0 0 
+
+  Block 4
+    Shared Exponent: -3.0
+    Values: -2 1 -2 0 0 -1 1 -1 -1 1 -2 0 0 0 -1 6 -7 -1 1 -3 -2 -2 0 -2 3 -1 1 -2 1 1 -3 2 
+
+  Block 5
+    Shared Exponent: -4.0
+    Values: -1 0 2 1 3 0 0 0 0 4 -3 3 -3 -2 -2 -5 1 -4 6 2 0 2 2 1 -6 -7 1 -6 3 2 3 4 
+
+Token Index 3
+  Block 0
+    Shared Exponent: -4.0
+    Values: 1 1 -7 0 0 1 -1 0 1 4 1 4 5 4 1 -2 3 -4 3 2 2 -4 -1 -1 -2 -1 -4 1 1 -2 3 -1 
+
+  Block 1
+    Shared Exponent: -4.0
+    Values: -1 -3 -2 -3 -2 1 0 -1 2 1 0 0 2 -3 0 1 -1 -3 2 -1 0 4 2 2 1 5 -3 2 2 4 -1 -4 
+
+  Block 2
+    Shared Exponent: -3.0
+    Values: 1 3 -1 2 -4 0 -1 -5 0 0 -1 2 3 2 1 1 -4 -1 -2 -1 1 -3 1 -2 -3 3 1 1 -3 3 1 1 
+
+  Block 3
+    Shared Exponent: -3.0
+    Values: 1 2 -1 1 0 -3 2 0 -1 -1 2 -1 1 1 -1 2 1 1 -1 -4 -1 4 2 2 -2 1 -2 -1 2 -3 -2 0 
+
+  Block 4
+    Shared Exponent: -3.0
+    Values: 2 -2 0 0 5 -3 -2 1 0 5 1 -1 0 -2 2 2 1 -1 -4 -3 1 2 -3 -2 -1 0 2 2 1 6 0 2 
+
+  Block 5
+    Shared Exponent: -3.0
+    Values: 1 0 0 3 -4 -3 0 2 5 2 -2 4 -6 -3 1 2 1 2 -3 2 -6 -2 -1 0 -1 2 1 0 2 -2 0 -3 
+
+Token Index 4
+  Block 0
+    Shared Exponent: -3.0
+    Values: 0 3 5 -2 -3 3 -2 2 -2 3 -2 -2 -5 -5 1 -1 5 3 6 2 1 -6 -4 -3 -5 -1 5 -1 -3 2 -7 -4 
+
+  Block 1
+    Shared Exponent: -3.0
+    Values: -5 4 5 -1 5 0 -2 -2 7 0 4 -6 1 1 0 2 1 4 -1 5 -2 -1 -5 3 -1 -5 1 -1 -2 1 -2 0 
+
+  Block 2
+    Shared Exponent: -4.0
+    Values: -2 0 -5 -4 -1 -6 -2 2 -1 -2 0 4 1 4 -2 -3 1 -1 2 1 -2 1 2 -3 2 3 -1 0 -4 0 2 -1 
+
+  Block 3
+    Shared Exponent: -5.0
+    Values: 3 7 -2 -1 -2 1 -6 -5 -3 1 -3 6 5 7 -2 -5 -1 4 -4 -1 -2 5 3 4 -3 -4 2 -3 3 -5 3 -1 
+
+  Block 4
+    Shared Exponent: -4.0
+    Values: 0 -1 3 2 1 -1 0 0 0 -1 2 1 2 2 1 -5 5 2 0 2 2 0 0 1 -4 1 -1 1 -1 0 -2 -1 
+
+  Block 5
+    Shared Exponent: -4.0
+    Values: 0 0 0 -1 -1 0 0 0 0 -2 1 0 0 0 0 2 0 1 -4 0 -1 3 0 -1 1 0 0 2 -2 -1 1 -1 
+
+Token Index 5
+  Block 0
+    Shared Exponent: -3.0
+    Values: 5 0 -3 -6 7 5 -2 -7 0 -2 5 1 -2 1 1 -3 -6 -4 7 1 3 -1 4 -3 0 1 4 3 2 0 -4 -2 
+
+  Block 1
+    Shared Exponent: -2.0
+    Values: -1 1 -2 0 -5 -3 -1 1 1 2 -5 -4 -1 0 -3 2 -2 0 -1 2 5 1 1 0 6 0 4 2 1 0 3 2 
+
+  Block 2
+    Shared Exponent: -3.0
+    Values: 1 2 4 1 -1 3 1 -3 1 2 1 -1 1 1 -1 1 -4 3 2 -3 0 -2 -4 2 -2 -2 -2 0 1 2 -3 1 
+
+  Block 3
+    Shared Exponent: -3.0
+    Values: 0 -1 -1 2 4 -1 4 2 3 0 5 -3 -1 -1 1 -1 1 0 2 -2 1 1 0 -1 3 0 -1 4 -2 3 -1 1 
+
+  Block 4
+    Shared Exponent: -2.0
+    Values: -1 1 -3 0 -1 -2 0 -1 0 1 -3 0 -3 -1 -1 2 -5 -2 1 -2 1 -1 0 -1 3 1 0 0 1 0 0 0 
+
+  Block 5
+    Shared Exponent: -3.0
+    Values: -1 -2 1 3 3 0 1 -1 2 2 -2 3 2 0 -2 -4 -1 -5 5 0 1 2 0 0 -4 -5 0 -3 4 1 -1 2 
+
+Token Index 6
+  Block 0
+    Shared Exponent: -3.0
+    Values: 1 0 2 -1 2 -4 -1 0 0 1 1 -4 1 1 -1 3 -5 2 0 0 5 3 -1 1 0 1 0 0 0 -1 2 2 
+
+  Block 1
+    Shared Exponent: -3.0
+    Values: 0 1 1 -4 0 -1 -4 3 0 2 -2 1 1 4 -1 -1 -1 -1 -2 0 1 -2 1 0 0 1 2 1 0 1 2 0 
+
+  Block 2
+    Shared Exponent: -3.0
+    Values: 1 3 3 0 -3 2 0 3 0 1 -2 -2 3 -2 0 2 1 0 0 5 -3 -1 5 0 -1 -2 -3 0 1 -1 2 1 
+
+  Block 3
+    Shared Exponent: -3.0
+    Values: -2 2 -3 0 0 -3 -1 0 -3 -1 -1 -2 0 -3 -1 0 0 -2 4 -3 0 2 2 -4 1 2 1 -3 -1 -1 -1 1 
+
+  Block 4
+    Shared Exponent: -3.0
+    Values: 1 3 2 -1 2 -1 -2 0 0 1 0 0 -1 -2 1 2 -1 -1 2 -1 3 2 -1 1 1 -4 1 -4 2 -3 0 -2 
+
+  Block 5
+    Shared Exponent: -3.0
+    Values: -1 5 -1 0 0 -3 3 -2 0 -2 1 -1 -1 3 1 -3 0 2 -1 0 -3 -4 1 1 -2 1 1 -2 -3 2 -1 -3 
+
+Token Index 7
+  Block 0
+    Shared Exponent: -3.0
+    Values: -1 0 1 -1 2 1 -1 1 0 0 1 -1 3 1 -1 -4 -3 0 1 1 -2 2 -5 1 -3 -2 -1 -2 2 -1 -2 -2 
+
+  Block 1
+    Shared Exponent: -4.0
+    Values: -2 2 -1 0 1 4 1 -3 -2 6 -1 2 0 3 3 0 2 -2 5 1 -2 -2 2 -2 0 -1 -1 6 -2 1 1 -1 
+
+  Block 2
+    Shared Exponent: -3.0
+    Values: -2 -2 4 2 -1 1 -4 6 3 -1 -2 4 -4 1 -3 1 5 4 5 1 2 3 -1 1 1 2 2 0 5 3 -1 0 
+
+  Block 3
+    Shared Exponent: -3.0
+    Values: 2 0 -2 3 -2 5 1 1 2 3 -1 2 0 -4 0 1 1 6 -1 -1 0 -1 4 2 -1 4 2 0 2 -1 -6 -1 
+
+  Block 4
+    Shared Exponent: -3.0
+    Values: 0 0 0 4 2 0 1 -3 0 0 0 -1 0 -1 -1 1 0 -1 0 -1 0 2 2 -1 -2 3 1 0 2 1 0 -5 
+
+  Block 5
+    Shared Exponent: -4.0
+    Values: 7 -3 -4 4 -7 -7 -2 2 -2 -7 3 0 0 3 1 -3 -3 3 -3 6 -1 4 0 1 -4 -1 1 1 -3 -5 -1 -2 
+
+Token Index 8
+  Block 0
+    Shared Exponent: -3.0
+    Values: 2 1 2 4 -2 1 4 0 2 -2 0 -3 1 -2 2 0 -2 -1 0 -2 2 -2 0 4 1 -1 -1 -1 -1 2 2 0 
+
+  Block 1
+    Shared Exponent: -3.0
+    Values: 1 -1 -1 -1 2 -2 1 -4 -4 3 1 1 0 2 -1 2 0 -1 3 -2 -1 0 1 1 1 0 -3 -3 3 -1 -2 2 
+
+  Block 2
+    Shared Exponent: -3.0
+    Values: 2 -3 2 3 5 -1 0 -1 0 -3 2 3 2 -3 1 -3 0 2 0 -5 3 0 2 -1 -1 -2 3 -2 1 0 1 1 
+
+  Block 3
+    Shared Exponent: -3.0
+    Values: 3 -4 1 -1 0 1 -3 0 2 -2 -3 -1 -1 0 -2 0 5 -1 4 0 -2 -3 4 2 3 -3 0 -1 4 -2 2 -3 
+
+  Block 4
+    Shared Exponent: -4.0
+    Values: 0 2 -3 2 6 1 -2 -3 0 4 0 5 -1 1 4 -6 3 -2 -2 -3 -3 -5 1 2 -2 2 5 0 2 1 2 -3 
+
+  Block 5
+    Shared Exponent: -3.0
+    Values: -5 1 3 -2 3 2 0 2 4 0 -1 3 1 -1 -4 -2 0 -1 0 4 0 3 0 -3 0 -4 5 -1 1 2 1 1 
+
+Token Index 9
+  Block 0
+    Shared Exponent: -4.0
+    Values: -1 2 -2 -1 3 5 0 -5 4 4 7 -1 0 0 -3 2 2 -4 1 -1 -1 -2 -2 1 -4 -3 -2 4 4 2 6 5 
+
+  Block 1
+    Shared Exponent: -4.0
+    Values: -4 -1 2 1 -4 -1 -3 1 5 -3 -6 0 0 -7 1 -7 4 0 0 0 6 5 0 2 6 -2 2 -1 3 0 2 3 
+
+  Block 2
+    Shared Exponent: -3.0
+    Values: -4 1 0 -3 -3 2 -3 1 1 5 3 -1 1 2 3 2 -1 4 1 0 -3 -4 -4 0 0 -3 -2 1 0 1 -4 1 
+
+  Block 3
+    Shared Exponent: -3.0
+    Values: 5 1 2 5 0 -2 -1 0 2 -1 3 -1 -2 -5 0 -2 1 1 2 -2 -1 5 2 1 4 1 5 1 -1 -1 4 -4 
+
+  Block 4
+    Shared Exponent: -3.0
+    Values: 2 0 -1 5 -2 -4 -2 -2 -2 -5 0 -2 1 0 -1 3 0 0 -1 -2 0 -1 0 -2 2 -1 2 2 -5 -3 -3 1 
+
+  Block 5
+    Shared Exponent: -3.0
+    Values: 1 -2 2 -3 4 2 -3 0 2 2 -2 -2 3 -4 0 -1 -3 0 -1 1 1 0 2 0 -1 0 -2 2 3 0 -1 -1 
+
+Token Index 10
+  Block 0
+    Shared Exponent: -2.0
+    Values: 0 -1 3 1 -2 0 -4 -1 0 0 -2 1 -1 -1 0 0 -1 -3 1 0 0 0 4 1 3 1 3 -3 0 -2 -3 1 
+
+  Block 1
+    Shared Exponent: -3.0
+    Values: -2 -1 0 -2 3 -4 7 -1 -1 6 0 5 0 -2 0 0 0 -3 0 -2 0 3 1 -5 -3 -3 1 -2 0 3 -2 -2 
+
+  Block 2
+    Shared Exponent: -4.0
+    Values: 0 -4 2 -3 0 -3 -5 2 7 -4 4 3 -3 -7 0 -5 0 1 -4 -5 -3 3 5 -1 0 -3 -2 -2 -4 -6 -1 0 
+
+  Block 3
+    Shared Exponent: -4.0
+    Values: 4 -2 0 3 -1 4 1 -2 1 4 5 -3 -2 -1 -4 1 4 4 0 5 -3 2 7 5 2 -2 0 -2 -4 -2 3 -4 
+
+  Block 4
+    Shared Exponent: -4.0
+    Values: -5 1 -1 0 -2 3 -3 -1 1 -7 4 0 2 -4 -1 -2 1 2 -1 2 -1 -1 1 3 1 -4 2 -3 1 4 -1 -2 
+
+  Block 5
+    Shared Exponent: -4.0
+    Values: -4 -2 2 -1 3 4 -4 1 -2 3 -3 0 -5 0 4 1 -1 5 -6 -1 -4 0 -2 4 -2 3 -3 2 1 4 4 -2 
+
+Token Index 11
+  Block 0
+    Shared Exponent: -4.0
+    Values: -1 -3 -1 -1 0 0 -1 -2 0 -3 3 -2 -2 2 -1 0 2 1 2 -1 2 1 0 -4 -3 0 2 5 0 -1 0 1 
+
+  Block 1
+    Shared Exponent: -4.0
+    Values: 2 2 2 0 -1 -1 -1 2 2 2 -1 -1 -5 -1 1 0 0 -1 -2 1 1 -1 0 4 0 1 1 -4 0 -3 1 5 
+
+  Block 2
+    Shared Exponent: -3.0
+    Values: -2 2 -2 3 -2 3 1 -2 4 0 -1 2 -1 2 0 0 2 0 -3 -1 4 -1 -1 -1 3 0 -1 1 -1 -1 1 1 
+
+  Block 3
+    Shared Exponent: -3.0
+    Values: 1 1 0 -4 2 0 3 0 2 0 -2 0 2 -1 -1 -1 -2 0 2 3 1 1 0 1 0 3 1 0 -1 -3 -2 -3 
+
+  Block 4
+    Shared Exponent: -4.0
+    Values: -4 2 1 -4 -5 2 5 6 2 -2 -2 1 4 5 3 3 1 2 2 0 -1 3 -3 3 -6 0 3 2 4 5 -3 -6 
+
+  Block 5
+    Shared Exponent: -3.0
+    Values: 2 -1 4 1 2 -4 0 -4 -3 3 2 4 6 2 -1 0 -4 -4 1 2 -2 -6 2 -4 -1 -3 -2 0 1 0 5 2 
+
+Token Index 12
+  Block 0
+    Shared Exponent: -4.0
+    Values: 1 -1 1 -2 0 -6 -1 -1 1 -5 3 -6 -1 0 2 6 -2 0 0 -1 5 -3 -2 -6 -2 1 5 5 1 -3 -2 -1 
+
+  Block 1
+    Shared Exponent: -4.0
+    Values: -2 -1 3 6 0 4 -4 -4 7 -3 0 -3 1 -1 0 -2 -3 7 2 2 -1 -3 -5 0 1 0 4 -1 0 -1 -1 2 
+
+  Block 2
+    Shared Exponent: -3.0
+    Values: 0 -1 -1 0 -2 2 0 -1 0 -5 4 1 -5 2 1 1 2 2 1 -1 1 0 0 -1 5 3 0 -2 -1 -1 -3 1 
+
+  Block 3
+    Shared Exponent: -3.0
+    Values: 2 -2 -1 1 -2 0 0 1 -3 -1 3 0 2 3 -2 -1 0 -4 0 3 -1 0 -1 -5 1 3 0 -2 3 -1 -2 -1 
+
+  Block 4
+    Shared Exponent: -3.0
+    Values: 0 0 0 1 -2 4 -2 -4 0 5 6 -2 -4 0 3 1 -1 2 -3 1 0 -4 1 0 1 -1 2 2 0 -1 1 1 
+
+  Block 5
+    Shared Exponent: -3.0
+    Values: 0 -2 -1 0 -1 -2 0 0 0 0 -2 -1 -3 0 1 -2 -2 0 1 1 0 1 0 5 0 -1 3 5 1 -2 -1 1 
+
+Token Index 13
+  Block 0
+    Shared Exponent: -3.0
+    Values: -3 4 3 2 6 5 -3 5 0 -5 3 2 -2 -4 -1 -4 -3 -2 -2 -1 2 -1 4 -1 4 2 1 1 1 -1 0 0 
+
+  Block 1
+    Shared Exponent: -2.0
+    Values: 0 0 0 1 -2 -1 0 0 0 0 0 0 4 -3 1 2 1 2 0 0 0 -1 -1 0 2 2 -4 0 -3 0 2 -1 
+
+  Block 2
+    Shared Exponent: -4.0
+    Values: -5 0 -4 5 -7 1 -4 -2 2 -5 -2 0 2 1 3 1 5 3 1 7 -4 1 6 1 -6 -1 -1 -2 4 7 0 -3 
+
+  Block 3
+    Shared Exponent: -3.0
+    Values: -4 2 -1 1 3 2 2 -1 -3 -2 0 -3 1 2 0 -1 1 0 0 -1 1 2 -1 -1 1 -3 2 1 -1 -3 -1 1 
+
+  Block 4
+    Shared Exponent: -4.0
+    Values: -1 2 5 2 -3 -1 -2 3 0 -1 3 -2 1 0 -2 7 2 6 0 -1 5 1 0 1 0 -1 -2 -1 -4 -2 -2 -1 
+
+  Block 5
+    Shared Exponent: -4.0
+    Values: 1 0 0 -1 1 0 -2 3 -2 1 1 1 0 3 1 -2 1 -1 1 -2 1 1 0 0 0 2 -3 4 4 -1 2 3 
+
+Token Index 14
+  Block 0
+    Shared Exponent: -3.0
+    Values: -2 -2 -2 0 0 -2 3 1 5 -2 0 -3 2 0 -1 -1 0 -7 -3 -3 0 0 1 4 2 1 -1 -7 1 -2 -2 -2 
+
+  Block 1
+    Shared Exponent: -3.0
+    Values: 2 -5 -3 3 0 1 0 1 -4 -6 1 -3 -1 -2 2 -1 0 -4 0 -2 0 4 2 -1 -1 2 -1 0 -2 -4 -1 1 
+
+  Block 2
+    Shared Exponent: -3.0
+    Values: 3 1 -1 1 1 2 -1 -1 5 0 -1 1 -6 -1 -1 -2 -1 1 -1 0 0 2 -3 0 3 2 0 0 -3 -4 -1 0 
+
+  Block 3
+    Shared Exponent: -3.0
+    Values: 3 1 1 -4 0 -1 -2 3 2 4 3 1 1 -2 0 -1 0 2 2 2 -1 1 2 1 4 -2 -1 -1 -6 3 4 3 
+
+  Block 4
+    Shared Exponent: -5.0
+    Values: -3 4 6 3 -5 -1 3 0 1 2 -3 2 -1 -5 0 -2 -1 -5 -2 -5 7 0 1 -2 -5 2 0 -7 -3 1 0 1 
+
+  Block 5
+    Shared Exponent: -5.0
+    Values: -4 -1 2 3 3 -2 0 -3 -1 2 3 1 5 7 5 -6 3 -1 -1 -7 -1 1 -7 6 2 -5 0 -4 -5 -3 5 6 
+
+Token Index 15
+  Block 0
+    Shared Exponent: -3.0
+    Values: 0 1 1 2 0 1 -1 0 0 1 1 -3 1 1 0 2 4 1 3 -1 1 -2 -1 2 -2 0 -2 0 -1 0 4 -1 
+
+  Block 1
+    Shared Exponent: -4.0
+    Values: 5 1 -1 5 -1 3 -2 4 2 -4 -2 -2 -6 1 -3 -1 -4 2 -4 0 3 -1 -2 -4 0 5 5 -2 0 1 1 0 
+
+  Block 2
+    Shared Exponent: -3.0
+    Values: -4 3 -1 -1 -3 2 -1 1 1 1 1 -1 -6 -1 2 -1 -2 5 5 3 -2 1 -3 0 2 0 0 -1 1 -3 0 0 
+
+  Block 3
+    Shared Exponent: -3.0
+    Values: 0 1 -1 -2 0 0 -5 -1 -2 -7 -1 0 -3 -1 -3 -1 -1 2 -2 0 0 -1 -1 4 2 -2 -4 4 3 -2 0 2 
+
+  Block 4
+    Shared Exponent: -3.0
+    Values: 3 0 -1 0 2 0 -2 3 2 -1 -2 2 6 -2 1 -1 -2 3 -3 5 1 5 -1 3 1 0 0 -3 0 0 3 0 
+
+  Block 5
+    Shared Exponent: -3.0
+    Values: -1 1 -5 2 1 -2 4 -2 2 -1 3 2 0 2 -4 -4 4 0 3 -1 -2 -1 -3 -1 -1 -2 4 2 1 3 1 1 
+
+Token Index 16
+  Block 0
+    Shared Exponent: -3.0
+    Values: 0 -3 5 0 1 -4 -3 -3 1 4 -1 0 2 -1 -1 -3 -3 3 -2 1 0 0 2 0 4 0 1 3 1 -2 -2 -5 
+
+  Block 1
+    Shared Exponent: -3.0
+    Values: 1 -3 -3 1 -1 0 0 2 -5 4 -3 0 1 -1 -1 3 1 -2 -1 -1 2 2 0 -1 0 -1 -2 2 2 3 2 2 
+
+  Block 2
+    Shared Exponent: -3.0
+    Values: 1 -1 3 -4 1 3 4 -1 -2 3 1 5 -2 1 4 1 3 0 -3 4 0 3 -2 -2 0 -3 -1 -1 0 2 2 1 
+
+  Block 3
+    Shared Exponent: -3.0
+    Values: 4 4 1 -3 1 -5 0 0 -1 0 -3 -1 -5 -3 -1 -3 -2 4 -4 0 2 -2 -1 -1 1 -3 2 2 2 1 0 2 
+
+  Block 4
+    Shared Exponent: -3.0
+    Values: 5 0 -2 -3 -2 -1 2 -2 1 -1 -1 -1 -1 -1 4 1 0 1 0 -1 2 -1 2 -2 0 3 4 2 -1 1 -2 1 
+
+  Block 5
+    Shared Exponent: -3.0
+    Values: 1 -2 -2 3 0 3 2 1 1 4 1 -2 0 -2 0 -2 0 -4 -1 2 1 -1 4 1 -4 4 2 -3 2 0 1 2 
+
+Token Index 17
+  Block 0
+    Shared Exponent: -3.0
+    Values: -2 2 4 -2 7 1 0 7 -6 3 -2 0 5 -4 -1 1 0 2 3 2 1 1 1 -3 -2 1 -7 3 -2 3 -1 3 
+
+  Block 1
+    Shared Exponent: -3.0
+    Values: 0 0 -3 -1 -4 0 0 1 -4 5 1 3 4 1 1 -3 1 2 0 2 -2 -5 1 2 3 1 1 5 -4 0 4 2 
+
+  Block 2
+    Shared Exponent: -4.0
+    Values: -3 -3 -1 -4 2 2 -2 -1 -2 1 1 -4 -5 6 -3 0 -6 2 3 -5 -6 0 -3 -2 5 -2 -2 -1 -1 -2 2 -7 
+
+  Block 3
+    Shared Exponent: -4.0
+    Values: 1 2 -1 -3 5 -1 1 -3 -5 -2 4 0 5 -2 2 -2 7 -3 -1 0 -5 2 2 -3 7 -3 7 2 1 0 3 2 
+
+  Block 4
+    Shared Exponent: -4.0
+    Values: 2 -2 0 -2 -1 0 -5 0 2 -1 1 0 -3 -1 -1 6 -7 4 -2 2 -3 4 -2 1 3 -3 3 2 1 1 6 -2 
+
+  Block 5
+    Shared Exponent: -4.0
+    Values: 1 -1 1 -2 1 7 -1 -7 2 1 3 3 0 -1 -3 5 -1 2 7 1 1 -2 -4 2 3 3 -6 7 5 -2 2 -3 
+
+Token Index 18
+  Block 0
+    Shared Exponent: -3.0
+    Values: -1 -2 -4 1 -3 1 -1 -1 0 4 -5 -1 -4 2 -1 0 -4 -3 3 -2 -3 6 2 3 -1 2 0 4 1 3 -1 1 
+
+  Block 1
+    Shared Exponent: -2.0
+    Values: 3 3 2 -3 0 -1 1 -1 0 1 0 0 0 2 -1 1 1 1 -2 0 2 -1 4 -1 0 -1 -1 1 -1 -1 -2 1 
+
+  Block 2
+    Shared Exponent: -3.0
+    Values: 3 2 -1 1 2 -3 2 1 3 -2 -2 0 -3 1 1 4 2 -3 -1 0 1 1 0 2 3 4 -1 0 3 0 -4 -3 
+
+  Block 3
+    Shared Exponent: -3.0
+    Values: 3 -3 3 -2 -3 1 0 -1 -1 2 0 0 -2 -1 -3 -4 1 4 -3 -1 1 -3 -6 2 5 -3 0 4 2 -4 3 0 
+
+  Block 4
+    Shared Exponent: -4.0
+    Values: 1 2 0 0 -2 -6 -4 1 0 -1 2 4 -6 3 -1 -3 2 -3 -4 -5 5 3 2 1 6 -1 3 -2 6 5 -3 4 
+
+  Block 5
+    Shared Exponent: -4.0
+    Values: -5 -4 6 -3 2 2 -3 -4 -3 0 0 0 -5 -3 1 2 5 3 3 1 -2 1 -4 5 3 -1 -1 -3 1 -3 1 3 
+
+Token Index 19
+  Block 0
+    Shared Exponent: -4.0
+    Values: 2 0 0 0 -1 -3 -3 -1 -5 -2 -2 1 0 1 1 -1 1 -1 1 1 -1 2 -1 -1 5 2 1 0 0 1 0 0 
+
+  Block 1
+    Shared Exponent: -4.0
+    Values: 0 2 2 0 1 -1 -2 0 -1 5 0 0 0 2 -1 0 -1 0 0 0 0 1 -2 1 0 -5 2 0 1 -1 0 -2 
+
+  Block 2
+    Shared Exponent: -4.0
+    Values: 5 2 0 1 1 -1 -1 -2 -3 -4 3 -1 -1 1 2 -5 0 -2 -3 0 7 0 1 -1 0 1 -2 3 3 -3 2 -1 
+
+  Block 3
+    Shared Exponent: -4.0
+    Values: -4 2 5 4 3 0 -3 -3 6 -4 -2 -1 7 0 3 -1 -5 -2 -1 4 5 1 1 -4 1 2 7 -2 4 1 2 -4 
+
+  Block 4
+    Shared Exponent: -3.0
+    Values: 3 2 2 2 2 -1 -1 -5 -5 -2 -2 3 0 5 -1 -1 -1 0 2 0 0 4 1 -2 0 3 2 -6 -1 2 1 2 
+
+  Block 5
+    Shared Exponent: -3.0
+    Values: 1 -3 -6 -2 2 -2 -1 -1 2 0 -2 3 -3 -2 0 -1 5 0 -1 -1 2 -2 -1 -7 -1 1 1 1 1 -3 1 1 
+
+Token Index 20
+  Block 0
+    Shared Exponent: -3.0
+    Values: 1 0 -4 4 -2 -2 2 4 0 0 -1 3 4 -1 2 2 1 0 -4 2 -1 5 0 4 4 2 -4 5 1 -4 0 6 
+
+  Block 1
+    Shared Exponent: -2.0
+    Values: 0 -3 -2 1 1 0 2 -1 -1 0 2 3 1 0 -1 -1 1 0 -1 -5 0 0 0 -2 -1 0 -2 -1 -2 -1 -2 -1 
+
+  Block 2
+    Shared Exponent: -4.0
+    Values: 1 2 -3 -1 2 0 1 1 0 1 -2 0 -1 1 1 0 5 -2 -1 3 2 2 3 -2 2 2 2 -2 3 0 -1 -1 
+
+  Block 3
+    Shared Exponent: -5.0
+    Values: -1 1 3 0 7 1 -3 -3 1 1 -4 7 -7 2 -2 5 3 -7 7 7 -1 2 -7 1 4 -4 -1 -2 -1 2 4 7 
+
+  Block 4
+    Shared Exponent: -4.0
+    Values: -1 1 2 2 1 -1 0 1 0 0 0 1 2 0 0 -7 5 0 2 0 2 -3 -1 0 -4 0 -2 -2 0 2 -3 2 
+
+  Block 5
+    Shared Exponent: -4.0
+    Values: -1 1 1 -1 0 0 0 -2 -1 0 -1 -1 -1 1 0 -2 1 0 -5 -1 0 2 0 0 -2 -2 2 -1 -4 0 1 2 
+
+Token Index 21
+  Block 0
+    Shared Exponent: -3.0
+    Values: -3 0 0 -1 -3 -2 0 7 0 1 -2 -3 -1 -1 -1 1 2 3 0 1 0 -1 -3 0 -2 -1 -1 -2 0 -1 -2 -2 
+
+  Block 1
+    Shared Exponent: -3.0
+    Values: 0 -1 1 -1 4 2 1 -2 0 -4 7 3 -1 2 2 0 -3 1 -2 -2 -2 -1 -1 1 -6 0 1 -1 -4 0 -4 1 
+
+  Block 2
+    Shared Exponent: -2.0
+    Values: -1 -2 -2 0 1 -1 -1 1 -1 -2 1 1 1 2 -1 -1 2 -2 0 1 2 2 5 -2 2 1 1 -1 0 -1 3 -2 
+
+  Block 3
+    Shared Exponent: -3.0
+    Values: -3 2 4 -2 3 -1 -4 -5 -3 4 -5 3 -2 2 -5 0 1 -1 -1 4 1 -1 -1 4 0 -3 2 -3 3 -4 4 3 
+
+  Block 4
+    Shared Exponent: -3.0
+    Values: 1 -1 2 1 0 1 0 1 -1 0 3 1 4 2 1 -1 5 4 0 2 -1 1 1 1 -3 -1 -1 2 -2 -2 -1 0 
+
+  Block 5
+    Shared Exponent: -4.0
+    Values: 0 0 1 -2 -3 3 -1 2 -3 -4 3 0 -1 -1 1 6 -1 4 -7 0 -2 4 0 0 5 6 -1 7 -3 0 3 -3 
+
+Token Index 22
+  Block 0
+    Shared Exponent: -5.0
+    Values: 3 2 -2 5 -2 -1 4 3 4 1 -1 -2 0 -1 4 2 -4 -2 4 2 4 -2 0 -1 -1 -2 3 5 -2 -5 -4 -3 
+
+  Block 1
+    Shared Exponent: -5.0
+    Values: 0 -4 -3 5 -2 -2 6 -2 2 -6 4 -3 1 -6 -2 -1 4 4 1 0 -2 -6 -3 -1 -1 0 5 -2 -2 1 -2 1 
+
+  Block 2
+    Shared Exponent: -3.0
+    Values: 1 -2 1 -1 -1 -1 -2 -1 1 1 0 -2 0 3 -1 1 0 2 1 -2 2 1 3 -1 2 1 1 2 1 -6 0 0 
+
+  Block 3
+    Shared Exponent: -3.0
+    Values: 0 0 5 0 0 0 -1 -1 -2 -1 -1 -1 0 -1 1 1 0 0 1 -2 2 0 2 -1 -3 -1 1 1 1 -1 -3 0 
+
+  Block 4
+    Shared Exponent: -3.0
+    Values: 0 -4 -2 -3 -3 1 1 7 -2 4 2 1 3 0 -2 0 1 0 0 -2 1 -2 2 -6 0 -1 1 -3 0 0 5 -2 
+
+  Block 5
+    Shared Exponent: -3.0
+    Values: -1 1 -1 0 2 0 -6 -1 1 -3 -2 0 2 -1 0 0 2 -2 -2 0 1 -1 2 0 0 0 2 -4 0 0 -1 2 
+
+Token Index 23
+  Block 0
+    Shared Exponent: -3.0
+    Values: -1 -2 2 0 -1 2 1 -3 1 -3 2 -1 2 5 -3 2 -1 -2 -1 2 1 -1 -3 -2 2 -4 4 0 3 -7 0 1 
+
+  Block 1
+    Shared Exponent: -3.0
+    Values: 0 0 0 4 1 -1 2 2 3 0 -4 0 -3 2 -1 1 1 -5 -3 -1 4 1 2 2 -2 2 -1 3 -3 2 -1 4 
+
+  Block 2
+    Shared Exponent: -4.0
+    Values: -1 4 0 -5 0 0 2 1 2 2 -1 -3 4 1 0 -2 -4 -4 -2 -2 3 5 1 1 -3 2 -4 0 0 0 -5 -3 
+
+  Block 3
+    Shared Exponent: -4.0
+    Values: -5 -3 2 6 1 1 0 -5 -1 1 -2 1 -2 1 -2 -2 0 -2 4 3 3 0 -2 2 4 -3 0 4 4 1 0 -2 
+
+  Block 4
+    Shared Exponent: -4.0
+    Values: -2 0 -3 2 2 -2 -2 1 -1 1 -2 2 0 -5 7 1 -2 2 0 -3 1 3 5 -1 -1 5 0 1 1 -1 -1 -1 
+
+  Block 5
+    Shared Exponent: -3.0
+    Values: 0 -1 0 1 2 4 -2 -2 0 -5 -1 2 2 -1 2 0 -1 -1 -1 0 -2 2 -2 0 3 -1 -3 2 2 -1 1 -2 
+
+Token Index 24
+  Block 0
+    Shared Exponent: -2.0
+    Values: 1 0 0 5 0 -4 0 2 0 0 -1 0 1 1 1 0 2 1 0 1 1 0 -2 0 0 0 0 1 -1 -2 -1 -1 
+
+  Block 1
+    Shared Exponent: -3.0
+    Values: 2 1 0 -3 0 0 -3 1 -2 2 3 1 -2 2 -1 2 5 1 -1 -1 -3 2 3 3 -2 -3 2 0 -3 1 -1 -2 
+
+  Block 2
+    Shared Exponent: -3.0
+    Values: -4 5 3 -2 -1 -3 -1 1 0 0 -1 -2 2 -1 2 -2 -3 -1 -3 -2 -1 3 0 -4 1 0 0 -1 -2 2 2 -1 
+
+  Block 3
+    Shared Exponent: -3.0
+    Values: -7 1 -1 2 2 3 0 0 3 -1 4 1 1 0 -1 -1 1 1 -1 2 0 1 0 -3 -1 -1 1 0 -4 -4 -2 -1 
+
+  Block 4
+    Shared Exponent: -3.0
+    Values: 0 -1 2 2 0 1 -1 1 0 0 4 2 3 2 1 1 1 2 0 -1 -2 0 -1 2 0 -1 0 3 -4 -3 2 1 
+
+  Block 5
+    Shared Exponent: -3.0
+    Values: -1 1 -1 -3 1 1 0 6 -2 -3 4 1 1 2 1 1 -3 1 -2 1 0 1 0 4 1 1 3 1 2 4 -1 1 
+
+Token Index 25
+  Block 0
+    Shared Exponent: -3.0
+    Values: 0 -2 -2 -1 2 1 2 -3 0 -2 4 1 -2 3 -1 -1 -4 0 1 0 -4 1 4 1 5 1 2 -4 2 0 2 -4 
+
+  Block 1
+    Shared Exponent: -3.0
+    Values: -4 3 2 -4 -4 -5 2 1 -6 0 -4 1 -2 -2 2 -4 3 -5 3 -1 0 0 1 -4 3 -1 -1 3 3 -2 4 4 
+
+  Block 2
+    Shared Exponent: -3.0
+    Values: 0 -1 0 0 0 2 1 -3 -5 -3 -1 -3 0 0 5 2 2 0 3 3 1 -4 -3 -1 -1 4 1 1 5 4 0 4 
+
+  Block 3
+    Shared Exponent: -3.0
+    Values: 1 -2 -3 3 1 0 4 1 2 -4 5 -2 -1 4 4 -1 -1 1 -2 -1 -2 3 2 0 0 2 -1 2 -5 -2 -3 1 
+
+  Block 4
+    Shared Exponent: -3.0
+    Values: 2 -2 1 -2 2 -1 -1 1 1 -2 2 1 1 1 -2 5 -2 1 0 -1 -4 1 0 0 2 -2 0 -1 0 0 3 2 
+
+  Block 5
+    Shared Exponent: -3.0
+    Values: 0 1 1 -3 0 0 -1 -1 0 -3 2 -1 2 -2 0 2 0 2 3 1 0 -4 -1 0 -1 2 -3 2 1 0 1 4 
+
+Token Index 26
+  Block 0
+    Shared Exponent: -4.0
+    Values: 0 1 -1 -1 1 2 4 2 -2 4 0 1 1 1 1 2 -1 -2 -1 -1 -2 -1 -1 3 0 0 -2 0 -2 0 1 0 
+
+  Block 1
+    Shared Exponent: -4.0
+    Values: 0 1 2 0 -2 0 -1 -1 -2 -1 1 -3 1 -1 -1 2 2 -1 0 -1 0 0 3 -5 1 3 2 2 -2 3 -2 -4 
+
+  Block 2
+    Shared Exponent: -3.0
+    Values: 1 -2 3 4 -4 0 -1 0 2 -1 2 -1 0 -1 2 -1 1 2 -2 1 -2 2 -2 -7 -3 1 0 -1 0 2 -2 -1 
+
+  Block 3
+    Shared Exponent: -3.0
+    Values: 2 -3 -1 -2 -1 0 -1 1 0 0 -1 4 0 1 2 -1 -1 0 -2 0 1 4 0 0 0 1 1 0 5 4 1 0 
+
+  Block 4
+    Shared Exponent: -4.0
+    Values: -3 1 -2 -7 -4 7 1 -5 -5 -2 2 -2 7 5 -1 -4 -1 -5 -4 -2 -5 5 -4 4 2 -3 -3 -1 4 4 -4 3 
+
+  Block 5
+    Shared Exponent: -3.0
+    Values: 1 -1 -1 -3 5 -1 0 0 0 -1 2 -2 2 1 2 2 0 -4 1 -1 0 0 6 2 0 0 -1 1 0 -1 0 1 
+
+Token Index 27
+  Block 0
+    Shared Exponent: -3.0
+    Values: -4 2 2 2 -3 7 -1 -1 4 2 -3 0 -3 -4 -3 5 0 2 0 0 4 2 -2 6 -1 4 4 2 3 -2 -4 -2 
+
+  Block 1
+    Shared Exponent: -3.0
+    Values: 0 -4 -2 -2 3 -1 3 -2 1 -1 0 -3 -1 2 3 -2 -1 -2 2 -3 -1 -6 0 -4 -3 -2 -1 -2 0 -6 -1 -4 
+
+  Block 2
+    Shared Exponent: -4.0
+    Values: 4 0 -4 2 -2 6 -1 7 -1 1 -3 -3 2 -1 -3 -2 3 -4 2 0 3 0 5 1 -1 4 0 3 2 6 3 -2 
+
+  Block 3
+    Shared Exponent: -4.0
+    Values: 5 3 3 4 0 2 1 -4 -2 2 2 3 0 4 -3 1 2 -4 3 4 0 3 2 4 -2 4 -5 2 -2 -4 3 -1 
+
+  Block 4
+    Shared Exponent: -4.0
+    Values: 3 2 7 -3 0 -1 -3 3 2 0 5 2 1 0 2 -4 3 6 1 -1 1 3 0 -3 -5 -4 2 1 -1 -2 -1 4 
+
+  Block 5
+    Shared Exponent: -4.0
+    Values: -2 2 0 -5 -2 4 -4 1 -5 -5 3 -5 2 -1 2 5 1 -1 -3 0 -3 -2 -2 2 1 0 -5 7 -6 -2 2 4 
+
+Token Index 28
+  Block 0
+    Shared Exponent: -3.0
+    Values: 2 3 -3 0 1 -4 1 -1 7 -7 2 1 -4 -3 2 -3 2 -4 0 -6 -4 -1 -2 4 -2 -5 4 -3 0 -1 -1 2 
+
+  Block 1
+    Shared Exponent: -3.0
+    Values: 2 -6 0 6 -3 -2 -3 0 4 -6 -1 -4 -4 -2 -2 -1 -2 2 -2 2 2 -3 1 1 3 1 0 -2 0 1 1 1 
+
+  Block 2
+    Shared Exponent: -4.0
+    Values: 0 -1 0 2 -2 -2 3 1 4 0 -2 1 1 4 3 4 5 -2 -5 6 -2 -4 -1 5 0 1 -1 -1 1 2 -1 5 
+
+  Block 3
+    Shared Exponent: -4.0
+    Values: -1 2 -1 1 -1 4 6 -1 -2 -1 3 -6 2 1 0 -3 0 0 1 -1 -1 2 2 -2 3 -5 -3 3 0 2 0 0 
+
+  Block 4
+    Shared Exponent: -3.0
+    Values: -1 1 -4 -1 1 -1 -1 0 0 -3 0 0 1 -1 1 1 -3 0 1 -2 1 2 1 -1 4 -1 0 0 0 -1 -1 2 
+
+  Block 5
+    Shared Exponent: -4.0
+    Values: -6 0 -2 3 5 1 1 -4 1 1 -4 0 0 2 2 -2 1 4 2 5 1 1 5 0 -1 1 -4 -1 4 1 6 -2 
+
+Token Index 29
+  Block 0
+    Shared Exponent: -4.0
+    Values: 1 3 -2 -3 1 -1 -2 -2 -3 5 -1 2 1 0 1 -1 1 4 -1 1 1 -1 -2 0 0 0 1 4 0 -3 -4 1 
+
+  Block 1
+    Shared Exponent: -4.0
+    Values: -3 -1 1 0 -1 -3 -4 -1 2 4 -2 -5 5 -1 1 2 -3 0 4 -1 -2 -3 -4 2 0 2 1 3 3 -1 2 -3 
+
+  Block 2
+    Shared Exponent: -3.0
+    Values: 1 0 0 -1 -3 -2 0 0 3 3 -1 5 -3 0 1 4 -3 3 -1 -2 -1 1 -1 -3 -3 2 2 -1 3 -1 0 2 
+
+  Block 3
+    Shared Exponent: -3.0
+    Values: -1 -1 2 1 -2 -2 1 0 -1 -1 3 0 3 3 -1 4 3 1 -2 -1 0 -4 1 0 0 0 2 0 -1 -1 2 -2 
+
+  Block 4
+    Shared Exponent: -2.0
+    Values: 1 -1 0 -1 0 0 5 -2 -1 -1 -2 2 1 1 -1 1 -1 2 1 0 -2 -1 0 1 1 -2 -1 3 -1 -1 1 -2 
+
+  Block 5
+    Shared Exponent: -3.0
+    Values: -2 2 2 1 -3 -1 0 -4 -3 -2 -2 0 -2 -4 0 -2 1 4 3 0 1 -1 1 0 2 1 2 4 2 2 1 -1 
+
+Token Index 30
+  Block 0
+    Shared Exponent: -4.0
+    Values: 0 0 -1 -1 3 2 1 -3 0 -5 6 4 -4 -4 -2 1 -1 -3 4 -1 0 1 7 -1 3 -3 0 2 -4 5 1 3 
+
+  Block 1
+    Shared Exponent: -3.0
+    Values: 1 -2 -3 -2 -1 2 2 5 0 -3 -2 1 -2 -2 1 -2 0 0 -1 -1 -1 1 0 1 1 -2 -2 2 2 1 3 3 
+
+  Block 2
+    Shared Exponent: -3.0
+    Values: 2 2 0 0 -1 0 -1 -3 -1 3 -3 1 -5 -2 1 2 3 -1 1 0 1 1 -2 1 -2 -4 0 1 2 1 2 1 
+
+  Block 3
+    Shared Exponent: -3.0
+    Values: -2 2 0 -2 -4 5 -1 -3 -1 -2 1 -5 -4 1 0 4 -1 2 2 -1 1 5 1 -2 -2 3 -1 0 0 0 0 -5 
+
+  Block 4
+    Shared Exponent: -3.0
+    Values: 1 3 1 2 -6 2 -2 1 1 2 -6 0 1 4 0 0 0 -3 1 -3 -1 1 0 0 3 -1 0 0 0 -6 -4 -1 
+
+  Block 5
+    Shared Exponent: -3.0
+    Values: 1 -2 1 2 -1 -1 1 1 1 -5 1 -1 -2 -3 3 0 2 -2 2 -1 0 1 -1 2 -1 1 4 2 -1 -1 0 -2 
+
+Token Index 31
+  Block 0
+    Shared Exponent: -4.0
+    Values: 1 3 -2 3 1 -3 2 1 2 -2 -1 -2 1 2 2 -2 -1 1 0 2 1 2 -4 1 -3 1 2 0 0 -5 -2 -5 
+
+  Block 1
+    Shared Exponent: -4.0
+    Values: -1 -1 -1 1 -3 -1 5 1 2 3 0 1 4 -2 -1 3 0 -1 -1 3 -1 0 -2 1 0 1 5 -2 -2 2 1 1 
+
+  Block 2
+    Shared Exponent: -3.0
+    Values: 3 -3 -2 1 1 0 -2 0 -2 2 0 0 4 -3 -1 4 1 0 1 -1 0 -2 2 -1 -1 -2 0 3 -3 -2 2 -1 
+
+  Block 3
+    Shared Exponent: -3.0
+    Values: 1 0 2 0 2 -2 1 -3 1 1 1 0 2 0 -2 0 4 1 -4 -1 4 -1 -2 0 -3 2 2 1 0 0 0 0 
+
+  Block 4
+    Shared Exponent: -3.0
+    Values: 1 4 -2 0 -4 3 -3 -1 6 -4 0 0 3 0 2 1 0 -3 -1 2 1 -3 -3 -1 -1 0 -7 0 -5 1 -2 2 
+
+  Block 5
+    Shared Exponent: -3.0
+    Values: 1 -2 -3 -1 -2 -3 0 -1 2 -2 0 1 -4 1 -3 1 -2 -3 5 3 -1 2 -3 1 3 -1 0 -1 0 -3 1 3 
+
+Token Index 32
+  Block 0
+    Shared Exponent: -4.0
+    Values: -1 0 0 1 -1 -3 0 4 -2 -3 0 0 -3 1 1 2 -1 2 0 2 5 4 -2 1 -1 2 4 -2 0 -3 -1 -3 
+
+  Block 1
+    Shared Exponent: -4.0
+    Values: -4 -1 2 1 -2 1 -4 -2 6 -1 3 -2 4 -4 3 1 -3 5 2 3 -5 1 -2 7 -1 1 2 1 -2 2 1 3 
+
+  Block 2
+    Shared Exponent: -3.0
+    Values: 3 -1 1 -1 -1 -1 -1 -2 -1 -1 3 1 0 -5 3 2 1 -1 2 1 2 1 -2 0 4 -2 1 -2 -1 2 0 -2 
+
+  Block 3
+    Shared Exponent: -3.0
+    Values: 2 -1 4 1 4 -3 -1 2 -1 2 0 1 0 0 2 1 -3 0 -1 -2 -2 -3 3 3 -4 -1 -4 0 0 -3 0 -2 
+
+  Block 4
+    Shared Exponent: -3.0
+    Values: -2 4 1 1 0 0 0 3 -2 -1 2 -3 0 2 0 -1 -1 0 5 3 -3 7 1 2 1 1 -3 2 0 0 2 0 
+
+  Block 5
+    Shared Exponent: -3.0
+    Values: -1 3 1 1 3 1 -4 2 1 3 2 -1 1 -3 1 -4 -2 3 -1 0 -2 -4 -1 2 1 -1 0 0 -2 -1 1 -1 
+
+Token Index 33
+  Block 0
+    Shared Exponent: -5.0
+    Values: 2 2 -1 1 -2 -3 -5 -1 -4 7 6 -4 1 3 2 -3 -5 -7 3 0 -7 -7 -6 3 -3 0 2 4 -2 0 0 -1 
+
+  Block 1
+    Shared Exponent: -4.0
+    Values: -1 2 3 -1 2 4 1 -2 1 0 1 0 -5 1 0 4 1 3 1 -1 -1 1 2 3 -1 1 0 -1 1 0 -2 0 
+
+  Block 2
+    Shared Exponent: -3.0
+    Values: 1 -1 1 -2 0 3 -1 -2 2 4 -4 0 0 -4 3 0 2 1 0 1 2 0 -1 -1 3 -3 0 3 2 0 -1 -1 
+
+  Block 3
+    Shared Exponent: -3.0
+    Values: 0 2 -2 1 1 -1 1 4 -1 1 -5 -1 6 0 0 -5 1 -2 1 0 -6 4 3 -2 -2 0 4 -1 0 -2 0 1 
+
+  Block 4
+    Shared Exponent: -3.0
+    Values: 0 -2 1 -4 -3 0 1 1 -1 1 -3 4 -1 -3 -3 -3 2 0 -1 0 -1 -2 0 3 1 3 0 2 0 3 2 7 
+
+  Block 5
+    Shared Exponent: -3.0
+    Values: 2 2 1 1 0 1 1 -2 0 -1 -2 -1 -5 1 -2 -1 2 1 1 -2 2 1 -4 1 -1 -4 -1 -1 0 -2 2 0 
+
+Token Index 34
+  Block 0
+    Shared Exponent: -3.0
+    Values: 1 0 1 -1 2 2 0 -3 0 -1 0 1 1 -4 0 0 -3 -2 1 0 2 1 -3 0 -5 -1 1 4 6 0 -2 2 
+
+  Block 1
+    Shared Exponent: -3.0
+    Values: -1 -5 -3 3 -2 -2 0 -5 -1 -1 -3 -5 -1 -4 1 2 1 1 6 -1 2 -4 3 0 5 1 -1 -2 3 2 2 -1 
+
+  Block 2
+    Shared Exponent: -3.0
+    Values: -1 1 1 1 1 0 0 -3 0 1 -1 0 2 0 -1 -1 2 0 2 -1 1 -1 2 1 -1 -1 0 1 -2 0 -5 2 
+
+  Block 3
+    Shared Exponent: -3.0
+    Values: 1 -1 -1 2 2 0 0 2 1 1 3 0 -1 -2 3 -2 -1 2 0 1 1 0 0 0 -2 -1 1 -6 0 1 0 1 
+
+  Block 4
+    Shared Exponent: -3.0
+    Values: 1 1 2 0 0 1 0 0 1 2 -3 -1 -3 -1 -2 5 -2 -2 0 -1 -1 1 0 0 2 -2 0 -1 1 0 1 0 
+
+  Block 5
+    Shared Exponent: -4.0
+    Values: 0 0 0 2 -1 -4 6 -3 3 4 -1 -1 2 0 -3 -4 2 -3 6 1 4 -4 1 -1 -7 -2 3 -7 -2 1 -4 1 
+
+Token Index 35
+  Block 0
+    Shared Exponent: -3.0
+    Values: 2 3 -1 1 -2 0 -3 -3 -3 4 3 0 1 -1 0 -1 6 1 -1 1 0 -3 1 -2 -1 0 1 2 0 0 1 -1 
+
+  Block 1
+    Shared Exponent: -3.0
+    Values: 1 -2 2 3 2 -1 1 0 -1 3 -1 -1 2 -1 -2 -1 0 1 -1 -1 2 -1 -1 4 0 1 -3 1 2 -3 -2 0 
+
+  Block 2
+    Shared Exponent: -3.0
+    Values: 0 -1 1 -2 1 4 -3 0 2 -2 -2 -2 0 -5 -3 2 -3 -2 1 2 1 3 -2 3 2 3 -1 -1 0 -2 -1 0 
+
+  Block 3
+    Shared Exponent: -3.0
+    Values: 0 -3 -1 0 -5 -1 2 1 2 0 1 0 2 0 0 1 -2 -1 -1 -3 4 2 -1 -2 -1 -1 0 -2 2 0 -1 2 
+
+  Block 4
+    Shared Exponent: -4.0
+    Values: -6 6 -1 -1 -3 -3 -2 -6 2 -2 -3 3 1 2 1 -1 -4 4 4 -2 -2 7 5 -3 -7 1 -1 -6 2 -7 -3 1 
+
+  Block 5
+    Shared Exponent: -3.0
+    Values: 0 -1 0 2 1 2 0 1 2 -3 2 1 0 0 -1 -1 -3 0 -3 -1 -2 1 -3 1 0 1 -1 -1 2 4 1 0 
+
+Token Index 36
+  Block 0
+    Shared Exponent: -4.0
+    Values: 0 -1 -2 0 1 -1 -1 1 -4 4 0 1 0 3 0 2 -1 2 2 -1 1 0 1 0 3 0 -3 1 -2 1 1 3 
+
+  Block 1
+    Shared Exponent: -4.0
+    Values: 2 4 0 -2 -1 0 1 3 0 2 0 -2 -2 1 1 -2 -1 -2 0 -1 -2 -1 2 -1 -1 1 2 5 0 2 2 -3 
+
+  Block 2
+    Shared Exponent: -3.0
+    Values: 3 -2 -5 0 -3 -3 -2 1 1 0 0 -2 -2 -3 1 2 -4 3 1 1 2 -4 -1 2 -3 -3 0 -1 1 1 0 3 
+
+  Block 3
+    Shared Exponent: -4.0
+    Values: -6 -2 -4 -5 -3 7 1 1 -2 -2 -3 1 5 -1 -3 -3 -3 -4 2 7 1 0 4 1 -4 -7 3 -2 -4 5 -7 -3 
+
+  Block 4
+    Shared Exponent: -3.0
+    Values: 1 6 2 0 1 -1 1 4 2 -1 4 0 -3 -2 1 0 0 -5 0 -3 1 1 0 -3 -3 0 2 4 -2 2 1 2 
+
+  Block 5
+    Shared Exponent: -3.0
+    Values: -1 -1 -3 0 -2 1 0 -2 2 2 1 1 2 -6 1 -2 -4 -1 -1 -1 4 5 6 -1 1 1 2 0 -2 4 -1 6 
+
+Token Index 37
+  Block 0
+    Shared Exponent: -4.0
+    Values: 2 5 3 -5 -5 1 3 0 -2 0 1 -2 -1 -3 3 -2 0 -5 -3 0 2 -5 -2 -5 -1 1 3 -1 0 -1 -2 2 
+
+  Block 1
+    Shared Exponent: -4.0
+    Values: -5 -3 4 0 6 1 -1 -4 2 2 2 4 1 2 -3 4 -3 -3 0 1 1 -4 1 -1 0 -2 -5 0 -1 6 -5 -5 
+
+  Block 2
+    Shared Exponent: -3.0
+    Values: 2 3 0 -3 1 -2 2 -4 -3 5 -2 0 1 -1 -3 0 1 0 1 1 -1 1 -1 -1 -2 -2 0 -1 0 4 -2 4 
+
+  Block 3
+    Shared Exponent: -3.0
+    Values: 1 2 0 -1 -3 -5 -2 4 3 -3 1 3 2 1 2 -1 0 0 0 -2 1 -3 -3 -3 3 3 -1 2 -3 -4 -5 0 
+
+  Block 4
+    Shared Exponent: -3.0
+    Values: 0 0 3 3 1 2 1 6 -1 0 0 2 4 0 2 -3 -2 0 0 -2 -2 -1 0 -4 2 -1 -1 1 2 -1 -3 3 
+
+  Block 5
+    Shared Exponent: -3.0
+    Values: -1 -3 -4 -3 -2 0 -2 1 -4 -1 1 4 4 1 0 -3 1 0 -1 1 0 2 -2 3 0 0 -1 3 1 1 2 2 
+
+Token Index 38
+  Block 0
+    Shared Exponent: -3.0
+    Values: -5 3 -5 2 -4 -2 -3 5 3 2 -3 0 -1 -2 -3 -3 4 5 0 5 -2 -3 -3 0 0 -3 -3 -1 -1 1 -1 0 
+
+  Block 1
+    Shared Exponent: -2.0
+    Values: 0 -1 1 -1 4 2 0 0 2 -1 4 1 1 1 2 1 1 3 -1 -2 -2 1 -2 1 -5 -2 -2 -1 -2 1 -3 -1 
+
+  Block 2
+    Shared Exponent: -3.0
+    Values: 0 -1 -5 -2 2 -2 -2 3 1 0 2 1 0 1 1 0 2 -4 -1 0 1 2 3 -1 4 2 0 -3 0 -2 3 -2 
+
+  Block 3
+    Shared Exponent: -3.0
+    Values: -1 -1 2 -2 -2 0 -3 -2 -2 2 -6 4 0 1 -3 1 0 -2 0 1 0 -1 -2 1 0 -1 1 -2 4 -1 3 0 
+
+  Block 4
+    Shared Exponent: -3.0
+    Values: -1 0 3 1 0 0 -1 1 -1 0 3 1 3 2 1 -4 4 4 0 2 0 0 1 1 -5 -1 -1 1 -1 -1 -1 -1 
+
+  Block 5
+    Shared Exponent: -4.0
+    Values: 2 0 2 -1 -2 2 -2 2 -2 -3 1 -1 -1 0 0 3 2 3 -7 2 -1 7 0 0 4 3 1 5 -4 0 5 -3 
+
+Token Index 39
+  Block 0
+    Shared Exponent: -5.0
+    Values: -4 1 -1 0 -1 7 5 1 2 1 7 5 -2 -2 -4 2 3 1 -4 -3 5 -1 -2 2 -4 2 -4 1 5 7 2 -2 
+
+  Block 1
+    Shared Exponent: -4.0
+    Values: 0 0 1 4 -1 3 0 -2 1 0 1 -2 -1 -1 1 -1 -4 1 -1 2 2 -3 -2 -3 1 1 2 0 0 -7 -1 -1 
+
+  Block 2
+    Shared Exponent: -3.0
+    Values: -2 2 3 2 6 -5 -1 0 1 -1 0 -3 -2 2 -2 3 -1 -2 -1 -2 1 1 -1 1 -1 -1 -1 -1 3 1 -1 -1 
+
+  Block 3
+    Shared Exponent: -4.0
+    Values: 3 -2 -2 -3 6 -6 -4 2 -3 3 -4 -4 3 -2 -4 -4 1 -2 -7 4 -3 7 6 -1 -2 -3 3 -3 -6 -4 -1 0 
+
+  Block 4
+    Shared Exponent: -3.0
+    Values: -3 -2 -1 2 1 2 1 -1 2 -4 -3 2 -3 1 -1 0 -2 0 -2 0 2 -1 0 -1 1 -2 -1 1 -1 -4 1 1 
+
+  Block 5
+    Shared Exponent: -3.0
+    Values: 0 -1 -3 0 1 1 -1 0 -6 1 2 1 -3 -1 -2 0 0 -2 -2 4 -7 -2 4 -1 3 2 3 -2 -3 -4 -1 2 
+
+Token Index 40
+  Block 0
+    Shared Exponent: -3.0
+    Values: 2 2 -4 0 0 -1 1 -1 -1 2 1 1 2 -1 0 3 -1 1 -1 2 -4 -1 1 -3 1 4 -3 -1 -2 1 3 2 
+
+  Block 1
+    Shared Exponent: -3.0
+    Values: 1 -2 -2 -2 -2 1 2 3 -2 -1 -2 -4 1 0 -4 -2 -2 -3 -4 -3 4 -1 -1 -1 1 4 2 1 1 2 0 -1 
+
+  Block 2
+    Shared Exponent: -3.0
+    Values: 0 1 5 -1 -2 2 0 -1 0 1 -2 0 0 0 -1 1 1 0 1 3 1 1 -1 0 -3 0 -3 0 2 2 2 1 
+
+  Block 3
+    Shared Exponent: -4.0
+    Values: -1 2 -3 -1 6 -1 7 1 1 2 6 -5 -6 -4 -2 -4 2 3 6 2 4 -4 0 0 5 0 5 2 -4 -2 -4 -1 
+
+  Block 4
+    Shared Exponent: -3.0
+    Values: 0 0 -4 1 0 -1 0 0 1 0 0 -1 0 0 3 1 -3 -1 0 -3 0 0 1 0 3 1 2 0 0 -1 -1 -1 
+
+  Block 5
+    Shared Exponent: -3.0
+    Values: 0 1 0 2 0 0 0 0 1 0 -1 3 0 0 0 0 1 0 2 -1 -1 0 0 1 1 0 -1 1 5 0 0 0 
+
+Token Index 41
+  Block 0
+    Shared Exponent: -5.0
+    Values: -1 5 3 -3 1 1 3 0 -3 3 -3 -4 4 -2 -1 -3 0 0 4 -4 0 0 2 -5 3 1 -3 1 1 2 -1 2 
+
+  Block 1
+    Shared Exponent: -5.0
+    Values: 0 2 2 3 3 1 -1 -1 -2 1 0 0 -6 4 0 0 -1 1 2 1 1 -1 -2 2 -1 0 -1 -2 2 -2 -2 -2 
+
+  Block 2
+    Shared Exponent: -4.0
+    Values: 2 5 3 2 -3 2 2 2 1 2 1 7 -4 -1 7 1 -4 -2 3 3 5 0 3 -4 0 -1 2 3 0 0 1 -3 
+
+  Block 3
+    Shared Exponent: -4.0
+    Values: 0 5 -4 4 0 1 4 4 -3 -1 -1 -5 -3 2 3 3 1 0 0 4 -6 -2 -1 1 1 4 -1 2 3 -2 5 -1 
+
+  Block 4
+    Shared Exponent: -3.0
+    Values: -4 2 1 0 3 1 -4 -2 -2 -2 3 -1 -2 3 -1 0 0 -1 -2 0 -1 -2 -1 -2 -3 2 -4 1 -1 -2 0 2 
+
+  Block 5
+    Shared Exponent: -3.0
+    Values: 1 -1 -3 3 0 1 -1 -5 -1 1 -2 0 6 1 -2 5 3 0 -1 1 0 -2 -2 3 2 1 2 -5 0 6 -2 1 
+
+Token Index 42
+  Block 0
+    Shared Exponent: -4.0
+    Values: 1 0 6 -3 1 -6 1 -2 2 2 1 -2 -1 -5 1 2 4 3 4 -3 -1 4 0 2 0 3 1 -3 0 5 0 4 
+
+  Block 1
+    Shared Exponent: -4.0
+    Values: -2 0 1 2 4 -1 -5 -3 2 4 0 1 -3 3 -1 4 1 3 1 3 1 1 2 4 2 -4 3 -2 1 -3 0 4 
+
+  Block 2
+    Shared Exponent: -3.0
+    Values: 4 -2 -2 1 -3 2 4 -1 -3 0 -3 -2 -1 -2 6 -2 -3 5 -2 -2 0 0 -2 0 -3 1 0 3 3 1 -2 0 
+
+  Block 3
+    Shared Exponent: -3.0
+    Values: 4 -1 3 1 0 3 2 -3 1 2 -1 0 3 1 -2 3 -1 -1 4 -2 -1 1 -3 -2 1 -2 -1 1 -2 1 -2 0 
+
+  Block 4
+    Shared Exponent: -3.0
+    Values: -2 -2 1 1 1 1 0 0 2 -3 -1 1 1 -4 -3 0 -1 2 -3 1 1 -1 -5 0 2 -1 -1 0 3 -5 0 -1 
+
+  Block 5
+    Shared Exponent: -3.0
+    Values: 4 -3 -1 0 0 -1 1 1 3 1 3 2 3 4 3 -1 -1 0 -1 2 0 0 -1 2 0 5 -3 0 1 -5 -3 -2 
+
+Token Index 43
+  Block 0
+    Shared Exponent: -2.0
+    Values: -1 -1 1 5 -1 1 2 1 2 -1 -1 1 2 2 0 2 1 1 -3 0 1 1 1 0 1 -1 -1 -4 0 -2 0 2 
+
+  Block 1
+    Shared Exponent: -2.0
+    Values: 3 -1 0 1 0 1 1 0 -1 0 1 3 -4 1 0 -1 0 -2 0 -1 -1 2 3 -1 -2 1 -2 1 -1 0 -1 -3 
+
+  Block 2
+    Shared Exponent: -3.0
+    Values: 1 -5 -1 0 4 0 -2 2 1 -3 2 0 0 0 -2 1 -2 3 -1 3 3 -2 4 -2 6 -1 0 -3 -3 -1 -1 -3 
+
+  Block 3
+    Shared Exponent: -3.0
+    Values: 0 3 4 1 -3 -2 -2 1 0 4 0 0 0 2 -1 2 1 1 -4 -1 1 3 -4 2 1 -1 2 0 3 -4 2 -3 
+
+  Block 4
+    Shared Exponent: -3.0
+    Values: 3 -3 5 0 1 0 1 1 -1 1 -3 2 -4 3 -4 -4 3 2 0 3 4 1 0 2 -3 -1 0 1 4 1 -4 0 
+
+  Block 5
+    Shared Exponent: -4.0
+    Values: 4 2 0 -3 -3 -4 2 -6 1 -2 -2 -3 0 -2 -6 3 -3 -4 0 2 3 5 0 0 -6 -7 2 -2 -6 -5 -3 4 
+
+Token Index 44
+  Block 0
+    Shared Exponent: -4.0
+    Values: -2 0 -4 -6 0 5 -1 -3 3 -5 -4 -7 -1 2 -3 -5 -3 -1 0 -3 0 -1 1 3 0 -2 0 3 3 1 0 0 
+
+  Block 1
+    Shared Exponent: -4.0
+    Values: 1 3 0 -2 1 -3 1 0 0 2 -2 -1 0 2 2 -1 -2 5 0 -3 2 -1 -5 4 0 1 5 0 1 -2 -1 0 
+
+  Block 2
+    Shared Exponent: -3.0
+    Values: -2 -4 -5 -3 0 -1 -1 0 -3 0 -1 2 2 -3 -1 4 -4 -1 3 -3 3 -3 -1 -1 -2 2 -2 -1 1 2 -1 -2 
+
+  Block 3
+    Shared Exponent: -3.0
+    Values: -4 1 2 -2 -2 -4 1 1 0 -1 3 3 -3 4 3 -5 3 0 -1 0 -2 0 3 -1 3 -2 0 -2 3 1 -1 1 
+
+  Block 4
+    Shared Exponent: -4.0
+    Values: 0 0 -3 7 2 -2 6 0 4 5 -5 3 -4 3 -3 4 5 -6 5 7 7 4 -2 -2 -1 3 6 1 -3 -4 -2 -6 
+
+  Block 5
+    Shared Exponent: -3.0
+    Values: 4 0 -4 1 2 -1 1 0 -2 1 2 -2 3 2 1 1 1 -5 -1 -2 2 -2 0 3 -2 -5 2 -1 -1 -3 -3 -3 
+
+Token Index 45
+  Block 0
+    Shared Exponent: -5.0
+    Values: -1 6 5 2 2 0 -4 -1 1 3 7 1 2 -6 -2 -3 -2 4 -3 3 3 6 -4 -3 -2 5 3 -1 3 -2 0 4 
+
+  Block 1
+    Shared Exponent: -4.0
+    Values: 0 -5 0 3 1 1 1 -1 1 1 -1 1 -1 -1 0 0 0 1 0 -1 1 -1 0 1 0 0 3 3 0 1 1 -1 
+
+  Block 2
+    Shared Exponent: -3.0
+    Values: 0 3 0 1 3 -2 3 3 0 -5 1 0 0 -2 -2 3 0 -2 2 1 -2 0 0 0 2 1 0 2 1 0 -1 -2 
+
+  Block 3
+    Shared Exponent: -3.0
+    Values: 3 2 0 -2 0 1 3 1 1 -5 -3 -2 1 0 -1 1 0 1 2 -1 5 -4 2 1 1 3 0 0 1 3 2 0 
+
+  Block 4
+    Shared Exponent: -3.0
+    Values: 0 -4 1 -3 1 3 0 3 -1 1 2 1 -1 -2 0 3 2 -3 3 -2 -2 -1 -6 3 3 0 -1 4 -4 -1 1 1 
+
+  Block 5
+    Shared Exponent: -3.0
+    Values: 3 -2 0 0 3 2 0 -2 1 0 4 -2 0 0 0 2 2 1 -5 -1 1 3 -1 -3 -2 -4 -2 3 4 -1 -2 1 
+
+Token Index 46
+  Block 0
+    Shared Exponent: -3.0
+    Values: 0 0 0 1 0 -3 -2 -2 3 -1 -1 3 -1 0 0 0 -3 1 2 4 -3 2 4 -2 2 -2 4 -3 1 -4 -3 5 
+
+  Block 1
+    Shared Exponent: -4.0
+    Values: -3 -2 1 1 -3 -6 5 -3 -1 4 -3 -2 6 4 2 5 -2 -2 5 -7 -1 3 -4 -3 1 -2 -3 3 1 -5 3 -7 
+
+  Block 2
+    Shared Exponent: -3.0
+    Values: -1 2 -4 5 1 2 2 2 -1 1 1 0 2 -2 2 0 -1 0 3 -4 -2 -2 1 0 2 3 2 0 1 3 -2 2 
+
+  Block 3
+    Shared Exponent: -3.0
+    Values: -2 -3 1 0 1 -2 -3 0 -1 0 -2 -2 1 -3 -2 -2 -6 0 -6 -2 -5 0 -1 -4 2 3 0 -1 -1 0 2 4 
+
+  Block 4
+    Shared Exponent: -3.0
+    Values: 1 -1 0 2 -3 1 0 3 1 5 -3 -3 3 0 -3 0 -2 -1 -5 -2 -4 2 0 2 -2 4 1 0 0 1 -1 -1 
+
+  Block 5
+    Shared Exponent: -3.0
+    Values: 2 -2 3 3 1 1 -2 0 2 0 3 2 2 -4 -4 1 0 -1 1 -1 0 2 1 -2 1 0 2 0 -1 0 -2 -1 
+
+Token Index 47
+  Block 0
+    Shared Exponent: -4.0
+    Values: 2 -3 1 3 -1 -2 -4 2 -3 3 -4 2 3 3 2 -3 -2 -2 4 2 0 1 -2 -2 1 0 -3 -3 -3 -1 2 -5 
+
+  Block 1
+    Shared Exponent: -4.0
+    Values: -2 2 -2 -4 0 1 -2 1 -4 -1 2 3 -1 4 -2 1 2 -1 -1 0 -1 -3 -4 -3 -2 -1 -5 2 0 5 -2 4 
+
+  Block 2
+    Shared Exponent: -3.0
+    Values: -1 1 -2 2 -1 -1 1 0 -3 -3 1 1 2 -2 -5 1 1 -1 1 2 1 -2 -1 1 1 -1 0 3 -1 -1 0 -1 
+
+  Block 3
+    Shared Exponent: -4.0
+    Values: 0 -6 6 -2 -7 -2 4 4 -6 -2 -2 3 -2 3 -3 -2 -2 3 3 0 1 1 5 0 -4 2 -4 0 -3 -5 5 -1 
+
+  Block 4
+    Shared Exponent: -3.0
+    Values: 3 -2 0 1 -3 0 2 -5 -2 3 -4 -3 0 -3 -1 -2 0 -2 -4 0 -1 -1 -3 3 -4 -5 2 -2 -2 -2 -2 1 
+
+  Block 5
+    Shared Exponent: -3.0
+    Values: 5 4 -2 -3 5 2 1 -1 -2 3 -6 1 2 0 1 -4 -2 1 -1 1 -1 1 -1 0 2 2 1 -1 -2 2 5 -1 
+
+Token Index 48
+  Block 0
+    Shared Exponent: -3.0
+    Values: 2 0 4 -2 3 5 1 -1 -6 -1 1 2 1 -4 1 1 2 1 5 3 -1 -2 -1 -6 -3 -1 -1 0 -1 3 -3 -2 
+
+  Block 1
+    Shared Exponent: -3.0
+    Values: -3 -1 -1 4 0 0 1 0 1 2 -2 -4 1 -5 -2 -5 -1 1 0 4 1 -5 -3 3 3 6 1 2 2 2 2 0 
+
+  Block 2
+    Shared Exponent: -5.0
+    Values: 4 1 3 0 -1 0 -1 -4 3 -3 2 2 -3 0 1 3 1 0 0 0 -1 -4 -3 1 1 0 -1 2 -1 -2 0 4 
+
+  Block 3
+    Shared Exponent: -5.0
+    Values: -2 -1 -2 1 1 0 3 6 6 2 6 -3 1 -1 3 -3 -1 1 1 -4 -2 1 -1 -3 3 2 0 1 -6 2 -4 2 
+
+  Block 4
+    Shared Exponent: -5.0
+    Values: -2 1 -7 -1 -1 -1 0 -1 0 0 -4 -1 -3 -3 -2 4 -7 -5 2 -4 -2 -1 0 -2 7 0 1 -2 3 1 -1 1 
+
+  Block 5
+    Shared Exponent: -5.0
+    Values: -2 -1 0 2 2 -1 1 -2 1 1 -3 2 0 1 0 -5 -2 -2 4 1 0 -1 0 1 -3 -4 0 -4 4 1 0 1 
+
+Token Index 49
+  Block 0
+    Shared Exponent: -3.0
+    Values: 1 -1 0 3 -3 2 -1 -1 0 -1 -1 -1 1 2 1 5 -4 1 -5 -1 0 3 -2 5 0 0 1 1 1 -4 1 6 
+
+  Block 1
+    Shared Exponent: -3.0
+    Values: 1 -2 -2 0 1 1 3 0 -1 -3 0 3 1 3 0 0 -2 -2 1 -2 -1 -1 4 -1 -3 3 0 0 1 -1 -1 0 
+
+  Block 2
+    Shared Exponent: -4.0
+    Values: 4 7 -1 -5 0 -5 -3 -2 0 5 7 3 -2 4 -4 -3 -7 -3 -1 0 2 5 2 1 4 4 2 -1 -7 -3 -4 -5 
+
+  Block 3
+    Shared Exponent: -3.0
+    Values: -1 -1 0 0 -4 0 0 -2 -1 -3 -2 4 2 2 2 0 -3 1 -1 2 1 0 -3 2 0 -1 -1 -2 -3 -1 1 1 
+
+  Block 4
+    Shared Exponent: -4.0
+    Values: -7 1 0 1 2 3 -2 -4 0 -3 -3 1 -1 -5 0 -7 4 -1 -4 1 5 -3 0 0 -1 0 -4 2 4 4 3 -4 
+
+  Block 5
+    Shared Exponent: -4.0
+    Values: 5 -2 -1 1 -1 -1 3 -7 4 0 0 -1 -2 4 0 -4 -1 0 0 -3 1 -2 0 -6 -6 -1 2 -3 -5 -4 3 0 
+
+Token Index 50
+  Block 0
+    Shared Exponent: -3.0
+    Values: 0 0 -1 -1 1 0 0 -3 6 0 1 -3 0 2 -1 -4 -1 -1 1 0 7 -7 -1 -1 4 -3 1 0 1 0 2 -1 
+
+  Block 1
+    Shared Exponent: -3.0
+    Values: 2 2 3 0 -1 2 1 0 1 4 -3 1 0 0 1 0 -5 -1 3 5 0 -2 -1 0 1 -3 3 3 2 -4 1 0 
+
+  Block 2
+    Shared Exponent: -3.0
+    Values: -1 2 2 -1 -4 -2 2 -1 3 1 2 -1 1 1 -1 1 2 -2 0 -1 -2 3 0 1 0 -4 2 2 -2 0 -1 3 
+
+  Block 3
+    Shared Exponent: -3.0
+    Values: 0 -4 -4 -1 2 3 3 -1 2 -1 -1 -1 2 0 1 1 1 2 -3 -4 1 1 1 1 2 -6 -4 1 -3 1 1 1 
+
+  Block 4
+    Shared Exponent: -4.0
+    Values: 3 -1 1 -1 -1 -2 -1 -3 -3 2 -4 -6 -6 0 -7 3 1 -5 -1 -1 -2 -2 -2 -4 1 0 0 -4 0 -2 3 4 
+
+  Block 5
+    Shared Exponent: -3.0
+    Values: 0 1 0 -3 -1 -4 -1 -4 0 1 -1 -1 1 0 -2 0 -2 -1 2 -3 3 -5 0 -1 -4 -2 0 -1 -1 -1 -3 0 
+
+Token Index 51
+  Block 0
+    Shared Exponent: -2.0
+    Values: 0 3 -4 0 0 -2 -2 1 1 2 -2 -2 -2 -2 1 0 1 1 0 1 1 1 -1 2 -1 3 -1 1 0 2 0 1 
+
+  Block 1
+    Shared Exponent: -3.0
+    Values: 0 -4 0 -2 0 -1 -5 -2 2 -3 4 -1 -1 4 1 5 -2 7 0 -2 -2 -3 0 -4 0 -6 3 -3 0 -5 -1 0 
+
+  Block 2
+    Shared Exponent: -4.0
+    Values: -1 -3 0 -1 -2 -2 -1 1 0 0 0 2 4 1 1 0 0 1 0 3 0 0 1 -2 2 1 5 -1 -1 1 1 0 
+
+  Block 3
+    Shared Exponent: -5.0
+    Values: -2 6 -1 0 -3 0 -1 -2 0 0 -3 -1 1 3 -1 -3 -2 4 -5 -4 2 0 1 2 2 -1 3 1 0 -6 1 -1 
+
+  Block 4
+    Shared Exponent: -5.0
+    Values: -1 1 2 0 2 1 -1 1 0 0 0 1 1 0 0 -7 5 1 0 1 0 -1 -1 0 -7 1 0 1 1 0 -1 1 
+
+  Block 5
+    Shared Exponent: -5.0
+    Values: 0 -1 0 0 -1 -1 0 -1 1 -2 0 -2 1 0 1 -1 1 0 -4 1 1 2 0 -1 -1 -1 0 1 -6 -1 2 0 
+
+Token Index 52
+  Block 0
+    Shared Exponent: -4.0
+    Values: 1 -2 0 2 2 1 -1 1 0 -1 0 -2 2 4 1 4 -2 -2 3 0 3 -1 0 2 1 -4 1 -1 1 -3 -1 1 
+
+  Block 1
+    Shared Exponent: -4.0
+    Values: 1 3 3 2 -3 -1 -4 -1 0 -2 -1 -2 2 3 -1 0 -1 0 1 0 0 0 -5 1 2 2 1 3 -1 -1 0 -1 
+
+  Block 2
+    Shared Exponent: -3.0
+    Values: -1 -2 0 -2 3 0 3 0 3 -1 -1 -1 1 1 2 -3 -1 3 0 2 2 -1 1 4 -3 0 1 5 -1 2 1 0 
+
+  Block 3
+    Shared Exponent: -3.0
+    Values: 2 -2 -3 -1 -1 -1 -2 2 -2 0 2 1 1 -2 2 -1 0 4 1 1 -1 -2 -3 0 -2 -1 3 0 -2 0 1 -4 
+
+  Block 4
+    Shared Exponent: -3.0
+    Values: 2 -2 -4 1 -2 1 1 0 2 -1 1 -4 -2 0 0 0 0 3 4 -5 -2 -1 1 -4 3 -2 0 1 3 -2 0 -1 
+
+  Block 5
+    Shared Exponent: -3.0
+    Values: 2 -2 -3 1 3 -5 3 2 0 2 3 2 -3 -1 0 3 1 1 -1 -4 -1 -2 -4 -1 2 -1 0 1 -1 3 2 2 
+
+Token Index 53
+  Block 0
+    Shared Exponent: -5.0
+    Values: 0 -3 -3 -3 -3 3 0 0 -5 6 4 3 -2 2 0 -4 6 -2 5 2 -3 -5 -5 -3 0 -1 1 7 0 1 -1 -1 
+
+  Block 1
+    Shared Exponent: -5.0
+    Values: -1 2 -1 -1 1 -2 -1 -3 1 6 2 -3 -1 -3 -1 -3 1 0 -3 1 0 6 -5 5 -3 0 -2 -2 0 -6 -2 3 
+
+  Block 2
+    Shared Exponent: -3.0
+    Values: 4 1 -1 1 0 0 0 0 -2 -2 4 -1 1 2 -1 3 -2 1 -3 1 -2 0 0 1 0 -1 0 -3 0 1 1 1 
+
+  Block 3
+    Shared Exponent: -3.0
+    Values: -1 0 0 1 -1 0 -4 1 0 -1 0 -4 -2 0 -2 -1 1 1 -1 3 0 1 -1 -2 -1 -2 1 -1 0 0 1 0 
+
+  Block 4
+    Shared Exponent: -3.0
+    Values: -5 3 -1 -3 3 7 -1 2 -1 -1 -2 -2 1 -5 -2 0 3 0 0 -1 -1 -1 3 1 0 2 2 -5 0 0 -2 -4 
+
+  Block 5
+    Shared Exponent: -3.0
+    Values: 3 4 0 1 -3 -2 -1 2 -2 1 1 1 -1 -2 1 1 3 1 2 4 5 0 -4 3 -1 -1 -7 -1 -1 -1 1 2 
+
+Token Index 54
+  Block 0
+    Shared Exponent: -4.0
+    Values: -7 -2 -5 2 5 0 0 -1 -2 2 0 -1 6 4 -7 0 -2 2 -1 4 -1 2 -1 -1 1 -1 -4 1 6 -3 3 2 
+
+  Block 1
+    Shared Exponent: -4.0
+    Values: 2 -1 -3 0 -1 -1 0 -3 -3 1 -5 0 0 2 7 -1 0 -3 6 -4 3 0 -1 -1 -3 5 1 3 -2 1 0 1 
+
+  Block 2
+    Shared Exponent: -3.0
+    Values: -1 0 2 1 1 0 0 0 -1 -1 1 0 3 0 1 -1 1 0 0 0 2 0 4 0 0 -1 3 -1 1 1 -4 0 
+
+  Block 3
+    Shared Exponent: -4.0
+    Values: -3 1 1 0 3 1 0 0 1 -1 3 1 -1 2 -3 1 1 1 1 2 0 1 0 3 -1 0 1 6 -1 1 -2 2 
+
+  Block 4
+    Shared Exponent: -5.0
+    Values: 2 -1 -7 0 -1 0 2 0 0 -1 3 0 1 2 -1 -2 -6 1 1 0 -3 2 1 2 3 0 -2 0 -3 -3 3 -1 
+
+  Block 5
+    Shared Exponent: -4.0
+    Values: 1 0 1 -1 0 0 0 2 -1 2 0 1 1 1 0 1 -2 2 2 0 0 0 0 1 1 3 0 2 7 0 -1 -1 
+
+Token Index 55
+  Block 0
+    Shared Exponent: -4.0
+    Values: 1 1 -3 -1 0 -3 4 -4 1 -1 0 6 -5 -2 -1 -1 -2 1 1 2 -7 3 4 2 3 5 1 -2 -3 3 1 -5 
+
+  Block 1
+    Shared Exponent: -4.0
+    Values: 0 0 -2 -3 -1 -2 -4 6 -1 1 -2 0 2 -5 1 -3 -1 -5 1 3 -2 -4 3 -6 -1 0 -4 1 5 6 4 1 
+
+  Block 2
+    Shared Exponent: -3.0
+    Values: 0 2 0 1 -1 1 -3 3 3 3 2 0 -2 1 -3 2 2 2 -1 -5 -1 -1 2 5 0 -4 1 2 2 -1 3 0 
+
+  Block 3
+    Shared Exponent: -3.0
+    Values: -1 0 -2 -3 -2 -2 -1 -1 3 2 1 1 1 -1 -1 4 0 -3 -2 0 -1 4 0 -1 2 0 -3 -1 5 -1 1 1 
+
+  Block 4
+    Shared Exponent: -3.0
+    Values: -3 -1 1 -1 -3 3 2 1 -3 2 1 1 -1 -3 3 2 0 1 1 -1 -2 2 3 -2 -2 2 -2 6 1 -2 -1 2 
+
+  Block 5
+    Shared Exponent: -3.0
+    Values: 0 -2 1 -4 3 -2 0 1 1 5 0 2 -1 3 -3 -2 1 -4 -3 -1 2 -4 -6 1 3 -1 -2 0 2 0 -5 -1 
+
+Token Index 56
+  Block 0
+    Shared Exponent: -4.0
+    Values: 2 -1 1 0 0 1 -5 -1 2 5 0 -3 1 -1 1 -3 1 -1 -1 3 -1 4 -2 -4 2 0 -2 2 -1 1 0 -1 
+
+  Block 1
+    Shared Exponent: -5.0
+    Values: -5 6 0 3 2 -1 4 -3 3 2 -2 0 1 4 -6 6 7 0 -2 7 5 3 -7 3 2 -3 2 -5 2 3 -4 -7 
+
+  Block 2
+    Shared Exponent: -4.0
+    Values: 7 0 0 0 -2 2 -5 0 -6 2 -3 -5 3 2 2 -1 -4 -7 4 4 -1 -1 5 2 0 1 0 5 0 -3 0 4 
+
+  Block 3
+    Shared Exponent: -3.0
+    Values: -1 -1 -1 1 -2 2 -1 3 -1 3 1 -3 -2 -4 3 2 2 -1 -2 4 1 3 0 1 1 -2 -1 1 1 -4 2 2 
+
+  Block 4
+    Shared Exponent: -3.0
+    Values: -2 -1 0 -1 2 -1 3 0 2 1 0 -4 -2 0 2 0 1 2 -1 1 -5 1 -1 4 2 1 -2 0 0 -3 3 -1 
+
+  Block 5
+    Shared Exponent: -3.0
+    Values: 0 -2 1 -4 -4 -2 2 0 1 0 0 1 1 -1 3 -4 1 -3 -1 -1 0 0 5 -1 0 -4 2 0 3 -3 4 3 
+
+Token Index 57
+  Block 0
+    Shared Exponent: -4.0
+    Values: -2 0 -4 2 4 -3 0 -1 1 1 0 -2 5 4 -3 0 -2 0 -2 1 1 0 -3 0 -1 -2 -4 0 3 -1 4 1 
+
+  Block 1
+    Shared Exponent: -3.0
+    Values: 1 0 0 1 -1 1 -1 3 -1 0 -2 0 -1 1 -1 1 0 0 -4 -1 4 0 0 0 0 1 0 0 -1 0 0 0 
+
+  Block 2
+    Shared Exponent: -2.0
+    Values: 0 0 0 0 0 0 0 0 -1 0 1 0 0 1 0 -1 0 0 0 0 0 1 1 0 0 0 -5 0 0 0 1 0 
+
+  Block 3
+    Shared Exponent: -4.0
+    Values: 1 -1 0 -3 -1 2 1 0 1 0 -1 2 0 1 -1 2 1 0 1 0 0 0 0 3 -1 -2 0 4 -2 0 -1 1 
+
+  Block 4
+    Shared Exponent: -4.0
+    Values: 1 1 -3 0 2 0 -1 0 -1 0 -1 1 -2 -1 -1 -1 -3 -1 0 1 -6 0 -1 0 -1 0 1 0 0 1 0 -1 
+
+  Block 5
+    Shared Exponent: -5.0
+    Values: 2 -1 -1 2 0 -1 0 -1 -1 1 0 -5 -2 -2 -1 -2 -1 1 2 2 0 -3 1 1 -2 -2 3 -4 3 0 -4 -2 
+
+Token Index 58
+  Block 0
+    Shared Exponent: -3.0
+    Values: -3 1 0 6 -3 0 1 6 1 3 -2 -2 0 2 -1 0 0 0 -4 -1 -2 1 1 2 -1 -1 -2 0 -3 -2 0 4 
+
+  Block 1
+    Shared Exponent: -3.0
+    Values: 2 2 3 -3 3 3 1 4 -2 -4 6 5 5 3 2 2 1 -3 -3 -5 -5 0 1 -5 -6 2 -1 -1 -6 -2 -2 4 
+
+  Block 2
+    Shared Exponent: -3.0
+    Values: 1 -1 -3 -1 1 -2 -4 0 0 -1 3 1 -2 2 -2 -4 2 -2 0 0 -2 3 1 -2 4 2 -1 -2 -3 -4 4 -3 
+
+  Block 3
+    Shared Exponent: -3.0
+    Values: -3 0 2 -3 -2 -2 -3 -3 -1 2 -3 2 1 -3 -2 1 2 -2 -1 0 -1 0 -3 -2 -1 -3 0 -4 2 -2 2 -1 
+
+  Block 4
+    Shared Exponent: -2.0
+    Values: -1 0 2 1 -1 1 0 1 0 -1 -1 1 1 0 1 -2 4 0 0 1 0 0 0 1 -2 1 0 0 1 0 0 -1 
+
+  Block 5
+    Shared Exponent: -3.0
+    Values: -1 -3 1 2 -2 0 2 -1 2 0 1 -1 2 0 -2 0 1 0 -4 0 0 4 -1 -3 1 1 1 0 -4 1 1 -1 
+
+Token Index 59
+  Block 0
+    Shared Exponent: -4.0
+    Values: -2 3 -2 0 -2 0 -1 0 0 -1 -3 0 -3 -2 -1 1 0 -2 2 -2 0 5 2 0 3 -1 4 3 1 -1 1 -3 
+
+  Block 1
+    Shared Exponent: -4.0
+    Values: -3 -4 -1 0 2 -2 -1 -1 3 -2 1 0 -2 -3 2 2 2 2 0 2 -1 -1 1 0 -2 -1 -5 0 0 3 -1 4 
+
+  Block 2
+    Shared Exponent: -3.0
+    Values: -2 2 -2 3 3 0 -2 0 -2 0 -1 -2 0 2 -2 0 -2 3 0 3 -1 1 1 0 2 -4 1 -2 -1 1 2 2 
+
+  Block 3
+    Shared Exponent: -3.0
+    Values: 3 -1 -2 4 2 -3 0 0 -1 1 0 2 -1 -2 -5 -2 0 -2 1 -2 1 -3 2 2 0 2 -1 0 -1 2 -1 4 
+
+  Block 4
+    Shared Exponent: -3.0
+    Values: -6 -1 -1 1 0 -1 0 -3 -2 1 -1 2 -1 1 0 0 1 3 3 1 1 0 -5 0 0 3 -1 -1 3 0 -2 1 
+
+  Block 5
+    Shared Exponent: -3.0
+    Values: 2 1 0 -2 2 -3 -3 -3 1 -1 2 0 -2 -3 4 2 0 -3 2 -3 4 0 0 0 2 3 5 2 -2 1 1 -1 
+
+Token Index 60
+  Block 0
+    Shared Exponent: -3.0
+    Values: 2 -4 -5 0 1 3 -2 -5 -4 1 1 -2 -3 1 -1 -2 0 2 4 3 -2 2 0 -1 -2 3 4 0 -2 -2 -6 2 
+
+  Block 1
+    Shared Exponent: -3.0
+    Values: -2 -1 -2 -1 -5 -3 1 6 2 0 -4 -2 1 -3 0 6 -1 3 -2 1 0 -2 2 -1 0 0 3 2 4 0 7 0 
+
+  Block 2
+    Shared Exponent: -3.0
+    Values: 2 1 3 -1 0 3 0 -5 0 2 3 0 -2 0 -2 -2 -3 -1 -1 -4 0 3 -1 2 0 -2 -1 -1 0 4 3 -1 
+
+  Block 3
+    Shared Exponent: -3.0
+    Values: 0 -1 -2 0 -2 1 5 -3 0 1 -1 2 0 -2 3 -1 1 -3 1 -1 2 -2 1 0 -1 -3 0 0 0 0 1 -1 
+
+  Block 4
+    Shared Exponent: -3.0
+    Values: 0 3 0 -2 1 -2 -2 -1 1 2 -1 1 -2 -2 0 1 -2 -2 1 -2 5 1 0 0 0 -1 1 -3 0 -2 0 1 
+
+  Block 5
+    Shared Exponent: -4.0
+    Values: 2 7 -2 1 2 -4 3 0 2 -4 -2 0 -2 4 -2 -5 -1 -2 1 1 -2 0 0 3 -5 -4 3 -4 -2 7 -2 5 
+
+Token Index 61
+  Block 0
+    Shared Exponent: -5.0
+    Values: 2 0 7 -2 -6 1 1 -3 -2 0 -7 1 -1 -5 0 -4 7 5 3 1 1 1 -4 -4 -1 0 1 4 -2 2 0 1 
+
+  Block 1
+    Shared Exponent: -5.0
+    Values: -3 -3 -4 3 5 4 1 1 -3 4 0 1 1 1 -4 3 -1 -1 -4 -1 3 0 -4 -3 -4 4 -1 -6 2 -5 -4 2 
+
+  Block 2
+    Shared Exponent: -4.0
+    Values: 0 3 0 3 -2 -2 4 -3 3 3 3 -2 5 -1 -1 5 -1 1 0 0 0 3 -5 -2 0 4 -2 -7 6 0 -2 -2 
+
+  Block 3
+    Shared Exponent: -4.0
+    Values: 3 1 0 -4 -6 7 -3 -1 -6 7 5 -5 -3 -2 0 5 -3 -6 -7 2 -4 -2 0 -2 -3 5 0 1 -2 2 0 -2 
+
+  Block 4
+    Shared Exponent: -3.0
+    Values: 0 -1 -2 2 0 -2 -1 4 -3 -5 -2 1 -3 -1 1 1 1 1 0 -1 1 -2 -1 0 -2 0 -2 0 2 2 -1 -1 
+
+  Block 5
+    Shared Exponent: -3.0
+    Values: 1 3 -2 -2 0 1 2 1 6 0 -3 0 -1 4 -5 2 -3 2 -1 -4 4 -1 1 1 -2 1 3 4 0 -1 5 0 
+
+Token Index 62
+  Block 0
+    Shared Exponent: -5.0
+    Values: 1 -1 -1 -2 0 2 5 -1 4 1 5 -4 -2 -1 1 -1 -1 4 -1 0 -1 0 -1 -2 -4 -2 2 5 -1 -2 -1 -1 
+
+  Block 1
+    Shared Exponent: -5.0
+    Values: 5 -1 1 4 1 4 3 1 3 0 -1 0 1 0 -1 5 2 1 1 2 1 0 3 0 0 3 2 -1 0 -2 -2 -1 
+
+  Block 2
+    Shared Exponent: -4.0
+    Values: 3 -3 0 0 -3 -1 -2 -3 3 0 -3 -4 -1 -1 -1 -5 -2 0 2 -3 -2 -3 2 1 1 1 1 -4 3 -1 1 1 
+
+  Block 3
+    Shared Exponent: -4.0
+    Values: -2 2 -3 -4 -1 -2 2 5 -2 -2 -2 4 0 -3 1 1 1 5 -3 1 1 6 -6 1 5 4 -4 0 2 0 1 -6 
+
+  Block 4
+    Shared Exponent: -3.0
+    Values: 3 -2 0 -1 2 3 0 0 -1 0 0 -1 -1 -1 -3 0 -1 0 4 1 1 -2 -1 1 0 5 4 -2 -4 0 -6 -1 
+
+  Block 5
+    Shared Exponent: -3.0
+    Values: 0 1 1 1 -1 4 -4 0 3 0 1 -1 0 5 2 -3 -3 2 2 -1 -2 -1 -1 -2 7 2 2 1 0 -1 -1 1 
+
+Token Index 63
+  Block 0
+    Shared Exponent: -4.0
+    Values: 1 -5 0 3 -2 1 -3 -3 0 -2 0 -6 4 4 0 5 4 6 5 0 2 5 -1 -2 -5 2 -4 1 -1 2 2 2 
+
+  Block 1
+    Shared Exponent: -4.0
+    Values: 7 2 0 4 1 6 -2 2 -1 -1 -1 0 2 2 -1 3 0 -1 2 0 0 0 1 -3 -2 1 -2 -1 5 -2 -2 7 
+
+  Block 2
+    Shared Exponent: -3.0
+    Values: 0 0 -3 2 2 4 0 0 -2 3 -1 -5 -1 0 -1 -2 1 2 4 -3 -5 3 -1 0 -3 1 0 0 -1 1 0 1 
+
+  Block 3
+    Shared Exponent: -3.0
+    Values: 1 2 -3 0 1 -1 -1 1 7 3 1 -3 4 4 -1 -1 3 2 0 -1 0 1 2 -2 1 0 0 0 3 -1 0 -3 
+
+  Block 4
+    Shared Exponent: -4.0
+    Values: -1 -4 -2 0 -1 -1 6 0 2 1 2 -6 -3 -1 6 -3 0 -4 5 4 1 3 2 5 0 -5 -7 -1 -4 3 -2 -3 
+
+  Block 5
+    Shared Exponent: -3.0
+    Values: -4 3 -4 2 2 0 -4 -1 0 2 -5 -2 1 -3 1 2 2 3 -2 -2 0 0 1 1 -2 2 -2 -1 -3 0 2 -1 
+
+Token Index 64
+  Block 0
+    Shared Exponent: -4.0
+    Values: -4 -2 1 -1 -1 -4 3 1 0 -1 4 -1 -6 -2 -5 4 7 -4 0 -7 6 0 1 2 -7 -1 1 -2 -1 5 -2 -7 
+
+  Block 1
+    Shared Exponent: -4.0
+    Values: 4 1 7 -1 0 2 -2 5 1 -5 1 4 7 3 1 2 -4 3 -7 1 3 2 3 -3 -1 -1 2 -1 -4 0 -1 -5 
+
+  Block 2
+    Shared Exponent: -3.0
+    Values: 1 -5 -4 -1 5 3 2 -3 0 4 1 2 1 -1 -1 2 3 0 0 -1 0 -1 1 -1 2 2 -1 -1 0 0 1 -3 
+
+  Block 3
+    Shared Exponent: -3.0
+    Values: -3 -6 -3 0 1 0 0 -2 -2 -4 -3 -1 -1 -6 -2 0 2 0 0 2 -3 4 -1 4 5 6 0 1 -2 3 0 0 
+
+  Block 4
+    Shared Exponent: -4.0
+    Values: -6 3 2 -3 2 2 6 -3 -1 -1 3 1 5 7 -4 1 4 1 7 -1 2 1 -1 -1 0 -6 2 -1 0 2 7 1 
+
+  Block 5
+    Shared Exponent: -4.0
+    Values: 2 4 -4 -2 -3 0 3 4 2 1 -3 7 6 2 2 -1 0 4 -5 0 1 1 2 5 -7 1 5 -4 -4 -6 -1 0 
+
+Token Index 65
+  Block 0
+    Shared Exponent: -4.0
+    Values: 0 1 2 -1 -2 1 -2 4 4 -2 1 -2 -2 0 1 3 5 6 -4 -5 0 1 0 3 -7 -4 2 -5 -2 0 1 -1 
+
+  Block 1
+    Shared Exponent: -3.0
+    Values: -2 0 2 2 1 0 -3 1 1 -2 2 -1 -4 1 0 1 0 -2 -1 1 -2 0 3 1 -1 0 -1 -4 -1 -3 0 -1 
+
+  Block 2
+    Shared Exponent: -3.0
+    Values: 1 0 1 -3 0 -2 -2 -2 1 0 3 2 2 0 -2 -3 5 0 -1 0 1 1 2 -2 2 -2 1 -1 0 -1 2 -1 
+
+  Block 3
+    Shared Exponent: -3.0
+    Values: 0 0 0 -3 1 1 -1 1 1 1 0 -2 -5 -2 -1 -1 1 -1 2 0 -1 -1 -3 -2 -2 -2 3 -1 3 5 -1 -1 
+
+  Block 4
+    Shared Exponent: -3.0
+    Values: 1 1 -1 4 0 -1 0 0 3 0 1 3 0 2 0 0 -1 0 -6 -2 0 3 -3 0 -3 -2 1 -1 -6 0 3 -2 
+
+  Block 5
+    Shared Exponent: -3.0
+    Values: 1 0 2 -2 -5 2 -4 -4 0 4 1 1 -1 -2 3 0 1 0 -1 -7 -4 -2 -5 2 2 -1 -1 4 -2 -3 -2 0 
+
+Token Index 66
+  Block 0
+    Shared Exponent: -3.0
+    Values: -2 -2 1 3 -4 2 1 1 -1 -3 -1 0 -3 0 -1 3 1 -2 -2 1 0 3 -1 -1 -1 -2 4 1 -1 -2 2 -1 
+
+  Block 1
+    Shared Exponent: -3.0
+    Values: -2 0 2 0 4 1 -4 -1 3 -3 3 -1 2 -1 1 -1 -1 0 -1 4 -1 1 0 3 -4 -6 4 1 -3 2 -4 -4 
+
+  Block 2
+    Shared Exponent: -3.0
+    Values: 0 -3 0 4 -5 4 4 0 4 -2 0 -1 -1 1 2 0 -2 -1 -3 -2 -1 0 -1 3 0 -3 -1 1 1 0 -3 2 
+
+  Block 3
+    Shared Exponent: -3.0
+    Values: -3 0 1 -1 -3 -4 2 2 0 5 -2 -3 -5 2 -2 2 -1 1 -1 -3 -1 -2 1 -1 6 2 3 2 -2 1 -3 1 
+
+  Block 4
+    Shared Exponent: -4.0
+    Values: 0 2 -3 5 -1 -2 -2 -2 3 -1 2 3 1 1 3 -4 5 -2 -1 3 0 -1 0 3 0 1 0 -3 -1 3 -2 0 
+
+  Block 5
+    Shared Exponent: -4.0
+    Values: -3 0 -3 4 -2 2 -3 -2 -2 -3 0 -3 -4 1 -1 2 3 1 -6 -1 -2 4 2 -3 -2 -3 -3 2 -6 3 -1 2 
+
+Token Index 67
+  Block 0
+    Shared Exponent: -5.0
+    Values: 1 -5 -4 -3 -4 0 -1 2 2 -7 2 2 -1 5 2 4 4 0 -3 2 -7 1 4 -1 2 -4 -1 4 1 -1 0 -4 
+
+  Block 1
+    Shared Exponent: -5.0
+    Values: 4 1 2 4 -2 5 5 -3 1 -2 2 -6 -1 -4 -2 -2 1 -1 0 2 2 4 4 -1 1 7 -5 -2 -3 -1 -5 1 
+
+  Block 2
+    Shared Exponent: -4.0
+    Values: 3 5 -1 -2 0 -1 0 7 -2 -3 -2 4 0 2 3 0 1 0 6 -2 -3 -3 -2 0 -1 -3 -1 -6 -7 3 -2 3 
+
+  Block 3
+    Shared Exponent: -4.0
+    Values: 0 3 -2 2 -4 0 0 -5 3 2 1 -2 -4 -3 4 2 2 -7 -4 1 -2 -4 3 7 0 -5 6 0 -4 -5 -1 -1 
+
+  Block 4
+    Shared Exponent: -3.0
+    Values: 1 2 -1 0 -5 2 5 1 -1 4 1 3 -2 4 -2 0 2 0 -1 -4 0 -2 -1 1 -1 1 -2 -6 2 2 3 1 
+
+  Block 5
+    Shared Exponent: -3.0
+    Values: 2 0 -4 1 1 3 3 -1 2 1 1 -1 0 4 1 -1 2 1 -1 4 -1 0 1 0 3 2 -4 5 1 1 -3 -2 
+
+Token Index 68
+  Block 0
+    Shared Exponent: -5.0
+    Values: -7 2 0 -5 -1 2 2 -1 -2 -3 -1 0 3 3 -7 -1 5 1 -5 1 -5 -1 -3 1 -7 4 -1 -2 6 0 0 2 
+
+  Block 1
+    Shared Exponent: -4.0
+    Values: -1 2 2 -2 1 0 2 -1 3 2 -1 2 2 3 3 0 3 1 1 0 1 2 0 4 -1 2 0 -2 -1 -1 -1 3 
+
+  Block 2
+    Shared Exponent: -3.0
+    Values: 1 0 -3 -3 0 -2 -3 -1 2 -1 -4 -2 0 1 1 -4 -1 0 -2 0 0 0 1 2 1 -1 0 -4 1 2 1 -2 
+
+  Block 3
+    Shared Exponent: -3.0
+    Values: 1 5 3 -2 0 1 0 0 3 0 2 -2 -2 0 -1 2 -1 4 -2 -2 -3 -3 0 1 1 3 -2 -1 0 1 3 -1 
+
+  Block 4
+    Shared Exponent: -2.0
+    Values: 0 2 0 -4 0 0 1 -2 -1 0 1 -2 0 -1 1 0 0 0 -2 -1 -1 -2 2 1 0 -1 -1 -1 0 -1 2 1 
+
+  Block 5
+    Shared Exponent: -4.0
+    Values: 7 0 0 -3 4 -2 0 0 -6 -7 -3 2 3 0 -7 -4 -3 -4 2 -6 -3 2 -1 -7 -3 6 5 5 -5 -1 -7 5 
+
+Token Index 69
+  Block 0
+    Shared Exponent: -4.0
+    Values: 2 0 2 -1 2 3 5 -1 1 3 2 -2 2 0 1 1 2 0 -5 -1 1 -4 -1 1 0 -3 -2 2 -1 3 3 -3 
+
+  Block 1
+    Shared Exponent: -4.0
+    Values: -2 1 2 1 -2 -1 -4 0 2 -1 -1 0 -1 -2 -2 0 -5 0 0 3 2 3 4 5 2 2 1 -3 2 -1 1 -2 
+
+  Block 2
+    Shared Exponent: -4.0
+    Values: 3 1 0 6 0 2 -2 7 -3 5 -5 6 -3 -3 -7 -3 4 4 -1 -4 3 -4 -2 -7 3 6 0 1 -3 5 0 0 
+
+  Block 3
+    Shared Exponent: -3.0
+    Values: -6 -1 -2 2 2 1 3 -1 -3 1 4 -3 -3 0 1 -1 -5 6 1 1 -2 -2 0 -4 1 -5 -1 1 -3 -2 2 -2 
+
+  Block 4
+    Shared Exponent: -3.0
+    Values: -1 1 2 0 -3 2 1 0 1 1 4 2 -1 -5 0 -1 -6 1 2 2 -4 2 0 -3 2 0 -1 1 -1 3 0 -1 
+
+  Block 5
+    Shared Exponent: -3.0
+    Values: 0 2 -1 -4 2 2 1 -1 0 -2 1 -1 -3 2 2 3 2 -3 -1 1 0 0 -1 -3 -2 5 2 -3 3 0 1 -1 
+
+Token Index 70
+  Block 0
+    Shared Exponent: -4.0
+    Values: -2 -3 0 1 0 0 0 1 1 0 -5 1 3 4 -2 2 5 1 1 -1 -2 0 2 1 4 1 -5 0 0 1 7 -3 
+
+  Block 1
+    Shared Exponent: -4.0
+    Values: -1 4 -1 1 0 4 -2 2 0 -1 0 0 -1 0 2 2 -1 -5 0 1 -1 0 2 -2 -1 1 1 -2 1 -2 0 0 
+
+  Block 2
+    Shared Exponent: -3.0
+    Values: 2 0 2 3 -2 -4 4 -4 -1 2 -1 -2 1 0 -4 0 3 0 1 2 -3 -4 0 0 2 2 0 -1 1 3 2 -2 
+
+  Block 3
+    Shared Exponent: -3.0
+    Values: 1 0 0 1 1 -1 0 -1 -2 1 2 0 3 1 0 -2 -2 -1 0 -1 1 0 5 0 -2 0 5 2 -1 1 1 0 
+
+  Block 4
+    Shared Exponent: -3.0
+    Values: 1 0 1 -4 2 0 4 -1 5 0 1 -1 0 2 3 0 0 3 -3 2 1 2 2 -2 2 3 0 -1 -1 -3 -2 -2 
+
+  Block 5
+    Shared Exponent: -3.0
+    Values: 2 -5 4 1 1 2 0 0 2 -3 1 -1 1 3 0 0 0 2 -1 1 4 0 -2 -1 -3 -2 2 -1 0 3 -2 -3 
+
+Token Index 71
+  Block 0
+    Shared Exponent: -4.0
+    Values: 2 1 2 -3 -3 -2 3 1 1 0 0 2 -1 -4 2 0 1 0 2 1 -2 -1 -3 2 -1 3 0 -1 -1 1 -1 1 
+
+  Block 1
+    Shared Exponent: -4.0
+    Values: -3 -2 -2 -6 5 -2 -1 -4 1 5 3 1 -1 -2 -2 3 2 1 1 -1 0 -3 -1 -1 0 -2 -5 -5 -1 4 -4 1 
+
+  Block 2
+    Shared Exponent: -3.0
+    Values: -2 2 0 2 0 3 1 -1 4 -2 -2 0 -4 3 3 2 -2 -3 2 1 -1 -1 2 -3 0 2 0 -4 0 -1 0 -1 
+
+  Block 3
+    Shared Exponent: -4.0
+    Values: 3 -2 3 1 -3 -2 -6 -2 1 3 -3 -4 3 -2 5 6 3 -3 -6 2 1 1 -6 2 -4 -6 0 2 0 2 -6 -1 
+
+  Block 4
+    Shared Exponent: -4.0
+    Values: 3 4 -1 0 -4 -1 3 1 3 4 3 2 1 -1 6 -7 -6 -3 7 2 6 -3 -2 -1 -3 6 3 0 -5 -3 5 -2 
+
+  Block 5
+    Shared Exponent: -3.0
+    Values: 5 0 2 -4 4 1 4 -4 -1 2 -1 0 0 -4 2 2 -2 4 0 -2 -1 3 -4 -1 -2 -2 -1 -6 -4 -2 -1 0 
+
+Token Index 72
+  Block 0
+    Shared Exponent: -4.0
+    Values: 2 -1 6 -1 4 -4 -3 -5 -3 -1 -3 2 2 -1 -1 6 7 -1 -1 0 -4 4 7 3 5 4 -2 2 1 6 -1 0 
+
+  Block 1
+    Shared Exponent: -3.0
+    Values: -2 3 2 0 -1 -1 0 0 -5 -2 -3 0 2 3 -2 1 -4 -2 0 2 4 -1 1 2 3 -2 1 0 2 -4 1 0 
+
+  Block 2
+    Shared Exponent: -3.0
+    Values: -5 0 -2 -2 -1 -3 4 0 1 1 -1 1 -1 3 -3 1 3 0 0 2 3 0 -1 -1 0 -1 -2 1 -1 2 -1 1 
+
+  Block 3
+    Shared Exponent: -2.0
+    Values: 0 1 1 1 1 1 1 2 0 -2 0 1 -1 -3 -1 5 1 0 0 0 1 3 0 -1 -1 -1 0 -1 1 2 0 0 
+
+  Block 4
+    Shared Exponent: -3.0
+    Values: -3 0 -2 0 2 -1 1 -1 3 1 2 2 -3 -3 -2 -1 1 -5 1 1 2 -1 1 2 6 0 -1 -1 2 4 -1 0 
+
+  Block 5
+    Shared Exponent: -3.0
+    Values: 1 0 -2 0 3 2 -3 0 1 1 0 2 -3 -1 -2 -3 -1 -2 4 2 0 1 -1 2 -1 -5 0 -4 -2 2 1 -1 
+
+Token Index 73
+  Block 0
+    Shared Exponent: -2.0
+    Values: 0 0 2 0 -4 3 0 0 -3 0 -2 1 -1 -1 0 1 3 2 2 1 -1 0 -2 0 -2 0 2 -1 0 -1 -4 0 
+
+  Block 1
+    Shared Exponent: -2.0
+    Values: -1 -1 0 2 4 -1 4 0 2 -1 2 0 1 -2 0 -3 0 0 -1 0 -1 -2 -2 0 -4 0 -1 -1 0 1 -2 -1 
+
+  Block 2
+    Shared Exponent: -4.0
+    Values: 0 -3 -3 -2 0 -7 -1 3 1 -2 -1 5 1 3 1 -1 2 0 0 4 -2 0 0 -2 4 4 2 1 -2 0 3 1 
+
+  Block 3
+    Shared Exponent: -5.0
+    Values: 0 5 -1 -2 -1 3 -7 -2 -3 2 -4 1 3 6 -1 -7 -3 5 -3 -6 -2 1 0 4 4 -4 0 0 5 -5 4 -1 
+
+  Block 4
+    Shared Exponent: -4.0
+    Values: 0 0 4 2 0 0 0 0 -1 0 3 0 3 2 0 -5 7 3 0 2 2 0 1 1 -4 0 -2 0 -1 -1 -1 0 
+
+  Block 5
+    Shared Exponent: -4.0
+    Values: 0 1 1 -1 -2 0 0 1 -1 -1 0 -1 0 1 1 2 0 1 -4 0 0 2 0 -1 1 2 1 2 -2 -1 1 0 
+
+Token Index 74
+  Block 0
+    Shared Exponent: -3.0
+    Values: 2 -2 -1 0 0 -2 0 -3 2 1 0 0 -1 4 2 0 -3 -2 0 -2 2 2 2 0 0 1 2 -2 -1 -1 3 2 
+
+  Block 1
+    Shared Exponent: -3.0
+    Values: 3 4 0 -1 -4 -1 -1 -1 -2 1 -2 3 -3 2 0 1 -2 -3 3 3 -1 3 4 0 2 -1 3 -1 5 -3 1 4 
+
+  Block 2
+    Shared Exponent: -4.0
+    Values: -1 3 3 -1 -3 -1 -1 -3 0 4 -1 1 2 0 0 2 -1 1 1 -2 -1 -1 0 2 -3 1 3 3 1 2 -4 1 
+
+  Block 3
+    Shared Exponent: -4.0
+    Values: 0 0 -2 2 -2 2 2 2 1 -5 1 -1 1 2 1 -2 -2 1 2 -6 2 0 1 0 -2 -1 -1 2 0 2 -2 1 
+
+  Block 4
+    Shared Exponent: -3.0
+    Values: -4 1 -1 2 -1 -1 1 1 -1 1 4 0 2 2 -1 2 -4 3 1 -2 0 -1 -1 0 0 -2 0 -1 0 -2 -3 0 
+
+  Block 5
+    Shared Exponent: -3.0
+    Values: 1 1 2 3 -1 -1 0 3 -1 5 -2 -1 -2 5 -1 -2 3 0 1 -1 -1 5 0 0 -1 -2 1 1 1 -1 2 1 
+
+Token Index 75
+  Block 0
+    Shared Exponent: -4.0
+    Values: 3 0 0 4 1 -1 0 3 -1 -2 -1 0 0 0 3 2 2 0 -1 -1 4 0 1 0 0 -1 -3 -1 -4 3 1 0 
+
+  Block 1
+    Shared Exponent: -4.0
+    Values: -2 6 3 3 -2 -1 -3 1 3 0 2 -4 1 0 -2 0 0 2 -2 2 -1 -4 0 3 3 -3 4 -1 0 0 1 -1 
+
+  Block 2
+    Shared Exponent: -3.0
+    Values: -1 0 3 -1 5 3 -1 3 0 2 1 2 2 2 2 0 -1 -3 -1 0 0 -2 -3 4 0 1 -1 1 4 1 0 1 
+
+  Block 3
+    Shared Exponent: -3.0
+    Values: 0 4 3 0 1 0 -2 -1 1 0 0 1 3 -2 3 0 2 3 3 -1 -3 1 1 0 -2 -1 -6 1 0 0 -1 1 
+
+  Block 4
+    Shared Exponent: -3.0
+    Values: 0 1 -2 -3 -2 5 1 -2 -3 4 1 3 1 0 2 1 0 -2 -1 4 0 2 -2 -2 -1 0 1 -1 1 -1 -3 0 
+
+  Block 5
+    Shared Exponent: -3.0
+    Values: -1 -2 0 1 -2 2 0 -2 0 0 0 3 -2 3 2 3 -3 2 1 -2 1 2 3 2 -4 2 0 5 2 1 2 2 
+
+Token Index 76
+  Block 0
+    Shared Exponent: -3.0
+    Values: -1 2 -2 2 1 -4 -2 5 2 -2 0 5 -1 -1 1 -2 -2 -2 0 1 -1 -2 3 1 5 -2 -1 -1 -1 0 0 2 
+
+  Block 1
+    Shared Exponent: -3.0
+    Values: -1 1 -2 -3 -1 0 4 -2 -1 1 3 -1 3 2 -1 -2 3 -1 -2 -3 0 3 -1 -1 1 -4 -2 0 -6 0 0 -2 
+
+  Block 2
+    Shared Exponent: -4.0
+    Values: 3 -3 -3 1 -3 -4 -2 -3 4 1 -1 3 4 3 -7 1 -2 -2 4 2 1 6 4 -1 4 3 -1 -2 -5 0 -6 -3 
+
+  Block 3
+    Shared Exponent: -3.0
+    Values: 2 -1 0 -2 0 1 -3 -1 1 0 -2 2 0 -1 -3 -3 0 0 -2 -1 -1 -2 0 2 3 -2 1 5 0 -1 1 -2 
+
+  Block 4
+    Shared Exponent: -3.0
+    Values: 1 -1 -4 0 1 2 -1 -3 0 -2 -1 0 2 -3 0 -3 1 1 -2 1 0 2 2 0 -2 0 -1 2 0 -1 2 0 
+
+  Block 5
+    Shared Exponent: -4.0
+    Values: 3 1 -4 6 -2 0 1 -3 0 -2 -1 2 4 1 6 0 -3 5 -6 -5 0 -3 -1 -4 -1 5 -1 1 6 -2 -2 -7 
+
+Token Index 77
+  Block 0
+    Shared Exponent: -4.0
+    Values: 4 -3 -1 0 2 0 -4 -3 3 -3 0 3 2 -1 3 3 1 -2 2 -1 5 -3 -1 5 -1 -2 -1 -1 0 1 1 1 
+
+  Block 1
+    Shared Exponent: -4.0
+    Values: -6 -3 -6 0 -1 -1 -1 -2 0 1 -2 0 -3 1 -5 3 0 3 -1 0 5 2 2 -1 4 -3 2 1 2 2 -1 3 
+
+  Block 2
+    Shared Exponent: -3.0
+    Values: 0 2 1 1 0 2 -2 3 -3 -5 -4 -1 2 0 -2 0 2 -5 3 -2 -3 -1 -2 1 -6 0 -2 1 -4 0 -1 -1 
+
+  Block 3
+    Shared Exponent: -3.0
+    Values: -2 -2 2 2 -3 -2 1 2 -2 -2 -1 -2 0 -1 -2 0 2 4 -1 2 0 0 -1 -3 0 -1 3 0 0 4 -4 -2 
+
+  Block 4
+    Shared Exponent: -3.0
+    Values: 0 0 0 -1 0 0 1 -1 -1 -2 -2 -1 -1 1 -2 0 -1 -1 0 3 2 2 4 -3 1 3 0 4 5 2 2 4 
+
+  Block 5
+    Shared Exponent: -3.0
+    Values: 0 1 4 2 0 -3 -2 -1 0 1 -1 -1 6 1 -4 -2 1 0 -1 -2 0 -2 -2 3 1 1 0 4 1 0 0 3 
+
+Token Index 78
+  Block 0
+    Shared Exponent: -4.0
+    Values: 1 0 -4 -1 -1 -1 1 -1 -1 -1 0 1 0 2 1 4 0 -1 -2 0 4 1 0 2 -1 -5 -1 2 1 -1 -2 2 
+
+  Block 1
+    Shared Exponent: -4.0
+    Values: 2 -1 0 -2 0 -1 1 -1 2 -4 0 -1 1 -1 0 -5 2 0 1 -2 -1 1 0 1 0 3 2 -2 1 -2 -1 -2 
+
+  Block 2
+    Shared Exponent: -3.0
+    Values: -1 2 -3 -1 1 1 -2 0 -2 1 1 1 -1 0 0 0 0 0 -1 1 0 1 -1 -3 1 -5 1 1 -1 0 -1 1 
+
+  Block 3
+    Shared Exponent: -3.0
+    Values: -3 -4 0 2 1 3 1 1 -2 4 -3 -1 3 2 1 0 6 1 -3 -2 5 0 -1 2 1 4 -1 -1 3 -1 -3 6 
+
+  Block 4
+    Shared Exponent: -3.0
+    Values: 2 0 -2 0 1 2 2 1 -2 -3 1 1 -2 -4 -1 -1 -1 -1 -5 -1 0 -1 0 -2 -1 -1 -1 1 0 0 -2 -3 
+
+  Block 5
+    Shared Exponent: -3.0
+    Values: -1 -4 2 1 3 4 1 6 0 3 0 -1 0 0 4 -2 4 2 1 0 0 -3 -3 -4 -6 1 2 1 -2 3 0 3 
+
+Token Index 79
+  Block 0
+    Shared Exponent: -4.0
+    Values: 1 0 1 -2 2 1 4 0 1 0 -3 0 0 -1 1 0 -1 1 -2 -2 1 -2 2 -1 0 4 0 0 0 1 -1 -1 
+
+  Block 1
+    Shared Exponent: -4.0
+    Values: 2 0 -1 0 0 1 0 -2 1 0 0 1 -3 -1 0 0 -2 0 2 -2 0 2 0 1 1 0 1 -5 0 -1 0 1 
+
+  Block 2
+    Shared Exponent: -3.0
+    Values: -1 -1 0 1 -1 1 2 -1 -2 0 0 0 -1 -1 2 -1 2 -4 -2 0 -3 1 -1 -2 2 0 0 -1 -1 -1 -1 -2 
+
+  Block 3
+    Shared Exponent: -3.0
+    Values: 3 -2 0 4 -1 0 0 0 1 -1 2 1 -1 -2 -1 0 1 2 1 -4 -3 5 -3 0 -1 0 -1 0 1 -1 -2 1 
+
+  Block 4
+    Shared Exponent: -3.0
+    Values: 5 3 0 2 0 4 1 0 2 2 1 5 -4 -2 0 2 -1 -1 -1 -3 2 2 1 2 -1 -1 -4 1 1 -1 -2 -2 
+
+  Block 5
+    Shared Exponent: -3.0
+    Values: 2 1 -1 0 -1 -5 -3 2 -4 -3 0 3 0 -2 -1 -1 1 3 -5 -3 7 0 5 -6 7 -2 -2 -2 1 4 1 2 
+
+Token Index 80
+  Block 0
+    Shared Exponent: -4.0
+    Values: -7 -3 -2 2 5 4 0 -4 1 -1 -1 0 4 6 -7 1 -5 0 -2 5 2 0 -3 -2 2 0 0 0 6 -6 0 2 
+
+  Block 1
+    Shared Exponent: -3.0
+    Values: 0 -1 -1 0 -2 -1 1 4 0 1 -3 0 0 1 5 -1 0 -2 3 -1 -4 0 1 0 -2 2 0 1 2 1 4 0 
+
+  Block 2
+    Shared Exponent: -3.0
+    Values: 1 0 0 0 0 0 0 -1 -1 0 -1 0 -1 -1 0 2 0 1 -1 1 -1 0 -6 -1 -1 0 3 1 0 0 7 0 
+
+  Block 3
+    Shared Exponent: -5.0
+    Values: 0 -5 -2 0 6 -5 3 -1 -2 1 -1 -3 -5 -2 4 3 -2 -5 4 -3 0 0 0 -7 4 1 -5 2 6 -2 -3 -4 
+
+  Block 4
+    Shared Exponent: -4.0
+    Values: 1 -1 -5 -1 0 0 1 -1 1 0 0 -1 -1 0 -1 -3 -1 -1 1 0 2 1 0 1 3 0 -1 0 0 -1 2 0 
+
+  Block 5
+    Shared Exponent: -4.0
+    Values: 0 0 0 0 0 -1 1 0 1 1 0 2 1 0 0 0 -2 1 2 0 1 0 0 1 0 2 0 0 5 0 0 0 
+
+Token Index 81
+  Block 0
+    Shared Exponent: -5.0
+    Values: -2 1 1 6 -6 0 -2 0 0 -4 2 -2 -2 1 -1 1 6 4 -3 -3 -2 -1 -3 1 -3 0 -1 -3 -2 0 1 4 
+
+  Block 1
+    Shared Exponent: -4.0
+    Values: 0 0 2 1 4 1 -1 0 2 0 2 1 1 1 1 1 1 -1 1 0 -2 1 1 -1 -4 -1 -4 -1 0 1 -1 -2 
+
+  Block 2
+    Shared Exponent: -4.0
+    Values: 1 -2 -4 2 0 0 -2 4 0 2 -2 1 2 2 -2 0 4 -3 -2 -4 -6 3 -1 -2 0 -3 1 2 0 -3 -1 0 
+
+  Block 3
+    Shared Exponent: -4.0
+    Values: -2 -3 2 -2 1 3 -6 0 -1 1 3 3 -3 -1 5 -4 -3 -2 3 4 5 -2 5 0 2 2 -4 -1 -5 -4 -1 -2 
+
+  Block 4
+    Shared Exponent: -3.0
+    Values: 0 1 0 -4 2 -2 0 -2 -2 3 4 4 0 -1 -2 -1 2 1 -2 1 3 -2 -1 -1 -1 -1 0 0 0 -2 -3 1 
+
+  Block 5
+    Shared Exponent: -3.0
+    Values: 1 -3 -3 3 -1 0 1 1 2 -1 3 -5 1 -5 -4 0 0 2 0 -2 -1 -1 -2 1 2 -1 -1 -3 0 -3 4 -2 
+
+Token Index 82
+  Block 0
+    Shared Exponent: -4.0
+    Values: -1 5 -1 -4 0 -3 1 0 -2 -2 -3 0 1 1 -1 1 -3 6 0 4 -3 -4 2 0 -1 2 -1 -1 1 -2 1 2 
+
+  Block 1
+    Shared Exponent: -4.0
+    Values: -1 -2 -7 4 -1 1 2 1 1 4 0 3 -3 -1 0 0 1 0 -2 0 1 -1 0 -5 -1 -3 0 2 -1 -2 0 -2 
+
+  Block 2
+    Shared Exponent: -5.0
+    Values: 1 0 -2 0 -2 3 -2 4 -3 -3 4 -2 -4 5 5 -3 -1 -4 -2 0 -3 -1 -5 0 -4 0 -3 -1 2 3 1 -3 
+
+  Block 3
+    Shared Exponent: -5.0
+    Values: 1 -4 2 -1 -1 0 -3 2 -5 2 -1 1 1 0 -3 -1 -5 0 2 0 0 1 0 0 4 -1 5 -1 7 4 -1 5 
+
+  Block 4
+    Shared Exponent: -3.0
+    Values: -2 3 -1 2 1 -1 0 2 -1 0 2 0 5 1 -2 1 3 2 2 -2 -1 -3 2 -1 -1 -4 -4 -4 1 3 -6 2 
+
+  Block 5
+    Shared Exponent: -3.0
+    Values: -1 3 3 0 0 1 3 -2 -4 4 0 -2 -3 2 1 -4 -1 0 -3 -2 -2 2 0 0 -2 -3 4 -3 4 -1 -1 2 
+
+Token Index 83
+  Block 0
+    Shared Exponent: -4.0
+    Values: 2 -5 2 0 -2 -1 0 -1 2 -2 -5 -3 -2 -1 1 2 -1 0 -2 -3 1 1 5 0 0 -6 2 2 -2 2 0 -4 
+
+  Block 1
+    Shared Exponent: -5.0
+    Values: 0 1 -1 5 4 2 2 0 -3 -6 0 0 1 0 -4 -1 -2 1 -5 -2 4 -3 -3 -3 2 3 -1 -2 1 -5 -2 3 
+
+  Block 2
+    Shared Exponent: -3.0
+    Values: -2 0 3 -1 0 0 -1 -2 0 1 0 -1 0 -1 -1 -1 -1 0 -4 3 1 -2 -3 -3 2 2 -1 0 1 5 -1 0 
+
+  Block 3
+    Shared Exponent: -4.0
+    Values: -5 -5 1 -4 -3 4 -4 -1 6 4 4 1 0 -2 2 2 3 3 3 7 5 0 5 -1 4 5 1 2 1 -4 -1 1 
+
+  Block 4
+    Shared Exponent: -3.0
+    Values: 0 1 0 -5 -1 0 -4 0 1 -1 -2 -3 -2 0 -3 -1 -2 -1 1 3 1 -1 -7 -3 -1 1 -3 0 2 0 2 2 
+
+  Block 5
+    Shared Exponent: -3.0
+    Values: 0 2 4 0 -3 -3 -1 -2 0 2 1 1 -2 -3 -3 -4 2 1 -3 2 -1 4 -1 -4 2 1 -4 1 0 1 -4 -3 
+
+Token Index 84
+  Block 0
+    Shared Exponent: -4.0
+    Values: -2 4 4 1 -2 -2 1 -1 -3 -1 -4 0 -1 -2 -1 -1 4 -1 0 -1 -5 1 0 -2 1 -2 2 3 0 -2 3 1 
+
+  Block 1
+    Shared Exponent: -4.0
+    Values: 2 -2 -2 6 1 0 0 2 -3 -1 0 -1 -3 -2 3 1 0 -3 2 -3 -3 2 -1 -1 -2 0 0 -5 0 -1 0 -2 
+
+  Block 2
+    Shared Exponent: -3.0
+    Values: 1 -2 -1 1 -1 2 0 6 0 2 -1 -2 0 3 -1 4 -4 -1 0 -1 0 -1 0 -1 0 -5 2 -4 1 -1 1 0 
+
+  Block 3
+    Shared Exponent: -3.0
+    Values: 4 0 -2 -4 -2 0 1 -3 -2 2 -2 2 1 -1 4 -5 2 0 2 -2 1 2 -2 -3 -3 -1 -2 0 -3 1 2 -2 
+
+  Block 4
+    Shared Exponent: -4.0
+    Values: 3 2 6 5 2 -1 -1 -3 1 -2 7 -7 1 4 0 0 -1 -7 -2 2 -1 -1 -4 4 3 -3 4 1 6 2 7 -2 
+
+  Block 5
+    Shared Exponent: -3.0
+    Values: 0 2 0 1 0 1 -4 1 -3 -2 0 3 -1 0 -1 -2 4 1 -1 1 -1 -1 -3 -1 -2 0 2 2 1 -1 2 -3 
+
+Token Index 85
+  Block 0
+    Shared Exponent: -4.0
+    Values: 0 -1 2 3 -1 -3 7 1 3 -3 -3 1 -2 0 1 1 1 3 1 -2 4 2 5 2 -3 -2 3 -3 -2 0 -3 -1 
+
+  Block 1
+    Shared Exponent: -4.0
+    Values: 2 0 2 -3 1 -2 2 1 0 0 1 1 -3 1 1 1 -1 -1 0 -1 -2 1 2 0 0 -2 0 -1 -1 -6 1 -3 
+
+  Block 2
+    Shared Exponent: -3.0
+    Values: -2 0 -1 0 0 -1 -4 -2 3 0 -1 -1 0 -1 2 -2 2 1 -2 2 2 -1 -3 0 0 -1 0 -1 2 -1 -2 -5 
+
+  Block 3
+    Shared Exponent: -3.0
+    Values: 0 -1 -4 0 -2 -4 -2 -2 2 -3 -1 -1 0 -1 2 4 -1 -1 1 1 0 -2 -1 0 -2 -1 2 0 -2 0 0 2 
+
+  Block 4
+    Shared Exponent: -3.0
+    Values: -2 0 2 4 4 -1 3 -2 -1 3 1 -3 4 -4 2 0 2 -4 -1 2 2 -1 -2 -4 0 2 -1 1 -1 -3 -1 0 
+
+  Block 5
+    Shared Exponent: -3.0
+    Values: 0 0 2 1 3 1 2 0 0 -3 -5 -3 -1 -1 0 1 3 0 2 2 1 -3 1 0 3 1 -2 3 3 -2 3 2 
+
+Token Index 86
+  Block 0
+    Shared Exponent: -4.0
+    Values: 2 5 -4 -2 1 2 4 -2 -3 -3 -4 -1 -3 -2 2 -3 -6 -4 2 0 1 3 2 -1 1 1 3 6 -2 1 -3 -3 
+
+  Block 1
+    Shared Exponent: -3.0
+    Values: 1 -1 0 1 -2 0 -1 -1 3 -3 0 0 1 -1 0 3 -3 0 2 1 -1 -4 0 1 2 -1 2 -4 1 1 1 0 
+
+  Block 2
+    Shared Exponent: -3.0
+    Values: -3 2 -1 -1 -1 1 3 1 -4 1 -2 -5 -3 -5 -2 -1 -3 0 4 4 -2 -3 1 -1 4 -4 2 2 -2 -2 1 -2 
+
+  Block 3
+    Shared Exponent: -4.0
+    Values: 1 2 -5 -3 2 2 -6 6 7 6 -1 1 -2 2 -1 5 -3 7 -3 -1 -2 -4 0 -5 -2 -3 0 2 -1 5 0 -3 
+
+  Block 4
+    Shared Exponent: -3.0
+    Values: -1 1 -1 0 1 0 0 -5 -1 2 -1 3 3 3 -4 -1 -2 1 0 -3 1 -2 3 -3 1 -3 3 4 3 0 1 -3 
+
+  Block 5
+    Shared Exponent: -3.0
+    Values: 1 2 1 -1 -3 1 0 0 5 2 0 1 -1 0 -1 3 -3 2 0 5 -3 -3 5 2 -3 -2 -2 0 1 -2 0 2 
+
+Token Index 87
+  Block 0
+    Shared Exponent: -2.0
+    Values: 1 0 0 1 0 -1 0 1 2 0 -1 1 -1 0 1 0 1 -2 -1 -2 -1 5 0 1 0 -1 0 -1 -1 1 3 0 
+
+  Block 1
+    Shared Exponent: -3.0
+    Values: 3 3 2 0 0 -1 0 -1 -1 2 1 3 3 2 -3 -2 0 -2 -1 2 1 0 -6 -2 1 0 0 1 0 -3 -2 1 
+
+  Block 2
+    Shared Exponent: -4.0
+    Values: 7 0 7 -7 0 -3 -1 0 1 -7 3 3 3 -7 -1 -4 -2 -2 6 1 -1 0 -2 -6 2 -3 -2 1 -5 -5 -4 1 
+
+  Block 3
+    Shared Exponent: -3.0
+    Values: 1 1 -3 1 6 -2 1 -1 0 3 0 1 -2 2 1 1 2 1 2 1 0 3 0 0 1 0 3 -1 1 0 -1 -2 
+
+  Block 4
+    Shared Exponent: -3.0
+    Values: 3 -1 -1 2 2 -3 0 4 -2 4 3 0 1 -3 1 1 -4 3 0 0 0 -1 1 1 -1 0 -2 0 1 -1 -2 1 
+
+  Block 5
+    Shared Exponent: -3.0
+    Values: 3 1 3 3 0 1 1 -2 -2 -2 4 4 3 -2 -1 2 0 0 4 -1 3 3 0 1 -2 6 0 1 1 -2 0 -2 
+
+Token Index 88
+  Block 0
+    Shared Exponent: -4.0
+    Values: 0 0 0 -1 -3 -4 -5 0 -1 7 -4 1 2 -1 -1 1 2 1 4 1 -2 4 0 -2 -1 2 -3 -4 0 1 0 -2 
+
+  Block 1
+    Shared Exponent: -4.0
+    Values: -3 -3 -1 -2 2 1 2 3 -3 2 0 -1 4 -1 -1 1 5 -3 -4 0 2 4 1 0 -2 2 1 4 1 4 -2 3 
+
+  Block 2
+    Shared Exponent: -4.0
+    Values: -1 5 1 6 2 -3 7 -2 1 4 7 -3 3 -2 2 -7 0 2 7 7 6 1 -3 1 -3 -6 -3 -3 -2 -7 1 3 
+
+  Block 3
+    Shared Exponent: -3.0
+    Values: -1 0 2 1 -3 1 2 -2 0 -3 0 -4 1 0 2 -2 0 -3 0 1 -4 -1 1 1 3 -2 -2 1 5 1 -1 1 
+
+  Block 4
+    Shared Exponent: -3.0
+    Values: 0 0 2 0 0 1 0 -1 3 2 1 0 -1 2 -6 -1 -1 -1 3 2 1 -6 3 -2 -2 1 -2 4 0 0 -4 -1 
+
+  Block 5
+    Shared Exponent: -3.0
+    Values: -1 2 1 0 0 -1 -1 1 -3 -5 2 1 -2 -2 0 -1 -2 -2 -1 0 -1 -3 -1 -2 -2 1 -2 0 0 -2 0 0 
+
+Token Index 89
+  Block 0
+    Shared Exponent: -3.0
+    Values: 0 1 0 3 0 1 1 -5 -2 1 -1 0 1 1 -1 0 3 -1 -2 0 1 3 -1 -1 2 1 1 -1 2 0 -1 0 
+
+  Block 1
+    Shared Exponent: -3.0
+    Values: -1 -3 0 0 0 1 -1 0 -1 -3 -4 1 0 -5 0 -3 2 2 2 0 2 3 1 -2 1 -2 1 1 3 2 1 2 
+
+  Block 2
+    Shared Exponent: -3.0
+    Values: 1 0 0 -3 -2 -2 3 -4 1 2 -1 -3 3 -2 1 -2 3 -1 3 -4 -1 -5 -4 0 -7 1 -1 -1 3 1 -2 -1 
+
+  Block 3
+    Shared Exponent: -3.0
+    Values: 2 1 -5 2 3 3 1 -2 -3 3 -4 2 0 0 0 -2 0 1 -3 -2 -1 -4 2 -4 0 1 -1 2 3 1 -1 1 
+
+  Block 4
+    Shared Exponent: -3.0
+    Values: -3 2 0 1 1 1 0 0 0 3 0 0 0 -3 -1 2 -1 1 0 -1 0 2 -1 -1 -4 -2 2 -1 -1 0 4 -4 
+
+  Block 5
+    Shared Exponent: -3.0
+    Values: -2 -2 0 -1 0 -1 1 -6 -2 1 1 1 -1 0 -1 -1 0 1 2 1 -3 1 -1 0 3 -4 -1 0 1 2 1 -1 
+
+Token Index 90
+  Block 0
+    Shared Exponent: -4.0
+    Values: 0 0 0 -3 -2 0 1 -2 1 -2 1 0 -3 -2 0 5 1 1 -1 -4 5 3 4 1 -2 -3 0 -2 2 4 1 0 
+
+  Block 1
+    Shared Exponent: -4.0
+    Values: 1 0 2 3 3 3 -1 -4 1 -4 0 -3 0 -1 0 -1 -1 1 2 -3 1 4 5 0 2 0 1 0 2 1 -2 -2 
+
+  Block 2
+    Shared Exponent: -3.0
+    Values: -1 1 -2 0 0 1 4 6 1 1 0 1 0 -1 -3 -1 -1 -2 0 2 0 0 0 2 -5 -4 -1 1 0 3 -2 -1 
+
+  Block 3
+    Shared Exponent: -3.0
+    Values: 1 -3 0 -3 5 5 2 1 0 -1 5 -2 4 1 3 1 -2 0 0 -2 -1 0 -1 0 0 0 3 -1 5 -1 0 2 
+
+  Block 4
+    Shared Exponent: -3.0
+    Values: 1 -3 0 0 -3 -3 0 0 -4 -3 1 2 4 0 3 1 1 2 -2 1 0 2 -3 0 1 7 2 -2 1 -1 2 -3 
+
+  Block 5
+    Shared Exponent: -3.0
+    Values: 3 3 0 -1 -3 -1 -1 2 -4 -3 -2 -1 1 -2 1 0 -3 1 2 2 0 1 -1 2 3 1 2 -1 1 -1 -1 3 
+
+Token Index 91
+  Block 0
+    Shared Exponent: -4.0
+    Values: 1 1 -4 -3 1 -2 -1 2 3 0 2 2 0 -3 1 3 2 0 1 -1 2 1 2 1 -1 -1 -2 -2 -2 2 -2 0 
+
+  Block 1
+    Shared Exponent: -4.0
+    Values: -1 -5 -2 2 1 -1 2 0 0 1 1 -2 4 -5 -1 1 -4 -2 -1 -1 -1 1 2 0 1 -1 1 5 -1 2 0 -2 
+
+  Block 2
+    Shared Exponent: -4.0
+    Values: -5 -4 1 2 -1 1 0 -3 -2 2 2 3 3 -3 0 2 -5 -1 7 3 2 6 -3 -2 0 -3 -1 -3 -1 5 0 -2 
+
+  Block 3
+    Shared Exponent: -3.0
+    Values: -1 -3 3 2 0 -2 0 1 4 2 0 -2 0 1 0 -1 -1 1 3 2 -2 3 -3 -1 -3 -1 -3 0 1 1 0 -4 
+
+  Block 4
+    Shared Exponent: -3.0
+    Values: -4 -3 1 -2 -1 -4 -3 3 -2 0 -1 1 -1 -3 3 0 -1 -2 1 -1 2 -4 4 2 0 -3 3 -4 -1 4 3 -1 
+
+  Block 5
+    Shared Exponent: -2.0
+    Values: 2 -4 0 -1 -1 -1 1 -1 -1 1 1 -3 0 2 0 0 1 1 0 2 0 -1 0 -1 1 -1 3 1 0 2 1 0 
+
+Token Index 92
+  Block 0
+    Shared Exponent: -3.0
+    Values: -1 3 0 -1 -5 3 4 2 2 2 -3 0 0 0 0 0 2 4 1 3 -6 -1 1 -3 7 1 0 2 0 -2 -5 0 
+
+  Block 1
+    Shared Exponent: -3.0
+    Values: -3 1 -1 -3 4 1 4 -2 -1 -1 3 2 4 1 -1 -3 0 2 -3 -3 1 4 -4 -2 -3 3 -4 2 -3 2 -5 -1 
+
+  Block 2
+    Shared Exponent: -3.0
+    Values: 1 0 0 1 0 -2 1 3 1 1 -3 2 0 3 0 -4 2 -1 -1 0 1 0 4 3 0 1 -2 0 -2 -1 -2 -3 
+
+  Block 3
+    Shared Exponent: -3.0
+    Values: 0 0 1 1 1 -1 0 1 2 2 -3 -1 2 -1 -3 -3 -1 -4 1 -2 4 -2 0 1 -1 -4 -4 3 5 2 0 -4 
+
+  Block 4
+    Shared Exponent: -4.0
+    Values: 0 -1 4 6 4 5 5 -1 0 -1 6 0 7 4 -4 -2 5 4 -3 4 -1 3 -5 3 -1 -4 -2 1 -3 -4 -1 4 
+
+  Block 5
+    Shared Exponent: -3.0
+    Values: 1 -1 3 -1 -2 -2 -1 3 2 0 -2 0 2 0 -4 2 -1 4 -3 2 0 3 -1 1 -1 4 -1 4 -2 -1 2 2 
+
+Token Index 93
+  Block 0
+    Shared Exponent: -5.0
+    Values: 2 2 -3 0 2 4 -5 1 -3 -4 4 0 -7 1 3 6 0 -7 2 -7 0 6 2 0 0 -7 4 2 -7 3 5 -2 
+
+  Block 1
+    Shared Exponent: -5.0
+    Values: 3 7 7 -5 -4 -2 3 5 2 4 1 -1 1 -1 2 -2 -5 1 2 2 -7 0 3 3 1 3 -4 2 3 -6 6 5 
+
+  Block 2
+    Shared Exponent: -4.0
+    Values: -2 0 1 -1 -3 1 -6 -5 3 2 -2 0 0 1 4 5 4 -5 -2 -2 3 2 0 6 5 4 4 1 -2 -4 7 6 
+
+  Block 3
+    Shared Exponent: -3.0
+    Values: 1 3 -2 4 0 0 1 -1 0 3 1 3 2 -1 -3 0 -2 -1 0 3 -4 -3 2 -2 0 -4 0 0 1 6 2 1 
+
+  Block 4
+    Shared Exponent: -3.0
+    Values: 5 -3 1 -1 2 2 -1 2 -1 -2 -3 0 1 1 1 0 -2 -2 0 3 1 -3 -4 -2 0 0 -3 -1 2 4 -3 -3 
+
+  Block 5
+    Shared Exponent: -3.0
+    Values: 3 0 -3 -3 2 0 2 4 -2 -2 0 -2 4 -2 0 -3 2 3 -1 0 -6 2 0 1 -1 -2 1 0 1 0 -2 2 
+
+Token Index 94
+  Block 0
+    Shared Exponent: -5.0
+    Values: 1 -6 -1 0 -1 1 1 2 5 -6 -3 -7 4 4 1 -6 3 -2 4 -6 2 0 2 0 -7 -2 -7 -7 -2 5 7 -1 
+
+  Block 1
+    Shared Exponent: -4.0
+    Values: 0 3 1 1 2 3 2 -1 -3 -2 1 4 0 4 -1 -2 1 1 0 1 0 4 3 0 0 -1 0 2 1 1 -1 -1 
+
+  Block 2
+    Shared Exponent: -3.0
+    Values: 0 -1 2 2 -3 1 1 0 1 -1 -2 5 4 2 1 -1 -1 2 3 -3 0 -1 -1 1 0 0 0 0 -3 3 0 0 
+
+  Block 3
+    Shared Exponent: -3.0
+    Values: 1 4 0 -3 2 -2 -2 0 -4 1 3 2 2 -4 -3 0 -1 -4 4 -1 4 -1 -2 -2 -5 2 -4 -1 0 -2 0 3 
+
+  Block 4
+    Shared Exponent: -3.0
+    Values: 0 -2 0 0 -1 -2 -4 -3 3 -2 0 1 1 0 -1 -1 -1 1 3 -4 1 1 4 1 -4 -1 0 3 1 -3 0 -1 
+
+  Block 5
+    Shared Exponent: -3.0
+    Values: 0 1 1 -3 -1 5 0 -2 0 -1 0 -2 1 0 1 -1 7 1 2 0 2 -1 2 -3 -2 -1 -2 0 -1 -4 -3 5 
+
+Token Index 95
+  Block 0
+    Shared Exponent: -3.0
+    Values: 0 1 -1 1 -5 -4 0 -2 1 1 -3 -2 3 1 0 -2 0 4 0 3 1 -2 -3 -1 -2 0 -1 -3 1 -1 1 -1 
+
+  Block 1
+    Shared Exponent: -3.0
+    Values: 1 -2 -1 1 6 7 -1 -3 3 -2 2 3 0 2 0 2 3 1 2 -1 -1 4 -3 4 -5 -2 -4 -2 3 5 -5 -2 
+
+  Block 2
+    Shared Exponent: -3.0
+    Values: 1 1 1 0 0 -1 1 1 -1 1 -1 0 1 1 0 0 2 -1 -1 2 1 0 0 0 0 1 5 0 1 1 -2 -1 
+
+  Block 3
+    Shared Exponent: -4.0
+    Values: 1 -3 1 -1 5 0 -1 -2 2 1 1 1 -3 1 -2 -2 0 -2 1 1 1 -1 -4 4 6 -2 -1 5 -1 3 1 1 
+
+  Block 4
+    Shared Exponent: -3.0
+    Values: -1 0 1 1 0 -1 0 1 0 0 1 0 -1 0 1 -5 2 1 0 1 1 0 0 0 -3 1 0 0 0 0 -1 0 
+
+  Block 5
+    Shared Exponent: -4.0
+    Values: 0 1 0 0 -1 1 -2 0 1 -4 -1 1 0 1 0 0 3 1 -3 -1 -1 3 0 1 0 -2 -2 2 -5 -2 1 1 
+
+Token Index 96
+  Block 0
+    Shared Exponent: -5.0
+    Values: 2 -3 -3 -1 -1 2 4 -1 -5 -3 -2 1 -4 0 2 -3 0 0 1 -5 -5 0 1 3 4 4 -1 0 -3 5 -3 -1 
+
+  Block 1
+    Shared Exponent: -4.0
+    Values: 0 2 0 -1 -1 2 -1 -1 1 -1 1 -2 -6 -1 0 0 -3 3 0 1 -1 -1 3 0 2 1 -3 3 1 3 1 2 
+
+  Block 2
+    Shared Exponent: -3.0
+    Values: 1 0 -2 0 -4 2 0 1 2 0 1 1 4 -3 1 -3 0 0 2 2 -4 -1 -3 2 2 2 0 0 1 2 0 -1 
+
+  Block 3
+    Shared Exponent: -4.0
+    Values: 0 -2 1 2 -5 -4 0 7 -1 -7 -2 2 3 0 -4 4 3 1 1 4 0 2 -1 0 -2 -4 -3 -1 -2 2 0 6 
+
+  Block 4
+    Shared Exponent: -3.0
+    Values: 3 1 -1 4 -2 1 4 2 -5 -3 1 -3 -1 1 3 -1 -1 2 1 -2 2 -5 -4 2 -1 -2 0 -3 0 0 2 -2 
+
+  Block 5
+    Shared Exponent: -3.0
+    Values: -5 -4 1 2 -3 2 -4 1 -2 -3 2 1 -1 -2 -3 3 -1 -5 1 0 -1 -2 -1 -1 -3 1 0 -3 1 -3 -2 -1 
+
+Token Index 97
+  Block 0
+    Shared Exponent: -3.0
+    Values: 0 1 -1 1 0 0 5 2 2 4 1 2 0 0 1 2 -2 1 1 0 -2 5 2 -5 0 3 -2 -1 0 1 2 2 
+
+  Block 1
+    Shared Exponent: -3.0
+    Values: 5 0 -1 -1 1 -1 5 -1 -2 0 2 -1 0 -2 0 4 1 -3 1 -2 -1 -1 0 -3 -1 2 -2 0 -1 0 -1 1 
+
+  Block 2
+    Shared Exponent: -3.0
+    Values: -1 1 -4 -6 -1 5 1 -2 5 -5 0 3 0 0 -5 -2 0 -5 -2 -3 1 0 -3 0 2 0 -1 -1 1 3 -1 3 
+
+  Block 3
+    Shared Exponent: -3.0
+    Values: -1 0 2 4 -1 3 -1 -1 -1 1 -1 -1 -3 1 1 0 2 0 1 -2 -1 0 2 -1 -3 -1 1 1 -5 5 -1 0 
+
+  Block 4
+    Shared Exponent: -4.0
+    Values: 3 -6 -1 1 3 1 -1 -7 -1 -5 0 -1 6 -2 -1 -2 3 7 1 4 -5 3 2 0 -1 3 1 6 0 -4 0 5 
+
+  Block 5
+    Shared Exponent: -3.0
+    Values: -2 0 -5 0 1 -1 -1 -1 0 1 1 1 0 0 3 -1 0 -2 0 2 1 0 -1 0 0 -3 2 -1 0 0 -1 -2 
+
+Token Index 98
+  Block 0
+    Shared Exponent: -3.0
+    Values: 1 0 -2 1 0 0 2 -3 1 -1 2 3 1 -2 0 2 1 -4 1 1 -1 0 0 0 0 1 1 2 1 -2 -3 6 
+
+  Block 1
+    Shared Exponent: -3.0
+    Values: 1 -5 -4 3 -4 -4 2 1 -2 -1 -3 -3 -3 -3 -2 -2 -1 -1 0 -2 3 -4 2 0 3 2 -2 2 3 -1 2 -1 
+
+  Block 2
+    Shared Exponent: -4.0
+    Values: 3 -5 4 0 0 3 0 -1 -3 1 1 -1 1 2 -1 -1 -1 3 -2 -2 0 -3 -4 3 -3 0 -2 -5 2 1 -3 3 
+
+  Block 3
+    Shared Exponent: -3.0
+    Values: -1 0 -2 1 -1 0 2 3 2 -1 1 -2 0 0 -1 -1 0 0 0 -2 0 0 1 -1 2 3 0 7 2 1 -2 -4 
+
+  Block 4
+    Shared Exponent: -4.0
+    Values: 6 -1 -5 1 1 1 3 -1 4 4 -6 -2 -5 4 -6 0 -1 -6 2 1 -3 3 -2 3 6 -2 0 0 1 -1 3 -4 
+
+  Block 5
+    Shared Exponent: -4.0
+    Values: -1 1 -1 -1 -4 -5 3 0 -1 4 2 -2 2 -4 0 0 -3 3 7 0 1 -7 -1 1 -2 5 3 -6 7 1 -7 -1 
+
+Token Index 99
+  Block 0
+    Shared Exponent: -4.0
+    Values: 4 -1 3 2 -1 4 -2 -1 -1 3 0 1 1 0 3 0 1 -1 3 0 -6 -5 1 2 0 1 0 -2 -3 0 0 1 
+
+  Block 1
+    Shared Exponent: -4.0
+    Values: 1 0 -2 1 0 1 -4 2 -4 -5 -1 3 4 2 -3 -1 5 2 0 -2 -1 6 2 0 1 0 -1 4 3 0 0 0 
+
+  Block 2
+    Shared Exponent: -3.0
+    Values: -5 -2 2 1 -2 -2 -1 -1 -1 2 0 3 -1 -5 -4 0 -4 -2 -1 -1 0 0 0 1 0 -1 1 2 6 0 0 2 
+
+  Block 3
+    Shared Exponent: -3.0
+    Values: 2 1 -2 2 -1 -1 -2 -2 -2 -2 1 -2 2 1 -1 3 1 -1 1 -2 1 -2 1 -3 7 0 -1 0 -2 3 -3 -1 
+
+  Block 4
+    Shared Exponent: -3.0
+    Values: 5 3 -1 -2 0 0 0 2 1 0 3 0 0 0 2 0 2 -1 0 0 -4 0 3 1 -1 0 -2 -3 1 -1 1 3 
+
+  Block 5
+    Shared Exponent: -3.0
+    Values: 4 2 3 -1 0 0 -2 0 -1 3 2 0 1 1 2 5 0 -1 3 1 -1 -3 2 -1 2 0 0 -1 1 -3 1 0 
+
+Token Index 100
+  Block 0
+    Shared Exponent: -3.0
+    Values: 1 -3 3 -1 2 -6 3 -2 3 0 5 1 2 -2 0 1 -2 1 0 -2 -3 1 3 2 2 0 -1 -2 0 1 2 2 
+
+  Block 1
+    Shared Exponent: -3.0
+    Values: -1 -3 -4 3 -3 0 -2 0 -5 0 -2 2 -3 -1 -1 0 1 -1 2 2 1 0 1 1 3 1 2 -2 4 0 2 -3 
+
+  Block 2
+    Shared Exponent: -4.0
+    Values: -3 -1 4 0 -3 1 0 -4 0 -1 1 -1 2 2 2 2 -1 0 -3 -2 0 0 -1 3 -2 -4 -1 2 -1 -1 2 2 
+
+  Block 3
+    Shared Exponent: -4.0
+    Values: -3 -4 -7 2 0 2 6 2 3 1 2 -5 2 1 4 -2 0 -1 -6 -4 -1 -1 2 0 1 0 -1 0 0 3 -2 0 
+
+  Block 4
+    Shared Exponent: -3.0
+    Values: 0 -2 0 -1 0 -1 0 1 -1 2 1 2 -2 2 0 3 -6 -2 2 -2 0 0 -2 0 3 -1 2 -2 1 -3 0 1 
+
+  Block 5
+    Shared Exponent: -4.0
+    Values: 1 -1 5 -1 -2 -2 -1 7 4 -1 -1 6 2 -1 -5 -1 6 0 7 3 -3 4 3 6 -1 -3 -2 0 -5 3 2 1 
+
+Token Index 101
+  Block 0
+    Shared Exponent: -3.0
+    Values: -1 -1 3 -2 -2 3 4 -4 -4 -2 -1 1 -1 -3 -2 -2 -4 -3 3 -2 -3 3 0 -2 4 -2 1 -1 3 3 -1 1 
+
+  Block 1
+    Shared Exponent: -3.0
+    Values: -1 -1 -1 1 2 4 0 -1 -2 -1 -2 3 0 1 0 -2 -2 -1 0 0 3 2 4 2 1 -5 -1 4 3 -5 -1 4 
+
+  Block 2
+    Shared Exponent: -3.0
+    Values: -1 -2 3 -3 1 3 -3 1 1 1 1 -2 1 1 -1 1 -3 2 0 2 -2 0 -1 0 0 0 -2 -1 -1 -2 -3 4 
+
+  Block 3
+    Shared Exponent: -3.0
+    Values: 1 -1 2 1 3 0 3 0 -3 -4 5 -2 -2 3 0 -1 1 1 0 1 -2 0 -2 0 -3 0 2 0 3 -1 -2 2 
+
+  Block 4
+    Shared Exponent: -3.0
+    Values: -2 -1 0 -5 2 2 4 0 2 -1 0 1 4 0 2 1 -2 -2 -1 -2 0 1 -3 0 -1 0 0 4 -1 1 0 3 
+
+  Block 5
+    Shared Exponent: -3.0
+    Values: -2 0 0 0 -1 1 4 1 2 3 2 0 -1 2 1 -1 -1 1 -2 -2 -2 -3 1 -1 3 -1 2 -2 -2 2 0 0 
+
+Token Index 102
+  Block 0
+    Shared Exponent: -4.0
+    Values: 0 4 5 0 0 -4 5 2 1 3 4 -2 -1 -5 0 -1 0 -3 -1 -1 5 0 -4 2 -2 2 1 -1 0 3 -1 1 
+
+  Block 1
+    Shared Exponent: -4.0
+    Values: -2 -2 1 -3 2 1 -2 -2 3 0 2 5 2 -5 1 -4 1 4 1 2 -2 -4 0 -5 0 -2 0 4 0 1 1 -2 
+
+  Block 2
+    Shared Exponent: -3.0
+    Values: 1 0 0 0 1 1 -2 -2 -2 1 1 -2 1 0 2 2 -5 2 0 -2 2 -4 2 2 1 4 1 1 -4 1 1 -4 
+
+  Block 3
+    Shared Exponent: -3.0
+    Values: 1 1 -3 -1 0 3 -2 0 1 -1 0 1 -4 1 -1 1 0 -1 1 4 1 -1 1 1 0 -3 0 0 1 3 -3 0 
+
+  Block 4
+    Shared Exponent: -3.0
+    Values: 1 -3 -1 -1 -4 -6 4 -3 1 1 1 3 2 0 -1 -1 0 -2 -4 0 -3 0 1 4 2 3 -3 -1 2 0 -4 0 
+
+  Block 5
+    Shared Exponent: -3.0
+    Values: 1 1 0 2 -3 2 -5 1 -4 1 -1 1 -2 0 -2 -1 1 1 -1 -1 1 -3 -2 -3 -1 0 0 0 -2 3 1 -1 
+
+Token Index 103
+  Block 0
+    Shared Exponent: -5.0
+    Values: -1 2 3 3 -3 -5 2 1 -2 4 1 -1 -1 -5 0 5 0 3 -2 1 1 -4 -1 3 -5 -4 3 1 1 0 -2 -4 
+
+  Block 1
+    Shared Exponent: -5.0
+    Values: -5 -7 2 2 2 5 7 -2 2 -2 2 -4 -1 -2 1 3 1 4 -1 -2 -2 0 -4 -3 -3 -1 3 2 0 0 -2 4 
+
+  Block 2
+    Shared Exponent: -3.0
+    Values: 3 1 3 -2 3 -1 0 1 4 0 -2 -1 -4 1 -4 2 0 -1 -1 0 0 -3 -1 2 -3 -2 0 -1 2 2 0 -1 
+
+  Block 3
+    Shared Exponent: -4.0
+    Values: -3 -5 4 -1 0 0 -3 0 -3 -4 -1 -1 2 1 -4 0 0 5 -2 4 -2 0 -1 -3 -7 -3 -1 -1 0 -7 3 4 
+
+  Block 4
+    Shared Exponent: -3.0
+    Values: 1 -1 -2 2 4 -3 -4 0 1 4 2 3 1 3 0 0 -1 2 0 2 -1 -4 0 5 -3 -1 -3 -1 0 5 -2 -1 
+
+  Block 5
+    Shared Exponent: -3.0
+    Values: 3 -2 0 -1 0 -1 -1 3 3 0 -2 0 3 0 2 0 0 -3 0 -3 2 -3 3 0 -1 0 -5 1 -2 2 -2 -2 
+
+Token Index 104
+  Block 0
+    Shared Exponent: -5.0
+    Values: 0 -1 1 0 2 5 -6 2 -3 -1 4 2 5 -1 1 1 -1 0 1 1 -1 -4 -5 -5 6 -3 -7 0 0 2 2 2 
+
+  Block 1
+    Shared Exponent: -5.0
+    Values: -3 1 -2 3 4 6 1 -4 -4 0 2 2 5 1 0 1 1 -4 3 0 -1 0 1 -5 -1 5 -3 -5 -1 -1 -2 -2 
+
+  Block 2
+    Shared Exponent: -3.0
+    Values: -1 -1 2 -3 1 1 1 -1 -3 -3 -1 -1 4 0 -1 1 -1 1 -1 0 -1 -2 -1 -3 2 0 0 4 -1 1 -2 1 
+
+  Block 3
+    Shared Exponent: -3.0
+    Values: 1 0 -2 -3 -4 5 1 -1 -1 2 1 0 1 -2 0 1 -3 -2 -1 0 -3 -1 -2 2 2 1 -3 1 0 1 0 0 
+
+  Block 4
+    Shared Exponent: -3.0
+    Values: 2 3 1 3 3 1 1 0 0 0 -2 3 3 0 3 0 2 1 4 -2 3 0 1 2 2 3 0 2 -5 1 2 -1 
+
+  Block 5
+    Shared Exponent: -3.0
+    Values: 1 -3 3 3 5 -3 -3 0 -2 0 -1 -2 -3 -1 -1 -1 2 -2 2 0 -1 -1 2 3 -1 5 0 -1 0 3 0 1 
+
+Token Index 105
+  Block 0
+    Shared Exponent: -4.0
+    Values: -3 0 1 -3 -1 -4 -1 0 -5 2 -1 -2 -3 4 -2 2 2 2 1 3 3 -2 -2 1 3 3 7 2 -1 -5 -3 -4 
+
+  Block 1
+    Shared Exponent: -3.0
+    Values: -5 2 0 0 0 -2 -3 1 2 -1 0 1 2 1 1 1 2 4 -2 3 0 0 -1 3 -1 -1 -2 -3 -2 0 0 3 
+
+  Block 2
+    Shared Exponent: -3.0
+    Values: 0 -2 -1 3 0 -5 -4 1 4 -1 -2 3 -1 -4 -1 -1 -3 -3 0 3 0 1 1 0 -3 1 1 -3 0 -3 0 1 
+
+  Block 3
+    Shared Exponent: -3.0
+    Values: 1 -4 -2 -2 4 1 0 -3 2 4 0 -1 -3 -1 -2 1 0 -1 1 1 -2 1 -2 1 -2 4 -2 2 1 0 -2 0 
+
+  Block 4
+    Shared Exponent: -3.0
+    Values: 4 -4 4 -2 0 2 -2 0 0 2 -3 0 2 -2 -1 -1 2 4 2 -1 -1 3 0 -1 2 0 1 -2 -2 -1 -3 4 
+
+  Block 5
+    Shared Exponent: -3.0
+    Values: -1 -3 -2 1 -2 5 2 0 -4 2 -2 0 0 -2 -4 2 0 -2 -1 3 3 -2 1 0 -4 -3 -1 2 1 1 -3 -3 
+
+Token Index 106
+  Block 0
+    Shared Exponent: -4.0
+    Values: -1 7 -6 -4 -4 -3 1 -2 3 -3 2 2 -5 -3 -1 -2 0 0 3 3 -3 -2 1 0 2 0 -1 -3 0 2 -3 1 
+
+  Block 1
+    Shared Exponent: -3.0
+    Values: -1 -2 0 1 0 0 2 0 0 -2 1 2 1 -5 1 -1 1 1 0 0 -1 -2 2 -1 -1 2 0 2 1 -1 -1 2 
+
+  Block 2
+    Shared Exponent: -3.0
+    Values: 0 2 3 -4 -1 2 1 2 0 2 -1 1 0 1 2 -1 -4 -2 1 -1 -3 3 2 -1 0 0 1 4 2 1 1 0 
+
+  Block 3
+    Shared Exponent: -3.0
+    Values: -3 -4 0 -2 -4 -3 0 -1 -1 -3 3 0 2 -2 0 3 -4 1 4 1 -3 -4 -2 3 -3 3 6 0 0 1 1 -2 
+
+  Block 4
+    Shared Exponent: -3.0
+    Values: 1 0 1 -1 4 2 -2 0 0 3 -2 0 -7 0 0 -2 1 2 -3 4 2 3 1 -1 0 0 -2 0 -2 4 -2 -3 
+
+  Block 5
+    Shared Exponent: -3.0
+    Values: -3 3 -2 0 2 3 -1 1 -3 3 1 1 2 1 -2 1 -2 -4 2 3 1 5 0 -2 -1 -3 0 1 -4 -4 3 1 
+
+Token Index 107
+  Block 0
+    Shared Exponent: -4.0
+    Values: 0 5 1 1 -2 0 3 -1 0 0 -6 1 -3 -5 -1 -5 0 -1 1 -2 -2 -4 -2 1 2 3 1 0 0 3 0 -1 
+
+  Block 1
+    Shared Exponent: -4.0
+    Values: -2 -1 -2 -1 4 -2 0 0 -1 -4 1 0 -7 1 0 -1 3 3 -2 -1 1 -2 2 3 -2 1 -3 -4 0 1 -2 2 
+
+  Block 2
+    Shared Exponent: -4.0
+    Values: 3 3 -1 -3 0 4 3 6 3 5 7 -3 -1 -5 -5 0 7 -2 -5 -6 -1 2 0 -4 0 5 -2 -2 -2 -6 -1 -3 
+
+  Block 3
+    Shared Exponent: -4.0
+    Values: -6 0 -2 1 0 -1 -2 1 2 -6 -2 7 1 1 6 5 -1 -4 0 -2 -5 -3 2 3 1 3 2 -2 -2 -3 1 -3 
+
+  Block 4
+    Shared Exponent: -3.0
+    Values: -2 -4 2 0 -5 -2 -1 -1 5 -1 -1 -4 -3 -3 0 0 2 2 2 1 3 0 2 2 -2 0 -1 -3 -1 2 -2 1 
+
+  Block 5
+    Shared Exponent: -3.0
+    Values: 4 -2 0 3 -2 -1 -2 0 2 0 3 3 0 -4 3 0 2 3 1 -1 -3 0 4 0 -3 1 3 3 0 2 -3 4 
+
+Token Index 108
+  Block 0
+    Shared Exponent: -4.0
+    Values: 2 -1 -1 0 -3 3 3 -1 1 -2 3 1 -7 -4 1 -1 -2 -4 3 -7 1 0 3 4 1 0 2 -1 -2 6 3 -1 
+
+  Block 1
+    Shared Exponent: -4.0
+    Values: 3 1 1 -4 2 -4 0 -2 0 2 2 0 -4 -1 -2 -1 0 0 -1 -3 0 0 -3 4 1 -2 -4 3 2 -2 -1 -1 
+
+  Block 2
+    Shared Exponent: -3.0
+    Values: -1 4 -3 1 4 -3 -1 -1 -2 0 2 -1 -2 -1 1 1 -4 0 -4 0 -1 0 2 -4 0 0 1 -2 1 0 0 1 
+
+  Block 3
+    Shared Exponent: -3.0
+    Values: 4 -1 2 0 0 0 0 1 -1 3 -1 -1 1 -6 1 3 -1 1 2 -1 1 0 -1 -2 0 2 2 -1 -1 4 2 3 
+
+  Block 4
+    Shared Exponent: -3.0
+    Values: 0 0 0 1 -2 0 0 1 4 4 2 -5 -1 1 -3 0 -2 1 0 0 0 3 1 3 -5 0 -1 2 -1 4 1 2 
+
+  Block 5
+    Shared Exponent: -3.0
+    Values: -4 -4 -5 1 -3 -3 -3 0 -1 -2 -3 -6 -1 6 -1 -4 -2 2 3 0 1 -2 -3 1 -2 0 -2 -2 0 0 1 1 
+
+Token Index 109
+  Block 0
+    Shared Exponent: -4.0
+    Values: 1 -1 0 0 1 -2 1 2 -2 0 2 0 -3 0 1 0 -1 -6 1 -1 -4 -3 2 1 1 0 1 1 -3 2 2 -3 
+
+  Block 1
+    Shared Exponent: -4.0
+    Values: 3 3 1 0 -2 0 5 2 -2 0 1 0 0 3 -1 3 -1 0 -3 2 -1 1 3 1 0 -2 4 0 -1 0 0 1 
+
+  Block 2
+    Shared Exponent: -3.0
+    Values: 2 -2 1 3 6 3 2 1 1 0 2 0 -2 0 1 0 -1 2 1 0 3 -1 2 -3 -1 1 0 4 0 -2 2 1 
+
+  Block 3
+    Shared Exponent: -4.0
+    Values: -6 6 -2 3 2 6 -2 2 -2 -4 -4 -1 -1 -3 3 0 2 -7 -5 -6 6 -3 -5 -5 -6 3 0 -1 -4 2 5 4 
+
+  Block 4
+    Shared Exponent: -3.0
+    Values: 3 4 -1 -1 1 -3 4 2 -4 -1 -1 -2 -2 -6 -1 -1 -3 3 -1 1 6 1 2 1 1 0 -1 -1 -1 -2 -3 0 
+
+  Block 5
+    Shared Exponent: -3.0
+    Values: 0 1 2 -1 0 -4 -2 -3 -1 2 -4 -4 3 -1 0 0 -2 -2 -4 3 -2 -1 0 3 2 -2 0 6 -2 0 -1 -4 
+
+Token Index 110
+  Block 0
+    Shared Exponent: -3.0
+    Values: 1 3 0 0 -2 -3 0 -3 -2 -1 0 0 -3 0 -1 3 -6 -2 -2 -1 2 -3 1 -2 -5 4 2 1 0 1 0 3 
+
+  Block 1
+    Shared Exponent: -3.0
+    Values: 3 -1 0 -1 0 -2 2 0 -1 -1 -2 4 -6 -2 -1 5 -3 -1 -1 2 2 -1 -1 -4 0 -1 -1 2 2 -3 0 -3 
+
+  Block 2
+    Shared Exponent: -4.0
+    Values: 3 -6 7 1 0 -7 -1 0 -2 -1 1 0 1 1 3 -1 5 1 1 5 -1 1 3 2 -6 0 -1 3 2 -1 1 -1 
+
+  Block 3
+    Shared Exponent: -3.0
+    Values: 0 -1 0 2 4 -1 0 0 -1 2 5 -1 -1 2 0 -2 0 -2 2 1 -1 0 1 2 3 1 -2 0 -1 0 -3 -1 
+
+  Block 4
+    Shared Exponent: -4.0
+    Values: 0 0 -7 -1 0 0 1 -3 3 -2 -7 -2 -6 -6 3 -2 -6 -5 -1 -1 0 4 2 0 4 5 1 -1 1 3 6 -4 
+
+  Block 5
+    Shared Exponent: -4.0
+    Values: -2 -5 -3 1 4 4 -3 -4 2 -5 0 7 3 -4 1 0 -5 -4 2 3 -1 -4 -4 1 1 -3 -7 1 3 2 2 -2 
+
+Token Index 111
+  Block 0
+    Shared Exponent: -4.0
+    Values: -4 -5 0 2 1 6 -4 -1 -1 2 -1 0 -1 -2 -3 2 3 3 1 -3 3 -2 3 -2 3 -1 -1 -2 1 3 0 0 
+
+  Block 1
+    Shared Exponent: -4.0
+    Values: -1 -1 -2 2 1 -1 1 2 0 2 -1 -4 -6 -4 4 3 -5 0 2 0 -2 0 -2 5 -2 2 -5 0 2 -3 1 3 
+
+  Block 2
+    Shared Exponent: -3.0
+    Values: -2 2 4 -1 -1 1 2 0 2 2 -2 -1 3 3 3 -2 1 0 1 2 -2 -2 2 -1 2 2 2 2 0 -3 4 0 
+
+  Block 3
+    Shared Exponent: -3.0
+    Values: 3 -3 1 -3 0 1 3 -1 -1 0 1 1 -1 1 -1 -2 3 1 -3 1 0 -3 1 -5 1 3 -1 2 0 -1 -1 0 
+
+  Block 4
+    Shared Exponent: -3.0
+    Values: -3 1 2 3 0 -3 1 1 -3 1 -1 2 1 -4 0 1 1 -3 1 2 -2 2 5 1 0 -3 -1 1 1 1 1 4 
+
+  Block 5
+    Shared Exponent: -3.0
+    Values: 2 0 -2 2 -1 2 2 5 1 -1 1 1 1 -1 4 1 -2 1 2 3 2 2 0 -3 3 1 0 1 0 -3 -3 -1 
+
+Token Index 112
+  Block 0
+    Shared Exponent: -2.0
+    Values: 0 -3 -2 -1 1 -1 3 -1 1 -2 4 0 -1 2 0 1 -1 -3 -1 -2 0 2 0 2 2 -1 1 -1 1 -1 1 1 
+
+  Block 1
+    Shared Exponent: -3.0
+    Values: -2 -1 1 3 -5 -7 -3 3 2 -3 -3 -2 -2 -3 0 4 -1 -2 0 -1 1 1 -2 -2 2 2 0 -2 1 0 3 1 
+
+  Block 2
+    Shared Exponent: -4.0
+    Values: 1 3 3 -2 3 -1 1 0 1 0 3 3 -4 -1 -1 -1 -7 -1 -1 -1 0 2 -1 5 2 -4 -2 1 -7 -4 0 -1 
+
+  Block 3
+    Shared Exponent: -4.0
+    Values: 1 -3 -1 -1 -6 4 6 3 0 -5 1 0 4 -2 0 -1 -1 -2 -3 0 1 2 2 -3 2 0 5 -5 2 -2 2 -1 
+
+  Block 4
+    Shared Exponent: -3.0
+    Values: -1 1 -3 -1 0 0 -1 -1 2 -1 -3 -1 -2 -2 1 2 -2 -4 2 -2 0 1 1 0 4 0 -1 -3 3 2 0 0 
+
+  Block 5
+    Shared Exponent: -4.0
+    Values: -4 2 0 1 0 3 2 -5 -1 1 0 0 -1 -2 1 -3 -6 0 4 0 -1 -7 4 0 -6 -2 0 -6 7 1 -5 0 
+
+Token Index 113
+  Block 0
+    Shared Exponent: -3.0
+    Values: -1 -1 0 5 -5 -1 1 7 1 1 1 -1 -1 1 2 -1 2 5 -3 0 -4 -2 0 0 1 0 -1 -6 -7 1 2 -1 
+
+  Block 1
+    Shared Exponent: -3.0
+    Values: -1 3 5 -3 6 5 -1 3 3 -1 7 7 1 1 0 3 3 1 -5 -1 -5 5 -4 -1 -7 -6 -2 -1 -5 0 -4 -1 
+
+  Block 2
+    Shared Exponent: -3.0
+    Values: -1 -2 -5 -3 2 0 1 2 -1 1 4 0 -4 3 -1 0 1 -2 -1 1 -1 5 2 -1 2 4 1 -4 -2 2 4 -3 
+
+  Block 3
+    Shared Exponent: -3.0
+    Values: -1 0 3 0 -1 1 0 -6 -3 1 -6 5 0 2 -2 -1 1 -4 2 2 1 -1 -2 5 2 -3 0 1 4 -3 3 0 
+
+  Block 4
+    Shared Exponent: -3.0
+    Values: 1 0 3 -1 -1 -1 -1 1 3 0 3 1 0 1 2 -7 6 1 0 2 2 1 1 1 -5 0 -1 0 0 0 1 -1 
+
+  Block 5
+    Shared Exponent: -3.0
+    Values: 0 2 1 -1 0 2 -1 0 -1 -3 1 -1 -1 -2 -2 4 -1 1 -3 0 0 0 0 3 3 2 -2 4 -3 0 0 -1 
+
+Token Index 114
+  Block 0
+    Shared Exponent: -4.0
+    Values: 0 -3 3 -1 -1 -5 0 -1 -1 -1 0 -2 0 0 -1 3 3 -1 0 -3 0 -1 -2 1 -1 2 0 1 -2 2 4 -3 
+
+  Block 1
+    Shared Exponent: -4.0
+    Values: -2 3 2 -3 1 2 -4 3 0 -3 -1 0 -1 1 -1 4 -1 1 -2 1 1 1 -3 -1 0 -3 1 -1 0 2 0 0 
+
+  Block 2
+    Shared Exponent: -3.0
+    Values: 1 -1 -2 -2 0 2 -4 0 2 -4 -5 0 -1 0 -1 0 4 2 1 0 1 -1 0 0 -1 -1 0 2 0 0 0 -2 
+
+  Block 3
+    Shared Exponent: -3.0
+    Values: 2 -1 -2 0 -1 -5 0 -3 -2 -2 2 0 0 0 4 2 1 -4 -4 -1 -2 -2 0 -2 1 -2 -3 2 1 1 0 -1 
+
+  Block 4
+    Shared Exponent: -3.0
+    Values: -2 -3 0 -2 1 0 -4 3 -2 -3 -2 1 -2 5 -1 0 -1 0 -4 -3 2 2 -1 3 -1 -2 1 2 -4 -1 -1 -1 
+
+  Block 5
+    Shared Exponent: -3.0
+    Values: -1 1 1 2 -2 -3 -2 1 -1 0 3 -2 0 1 4 2 -3 1 0 3 2 4 0 -5 -3 1 -1 -1 2 1 2 0 
+
+Token Index 115
+  Block 0
+    Shared Exponent: -4.0
+    Values: -2 1 1 -7 5 3 5 2 -2 3 0 5 0 -3 -2 -3 2 -5 2 0 2 4 2 -2 -1 2 0 0 2 -1 -1 3 
+
+  Block 1
+    Shared Exponent: -4.0
+    Values: 3 0 -6 7 -4 -7 -1 2 -1 3 -3 4 -3 1 2 -2 7 3 -1 -3 1 3 -2 5 4 3 0 -7 -2 -4 3 4 
+
+  Block 2
+    Shared Exponent: -3.0
+    Values: 1 0 3 -2 -1 0 3 3 1 1 3 -5 -2 -2 1 2 2 1 2 2 3 0 -1 1 -4 -1 -1 4 -4 7 -1 3 
+
+  Block 3
+    Shared Exponent: -3.0
+    Values: 0 -1 -1 0 -4 -4 4 0 0 0 -1 1 2 -2 0 2 -1 1 0 0 0 3 2 -2 4 0 -3 0 -3 1 -4 -2 
+
+  Block 4
+    Shared Exponent: -3.0
+    Values: 0 0 0 -2 -1 0 1 0 -1 1 0 0 2 0 1 4 -1 1 -2 0 0 2 1 -1 1 1 0 0 -2 0 1 -1 
+
+  Block 5
+    Shared Exponent: -4.0
+    Values: -3 0 0 -3 -2 3 3 2 3 -4 -2 -7 -1 -3 -1 4 0 2 3 -2 0 -2 -2 -3 2 -4 1 -1 1 1 -1 -3 
+
+Token Index 116
+  Block 0
+    Shared Exponent: -3.0
+    Values: 0 -2 0 2 -3 2 0 3 0 2 -1 1 -1 3 1 -1 0 2 -2 -1 -2 0 0 1 -1 1 3 -1 -1 -5 -2 1 
+
+  Block 1
+    Shared Exponent: -4.0
+    Values: 3 1 0 -3 1 -3 6 1 1 0 5 7 -3 7 -1 1 2 -4 -3 -7 -3 2 1 -1 -6 -6 -3 0 -6 0 -1 -3 
+
+  Block 2
+    Shared Exponent: -4.0
+    Values: -4 -5 -3 -1 -1 -1 0 1 -7 4 -3 0 0 6 1 -4 2 -2 0 -1 1 -1 2 -3 2 -2 2 -2 2 3 5 -2 
+
+  Block 3
+    Shared Exponent: -4.0
+    Values: 3 -4 0 -4 4 1 -3 -4 -4 -3 -2 3 1 6 -2 7 2 -3 0 3 -4 0 3 1 -5 0 -1 1 4 3 5 4 
+
+  Block 4
+    Shared Exponent: -4.0
+    Values: 1 -1 2 1 0 1 -2 3 -1 -1 5 2 4 3 2 -2 4 6 0 4 -3 2 0 2 -3 1 -1 3 -2 -3 -1 -2 
+
+  Block 5
+    Shared Exponent: -4.0
+    Values: 1 0 1 -1 -2 3 -2 3 -2 -3 1 0 1 0 1 5 1 3 -4 1 -1 3 -1 1 4 4 -1 6 0 -1 1 -2 
+
+Token Index 117
+  Block 0
+    Shared Exponent: -4.0
+    Values: 0 2 -1 -1 -4 -3 -3 -2 -2 3 2 2 -1 0 -1 -3 2 0 2 4 1 -4 2 -3 3 5 3 1 2 -1 -2 -2 
+
+  Block 1
+    Shared Exponent: -4.0
+    Values: -3 0 0 -1 3 -1 -7 -1 2 3 0 1 2 -1 0 -3 -3 0 1 2 0 -2 0 -2 -3 -4 -5 -4 1 2 -2 0 
+
+  Block 2
+    Shared Exponent: -4.0
+    Values: 2 2 -4 -2 5 -3 2 7 4 -3 4 0 2 2 -2 -4 0 5 0 -2 4 5 3 5 4 -2 1 0 -2 2 5 -3 
+
+  Block 3
+    Shared Exponent: -4.0
+    Values: -3 0 4 1 -1 4 -4 4 0 2 2 7 -7 1 -5 -5 6 -6 0 -2 -3 3 -3 -2 0 -2 4 -3 0 -3 -1 0 
+
+  Block 4
+    Shared Exponent: -3.0
+    Values: 3 2 -1 -2 1 -2 -3 1 1 2 -3 -3 1 0 -2 0 0 -2 2 1 0 0 -4 -3 0 1 -3 1 -1 3 3 1 
+
+  Block 5
+    Shared Exponent: -3.0
+    Values: 1 -3 4 5 1 0 2 -1 0 -2 -3 -1 2 3 3 1 2 1 0 1 0 -1 3 -1 1 -1 2 -1 -3 -3 3 1 
+
+Token Index 118
+  Block 0
+    Shared Exponent: -3.0
+    Values: 0 -1 3 -1 -2 -2 -2 2 -1 1 -7 1 4 -2 0 2 2 6 -4 2 -4 2 0 0 1 -5 -4 -1 0 1 -1 3 
+
+  Block 1
+    Shared Exponent: -3.0
+    Values: 4 -2 -3 0 5 4 -1 1 0 1 1 0 2 -3 -2 0 -3 -5 -3 -2 3 -2 -5 2 -2 -1 -2 -1 -2 1 -3 0 
+
+  Block 2
+    Shared Exponent: -4.0
+    Values: 2 1 -3 -2 5 -3 -7 0 7 -1 -1 2 4 2 -1 3 -5 3 2 1 2 0 1 -2 0 5 -6 4 -3 -3 3 -3 
+
+  Block 3
+    Shared Exponent: -3.0
+    Values: 0 -2 -2 5 1 1 -1 -1 2 -1 -2 0 2 -1 -2 -4 -2 2 3 0 -1 0 -3 2 3 1 -1 1 0 -1 0 -1 
+
+  Block 4
+    Shared Exponent: -3.0
+    Values: 0 -2 1 -5 -1 0 -2 -1 1 -1 0 1 -2 1 1 -2 1 0 -1 -4 5 3 0 2 -5 1 1 -1 -1 -2 0 2 
+
+  Block 5
+    Shared Exponent: -3.0
+    Values: -2 5 1 -2 -1 0 -2 3 0 -2 0 -4 -1 0 1 1 1 -3 0 0 -1 -4 2 4 1 -3 2 2 -2 -1 -1 2 
+
+Token Index 119
+  Block 0
+    Shared Exponent: -4.0
+    Values: -4 -7 0 -7 -5 -2 -2 0 1 3 1 1 -1 -2 -3 0 3 1 2 -4 -5 4 -2 3 -2 0 -3 5 1 7 0 6 
+
+  Block 1
+    Shared Exponent: -4.0
+    Values: -1 2 -1 0 5 -1 -4 -3 -5 0 4 1 0 -3 4 -3 3 -5 4 1 -3 3 2 -5 -4 -3 -2 -4 3 -3 -5 1 
+
+  Block 2
+    Shared Exponent: -3.0
+    Values: -2 -6 6 -2 -3 0 3 1 -3 -1 -4 -1 2 1 -2 1 2 2 0 -3 2 1 3 -1 2 2 3 -3 0 -1 5 -4 
+
+  Block 3
+    Shared Exponent: -3.0
+    Values: 1 -1 -1 0 6 -1 -1 5 0 -4 0 -5 3 2 0 2 0 -1 0 -3 1 0 0 3 2 -2 -1 3 -2 2 2 3 
+
+  Block 4
+    Shared Exponent: -4.0
+    Values: 4 6 1 4 -7 5 -5 -1 -3 7 -7 -4 -1 -1 -1 -2 -1 3 0 3 -4 -2 -3 0 -5 3 0 1 5 0 -2 2 
+
+  Block 5
+    Shared Exponent: -4.0
+    Values: -2 -5 -7 3 -1 -2 5 -2 3 -1 1 -4 0 -3 -1 -7 -2 -3 -4 0 -3 1 3 2 -2 -3 -5 2 -2 5 5 4 
+
+Token Index 120
+  Block 0
+    Shared Exponent: -3.0
+    Values: 1 0 3 2 2 1 3 3 0 -1 0 2 2 -4 2 4 3 1 0 0 -2 -2 -1 -2 -2 -2 -4 0 0 3 2 -1 
+
+  Block 1
+    Shared Exponent: -3.0
+    Values: 0 -2 0 2 2 3 2 -3 -1 -1 2 -3 0 -3 0 -5 0 1 3 -1 -1 -4 -1 3 2 3 -1 -1 1 2 0 -3 
+
+  Block 2
+    Shared Exponent: -4.0
+    Values: 1 -4 0 0 2 -1 -3 -2 -2 -2 1 0 1 3 1 -4 2 -1 3 -2 1 2 3 -2 2 -1 6 0 -2 2 1 1 
+
+  Block 3
+    Shared Exponent: -5.0
+    Values: -1 6 -1 -5 4 -4 -4 0 -4 2 4 2 1 7 0 -1 1 1 -1 -1 -4 0 4 5 -5 -1 1 -5 -5 -2 5 4 
+
+  Block 4
+    Shared Exponent: -4.0
+    Values: -5 4 -2 5 1 3 0 -5 0 -3 -4 0 3 -5 0 -4 7 -2 1 0 -2 -1 2 -1 -5 0 -4 -2 4 4 0 -3 
+
+  Block 5
+    Shared Exponent: -4.0
+    Values: 3 -3 3 5 3 0 2 -7 1 1 -2 -3 -2 0 4 -5 -6 0 -7 -3 0 0 -1 -5 -4 0 2 -5 3 -1 -2 -1 
+
+Token Index 121
+  Block 0
+    Shared Exponent: -4.0
+    Values: -3 -3 1 -4 2 -2 -3 2 -3 -2 -4 2 1 -1 -2 4 3 1 -1 -1 -2 2 -1 3 3 -1 -3 -2 1 4 1 -1 
+
+  Block 1
+    Shared Exponent: -4.0
+    Values: 2 1 1 0 1 2 -6 0 1 -3 1 -5 -3 2 3 1 -6 1 0 3 -1 0 0 0 0 2 -2 3 -1 -3 -1 -2 
+
+  Block 2
+    Shared Exponent: -3.0
+    Values: 0 -2 1 1 0 2 -1 0 -5 -1 -2 0 -1 2 0 2 0 -4 -4 0 2 2 -3 1 1 -2 -1 0 -1 1 -1 1 
+
+  Block 3
+    Shared Exponent: -3.0
+    Values: 3 0 -4 0 -2 -2 -1 -3 0 -2 0 1 -1 4 0 -2 4 2 1 0 1 -1 1 1 0 -1 1 -2 -1 0 -2 0 
+
+  Block 4
+    Shared Exponent: -3.0
+    Values: -1 1 4 -1 -5 -3 -3 1 0 0 1 -1 3 -3 -6 0 0 3 0 -2 -2 -1 1 1 4 4 -1 1 -5 1 0 -6 
+
+  Block 5
+    Shared Exponent: -3.0
+    Values: -2 -3 -1 -3 0 0 -1 -1 4 -1 -4 4 2 4 -4 1 -3 1 -1 -1 -2 0 2 0 1 -1 1 0 -1 -1 -3 0 
+
+Token Index 122
+  Block 0
+    Shared Exponent: -4.0
+    Values: 2 -2 -1 2 0 0 4 0 3 2 -2 -1 0 2 1 4 2 1 -1 2 4 -3 4 1 1 0 -1 1 -3 -1 0 -5 
+
+  Block 1
+    Shared Exponent: -4.0
+    Values: 5 1 0 0 1 -1 4 5 -3 -5 0 1 1 -2 -3 -1 2 2 -5 0 1 0 -3 2 -2 0 1 2 0 -3 0 4 
+
+  Block 2
+    Shared Exponent: -3.0
+    Values: -3 0 1 5 0 -1 -1 4 0 3 3 -2 1 -2 -1 1 -1 0 0 -1 1 2 1 3 0 2 -1 -4 0 1 4 3 
+
+  Block 3
+    Shared Exponent: -4.0
+    Values: 1 7 -2 4 5 -4 4 0 -5 -5 -5 2 0 5 7 0 -2 0 0 5 -6 -5 -4 4 -1 4 3 1 -1 1 -4 -5 
+
+  Block 4
+    Shared Exponent: -3.0
+    Values: 2 -1 0 2 2 -1 0 -2 -3 -3 0 4 1 0 -1 -1 1 0 -3 -5 0 2 1 3 1 -2 -1 2 0 -3 2 -1 
+
+  Block 5
+    Shared Exponent: -3.0
+    Values: 0 -5 4 1 0 -2 1 -2 3 1 -2 0 -1 1 2 -6 0 -2 -1 -3 0 4 -1 4 0 2 -4 -4 -1 -4 0 0 
+
+Token Index 123
+  Block 0
+    Shared Exponent: -4.0
+    Values: 0 -1 4 0 0 -3 -3 1 -1 1 0 -3 -1 -4 0 1 0 0 -1 -3 0 1 -1 -1 0 1 2 3 -2 1 0 -1 
+
+  Block 1
+    Shared Exponent: -5.0
+    Values: 0 -2 1 0 2 0 -1 0 3 3 2 -1 -2 -4 0 4 5 7 -1 0 -2 -7 -5 2 0 0 1 4 -1 6 1 7 
+
+  Block 2
+    Shared Exponent: -4.0
+    Values: 6 2 0 1 1 4 4 4 -1 4 -1 3 2 2 -2 -3 -1 4 4 1 -7 2 -1 -1 4 5 1 -1 3 0 0 -3 
+
+  Block 3
+    Shared Exponent: -4.0
+    Values: -2 -3 0 5 -3 -2 6 4 2 3 1 3 -3 6 0 2 1 1 6 -2 3 4 5 -3 2 0 -5 1 -2 3 7 1 
+
+  Block 4
+    Shared Exponent: -3.0
+    Values: -1 -1 0 -1 3 2 -1 6 2 -4 4 1 2 4 -3 0 1 -3 -2 -2 -1 3 3 -3 -1 4 2 0 0 -1 0 -1 
+
+  Block 5
+    Shared Exponent: -3.0
+    Values: 3 -2 0 0 0 -1 5 0 -3 2 -7 2 -4 -2 -3 -1 -2 -2 3 -1 -3 -1 2 -2 3 0 -2 2 -1 0 -1 0 
+
+Token Index 124
+  Block 0
+    Shared Exponent: -4.0
+    Values: -2 4 2 -4 2 -1 -7 0 -2 2 0 -4 0 -1 -2 4 1 -2 -3 1 -7 -1 -3 3 -1 6 2 3 -1 -1 1 -7 
+
+  Block 1
+    Shared Exponent: -3.0
+    Values: -2 0 1 -2 0 0 1 3 3 0 0 -2 0 -1 2 1 1 1 0 1 -3 1 -3 3 -1 1 0 5 0 3 2 -2 
+
+  Block 2
+    Shared Exponent: -3.0
+    Values: 1 -3 2 0 0 -4 1 1 3 2 0 -6 -1 -2 2 -2 2 -4 0 -5 0 -1 -3 0 5 -1 0 0 0 2 3 3 
+
+  Block 3
+    Shared Exponent: -3.0
+    Values: 1 1 0 0 -2 2 0 -4 3 -3 3 -1 0 1 0 1 2 0 0 0 4 1 -4 -1 1 0 1 -1 -2 -3 2 3 
+
+  Block 4
+    Shared Exponent: -4.0
+    Values: -2 -4 0 4 1 7 -1 -3 2 2 -3 -2 3 2 3 2 -1 1 -3 -7 4 5 2 -1 -2 2 2 3 7 1 4 -3 
+
+  Block 5
+    Shared Exponent: -3.0
+    Values: 1 3 0 3 -2 1 1 -1 -1 4 -1 -5 1 0 -2 3 0 0 -1 0 0 0 0 1 0 1 4 -1 0 0 3 0 
+
+Token Index 125
+  Block 0
+    Shared Exponent: -3.0
+    Values: 3 1 1 0 0 0 -1 -3 -2 4 -2 0 0 1 2 -1 -2 -1 0 1 0 0 1 1 5 2 2 3 -1 -1 -1 -1 
+
+  Block 1
+    Shared Exponent: -3.0
+    Values: -1 0 -1 0 -1 -1 -5 1 0 1 -2 0 2 2 -3 4 0 0 1 -1 1 -1 2 -1 2 -3 0 0 3 5 1 -2 
+
+  Block 2
+    Shared Exponent: -3.0
+    Values: -2 -4 2 -1 1 1 -3 -3 4 2 0 -3 2 2 2 4 1 -2 2 1 2 1 -2 0 0 3 -1 -1 -3 3 0 3 
+
+  Block 3
+    Shared Exponent: -3.0
+    Values: -2 1 -1 -1 0 2 -2 2 -1 1 0 -3 0 2 2 -1 -6 -3 4 -2 1 2 4 4 -2 2 -2 -1 0 0 0 -2 
+
+  Block 4
+    Shared Exponent: -3.0
+    Values: -1 1 -3 6 2 2 2 1 1 1 1 -1 0 1 -2 2 -1 2 -4 1 1 -1 0 0 3 -2 -3 1 -3 0 2 1 
+
+  Block 5
+    Shared Exponent: -3.0
+    Values: 1 3 -1 1 -1 -2 1 2 -2 -1 0 0 4 3 0 3 -1 2 6 0 1 0 -4 -4 2 2 -1 2 3 -2 -5 3 
+
+Token Index 126
+  Block 0
+    Shared Exponent: -3.0
+    Values: -1 -4 1 -1 1 3 2 0 3 -2 1 2 -2 -1 -1 3 -2 -4 -1 0 -5 0 2 2 1 -2 2 0 3 1 -3 -2 
+
+  Block 1
+    Shared Exponent: -3.0
+    Values: 1 1 1 -3 0 -3 4 -4 -1 0 0 -1 0 -4 2 0 5 -1 3 4 0 -2 0 -2 2 -1 0 -1 0 -3 1 1 
+
+  Block 2
+    Shared Exponent: -3.0
+    Values: 1 3 1 2 -1 2 5 -3 -3 3 0 3 -2 0 1 0 2 1 -1 -2 2 -1 0 3 0 -3 1 1 -1 -1 -5 0 
+
+  Block 3
+    Shared Exponent: -3.0
+    Values: -3 -2 -1 -2 0 -4 -4 6 2 -1 0 2 1 -1 -2 0 -2 -1 -1 -1 0 0 -2 -2 -3 0 -2 -5 0 1 0 0 
+
+  Block 4
+    Shared Exponent: -3.0
+    Values: 2 2 1 -2 3 -3 -2 -1 2 -3 2 3 0 -1 -1 4 -1 1 0 1 -1 3 -2 -1 3 -2 0 0 -2 -1 3 1 
+
+  Block 5
+    Shared Exponent: -3.0
+    Values: 0 3 0 1 -1 1 2 -2 -1 -5 2 0 0 1 -1 1 -2 2 -1 -1 0 1 1 1 -2 3 2 2 2 2 0 -2 
+
+Token Index 127
+  Block 0
+    Shared Exponent: -5.0
+    Values: 1 3 -2 -6 5 3 -1 1 6 -4 -4 -2 -2 2 1 -4 0 -6 3 3 1 -3 1 2 0 4 1 -2 -1 -2 1 0 
+
+  Block 1
+    Shared Exponent: -4.0
+    Values: 0 2 0 -1 -2 0 -2 1 2 1 -1 0 -1 1 0 1 -2 1 1 0 0 1 0 3 3 -1 5 1 0 2 2 -4 
+
+  Block 2
+    Shared Exponent: -3.0
+    Values: 1 -2 3 1 0 1 -1 0 -4 0 2 0 -3 0 -3 -1 1 -2 1 -2 2 -2 1 0 -1 3 0 -1 -1 0 1 4 
+
+  Block 3
+    Shared Exponent: -4.0
+    Values: 1 -1 -2 -3 -3 0 -6 1 3 0 -3 -3 -3 -2 -3 -1 -4 1 -2 -6 -1 -1 -7 2 0 -2 7 0 3 -1 2 -1 
+
+  Block 4
+    Shared Exponent: -3.0
+    Values: -1 -2 2 -4 0 -2 -1 1 -3 -4 1 0 -1 -2 -1 0 1 -1 2 -1 3 -2 -4 -1 -3 -1 -2 2 1 -2 2 2 
+
+  Block 5
+    Shared Exponent: -3.0
+    Values: -1 -1 -3 3 2 2 0 2 -3 0 0 3 -1 0 2 -3 -2 0 6 -2 1 -2 1 -1 0 -2 -1 -1 1 2 2 -5 
+
+Token Index 128
+  Block 0
+    Shared Exponent: -4.0
+    Values: 2 -7 -2 -3 3 6 -7 1 2 0 -4 -5 -2 1 2 -1 -2 5 4 -1 5 -6 1 2 -6 7 -2 -6 -1 2 -7 -3 
+
+  Block 1
+    Shared Exponent: -4.0
+    Values: 5 7 -2 1 0 4 1 0 -3 -3 0 3 6 6 -2 2 3 7 -1 5 1 4 1 -3 3 -2 -1 -5 -1 1 1 -2 
+
+  Block 2
+    Shared Exponent: -3.0
+    Values: 3 4 0 -4 2 -4 0 2 3 1 -4 -2 3 -1 4 5 -4 1 -1 -2 1 -2 0 -1 3 -5 -3 -1 3 1 -3 6 
+
+  Block 3
+    Shared Exponent: -3.0
+    Values: -2 -2 -4 5 -1 -3 0 2 0 -2 1 1 -2 2 2 3 -4 -3 3 -3 1 3 -1 -5 -1 3 3 2 3 2 0 -1 
+
+  Block 4
+    Shared Exponent: -4.0
+    Values: -1 0 -3 -1 -2 -1 1 -3 -1 -2 -4 -3 4 0 4 -2 1 0 1 4 -7 -4 -2 0 -2 -2 2 2 -1 4 0 -6 
+
+  Block 5
+    Shared Exponent: -4.0
+    Values: -1 -3 2 -1 2 2 1 -1 2 -4 7 3 -2 -5 -1 4 -6 2 -6 0 -2 -2 -5 -4 -1 5 -6 4 0 5 3 -3 
+
+Token Index 129
+  Block 0
+    Shared Exponent: -5.0
+    Values: -2 1 0 5 -2 1 -1 -7 -5 -6 4 -2 -1 1 -3 2 4 1 3 -2 -5 5 -4 4 7 3 3 0 6 0 0 0 
+
+  Block 1
+    Shared Exponent: -5.0
+    Values: 4 2 3 4 3 -1 -3 -4 2 0 -4 -4 -2 0 2 6 -6 3 3 0 3 1 2 5 -2 0 -6 6 3 -7 -3 -3 
+
+  Block 2
+    Shared Exponent: -3.0
+    Values: 3 2 -3 1 -2 -1 -1 -1 0 0 -3 -2 -2 0 1 4 0 1 0 -2 3 1 1 -3 0 -1 1 1 -5 1 0 -3 
+
+  Block 3
+    Shared Exponent: -3.0
+    Values: 1 -2 3 1 -1 1 0 1 1 -3 0 -1 0 -4 3 -4 -3 0 -1 -1 -1 1 5 2 1 2 0 0 0 2 0 2 
+
+  Block 4
+    Shared Exponent: -3.0
+    Values: 6 -4 1 1 1 1 -3 -1 -1 -2 1 0 2 -3 5 1 0 -2 4 3 -4 -4 3 -3 0 -2 -1 -1 3 -4 1 -2 
+
+  Block 5
+    Shared Exponent: -3.0
+    Values: -3 0 3 -1 -4 1 1 -3 -1 5 0 1 -2 2 1 2 0 -3 2 -2 0 3 4 1 2 2 -4 1 -1 1 1 -3 
+
+Token Index 130
+  Block 0
+    Shared Exponent: -4.0
+    Values: -1 2 5 2 3 -2 1 -3 1 4 -3 0 -1 -6 -2 -7 0 -3 0 0 -2 6 4 0 6 1 1 -1 4 3 -3 3 
+
+  Block 1
+    Shared Exponent: -3.0
+    Values: -1 0 0 -3 0 0 2 -2 -2 1 -2 0 1 3 0 2 0 1 2 0 1 5 0 2 1 0 1 -1 2 0 1 -1 
+
+  Block 2
+    Shared Exponent: -3.0
+    Values: -3 2 1 4 -4 -1 3 -2 -4 0 -2 -1 2 4 -2 1 0 6 -4 1 2 -3 -1 4 -1 0 0 1 2 -1 1 1 
+
+  Block 3
+    Shared Exponent: -3.0
+    Values: -1 -6 -3 3 -1 1 0 -1 3 1 1 2 -2 3 2 1 2 2 0 2 2 1 0 1 -1 -1 -1 -2 -1 1 -1 0 
+
+  Block 4
+    Shared Exponent: -3.0
+    Values: 3 0 -4 0 -2 2 -2 4 -5 3 -3 -2 -1 4 4 3 -1 3 -2 2 3 2 7 0 0 -1 -2 3 -4 1 0 3 
+
+  Block 5
+    Shared Exponent: -3.0
+    Values: 1 2 -2 4 1 4 1 -4 -3 -1 4 -1 0 0 2 -1 0 1 -1 -1 -1 0 1 1 0 0 -2 1 1 -2 0 1 
+
+Token Index 131
+  Block 0
+    Shared Exponent: -5.0
+    Values: -2 -5 0 -3 -3 -3 0 0 2 0 2 1 -5 -1 -2 2 6 4 -4 -3 7 -4 0 1 -1 3 3 1 3 2 -6 -3 
+
+  Block 1
+    Shared Exponent: -5.0
+    Values: 0 2 3 1 3 -1 -2 -1 3 3 0 -2 0 -3 1 -1 -1 1 -1 1 1 0 1 5 0 0 3 0 0 -1 -2 3 
+
+  Block 2
+    Shared Exponent: -4.0
+    Values: 3 -3 2 -4 2 3 -7 -2 0 -7 -2 3 2 4 -2 -4 0 1 0 2 -1 3 5 0 -4 -4 1 1 3 1 5 3 
+
+  Block 3
+    Shared Exponent: -4.0
+    Values: -5 2 6 0 1 4 -1 4 3 -2 -5 -1 -1 3 -1 0 0 -4 0 4 -2 -6 -4 3 4 4 -4 0 -1 -2 3 4 
+
+  Block 4
+    Shared Exponent: -4.0
+    Values: 1 -5 2 7 -6 2 3 -2 7 -4 4 -6 3 2 1 1 -1 1 -7 0 1 4 1 -6 1 -4 0 1 0 4 -2 -2 
+
+  Block 5
+    Shared Exponent: -3.0
+    Values: 4 1 1 -2 1 2 -2 -2 1 -1 3 0 -3 1 -4 0 1 4 1 1 3 0 4 2 1 -1 0 -3 0 0 1 -4 
+
+Token Index 132
+  Block 0
+    Shared Exponent: -3.0
+    Values: 1 0 -3 0 1 0 1 1 2 4 3 0 3 -1 1 -1 0 1 2 2 -3 0 1 2 4 -4 -4 0 -1 2 0 1 
+
+  Block 1
+    Shared Exponent: -3.0
+    Values: 3 -1 -1 1 0 1 0 1 0 0 0 -2 0 0 -1 4 -1 -1 -2 0 1 -2 3 2 1 0 1 -1 0 -2 -1 0 
+
+  Block 2
+    Shared Exponent: -3.0
+    Values: -1 2 1 -6 -2 -3 1 -1 -3 -5 2 1 -1 -5 1 -2 3 6 -2 -4 -3 -1 0 4 -6 0 0 -1 -1 -3 0 3 
+
+  Block 3
+    Shared Exponent: -3.0
+    Values: 1 2 -3 2 4 -1 2 -1 -4 0 3 -1 -4 0 2 -4 -3 2 1 1 2 4 -1 -1 -1 5 -2 1 -3 -2 -3 3 
+
+  Block 4
+    Shared Exponent: -4.0
+    Values: -3 1 0 1 -4 0 2 1 -6 -1 5 -2 0 6 2 1 0 -6 4 6 0 1 -1 0 1 2 -5 1 5 2 1 -4 
+
+  Block 5
+    Shared Exponent: -3.0
+    Values: 4 0 1 0 -1 2 0 0 -2 0 -4 -1 -2 -1 -3 1 -3 1 0 1 0 2 -2 -3 -3 -1 -1 1 2 0 -1 1 
+
+Token Index 133
+  Block 0
+    Shared Exponent: -2.0
+    Values: -1 -1 0 1 1 -1 0 0 5 -1 1 3 -1 0 -1 -2 -1 0 -1 -2 -2 0 4 0 1 1 0 0 0 1 1 -2 
+
+  Block 1
+    Shared Exponent: -3.0
+    Values: 1 1 1 -4 -2 1 -4 1 1 0 0 -3 -1 0 2 2 3 0 1 -2 -2 6 -1 2 1 -2 2 -2 0 4 3 -1 
+
+  Block 2
+    Shared Exponent: -3.0
+    Values: 1 -2 0 -1 3 2 -3 -2 -1 -1 1 -1 -3 4 0 -2 -3 0 5 2 1 4 2 0 0 2 1 2 0 -2 2 -3 
+
+  Block 3
+    Shared Exponent: -4.0
+    Values: 0 -1 -1 -7 2 0 -1 -4 -6 -4 3 3 0 1 0 1 -1 2 0 1 -1 0 2 -2 -1 4 -2 -6 -3 -1 1 7 
+
+  Block 4
+    Shared Exponent: -3.0
+    Values: 1 0 0 0 3 -1 1 -2 2 -1 -6 2 -2 -2 -2 0 0 -6 2 0 -3 -3 0 -1 -1 1 0 -3 3 4 1 1 
+
+  Block 5
+    Shared Exponent: -3.0
+    Values: -3 -5 1 -5 0 1 0 -3 -1 0 0 1 0 -3 -1 -1 -4 0 -1 2 -1 0 -4 4 -2 -2 0 -1 -1 4 2 3 
+
+Token Index 134
+  Block 0
+    Shared Exponent: -3.0
+    Values: 1 1 -1 -3 0 4 -1 0 -2 1 3 -3 1 -2 1 -2 -1 0 1 -1 1 -2 -2 -2 1 -1 -1 5 -1 1 -2 2 
+
+  Block 1
+    Shared Exponent: -4.0
+    Values: 1 -5 1 4 1 -2 -6 0 2 -4 1 -3 0 -4 -1 -4 1 1 0 -5 0 -6 4 -1 0 -4 3 -1 1 2 0 -6 
+
+  Block 2
+    Shared Exponent: -3.0
+    Values: 3 0 -1 3 2 -2 2 2 2 -4 2 -1 2 1 3 -3 1 0 4 -2 1 0 -3 -2 3 -4 -1 2 2 0 0 -1 
+
+  Block 3
+    Shared Exponent: -3.0
+    Values: -5 -1 -2 1 2 -4 3 -5 1 2 4 2 1 -2 -1 3 -4 3 -3 2 2 -1 -1 3 -2 -2 0 -2 0 0 -3 2 
+
+  Block 4
+    Shared Exponent: -3.0
+    Values: 1 -1 1 -1 1 0 -1 2 2 -1 -1 -2 0 1 3 0 1 0 -1 0 -3 -3 2 2 0 -2 1 0 0 -2 -4 5 
+
+  Block 5
+    Shared Exponent: -3.0
+    Values: -1 1 -1 0 2 -1 -2 -1 1 1 -3 4 0 1 0 -2 0 3 0 0 1 0 0 3 0 -2 0 -2 0 -1 -2 -6 
+
+Token Index 135
+  Block 0
+    Shared Exponent: -4.0
+    Values: 1 2 1 2 1 3 -3 -1 2 0 2 0 3 -1 0 -2 -1 -1 -1 1 -2 2 -4 0 -1 -4 -1 2 0 -2 1 1 
+
+  Block 1
+    Shared Exponent: -4.0
+    Values: -2 -1 -2 0 -1 1 4 0 -4 2 -2 3 0 1 -1 2 2 -1 1 -1 1 1 -5 -2 1 1 -1 2 1 5 0 1 
+
+  Block 2
+    Shared Exponent: -3.0
+    Values: 0 0 0 -1 -3 0 -2 0 2 -4 -1 -2 2 -2 -2 -1 1 2 0 2 -1 0 -1 0 0 1 0 -1 1 2 0 5 
+
+  Block 3
+    Shared Exponent: -3.0
+    Values: -1 -1 1 -2 1 -2 0 -3 3 -3 -1 1 0 -2 -1 0 -2 -1 -2 -1 -1 -1 -1 1 -2 3 -2 0 0 2 4 -1 
+
+  Block 4
+    Shared Exponent: -3.0
+    Values: -1 3 1 -2 -4 -5 3 3 0 0 2 3 -3 0 -4 1 -1 0 -4 7 -1 0 -1 -1 2 -1 0 0 2 -3 0 -4 
+
+  Block 5
+    Shared Exponent: -3.0
+    Values: -2 -3 -2 3 1 1 2 1 -2 2 -4 2 -4 2 3 5 1 3 -3 0 0 -3 1 4 2 -1 -1 -3 1 0 -1 6 
+
+Token Index 136
+  Block 0
+    Shared Exponent: -4.0
+    Values: 1 -5 4 -7 4 -2 4 2 -4 -5 6 2 2 0 1 3 5 -5 -1 -3 2 0 -1 5 -6 -1 -1 6 -2 -1 1 5 
+
+  Block 1
+    Shared Exponent: -3.0
+    Values: 5 -1 -1 1 -3 0 -2 1 -1 2 0 2 4 2 1 0 -3 -1 1 -1 -2 1 2 -6 1 0 0 2 0 -2 2 2 
+
+  Block 2
+    Shared Exponent: -3.0
+    Values: -4 0 0 2 -3 -1 0 -1 3 1 1 -1 0 1 1 -1 0 -3 0 -1 0 -6 -1 -1 -3 -1 2 2 -2 -1 2 1 
+
+  Block 3
+    Shared Exponent: -3.0
+    Values: 1 0 0 1 -3 -1 0 1 4 2 0 2 -6 2 2 1 -2 0 2 -1 0 -3 1 1 -2 -1 1 0 0 -5 -1 4 
+
+  Block 4
+    Shared Exponent: -4.0
+    Values: -1 -6 -3 1 2 4 0 0 4 -6 3 3 -3 -2 -7 3 -3 0 5 7 -3 6 1 3 1 -3 1 -6 -4 -1 5 6 
+
+  Block 5
+    Shared Exponent: -4.0
+    Values: 2 -5 5 -2 0 2 -4 0 0 -3 -1 0 -3 -1 1 2 -4 -5 -4 1 3 4 -3 7 -3 1 2 2 -1 -1 1 5 
+
+Token Index 137
+  Block 0
+    Shared Exponent: -4.0
+    Values: 1 -2 -1 -2 -1 1 1 0 -3 -4 1 -2 -1 2 1 -1 1 3 -2 2 1 -1 0 -2 2 0 1 3 -1 -2 -1 -3 
+
+  Block 1
+    Shared Exponent: -5.0
+    Values: 2 4 -2 3 1 4 0 4 0 6 1 -3 7 -4 -1 -6 1 3 -4 4 -1 1 -2 -1 -2 1 3 -2 -1 -4 1 7 
+
+  Block 2
+    Shared Exponent: -3.0
+    Values: 0 -1 -1 0 0 -2 -3 2 -3 1 2 2 3 0 3 -3 3 2 -3 -2 -4 0 0 4 0 1 0 -3 0 0 0 -1 
+
+  Block 3
+    Shared Exponent: -4.0
+    Values: -3 1 5 -4 -7 -3 4 1 1 2 -3 -6 1 -5 4 -2 0 0 7 1 7 3 2 0 2 1 -2 -1 1 2 -1 3 
+
+  Block 4
+    Shared Exponent: -3.0
+    Values: 2 -3 2 1 3 -4 -2 1 0 1 -3 0 3 0 -1 -1 -3 2 -3 -2 2 -3 2 2 1 3 -3 4 0 -1 3 1 
+
+  Block 5
+    Shared Exponent: -3.0
+    Values: 0 3 -3 -2 3 -4 -1 -2 1 1 3 2 -1 -1 6 6 -3 2 1 2 -2 1 -1 2 0 -4 2 0 0 4 1 1 
+
+Token Index 138
+  Block 0
+    Shared Exponent: -2.0
+    Values: 1 1 -3 -1 1 1 -4 0 0 -1 -1 0 0 0 1 -3 -1 -1 1 4 1 -2 -1 -2 -1 0 0 2 0 -1 1 1 
+
+  Block 1
+    Shared Exponent: -3.0
+    Values: 0 0 1 -1 -3 -1 -3 -1 1 3 -1 -3 -1 1 -1 0 -3 2 0 4 1 -4 -1 2 3 1 4 0 -1 5 1 0 
+
+  Block 2
+    Shared Exponent: -4.0
+    Values: 1 1 7 2 2 7 2 -1 0 7 -6 -4 -4 -5 4 -3 1 4 -6 -5 1 -3 -5 1 -5 -2 1 0 2 1 -5 1 
+
+  Block 3
+    Shared Exponent: -3.0
+    Values: 3 -5 1 1 3 0 1 2 0 -2 2 -1 -3 -1 0 2 0 0 1 2 0 -1 2 -1 1 -1 -2 2 -1 3 -1 0 
+
+  Block 4
+    Shared Exponent: -4.0
+    Values: 2 -2 -2 0 -2 2 1 1 0 -1 5 0 1 1 0 7 -3 2 0 1 -4 3 1 2 5 -2 -1 1 -3 -4 4 -2 
+
+  Block 5
+    Shared Exponent: -4.0
+    Values: 3 0 2 -1 -2 1 1 4 -2 3 1 0 1 1 -1 3 -2 6 3 1 0 0 0 1 1 6 0 0 7 1 -2 -2 
+
+Token Index 139
+  Block 0
+    Shared Exponent: -3.0
+    Values: -1 0 0 -1 -2 -2 1 6 0 3 -5 2 3 0 1 1 1 3 -2 3 1 -3 -1 -2 6 -3 -3 1 -4 -1 0 3 
+
+  Block 1
+    Shared Exponent: -3.0
+    Values: 1 1 0 -2 3 1 3 0 -2 -1 6 2 2 2 1 1 7 3 0 -1 -5 1 1 -1 -6 1 -3 4 -4 4 -3 -5 
+
+  Block 2
+    Shared Exponent: -3.0
+    Values: -3 -2 -6 0 4 -1 -1 0 3 0 1 2 -1 -1 1 0 3 -3 1 0 0 2 4 -1 2 0 -2 -2 -3 -5 1 -1 
+
+  Block 3
+    Shared Exponent: -3.0
+    Values: 2 2 2 -4 -2 1 -5 0 0 2 -2 2 2 0 -6 0 2 2 -2 2 0 0 3 1 1 0 1 -1 2 -2 5 0 
+
+  Block 4
+    Shared Exponent: -3.0
+    Values: -4 2 -1 1 4 -3 -1 1 2 -3 2 1 1 -2 2 -6 -1 1 2 0 3 1 1 -1 -4 1 -3 0 0 0 0 -2 
+
+  Block 5
+    Shared Exponent: -3.0
+    Values: -1 2 -1 1 0 0 -2 -1 0 -5 1 0 -1 4 0 0 0 -1 -3 2 -3 2 0 0 1 -1 -4 1 -2 -2 4 -1 
+
+Token Index 140
+  Block 0
+    Shared Exponent: -4.0
+    Values: -2 -1 3 -4 0 -3 -2 3 0 -2 2 -1 0 -1 -2 0 5 -2 -3 -3 -2 1 0 -2 -5 -2 0 1 0 1 3 -2 
+
+  Block 1
+    Shared Exponent: -4.0
+    Values: -2 0 0 0 1 -1 2 4 0 -1 1 -1 -3 1 0 1 4 -2 -5 0 1 3 1 3 -1 -3 4 0 -4 -2 0 0 
+
+  Block 2
+    Shared Exponent: -3.0
+    Values: 2 -1 -3 1 3 2 1 -2 2 1 2 -1 -3 -1 -3 1 0 -3 -2 2 -5 1 5 -1 -3 3 -1 2 2 0 0 0 
+
+  Block 3
+    Shared Exponent: -3.0
+    Values: -1 3 -2 3 0 -1 3 1 2 1 2 1 -3 -2 3 -1 -2 -1 1 1 3 0 5 0 -1 -4 0 -1 5 -2 -1 1 
+
+  Block 4
+    Shared Exponent: -3.0
+    Values: 1 4 3 3 -2 0 -3 -1 -3 3 -5 1 1 -1 1 -2 2 1 -1 0 1 -1 -3 1 0 -5 2 4 4 1 2 0 
+
+  Block 5
+    Shared Exponent: -3.0
+    Values: -2 1 1 3 5 2 0 -1 1 1 2 2 -2 3 -4 0 1 2 4 1 3 -3 -1 -2 1 1 2 0 -3 -2 -3 4 
+
+Token Index 141
+  Block 0
+    Shared Exponent: -4.0
+    Values: 0 1 -1 -6 2 0 0 -2 2 -1 0 0 -4 0 0 0 -1 0 -2 0 6 -3 2 -2 0 -2 5 5 0 -2 -3 -3 
+
+  Block 1
+    Shared Exponent: -4.0
+    Values: -4 0 3 0 -1 1 -3 0 7 0 -2 -2 0 -4 1 2 -1 1 0 3 1 -3 4 3 2 -3 5 -2 -1 3 2 -1 
+
+  Block 2
+    Shared Exponent: -4.0
+    Values: 0 -3 3 -4 -5 -2 5 -1 -3 -7 -3 3 -5 0 -4 6 -1 4 -2 7 -1 -6 -1 0 -5 -4 -1 -1 1 4 -1 -2 
+
+  Block 3
+    Shared Exponent: -3.0
+    Values: 1 4 -1 1 -1 2 3 1 4 -1 2 2 1 -2 0 -2 0 -2 2 1 -1 -1 -1 -1 -1 2 2 2 1 0 0 0 
+
+  Block 4
+    Shared Exponent: -3.0
+    Values: 0 -3 -3 0 1 3 2 2 0 1 -1 0 0 -2 -4 3 0 -1 -1 1 -2 2 5 4 -6 1 -1 -2 0 -3 -1 1 
+
+  Block 5
+    Shared Exponent: -3.0
+    Values: -6 -1 1 -1 3 -3 2 3 1 0 1 3 2 -2 -1 4 1 2 1 -2 -3 2 0 -2 0 4 4 -2 1 -4 2 -3 
+
+Token Index 142
+  Block 0
+    Shared Exponent: -3.0
+    Values: 0 -1 -2 0 2 -2 -3 -2 2 3 2 5 0 -2 0 -5 -4 2 2 2 -3 -4 1 1 -1 0 -1 0 2 2 -3 -1 
+
+  Block 1
+    Shared Exponent: -3.0
+    Values: -2 -1 -3 -4 0 -1 3 -2 -1 3 -1 1 3 -1 0 -2 2 -1 2 -1 1 3 0 -1 2 0 -1 -2 1 0 1 1 
+
+  Block 2
+    Shared Exponent: -3.0
+    Values: 1 -2 -1 2 0 0 3 -1 2 -1 -4 -4 1 -2 0 -2 -2 -1 -3 3 0 -1 -2 3 3 -3 1 -2 -5 -1 -4 0 
+
+  Block 3
+    Shared Exponent: -3.0
+    Values: 0 3 -1 -1 0 1 1 1 -4 1 0 -1 1 -1 0 1 2 -2 2 2 2 -4 2 -2 3 1 1 -1 1 -4 0 -2 
+
+  Block 4
+    Shared Exponent: -3.0
+    Values: 0 -2 1 2 1 4 0 1 -3 -1 1 0 -1 0 0 -1 0 0 0 1 0 4 -1 -2 3 -3 0 -2 1 1 -2 0 
+
+  Block 5
+    Shared Exponent: -3.0
+    Values: -2 -2 -5 0 -2 -2 -2 -2 -2 1 -3 2 1 1 2 2 1 0 4 -3 -2 0 1 1 0 -3 0 -1 -1 1 -2 -4 
+
+Token Index 143
+  Block 0
+    Shared Exponent: -3.0
+    Values: 5 2 1 -4 -1 5 -1 0 -1 2 -1 1 -1 1 6 -2 0 0 -3 1 0 4 -2 0 -1 -1 3 -3 -3 -2 -3 -5 
+
+  Block 1
+    Shared Exponent: -3.0
+    Values: -2 1 2 3 -2 0 -1 -4 1 0 3 0 1 0 -3 -3 2 0 3 4 -3 2 1 -2 2 2 1 -2 3 -3 0 0 
+
+  Block 2
+    Shared Exponent: -3.0
+    Values: -1 4 -1 0 2 4 0 -3 0 -1 0 -1 0 0 2 1 2 2 -1 0 0 -3 2 -2 -3 0 4 -2 -1 -2 0 0 
+
+  Block 3
+    Shared Exponent: -3.0
+    Values: -1 -1 0 -1 0 1 -2 0 1 -4 0 -1 2 2 1 0 0 1 5 -1 -1 1 2 -2 -1 0 -1 1 -5 -2 0 -1 
+
+  Block 4
+    Shared Exponent: -3.0
+    Values: 0 -1 -5 -1 0 0 -3 1 0 -3 -2 1 -3 0 2 -4 0 -6 -1 -1 -1 2 1 2 1 1 2 1 2 0 -2 0 
+
+  Block 5
+    Shared Exponent: -3.0
+    Values: 0 -2 0 3 2 -2 0 1 2 -1 -2 -1 0 1 -1 -3 -3 -2 0 1 2 0 2 2 0 -2 4 -3 4 0 -5 -2 
+
+Token Index 144
+  Block 0
+    Shared Exponent: -4.0
+    Values: 0 -2 -3 1 1 3 7 0 1 -6 0 4 -3 0 0 -5 -1 2 -5 -1 1 -2 1 2 -1 3 0 -2 0 1 -3 1 
+
+  Block 1
+    Shared Exponent: -4.0
+    Values: 0 2 1 -4 -1 1 -4 1 1 -1 0 1 -4 -1 0 -3 -2 -4 0 1 0 0 3 2 1 -2 0 -6 0 -5 2 -6 
+
+  Block 2
+    Shared Exponent: -3.0
+    Values: -1 -2 -1 1 2 -2 0 -4 4 3 0 0 0 -3 -2 2 1 0 2 -1 -4 1 1 -2 1 2 0 5 -1 1 -2 4 
+
+  Block 3
+    Shared Exponent: -3.0
+    Values: -1 2 3 -1 -1 -2 2 0 0 0 -1 -1 1 0 0 -4 5 1 3 0 -1 -2 -3 1 -4 -2 0 0 2 3 -3 3 
+
+  Block 4
+    Shared Exponent: -3.0
+    Values: -2 1 1 0 -1 0 -5 1 0 0 3 -4 -1 2 -1 1 0 4 -1 1 -2 0 2 5 2 3 2 -2 4 -4 2 -2 
+
+  Block 5
+    Shared Exponent: -3.0
+    Values: 4 2 -4 2 2 2 2 0 1 0 -3 -2 -1 -2 0 -1 0 -2 -1 2 -1 1 1 -2 2 6 -2 2 2 1 2 -2 
+
+Token Index 145
+  Block 0
+    Shared Exponent: -3.0
+    Values: 1 0 -1 0 -2 -1 -1 -1 1 7 2 6 -2 0 1 -4 2 -2 0 0 0 -2 2 -2 4 -1 1 0 0 1 -4 3 
+
+  Block 1
+    Shared Exponent: -3.0
+    Values: -2 3 2 -4 1 -2 2 -2 -1 2 1 3 3 1 0 4 1 1 1 -2 -1 2 -5 0 1 -2 -2 2 1 1 -1 -1 
+
+  Block 2
+    Shared Exponent: -3.0
+    Values: 0 0 1 1 0 -1 -3 6 -3 3 -1 -1 -1 1 6 -1 6 -1 -1 2 -2 -4 -4 1 1 -1 4 0 2 -2 0 2 
+
+  Block 3
+    Shared Exponent: -3.0
+    Values: 1 0 1 0 -1 1 2 3 3 -1 5 0 0 2 0 -2 -1 -2 -2 -1 -2 -3 1 -1 -3 4 0 2 -1 4 -3 -1 
+
+  Block 4
+    Shared Exponent: -3.0
+    Values: 0 0 -3 -1 1 -4 -3 0 2 1 2 1 0 0 2 -3 2 1 2 -1 1 1 -3 1 -1 -1 2 -2 0 -2 0 -5 
+
+  Block 5
+    Shared Exponent: -3.0
+    Values: -4 4 2 0 2 1 2 -2 2 4 2 -1 -1 3 -2 -2 4 -3 1 -1 -1 -2 -1 -1 -1 -1 0 0 -1 1 -2 0 
+
+Token Index 146
+  Block 0
+    Shared Exponent: -4.0
+    Values: -1 3 -1 0 0 3 -1 -1 6 -5 0 -4 0 -1 -1 0 1 1 -1 -4 7 4 -1 -1 -3 0 1 -3 2 0 3 5 
+
+  Block 1
+    Shared Exponent: -4.0
+    Values: -1 0 2 2 2 0 -2 -2 1 -3 0 -1 -3 3 1 -1 3 1 1 -3 1 -1 -4 0 1 -4 4 1 0 0 0 -2 
+
+  Block 2
+    Shared Exponent: -3.0
+    Values: -2 -1 -1 1 -2 1 1 -1 0 -3 2 -4 -1 2 1 2 3 -2 0 -2 -3 3 -1 0 -2 0 -1 -1 2 -1 -2 -1 
+
+  Block 3
+    Shared Exponent: -4.0
+    Values: 5 3 -3 1 2 -1 -3 7 4 -1 4 3 3 -3 0 -3 -2 -3 3 3 1 -6 -3 4 -1 1 -1 0 -2 0 2 -4 
+
+  Block 4
+    Shared Exponent: -4.0
+    Values: 5 7 -1 -4 -2 4 5 2 -2 -1 -1 -2 0 -2 -6 -1 0 0 -1 -2 3 3 3 -2 -1 0 -4 6 -3 6 0 4 
+
+  Block 5
+    Shared Exponent: -3.0
+    Values: 4 2 2 -3 -6 3 2 1 3 -1 -1 3 -3 2 4 2 2 -7 -1 4 -1 0 -2 0 0 2 2 -2 -1 5 0 -5 
+
+Token Index 147
+  Block 0
+    Shared Exponent: -3.0
+    Values: -2 2 4 4 1 0 5 5 -2 -1 1 0 -1 -1 0 0 1 2 -2 -2 -4 -5 -5 4 -2 7 -2 0 0 3 -2 0 
+
+  Block 1
+    Shared Exponent: -3.0
+    Values: 4 6 5 0 2 0 0 -3 1 -2 4 2 1 2 1 0 -3 3 0 4 -2 -2 1 0 0 -2 5 0 -4 -5 -1 -6 
+
+  Block 2
+    Shared Exponent: -3.0
+    Values: 2 2 -2 -2 1 4 0 -1 0 -1 1 0 1 3 -4 0 3 -2 3 5 2 1 1 -1 -3 -2 1 -5 -3 -3 -2 3 
+
+  Block 3
+    Shared Exponent: -3.0
+    Values: 4 -1 3 -2 2 -1 0 -3 -1 4 -2 1 0 4 -3 3 0 1 4 5 -1 -1 3 3 1 3 0 -2 2 -1 7 4 
+
+  Block 4
+    Shared Exponent: -4.0
+    Values: 6 0 2 -1 -1 -4 0 1 3 6 -7 0 -1 -1 2 -6 1 -5 0 -5 4 1 0 -6 -7 2 4 1 0 -3 -2 1 
+
+  Block 5
+    Shared Exponent: -4.0
+    Values: -3 4 6 3 -4 -7 -2 6 3 -1 1 -5 4 -1 5 -1 4 -3 -5 -2 1 0 -4 -2 4 2 5 -2 -5 -2 3 1 
+
+Token Index 148
+  Block 0
+    Shared Exponent: -5.0
+    Values: 4 0 -6 -4 4 -6 1 -3 0 -3 7 1 0 4 4 5 -3 -6 -4 4 -1 2 -2 3 6 2 1 4 1 -2 5 3 
+
+  Block 1
+    Shared Exponent: -4.0
+    Values: -1 2 2 -3 -2 0 1 -2 3 1 -2 0 -1 -1 -1 -2 1 1 3 2 1 -2 4 -2 3 1 2 2 1 2 2 1 
+
+  Block 2
+    Shared Exponent: -3.0
+    Values: -1 3 2 3 0 0 2 2 0 -3 -1 0 -2 0 -1 -3 1 2 -4 1 0 -3 2 0 3 0 0 -1 0 1 -2 0 
+
+  Block 3
+    Shared Exponent: -3.0
+    Values: 1 3 -3 3 -1 -1 0 -1 -3 1 0 -3 6 -1 5 -1 0 2 2 -3 0 1 0 0 0 1 -4 0 2 1 -3 -1 
+
+  Block 4
+    Shared Exponent: -3.0
+    Values: -2 0 -3 0 0 -6 4 1 5 -4 -5 0 2 1 -1 2 -1 0 1 2 -3 -2 -1 -1 -2 -4 3 0 -3 1 2 0 
+
+  Block 5
+    Shared Exponent: -3.0
+    Values: 2 1 -3 3 -2 5 1 5 1 0 1 1 2 -2 -3 0 2 -5 0 -1 3 2 0 2 6 -1 1 3 1 0 0 -1 
+
+Token Index 149
+  Block 0
+    Shared Exponent: -3.0
+    Values: 0 0 -2 1 1 -2 0 0 0 -1 0 2 -1 -1 0 1 -1 -3 -2 -1 0 1 4 2 0 1 1 -2 2 -1 0 0 
+
+  Block 1
+    Shared Exponent: -4.0
+    Values: 1 -6 2 0 -4 1 7 -5 2 -5 -1 -4 0 -6 2 1 -2 -1 5 -3 -1 2 7 -1 4 0 -1 -3 0 6 1 0 
+
+  Block 2
+    Shared Exponent: -3.0
+    Values: -3 -1 0 -6 -3 -3 1 4 -3 -2 3 0 1 4 1 1 -2 0 1 -6 3 -1 -1 -4 -1 3 1 -2 1 -2 -1 1 
+
+  Block 3
+    Shared Exponent: -3.0
+    Values: 1 -1 -1 -1 1 -1 2 3 4 0 -4 0 1 -3 -1 1 1 0 0 2 -1 -1 4 -3 -2 0 -2 1 2 -2 -1 0 
+
+  Block 4
+    Shared Exponent: -3.0
+    Values: 0 1 3 -2 1 -1 -1 1 4 -2 -3 -2 -2 1 3 -3 -1 3 -1 -3 -2 0 -2 -1 4 0 0 -3 -1 -2 -5 2 
+
+  Block 5
+    Shared Exponent: -3.0
+    Values: 1 2 1 3 0 -2 4 0 1 0 -2 -1 1 1 0 2 0 0 0 -3 4 -2 -1 -1 0 2 -1 -3 -1 -1 1 1 
+
+Token Index 150
+  Block 0
+    Shared Exponent: -4.0
+    Values: -1 0 0 -4 0 -2 2 1 3 -5 1 1 -2 -5 0 2 2 3 -2 -2 1 3 1 -1 -1 2 -1 0 0 2 0 -1 
+
+  Block 1
+    Shared Exponent: -4.0
+    Values: -2 -4 -2 5 1 3 -1 0 5 -1 2 0 -1 -1 0 1 -2 -2 -2 4 0 -1 2 3 -1 4 1 0 -1 -5 0 1 
+
+  Block 2
+    Shared Exponent: -3.0
+    Values: -1 -1 1 3 4 -3 -1 -3 2 2 1 -2 -2 0 -1 -4 -1 -2 3 0 0 -1 0 -1 0 0 -1 -2 0 -1 0 -2 
+
+  Block 3
+    Shared Exponent: -4.0
+    Values: 1 -3 4 7 -3 2 -2 4 -7 2 -1 7 -2 -1 -4 2 0 -5 0 -2 3 1 0 0 -2 2 -4 -2 -2 -5 2 -2 
+
+  Block 4
+    Shared Exponent: -3.0
+    Values: 3 1 0 -2 -5 -4 1 -1 -3 -3 1 -1 -1 0 1 1 3 -3 -2 1 -4 -1 0 0 0 4 4 2 -4 2 -1 -2 
+
+  Block 5
+    Shared Exponent: -3.0
+    Values: -3 4 -3 1 1 -5 3 1 -1 0 4 1 1 2 0 2 5 -1 0 -1 -2 3 0 2 -3 1 -5 -2 1 1 0 2 
+
+Token Index 151
+  Block 0
+    Shared Exponent: -4.0
+    Values: -4 6 -3 -4 3 -2 -1 -3 -2 1 1 2 -1 -1 -4 -6 0 -2 6 -1 5 -1 1 -5 -1 2 1 4 6 0 1 -2 
+
+  Block 1
+    Shared Exponent: -4.0
+    Values: -4 -1 -2 3 0 -1 -4 -4 5 0 -3 -3 -2 0 4 -1 -1 3 3 1 3 -4 -1 -7 3 -1 -4 -2 -1 4 0 -3 
+
+  Block 2
+    Shared Exponent: -3.0
+    Values: 6 -4 -3 3 0 0 2 -1 -1 -1 0 2 0 3 -3 -4 -5 -2 -4 1 1 2 -4 1 0 2 1 0 -1 -1 -3 3 
+
+  Block 3
+    Shared Exponent: -4.0
+    Values: -3 4 -3 4 6 1 -1 -2 2 -3 -7 5 2 -4 0 2 4 7 0 1 -4 -1 1 -1 -2 6 6 3 0 -3 1 0 
+
+  Block 4
+    Shared Exponent: -3.0
+    Values: -1 -1 2 4 -1 -1 -1 2 0 2 -1 3 -2 3 3 2 -2 -6 -1 1 0 -1 3 -1 1 -1 -2 0 -1 -4 3 -2 
+
+  Block 5
+    Shared Exponent: -2.0
+    Values: 1 2 1 0 1 0 0 2 2 0 2 -4 -1 0 -1 0 -2 -1 1 0 -1 -1 -1 0 -1 0 -1 1 0 2 0 1 
+
+Token Index 152
+  Block 0
+    Shared Exponent: -3.0
+    Values: 4 0 0 -1 4 -1 1 3 0 1 1 2 2 -1 5 -1 -2 0 0 0 -1 0 3 0 2 0 -3 0 -4 1 1 0 
+
+  Block 1
+    Shared Exponent: -3.0
+    Values: -1 0 -2 0 -5 1 0 -1 -3 1 2 1 0 -1 -1 -1 1 -1 5 0 -5 0 -1 0 4 2 0 1 3 0 3 -1 
+
+  Block 2
+    Shared Exponent: -4.0
+    Values: 3 0 2 0 -3 1 1 -1 1 0 -2 0 -1 0 -1 2 -1 2 0 1 0 -1 -4 1 0 2 5 0 1 0 0 -1 
+
+  Block 3
+    Shared Exponent: -4.0
+    Values: 0 0 2 1 3 -2 2 1 3 1 2 -2 -2 -2 1 -4 0 1 -2 -1 1 -1 -1 0 5 1 -1 -2 -3 0 0 0 
+
+  Block 4
+    Shared Exponent: -4.0
+    Values: -1 1 0 0 -1 0 -1 -1 0 1 -1 -1 2 0 0 6 1 0 0 -1 0 1 1 -1 3 -1 -1 0 0 0 0 0 
+
+  Block 5
+    Shared Exponent: -5.0
+    Values: -1 0 0 0 2 4 1 -2 -1 -2 1 1 1 -1 2 0 -4 -1 -1 -2 -3 -1 -2 -1 0 0 -1 -2 1 0 -1 -1 
+
+Token Index 153
+  Block 0
+    Shared Exponent: -5.0
+    Values: -4 2 2 0 -3 2 2 -2 4 3 -2 7 -2 -2 -5 -1 4 -5 2 2 -1 -3 3 0 0 -1 1 -3 3 4 3 1 
+
+  Block 1
+    Shared Exponent: -5.0
+    Values: -2 1 1 -5 5 -2 -1 1 0 -2 -1 4 1 2 1 -4 -1 2 -4 -1 4 -2 2 -6 -2 -5 -5 6 -2 -4 -1 -5 
+
+  Block 2
+    Shared Exponent: -4.0
+    Values: -5 4 7 4 1 -4 -5 1 0 -4 -1 -4 -1 -2 1 0 -5 3 -4 1 -5 0 -1 2 0 4 -2 7 0 4 -7 -7 
+
+  Block 3
+    Shared Exponent: -3.0
+    Values: -1 2 -1 -2 2 -1 2 -2 4 -1 -4 0 -5 0 1 -2 -1 -3 1 -2 0 2 -1 -2 -2 1 -2 0 0 0 3 3 
+
+  Block 4
+    Shared Exponent: -3.0
+    Values: 2 0 2 -2 -2 3 2 -2 2 -2 1 4 -4 1 5 0 2 3 2 0 -2 -4 2 -5 0 0 0 0 0 5 1 -3 
+
+  Block 5
+    Shared Exponent: -3.0
+    Values: -1 2 -1 2 -2 -3 -2 0 4 1 -1 2 4 -3 3 -5 0 0 3 0 1 1 -2 2 1 -1 2 -1 -1 -2 1 -1 
+
+Token Index 154
+  Block 0
+    Shared Exponent: -5.0
+    Values: -2 0 1 -5 -4 -2 1 3 1 -5 -1 0 -2 0 -1 7 1 -5 -4 -5 5 -5 -2 7 -5 0 -1 -1 -2 1 -3 -6 
+
+  Block 1
+    Shared Exponent: -4.0
+    Values: 3 0 2 -1 -1 0 -2 2 1 0 2 1 0 -3 0 -2 -1 0 -3 1 0 -2 2 -3 0 2 4 0 -2 -4 -1 2 
+
+  Block 2
+    Shared Exponent: -3.0
+    Values: -6 -1 0 3 3 2 0 -1 -2 -2 -3 2 -2 -1 1 -1 0 0 1 0 1 1 -1 1 0 -1 -1 1 0 0 0 0 
+
+  Block 3
+    Shared Exponent: -3.0
+    Values: -2 1 4 -1 -1 3 0 -5 0 2 1 5 -1 -2 0 -3 0 -1 0 -4 2 0 0 -1 2 0 2 0 -1 2 3 -3 
+
+  Block 4
+    Shared Exponent: -3.0
+    Values: -4 -3 1 3 4 2 2 3 -3 2 -1 -5 -1 0 4 -3 -2 -1 -2 0 0 -4 -1 3 0 1 -1 -2 -1 0 0 2 
+
+  Block 5
+    Shared Exponent: -3.0
+    Values: 0 2 -1 0 -5 2 3 -2 3 -1 1 2 -3 -2 -1 -2 0 -1 -2 -2 2 -7 1 1 0 -1 -3 -3 -2 1 -1 5 
+
+Token Index 155
+  Block 0
+    Shared Exponent: -4.0
+    Values: 3 3 -3 -2 3 7 -2 4 2 0 -6 4 5 3 5 0 6 6 -2 6 -4 -5 -4 -5 4 -7 -3 -6 2 -3 1 -2 
+
+  Block 1
+    Shared Exponent: -3.0
+    Values: -2 1 0 1 -1 0 1 -3 4 5 1 -3 4 0 0 -2 1 -1 3 1 -1 -1 2 1 1 1 0 -4 -1 4 0 2 
+
+  Block 2
+    Shared Exponent: -3.0
+    Values: -2 -1 -3 0 0 2 1 0 -1 -2 1 -3 0 -1 2 1 3 0 -1 0 2 2 6 -3 -1 0 0 0 4 0 -4 1 
+
+  Block 3
+    Shared Exponent: -3.0
+    Values: 1 1 0 1 -1 0 1 -2 -2 -2 -2 4 -3 2 1 2 2 0 2 3 -2 1 0 -2 2 0 1 -4 0 -2 -1 1 
+
+  Block 4
+    Shared Exponent: -4.0
+    Values: -2 -3 3 -3 0 -4 1 -2 4 1 -4 -2 -1 3 3 -7 -2 0 4 -4 5 -2 -2 4 -3 1 4 -2 1 -3 -1 2 
+
+  Block 5
+    Shared Exponent: -3.0
+    Values: -2 0 -1 0 -1 0 -1 1 1 2 0 -1 -1 1 -2 0 3 -2 1 2 -1 0 0 0 -2 -2 -2 0 -6 1 2 2 
+
+Token Index 156
+  Block 0
+    Shared Exponent: -3.0
+    Values: 2 3 -1 -1 -1 1 1 2 -5 -3 -1 0 0 0 3 2 -2 -2 2 -1 2 -1 -1 0 -3 -3 0 0 -2 0 -1 -1 
+
+  Block 1
+    Shared Exponent: -3.0
+    Values: 0 -2 -1 0 -1 0 1 0 0 1 2 -4 -2 -1 -2 0 -1 -1 -1 -1 -1 1 0 -2 0 1 2 -2 -1 1 -1 -2 
+
+  Block 2
+    Shared Exponent: -2.0
+    Values: 0 0 0 0 1 1 -1 -1 0 0 1 -1 1 0 2 0 1 0 1 1 1 3 0 4 0 0 0 -2 -1 -1 0 -1 
+
+  Block 3
+    Shared Exponent: -3.0
+    Values: 1 1 -1 0 -1 2 4 -1 1 -2 -1 2 -1 1 0 3 -2 2 -2 -5 1 1 0 -4 0 1 1 -1 0 -1 0 2 
+
+  Block 4
+    Shared Exponent: -4.0
+    Values: 5 2 -2 -6 0 -2 2 2 6 4 3 -3 -4 4 -4 0 3 7 4 5 0 1 -3 3 4 2 1 6 -3 -4 -1 0 
+
+  Block 5
+    Shared Exponent: -3.0
+    Values: 0 -2 0 -4 -1 4 1 -2 -1 6 3 -2 0 -2 -2 1 3 -1 2 3 3 2 1 -1 1 3 -1 -2 2 -1 3 -2 
+
+Token Index 157
+  Block 0
+    Shared Exponent: -2.0
+    Values: -1 0 -2 0 -2 -1 0 -1 -3 1 -3 -2 0 1 -1 -1 -3 3 -1 2 1 0 -3 -4 -3 0 -2 -2 0 1 -2 -2 
+
+  Block 1
+    Shared Exponent: -3.0
+    Values: -1 1 3 -1 6 4 -3 -1 4 -3 2 0 2 0 1 -1 1 4 1 0 -1 -3 -4 6 -5 3 -3 -1 2 1 -5 -3 
+
+  Block 2
+    Shared Exponent: -4.0
+    Values: -7 -1 1 1 1 -1 0 -1 5 -2 1 3 -1 5 -4 -4 1 1 1 -3 -3 -4 0 2 -3 1 1 3 -5 -2 -2 2 
+
+  Block 3
+    Shared Exponent: -3.0
+    Values: 5 1 2 0 -1 1 -1 -2 0 -2 -2 0 -1 0 0 2 -2 1 -4 -1 1 5 2 1 1 -3 1 -2 -2 1 4 -1 
+
+  Block 4
+    Shared Exponent: -4.0
+    Values: 1 3 7 2 4 -2 -5 5 5 -4 1 5 0 -2 -5 -5 2 1 0 4 3 1 -2 1 -1 -3 -2 -6 4 5 0 2 
+
+  Block 5
+    Shared Exponent: -4.0
+    Values: -4 -3 5 -3 0 2 1 -4 -1 -2 4 -2 2 -1 -1 -1 6 -1 -3 0 6 3 -5 6 -2 5 3 4 -4 1 4 1 
+
+Token Index 158
+  Block 0
+    Shared Exponent: -3.0
+    Values: 1 -3 0 -1 -1 4 0 -1 -4 1 1 0 -2 2 2 0 0 -1 2 1 0 1 -2 0 0 2 6 1 0 -6 -6 3 
+
+  Block 1
+    Shared Exponent: -3.0
+    Values: 0 1 0 0 -2 -7 3 0 2 2 -1 0 1 1 1 2 -2 0 1 0 -2 -2 0 -3 -1 -3 2 3 0 -1 2 1 
+
+  Block 2
+    Shared Exponent: -5.0
+    Values: -3 1 -3 -3 5 3 -1 -2 -1 2 1 -3 0 3 -7 -3 1 -1 3 1 3 5 1 -2 1 2 0 -1 0 -2 -2 -5 
+
+  Block 3
+    Shared Exponent: -4.0
+    Values: 1 2 1 -2 2 -1 -2 -2 -4 -1 -1 1 -1 -1 -2 2 2 -2 0 2 1 2 -1 2 1 -1 1 -2 5 0 3 0 
+
+  Block 4
+    Shared Exponent: -6.0
+    Values: -2 0 3 -1 2 -3 3 -3 3 -2 -2 3 -3 2 2 -7 2 -4 5 3 4 -3 1 2 -7 0 -3 -5 0 4 -1 1 
+
+  Block 5
+    Shared Exponent: -6.0
+    Values: -2 2 2 -1 0 1 1 -4 2 3 -2 3 -1 -1 -4 -3 0 0 -4 -1 -3 2 -2 1 -4 0 0 -6 0 1 1 2 
+
+Token Index 159
+  Block 0
+    Shared Exponent: -4.0
+    Values: 0 -2 2 0 1 1 -1 1 -2 -1 3 -3 1 -1 0 2 -2 2 -3 -1 0 1 1 0 -5 -1 0 1 -1 -2 -1 3 
+
+  Block 1
+    Shared Exponent: -5.0
+    Values: 2 -1 3 -3 -2 4 3 1 1 -1 1 -4 1 5 2 -5 0 1 2 0 -3 0 1 -7 0 -3 -1 5 -3 4 3 -7 
+
+  Block 2
+    Shared Exponent: -4.0
+    Values: -2 -2 -3 3 -1 -4 7 1 1 0 -4 -4 -4 0 -1 0 -2 5 5 -2 -2 0 -2 -3 1 0 1 -1 1 -7 -3 5 
+
+  Block 3
+    Shared Exponent: -4.0
+    Values: -4 6 4 -3 -4 -4 5 2 -3 -3 -3 -1 -2 4 6 -5 4 4 4 0 -2 2 -3 1 -1 0 -3 0 -2 6 1 -5 
+
+  Block 4
+    Shared Exponent: -3.0
+    Values: -1 1 -2 0 0 -3 -1 -3 -3 2 -1 1 -2 -1 4 1 3 5 0 -1 -2 4 -3 -5 -3 4 -7 -1 -2 -1 1 1 
+
+  Block 5
+    Shared Exponent: -3.0
+    Values: -1 -1 3 -4 0 0 -1 6 -2 1 2 1 -1 0 -2 0 0 3 2 4 0 -1 1 0 -1 -1 -1 0 0 0 -2 0 
+
+Token Index 160
+  Block 0
+    Shared Exponent: -4.0
+    Values: 3 -3 7 2 -3 -2 2 1 1 2 1 -2 -2 -2 3 1 1 2 2 -3 0 0 2 0 -3 3 4 2 -2 -2 1 1 
+
+  Block 1
+    Shared Exponent: -4.0
+    Values: -1 -2 -1 0 1 1 -2 0 -4 -1 2 -2 -3 1 -3 -2 -1 -2 -2 -1 0 5 4 -3 0 0 0 -7 0 0 -2 2 
+
+  Block 2
+    Shared Exponent: -4.0
+    Values: -6 1 -1 5 3 5 -7 -6 -6 -2 4 3 0 -6 4 7 2 -4 -3 -5 -7 -4 -2 5 4 -6 -1 3 3 2 1 4 
+
+  Block 3
+    Shared Exponent: -3.0
+    Values: -1 0 2 -1 7 3 3 4 -2 -2 -3 4 0 0 1 2 -2 0 -3 1 2 0 -3 4 1 -4 1 0 1 -2 0 -1 
+
+  Block 4
+    Shared Exponent: -3.0
+    Values: -3 -3 2 -3 3 -3 1 -2 3 2 -3 -1 -2 1 -1 -2 -2 -2 1 -3 -1 -1 3 -6 -2 -2 -2 -2 1 1 1 -4 
+
+  Block 5
+    Shared Exponent: -3.0
+    Values: -2 1 0 1 0 -2 2 0 -3 -1 -2 -1 -1 2 -1 5 -1 -2 0 -3 1 3 0 0 1 0 -1 5 1 -3 -1 -4 
+
+Token Index 161
+  Block 0
+    Shared Exponent: -3.0
+    Values: 0 -1 5 1 3 0 3 0 -4 0 2 -1 4 0 0 1 0 -3 3 0 1 0 0 0 1 2 -2 0 0 0 0 -6 
+
+  Block 1
+    Shared Exponent: -3.0
+    Values: 2 1 2 1 -2 0 -1 0 -1 3 -2 2 5 2 -1 -5 -2 -2 1 -2 2 -1 -1 4 3 1 5 -3 0 2 2 3 
+
+  Block 2
+    Shared Exponent: -3.0
+    Values: 1 5 0 0 -3 -2 0 -2 -1 1 -3 -1 1 4 -1 0 2 0 1 1 0 4 -1 -2 -2 2 -1 1 2 2 1 -2 
+
+  Block 3
+    Shared Exponent: -4.0
+    Values: -3 1 -1 -3 2 0 -1 5 1 3 -1 1 6 -2 -3 -7 0 1 2 0 1 -3 -5 0 -1 -2 1 3 -3 0 -3 1 
+
+  Block 4
+    Shared Exponent: -3.0
+    Values: 1 3 -1 2 -1 -4 -3 1 -1 3 -1 -2 -4 1 -2 1 2 0 -1 -1 -2 -2 -2 1 1 1 -1 -2 2 1 -1 -2 
+
+  Block 5
+    Shared Exponent: -3.0
+    Values: -1 1 1 -2 -1 3 -1 1 -4 1 0 -2 -1 -3 0 1 -1 -3 3 -1 2 0 -3 3 2 -1 1 2 4 -2 -4 2 
+
+Token Index 162
+  Block 0
+    Shared Exponent: -4.0
+    Values: 1 2 -3 2 2 4 1 1 -2 0 -1 2 2 1 0 2 1 1 0 -3 -3 1 -3 3 1 -2 -4 -3 0 2 2 0 
+
+  Block 1
+    Shared Exponent: -4.0
+    Values: 0 1 0 0 -2 0 4 0 1 -1 0 -2 0 2 0 0 -1 0 0 1 1 -2 3 0 2 2 -1 6 -1 0 1 -2 
+
+  Block 2
+    Shared Exponent: -3.0
+    Values: 0 -1 -2 -1 0 2 -2 1 1 4 1 -1 0 -1 2 0 -1 1 -3 1 -2 -2 1 -2 -2 1 -1 2 -1 2 -2 0 
+
+  Block 3
+    Shared Exponent: -3.0
+    Values: 3 3 -3 -1 3 0 1 3 -1 0 0 -1 1 2 -2 2 -1 -1 -3 -1 4 -3 0 -2 0 2 -3 -1 -3 1 -2 -5 
+
+  Block 4
+    Shared Exponent: -3.0
+    Values: 0 -4 0 1 -2 3 -5 0 0 3 -2 0 -1 3 -1 1 -1 0 -2 4 2 -4 3 -1 0 3 0 -4 -4 -1 5 1 
+
+  Block 5
+    Shared Exponent: -3.0
+    Values: -2 0 4 -1 2 1 5 3 -3 0 2 4 0 -1 2 -2 -1 1 -4 -1 5 -2 2 3 1 0 0 0 0 2 3 -2 
+
+Token Index 163
+  Block 0
+    Shared Exponent: -4.0
+    Values: -3 7 -1 3 3 2 -1 -1 2 -2 0 -2 3 0 -3 -2 1 -1 4 0 2 6 0 5 0 -7 -3 -5 3 2 4 -1 
+
+  Block 1
+    Shared Exponent: -4.0
+    Values: -1 1 1 -2 -2 -2 2 -2 -2 4 -2 1 1 6 3 0 1 1 3 1 1 -3 0 0 2 0 -3 -4 0 3 1 -2 
+
+  Block 2
+    Shared Exponent: -3.0
+    Values: -2 0 1 -3 2 -2 2 -1 1 2 -4 4 -2 2 -1 -2 -2 0 3 -1 0 1 -1 5 0 1 2 -2 -2 0 0 -1 
+
+  Block 3
+    Shared Exponent: -3.0
+    Values: 1 0 3 1 0 -2 1 2 0 2 -1 1 0 4 4 0 -4 -3 -2 4 3 3 -2 1 2 2 4 1 -2 3 0 2 
+
+  Block 4
+    Shared Exponent: -3.0
+    Values: -2 5 2 -2 -2 4 -4 1 3 -2 0 1 1 -6 0 1 -2 0 -1 -2 -2 -1 -2 3 -1 -1 3 -1 -2 0 0 -1 
+
+  Block 5
+    Shared Exponent: -4.0
+    Values: -6 7 -1 4 2 -6 -7 6 4 2 -4 -2 -5 -3 0 2 -1 -1 -2 0 4 -7 7 3 1 -2 2 3 2 -2 -2 -4 
+
+Token Index 164
+  Block 0
+    Shared Exponent: -4.0
+    Values: -2 -2 -3 -5 3 1 -5 0 -2 -4 5 4 1 2 -2 3 4 -1 -4 0 -3 -2 -3 4 0 1 0 3 2 -2 -2 -1 
+
+  Block 1
+    Shared Exponent: -4.0
+    Values: 1 0 1 1 -3 1 2 0 1 4 -2 0 1 0 1 3 -1 1 -1 0 2 3 5 5 1 2 -1 0 -2 0 1 -1 
+
+  Block 2
+    Shared Exponent: -3.0
+    Values: 0 0 2 -2 1 1 4 1 0 -2 0 1 3 -2 -2 -1 -2 1 1 3 -4 0 1 2 3 3 -1 0 5 -2 1 1 
+
+  Block 3
+    Shared Exponent: -4.0
+    Values: -1 -1 2 -4 3 -2 -6 -6 3 2 -5 3 -1 2 2 3 -3 -2 -7 1 -4 3 6 5 -3 -2 2 0 -4 0 -7 -7 
+
+  Block 4
+    Shared Exponent: -3.0
+    Values: 1 -5 -2 3 -2 -1 -4 -2 2 2 5 -2 1 -1 -1 1 1 -2 -2 -1 2 1 -1 0 1 -1 -2 3 1 -1 -1 -1 
+
+  Block 5
+    Shared Exponent: -3.0
+    Values: -4 2 0 -4 -3 0 0 -1 -1 -1 -2 -1 4 0 3 -2 3 -3 1 0 1 0 -3 -1 2 3 2 0 0 3 2 0 
+
+Token Index 165
+  Block 0
+    Shared Exponent: -4.0
+    Values: 1 1 1 3 -1 -3 -1 0 2 1 -1 0 -1 -1 1 -4 0 0 5 2 1 -2 -2 -5 2 0 2 1 -2 -1 2 0 
+
+  Block 1
+    Shared Exponent: -4.0
+    Values: -4 0 -1 0 0 -1 -2 4 0 1 0 1 3 0 0 0 0 -1 -1 2 -2 -1 -4 -1 -1 -2 3 0 0 1 1 -1 
+
+  Block 2
+    Shared Exponent: -3.0
+    Values: 3 4 -2 -1 2 0 -1 -3 -1 1 1 2 2 1 0 -1 -1 1 2 0 2 -5 0 0 1 -3 0 -1 7 -2 1 -1 
+
+  Block 3
+    Shared Exponent: -4.0
+    Values: 0 5 -2 -5 -3 -3 5 -3 1 1 2 1 2 0 0 0 -3 4 1 -3 3 3 2 4 3 -1 0 -3 3 1 -5 -3 
+
+  Block 4
+    Shared Exponent: -4.0
+    Values: 0 -3 1 3 -7 7 -2 -5 -4 -7 2 0 -3 -5 -1 -2 -3 7 1 2 5 4 0 5 5 -2 -2 -2 5 6 6 -1 
+
+  Block 5
+    Shared Exponent: -3.0
+    Values: -1 0 2 1 -1 0 5 4 1 -1 -2 -5 2 -3 1 2 1 -1 0 -1 -1 2 2 0 4 -2 -3 -3 0 2 -1 0 
+
+Token Index 166
+  Block 0
+    Shared Exponent: -3.0
+    Values: -1 -2 0 2 3 4 -1 1 -2 2 -4 0 1 0 -1 -3 0 -1 1 -1 -1 -1 0 0 1 5 -1 1 2 0 4 0 
+
+  Block 1
+    Shared Exponent: -3.0
+    Values: 0 1 -1 1 0 1 -1 -1 0 -3 -1 -3 -2 1 1 -3 -3 1 1 0 0 0 -3 -1 0 -2 3 6 -1 -1 1 2 
+
+  Block 2
+    Shared Exponent: -3.0
+    Values: -4 -2 1 -1 4 0 2 -3 -1 -3 -4 4 1 -1 3 -1 1 2 -2 0 -3 1 5 -1 -2 -3 0 -2 -4 0 2 -2 
+
+  Block 3
+    Shared Exponent: -3.0
+    Values: -2 -3 2 2 -1 4 -2 0 5 1 -3 1 1 -2 3 2 -2 0 -1 0 -3 -1 -1 -4 0 -1 -1 -4 -1 -3 -5 -2 
+
+  Block 4
+    Shared Exponent: -3.0
+    Values: -2 0 2 -2 1 1 0 -1 0 -1 0 -1 -1 -1 0 3 0 0 -1 -1 -1 0 -4 0 0 2 2 1 2 0 -2 -1 
+
+  Block 5
+    Shared Exponent: -4.0
+    Values: -5 1 1 -2 6 7 1 0 1 -4 -7 0 1 -2 1 -1 -1 -5 1 -1 -5 -1 -3 0 -4 0 -3 0 -3 -2 -1 1 
+
+Token Index 167
+  Block 0
+    Shared Exponent: -4.0
+    Values: 0 -4 1 -2 2 -2 2 0 0 -2 0 0 1 1 0 0 2 0 -2 0 2 6 1 -1 0 0 0 -1 1 0 0 -1 
+
+  Block 1
+    Shared Exponent: -4.0
+    Values: 4 2 -2 -1 -1 3 1 2 0 1 -1 0 -3 -1 0 -2 -1 0 -1 1 1 0 -5 0 1 0 1 4 0 0 2 1 
+
+  Block 2
+    Shared Exponent: -3.0
+    Values: -1 2 -1 0 -1 2 1 2 0 -1 2 1 0 -4 2 -2 0 4 1 3 0 -2 0 0 -2 3 -1 -3 1 0 1 3 
+
+  Block 3
+    Shared Exponent: -4.0
+    Values: -2 -4 -1 -1 0 1 -1 2 -2 2 4 2 2 -2 2 -1 4 -2 0 -7 5 -3 -1 3 -4 -2 5 -1 -2 1 2 2 
+
+  Block 4
+    Shared Exponent: -3.0
+    Values: -3 3 2 0 0 3 -3 -1 2 2 -3 4 -2 0 3 0 1 1 -1 2 -1 -3 2 -2 6 0 2 2 0 0 1 2 
+
+  Block 5
+    Shared Exponent: -3.0
+    Values: 2 -1 0 -3 -3 0 -6 2 -1 2 -2 0 4 2 -3 2 1 1 1 -5 -5 0 1 -3 0 1 -1 -2 2 1 4 -3 
+
+Token Index 168
+  Block 0
+    Shared Exponent: -4.0
+    Values: -1 3 6 0 -2 -1 -6 2 -2 1 5 -4 -4 -5 1 -4 -5 4 6 2 -3 -4 5 -3 1 0 7 -1 0 -2 3 4 
+
+  Block 1
+    Shared Exponent: -3.0
+    Values: -3 -2 0 1 1 3 -1 0 3 -2 1 -1 0 1 0 -3 0 1 -1 1 -1 -1 2 -2 0 -2 -1 -3 -1 3 1 5 
+
+  Block 2
+    Shared Exponent: -3.0
+    Values: -2 3 1 -2 3 -2 -1 1 0 -1 0 -1 -1 -3 2 0 1 -2 -6 0 5 -2 -1 0 -2 4 -1 0 -3 -1 2 0 
+
+  Block 3
+    Shared Exponent: -3.0
+    Values: -5 0 1 -3 1 -4 0 2 0 5 1 1 4 2 0 1 5 0 -2 0 0 1 1 4 1 2 2 0 0 4 6 0 
+
+  Block 4
+    Shared Exponent: -3.0
+    Values: 2 0 0 3 0 -1 -1 0 -1 1 3 1 1 -3 -2 0 2 -2 1 0 1 0 2 2 -1 0 3 1 3 -2 2 -4 
+
+  Block 5
+    Shared Exponent: -4.0
+    Values: 0 -2 -2 -6 -3 1 2 -6 4 -7 4 1 1 -1 -1 -5 6 -3 -2 6 7 -1 -2 1 -1 5 3 -5 -4 -1 6 1 
+
+Token Index 169
+  Block 0
+    Shared Exponent: -4.0
+    Values: 1 3 -3 -1 0 0 -2 1 -3 0 -1 -2 1 2 0 -3 1 -2 4 3 0 -2 -1 -2 -1 3 -1 0 -2 -2 -1 2 
+
+  Block 1
+    Shared Exponent: -4.0
+    Values: 1 -2 -2 -1 -1 -1 -2 4 0 1 0 2 2 -1 0 -2 0 -1 -2 -3 -1 2 -2 3 -3 1 0 -3 0 3 1 5 
+
+  Block 2
+    Shared Exponent: -3.0
+    Values: 0 -1 -2 1 0 0 0 -1 0 -2 4 2 1 0 0 4 3 0 -1 0 0 3 2 1 0 -2 0 1 1 0 3 -3 
+
+  Block 3
+    Shared Exponent: -3.0
+    Values: 1 0 -1 2 -2 -2 -2 -2 0 2 3 -1 1 1 1 1 0 2 -2 3 2 0 -3 -2 -4 4 -1 0 1 0 5 -2 
+
+  Block 4
+    Shared Exponent: -3.0
+    Values: -1 -2 0 5 0 -2 4 1 4 0 2 5 0 -4 -2 -2 0 2 -2 0 -3 -1 -3 -5 1 6 3 -2 2 1 3 5 
+
+  Block 5
+    Shared Exponent: -3.0
+    Values: -3 3 0 2 -1 -1 0 -1 -2 0 3 -2 3 1 0 -3 -3 -1 1 -2 -1 1 6 -3 -3 1 -3 -1 -3 1 -1 0 
+
+Token Index 170
+  Block 0
+    Shared Exponent: -4.0
+    Values: 0 1 -2 0 0 -1 1 -2 3 0 1 1 0 3 -1 -2 1 2 -2 2 0 -4 1 -3 0 1 2 5 2 -3 -1 -1 
+
+  Block 1
+    Shared Exponent: -4.0
+    Values: 0 0 0 3 -2 0 0 0 0 -3 -2 -2 0 -2 1 0 0 2 1 2 1 0 1 0 0 0 1 -2 1 -4 1 1 
+
+  Block 2
+    Shared Exponent: -3.0
+    Values: 1 -1 0 3 -3 -3 -2 -1 -2 -1 1 1 2 1 0 -1 0 0 2 1 1 1 -2 -1 0 -2 0 5 1 -2 -1 -1 
+
+  Block 3
+    Shared Exponent: -3.0
+    Values: 0 2 -1 3 -2 1 0 3 0 -1 -3 -1 -1 1 2 2 2 -2 0 -1 -1 -2 1 1 1 2 1 1 -3 -1 4 -3 
+
+  Block 4
+    Shared Exponent: -3.0
+    Values: -1 3 -3 -3 -1 0 -2 1 3 2 0 1 5 1 4 2 -4 1 2 1 5 1 -2 5 0 2 5 4 6 3 0 -1 
+
+  Block 5
+    Shared Exponent: -3.0
+    Values: -3 -2 -3 -3 -3 2 1 5 -5 2 -1 1 0 -1 1 1 -2 2 -1 -2 3 0 -3 -1 1 3 1 0 -1 -3 -4 -2 
+
+Token Index 171
+  Block 0
+    Shared Exponent: -3.0
+    Values: -1 -1 4 1 4 2 1 0 0 -2 4 4 2 -3 -1 1 0 -1 2 -1 1 2 2 1 2 1 1 0 3 -2 -3 2 
+
+  Block 1
+    Shared Exponent: -3.0
+    Values: -1 -2 -3 3 -3 -2 2 -2 -1 3 -3 -1 2 -1 -1 -5 1 -1 0 -2 4 -2 -1 2 5 1 -1 0 -3 1 3 -1 
+
+  Block 2
+    Shared Exponent: -4.0
+    Values: 4 1 3 0 0 -2 1 1 1 -2 3 1 1 2 1 -4 -1 -2 -2 -4 -2 0 2 4 2 -1 -5 0 0 0 -7 1 
+
+  Block 3
+    Shared Exponent: -4.0
+    Values: -1 -2 -1 3 -1 -2 3 4 3 -1 1 3 2 0 0 -2 -1 0 -2 -4 2 -1 -2 1 2 -2 1 7 -3 3 -3 -1 
+
+  Block 4
+    Shared Exponent: -3.0
+    Values: -1 -1 -2 1 0 0 1 -1 -1 0 1 0 1 1 0 2 -4 0 1 0 -1 1 -1 0 2 -1 0 0 1 -1 1 0 
+
+  Block 5
+    Shared Exponent: -4.0
+    Values: 0 -2 1 1 1 -1 0 1 1 5 -2 3 0 1 -2 -1 1 0 5 3 1 4 -1 -1 -3 1 -1 1 0 2 4 2 
+
+Token Index 172
+  Block 0
+    Shared Exponent: -4.0
+    Values: 0 3 3 -1 -3 -1 5 3 1 -2 -2 -3 -2 -1 1 3 1 4 -1 0 -3 3 -1 -1 0 -2 1 -1 -1 -1 0 -2 
+
+  Block 1
+    Shared Exponent: -4.0
+    Values: 0 -2 1 5 4 4 0 -2 4 -3 4 1 5 -2 0 2 -2 1 0 3 -3 2 2 -2 -2 3 2 0 -2 -1 -3 1 
+
+  Block 2
+    Shared Exponent: -4.0
+    Values: 5 -2 3 7 1 -4 -5 5 -7 3 -6 2 2 -4 3 4 -1 5 -4 -6 -5 6 -3 0 1 1 1 2 -3 4 0 1 
+
+  Block 3
+    Shared Exponent: -3.0
+    Values: 3 4 2 0 -1 2 -1 -2 1 -2 0 1 1 1 -1 2 0 0 -3 5 -1 1 0 0 1 0 2 1 -1 1 -2 3 
+
+  Block 4
+    Shared Exponent: -2.0
+    Values: 0 0 -1 2 0 -1 0 0 0 1 0 -1 -2 0 0 0 2 2 1 2 0 2 -1 -1 -1 -3 4 1 -1 -1 0 2 
+
+  Block 5
+    Shared Exponent: -3.0
+    Values: 3 0 3 0 0 1 2 2 -1 -4 -3 3 2 0 1 2 -1 2 1 -1 -3 -1 -2 -2 1 -1 -1 -1 1 6 0 1 
+
+Token Index 173
+  Block 0
+    Shared Exponent: -2.0
+    Values: 0 -1 1 -1 6 3 0 -1 0 -1 2 3 2 0 0 0 -3 -2 0 0 3 0 1 0 0 0 -1 2 1 0 0 -1 
+
+  Block 1
+    Shared Exponent: -2.0
+    Values: -1 0 -3 1 -4 0 0 0 -1 1 -3 -3 0 -1 0 -1 1 -2 2 2 1 -1 2 3 5 1 2 1 1 1 4 0 
+
+  Block 2
+    Shared Exponent: -3.0
+    Values: 0 -2 0 1 0 -2 -2 -2 0 1 3 2 -2 1 -3 1 -5 2 2 -2 0 0 -4 2 0 0 4 0 -3 -1 -1 0 
+
+  Block 3
+    Shared Exponent: -3.0
+    Values: 1 -3 -2 -2 -1 1 1 -1 2 -1 4 -1 3 1 2 2 2 1 -1 -1 -3 3 1 1 1 2 -1 1 -3 3 3 3 
+
+  Block 4
+    Shared Exponent: -2.0
+    Values: -1 0 -2 -1 0 0 0 1 0 1 -1 0 -2 -1 0 2 -5 0 1 -1 1 0 0 -1 2 0 0 -2 1 1 0 2 
+
+  Block 5
+    Shared Exponent: -3.0
+    Values: 1 1 -1 4 1 -2 1 -1 1 3 0 3 1 1 0 -4 3 0 5 0 0 0 0 1 -3 -4 0 -4 0 1 1 2 
+
+Token Index 174
+  Block 0
+    Shared Exponent: -5.0
+    Values: -4 4 0 -2 0 -5 -2 0 -2 2 2 1 -3 -1 -4 -1 3 1 -1 3 -3 0 -2 2 -1 -1 3 -6 1 1 -1 -2 
+
+  Block 1
+    Shared Exponent: -5.0
+    Values: -4 -4 1 -3 1 -3 0 2 1 1 0 2 1 -2 3 5 -3 4 -3 3 0 0 5 0 -3 -2 -4 3 -4 2 1 2 
+
+  Block 2
+    Shared Exponent: -3.0
+    Values: -2 2 -1 0 1 1 1 3 2 2 1 4 -1 0 0 0 -2 -2 0 0 1 -2 0 -1 1 0 -1 2 -1 -3 0 -2 
+
+  Block 3
+    Shared Exponent: -4.0
+    Values: 4 -1 -3 -4 6 -3 0 -3 5 -3 -1 -3 -3 7 -3 -2 -2 -3 1 4 2 4 -1 0 0 3 -2 0 0 -2 -3 -7 
+
+  Block 4
+    Shared Exponent: -3.0
+    Values: 2 4 0 0 4 0 5 3 1 -1 -4 -5 -1 2 -1 1 2 2 -2 2 1 -2 1 -1 -2 1 1 1 5 -2 2 -1 
+
+  Block 5
+    Shared Exponent: -3.0
+    Values: -1 -1 -2 -4 1 1 -5 1 3 -1 0 -3 -4 3 3 0 1 1 2 -4 -1 5 2 0 1 0 -1 -2 1 4 0 1 
+
+Token Index 175
+  Block 0
+    Shared Exponent: -3.0
+    Values: 2 -1 1 3 0 3 -4 2 -1 0 -1 1 0 -3 2 0 -1 -1 -4 -2 -2 1 2 0 -2 -5 -2 0 -2 4 1 1 
+
+  Block 1
+    Shared Exponent: -3.0
+    Values: -1 1 2 0 -1 1 1 -1 -2 -5 2 2 -1 -1 -3 -4 3 1 -2 -1 1 -1 -1 2 3 -2 1 -3 0 -1 0 0 
+
+  Block 2
+    Shared Exponent: -3.0
+    Values: 5 6 2 1 -4 0 -2 1 2 0 0 1 -1 -1 -1 -4 -1 -1 -2 -1 -1 0 1 -1 -1 -1 2 0 2 5 2 0 
+
+  Block 3
+    Shared Exponent: -3.0
+    Values: 5 -1 2 1 1 2 0 -1 1 -3 -2 2 0 3 -2 -5 1 -6 -2 -2 0 3 -2 2 0 -2 -1 1 -1 -1 -1 -2 
+
+  Block 4
+    Shared Exponent: -3.0
+    Values: -2 -1 -3 1 2 -1 4 0 0 3 0 -2 2 -1 0 -2 -1 -1 7 2 0 -1 1 -1 2 1 -2 2 -4 -3 1 0 
+
+  Block 5
+    Shared Exponent: -3.0
+    Values: 0 4 -5 0 -3 -4 2 3 -1 0 -1 -3 1 2 -3 1 -3 2 -1 1 -1 0 0 -1 -2 0 1 -1 0 1 0 0 
+
+Token Index 176
+  Block 0
+    Shared Exponent: -4.0
+    Values: 0 3 2 6 -1 0 1 -3 -3 6 -3 2 3 5 0 0 0 1 3 7 -1 1 4 -1 2 -4 2 0 -1 -6 0 4 
+
+  Block 1
+    Shared Exponent: -4.0
+    Values: -1 1 -1 -1 -3 -5 1 3 -2 -2 -3 0 0 4 1 1 1 -1 2 -6 -2 -2 -5 3 -2 3 -1 -2 2 -3 1 1 
+
+  Block 2
+    Shared Exponent: -3.0
+    Values: 4 -1 3 -1 -1 0 6 -1 -1 1 -2 2 -3 -3 2 3 0 -1 0 -3 -6 -1 -1 2 3 2 2 -1 -2 -2 0 0 
+
+  Block 3
+    Shared Exponent: -3.0
+    Values: -3 2 -2 -2 -1 1 1 -3 2 -3 1 0 0 -1 -2 2 1 0 4 -2 0 -2 5 2 -1 1 0 1 5 -2 -1 2 
+
+  Block 4
+    Shared Exponent: -3.0
+    Values: -1 1 -2 1 -1 -3 0 0 -3 -5 -1 -4 -1 1 -3 0 -3 -1 -1 -1 0 -5 1 -3 1 2 5 1 -3 4 0 4 
+
+  Block 5
+    Shared Exponent: -3.0
+    Values: -1 -2 0 -5 -1 -4 0 0 -6 0 2 -3 -1 3 2 0 0 0 -3 0 3 -2 1 2 1 3 0 -2 -1 -3 4 -1 
+
+Token Index 177
+  Block 0
+    Shared Exponent: -4.0
+    Values: -4 3 -2 0 3 -2 -6 -1 -2 -1 -2 3 -1 0 -4 -1 1 -1 6 2 4 -2 0 3 -1 -3 -1 0 2 2 2 3 
+
+  Block 1
+    Shared Exponent: -4.0
+    Values: -7 2 -3 -2 1 -4 1 3 2 2 -2 -2 2 5 3 0 4 4 -2 -1 1 -1 -5 1 -1 1 0 -7 -2 0 2 1 
+
+  Block 2
+    Shared Exponent: -3.0
+    Values: 1 -2 2 -3 -1 4 0 0 1 4 5 0 -3 1 -1 -1 1 2 0 1 -2 -2 -4 -2 0 -3 -1 0 -2 -1 -2 -1 
+
+  Block 3
+    Shared Exponent: -3.0
+    Values: -4 2 1 2 -1 2 -3 0 -1 1 -2 -2 0 3 0 -3 -2 0 -2 -1 3 -1 -1 1 -1 1 -2 0 -1 5 0 2 
+
+  Block 4
+    Shared Exponent: -3.0
+    Values: 2 -5 2 -1 3 -2 1 0 0 2 -1 0 -4 2 4 2 2 -1 3 -5 -4 2 0 2 2 -2 0 1 3 0 -2 1 
+
+  Block 5
+    Shared Exponent: -3.0
+    Values: -1 -1 0 -1 -1 1 0 0 -1 -3 -1 2 1 4 -1 1 -3 -1 -1 4 -3 1 -2 1 6 0 -2 -4 1 -2 1 2 
+
+Token Index 178
+  Block 0
+    Shared Exponent: -4.0
+    Values: -1 1 0 -1 3 -2 -3 1 -2 -2 -1 1 1 -1 -1 0 1 1 -2 3 -1 4 -1 -1 1 -1 -1 -2 -1 0 1 -2 
+
+  Block 1
+    Shared Exponent: -4.0
+    Values: -1 3 0 -2 -1 1 2 4 -1 3 -1 0 3 0 2 0 3 2 0 3 -2 2 -7 -2 0 1 1 2 -1 -1 3 0 
+
+  Block 2
+    Shared Exponent: -3.0
+    Values: -2 0 2 0 1 2 1 0 -1 2 -2 -1 1 -2 -3 0 -1 -1 -4 -3 0 1 0 -3 -1 -1 0 -2 1 -2 2 -2 
+
+  Block 3
+    Shared Exponent: -3.0
+    Values: 1 3 -3 0 -4 2 2 5 -2 -1 2 3 -1 0 -2 -2 -3 2 -1 0 -4 0 -3 4 -1 0 -2 -1 2 0 0 1 
+
+  Block 4
+    Shared Exponent: -3.0
+    Values: -1 0 -1 0 -2 0 1 4 2 0 0 0 2 3 2 1 0 -1 -2 1 1 -2 1 -3 2 -1 2 -1 1 -4 0 2 
+
+  Block 5
+    Shared Exponent: -3.0
+    Values: -4 -1 -1 -1 0 -1 -1 -2 4 0 -2 -2 3 -4 4 1 0 3 0 4 3 0 -3 -4 0 -1 -2 1 0 -2 -1 0 
+
+Token Index 179
+  Block 0
+    Shared Exponent: -4.0
+    Values: -1 3 0 -1 1 5 1 0 -1 0 -2 -2 2 2 -1 -4 -2 -1 0 2 0 1 -3 -2 1 -1 1 4 1 -3 0 1 
+
+  Block 1
+    Shared Exponent: -4.0
+    Values: -1 -1 0 -1 -3 1 0 4 3 -1 -2 1 -4 -2 1 -2 -1 0 -1 -1 0 -2 -5 2 0 -2 3 -2 -1 5 4 2 
+
+  Block 2
+    Shared Exponent: -3.0
+    Values: -2 0 -1 0 1 -1 4 0 0 0 0 4 2 -3 1 1 0 0 2 -1 0 1 -2 0 -1 0 -1 0 1 -1 1 0 
+
+  Block 3
+    Shared Exponent: -3.0
+    Values: 3 1 -3 -1 -4 1 1 1 0 2 0 -5 1 0 -1 -1 2 -3 0 1 0 2 -2 0 -1 -1 1 0 -3 -2 1 3 
+
+  Block 4
+    Shared Exponent: -3.0
+    Values: 1 -4 2 -4 0 -2 0 -2 -4 2 1 -2 2 2 1 0 -1 -1 -1 5 0 3 2 -3 4 -5 -1 -2 -2 3 -1 -3 
+
+  Block 5
+    Shared Exponent: -3.0
+    Values: -1 0 1 0 0 -2 -1 1 2 2 4 2 -2 0 0 -2 -3 -2 1 -2 1 1 -1 -1 3 2 -1 0 -1 1 -2 2 
+
+Token Index 180
+  Block 0
+    Shared Exponent: -5.0
+    Values: 2 -6 -4 -1 -2 -5 -6 2 3 3 0 3 -1 -1 2 3 -1 1 -2 0 5 5 5 3 -6 -1 -5 3 -2 4 0 -3 
+
+  Block 1
+    Shared Exponent: -4.0
+    Values: -2 -1 0 -5 2 1 2 0 0 -2 1 0 -1 0 -1 -3 0 0 -1 -2 0 -2 -3 -3 0 3 -5 0 -1 3 -1 0 
+
+  Block 2
+    Shared Exponent: -3.0
+    Values: 0 2 1 -1 4 -2 0 -2 -2 2 -1 -1 0 2 -2 4 2 5 -2 0 -3 2 -1 -2 -1 1 -1 1 -1 -1 -2 3 
+
+  Block 3
+    Shared Exponent: -4.0
+    Values: -4 1 1 2 0 -1 6 -5 -1 6 -1 -1 1 6 -1 7 -4 -1 -2 -1 -7 -4 -1 -1 -6 -5 -2 1 0 -5 2 -1 
+
+  Block 4
+    Shared Exponent: -3.0
+    Values: 4 2 1 0 2 1 0 -5 -2 -1 3 -4 4 -1 -1 0 0 -3 2 0 2 0 0 1 0 3 2 -2 1 -3 2 2 
+
+  Block 5
+    Shared Exponent: -3.0
+    Values: 0 1 0 1 -3 2 -3 2 1 1 3 1 2 2 -1 3 0 -1 -2 -3 0 3 0 -3 1 -7 2 -1 1 -2 0 1 
+
+Token Index 181
+  Block 0
+    Shared Exponent: -4.0
+    Values: 0 -2 0 0 1 4 1 -1 4 -3 7 -3 -2 -4 -1 -4 0 3 -5 -5 3 5 1 1 -5 -4 -1 -2 -1 5 1 3 
+
+  Block 1
+    Shared Exponent: -4.0
+    Values: 0 0 0 2 1 2 0 3 2 0 -1 1 -3 -1 -1 -1 -3 2 -3 2 2 -4 1 -1 3 -4 -1 1 1 -1 1 2 
+
+  Block 2
+    Shared Exponent: -3.0
+    Values: 0 2 2 3 -5 3 3 1 -2 2 -2 -1 1 -3 -1 2 -1 0 0 2 6 1 -2 1 -3 1 -3 0 -1 -6 1 0 
+
+  Block 3
+    Shared Exponent: -3.0
+    Values: -3 2 1 1 2 1 -5 -1 2 -1 3 2 1 -2 0 0 1 -1 -2 -1 1 2 2 -1 0 0 -3 1 -2 0 -1 1 
+
+  Block 4
+    Shared Exponent: -3.0
+    Values: -1 -1 2 0 4 2 2 -4 4 0 2 -3 0 1 -1 0 0 3 -3 -5 -2 -1 0 1 1 1 1 1 0 6 4 0 
+
+  Block 5
+    Shared Exponent: -3.0
+    Values: -2 1 2 4 7 1 0 2 -3 3 -1 -1 -1 0 0 4 -2 -1 1 -1 3 2 -3 -1 2 0 0 1 0 1 -1 -1 
+
+Token Index 182
+  Block 0
+    Shared Exponent: -3.0
+    Values: -4 1 4 0 4 0 1 -1 0 1 0 0 -3 -1 -4 0 -2 0 1 -3 -3 -2 1 0 0 1 0 -3 1 4 1 0 
+
+  Block 1
+    Shared Exponent: -3.0
+    Values: 0 6 4 -3 2 0 0 -1 -1 3 -1 0 0 1 4 2 1 1 1 4 0 2 0 -2 1 0 1 1 -2 -1 1 1 
+
+  Block 2
+    Shared Exponent: -4.0
+    Values: 0 3 -1 0 3 0 -3 -3 2 -1 5 0 -1 -2 -1 0 -2 0 1 -1 -1 3 2 -1 1 -1 -1 -1 -3 0 -3 0 
+
+  Block 3
+    Shared Exponent: -4.0
+    Values: -5 3 0 0 -3 -2 1 1 -1 2 1 1 3 -2 0 0 1 3 1 -1 0 3 -1 -2 -2 1 2 -4 -3 -2 -1 0 
+
+  Block 4
+    Shared Exponent: -5.0
+    Values: -3 3 -2 1 2 -3 2 -2 1 0 -3 1 -2 -2 0 -7 -3 -4 2 -3 6 -5 -1 -2 -3 0 -1 -5 4 3 -3 1 
+
+  Block 5
+    Shared Exponent: -4.0
+    Values: -1 1 1 1 1 -1 1 -2 0 3 -1 1 -1 1 0 -5 0 -1 0 -2 -1 0 0 0 -3 -3 1 -4 2 0 0 2 
+
+Token Index 183
+  Block 0
+    Shared Exponent: -3.0
+    Values: 1 -5 2 2 -2 -1 3 -2 3 1 0 -4 -1 6 1 3 -2 0 -5 -7 0 1 -3 1 -4 0 0 -2 -3 2 6 1 
+
+  Block 1
+    Shared Exponent: -3.0
+    Values: 6 7 7 -3 0 0 -4 1 -4 -1 1 5 -5 5 0 2 -2 -4 3 4 -3 1 4 -1 -2 1 4 0 5 -5 0 2 
+
+  Block 2
+    Shared Exponent: -3.0
+    Values: -1 -2 0 0 1 0 0 0 -1 -1 0 0 1 0 0 -2 1 0 -1 0 0 1 -1 0 0 -1 6 -1 0 0 2 0 
+
+  Block 3
+    Shared Exponent: -5.0
+    Values: -4 -3 2 0 2 0 1 -3 0 3 -2 -5 -5 1 0 0 2 0 -7 1 0 -2 6 3 -2 2 -2 3 3 -3 -3 -3 
+
+  Block 4
+    Shared Exponent: -5.0
+    Values: 2 -3 -2 -2 -1 4 2 4 -3 -2 3 1 4 3 -2 -2 4 1 3 6 -4 2 2 1 0 -5 0 -1 -2 -1 -4 4 
+
+  Block 5
+    Shared Exponent: -5.0
+    Values: 0 0 0 -4 -1 -1 0 2 -2 4 0 -3 -1 1 -1 2 -4 3 1 4 -1 -1 2 3 0 2 2 1 7 0 -2 0 
+
+Token Index 184
+  Block 0
+    Shared Exponent: -3.0
+    Values: 7 0 -2 3 -3 0 1 1 1 0 1 1 0 2 7 1 -1 -2 0 1 0 1 0 0 1 0 1 0 -6 -3 0 1 
+
+  Block 1
+    Shared Exponent: -3.0
+    Values: 2 0 -1 0 -2 -2 1 3 -1 0 2 0 0 0 -6 1 1 -2 -2 -1 -3 2 1 -1 0 2 0 -1 3 1 0 1 
+
+  Block 2
+    Shared Exponent: -3.0
+    Values: 1 1 0 0 -1 0 1 0 0 1 -2 0 1 0 0 1 0 0 0 1 -1 0 1 1 -1 0 -5 2 0 1 0 2 
+
+  Block 3
+    Shared Exponent: -2.0
+    Values: 0 0 0 1 0 0 0 0 0 0 0 0 0 0 1 0 0 -1 0 0 0 0 0 -1 0 0 0 -5 0 0 -1 0 
+
+  Block 4
+    Shared Exponent: -3.0
+    Values: -2 1 5 1 0 0 0 -1 -1 1 -1 -1 0 0 1 7 0 2 -1 -1 -1 -1 0 -1 1 0 1 1 0 0 -1 0 
+
+  Block 5
+    Shared Exponent: -3.0
+    Values: 0 0 0 1 0 1 -1 0 1 -1 0 -1 0 -1 1 0 2 -2 -1 0 0 2 -1 -1 0 -2 -1 1 -7 0 2 1 
+
+Token Index 185
+  Block 0
+    Shared Exponent: -3.0
+    Values: 2 -4 2 -2 -1 -2 -1 -1 1 -1 0 1 -2 -1 2 -2 1 1 -6 -4 -2 -3 0 -1 0 5 1 -2 -2 1 1 0 
+
+  Block 1
+    Shared Exponent: -3.0
+    Values: -3 1 0 -3 2 -1 1 -1 -2 1 1 1 -5 -2 -2 -3 1 -2 0 -2 0 0 -1 0 1 3 -1 -2 0 -1 -1 -1 
+
+  Block 2
+    Shared Exponent: -3.0
+    Values: -4 2 -3 -4 0 -1 3 1 1 2 -4 -2 0 -2 4 0 -2 2 1 -6 2 2 -2 3 -1 0 0 2 -3 2 -1 1 
+
+  Block 3
+    Shared Exponent: -3.0
+    Values: -1 -1 -3 4 -3 0 -3 -3 -1 2 -2 -1 0 1 -1 -2 -3 6 -1 2 5 0 0 2 -3 3 0 1 4 0 2 0 
+
+  Block 4
+    Shared Exponent: -4.0
+    Values: 1 -1 -4 -1 2 2 -3 3 -4 0 7 2 -3 2 2 -5 3 0 1 2 1 1 1 1 0 -1 0 2 -3 0 2 -1 
+
+  Block 5
+    Shared Exponent: -3.0
+    Values: 1 1 2 0 0 1 -1 1 0 -1 0 1 0 1 2 0 0 1 -1 -1 -1 1 2 4 1 0 2 0 0 -2 0 -3 
+
+Token Index 186
+  Block 0
+    Shared Exponent: -3.0
+    Values: 5 -1 0 0 0 -1 0 2 -2 1 0 -1 1 2 5 0 -1 0 1 1 0 -2 -1 -2 0 -1 -1 -1 0 -1 0 0 
+
+  Block 1
+    Shared Exponent: -3.0
+    Values: -1 2 2 -1 -1 0 -1 -4 0 1 1 0 0 1 -6 0 0 0 0 2 3 0 -2 -1 3 1 1 1 -1 2 -2 0 
+
+  Block 2
+    Shared Exponent: -3.0
+    Values: 0 2 1 -1 0 -1 0 1 -1 0 -2 -1 2 -2 1 0 1 0 -1 0 1 -2 3 1 -2 1 -4 0 1 2 -6 2 
+
+  Block 3
+    Shared Exponent: -3.0
+    Values: -1 0 -1 4 0 1 1 0 0 0 1 0 0 1 2 0 0 0 1 1 1 0 -1 0 0 1 0 -5 0 1 -2 0 
+
+  Block 4
+    Shared Exponent: -3.0
+    Values: 2 0 3 -1 1 2 -1 0 2 -2 -3 -1 1 -1 0 6 6 -1 0 1 -1 2 2 1 1 -2 -1 0 1 2 1 0 
+
+  Block 5
+    Shared Exponent: -3.0
+    Values: -1 1 0 0 -1 0 2 -3 0 -2 1 -3 1 -1 2 0 -4 1 -1 -1 -1 -4 0 -2 0 1 2 -3 -2 0 -4 -2 
+
+Token Index 187
+  Block 0
+    Shared Exponent: -3.0
+    Values: -2 1 5 -2 -3 1 2 1 2 5 -6 -5 3 3 -2 3 0 1 -6 0 -1 -2 -1 4 -3 3 0 -2 2 -3 2 -1 
+
+  Block 1
+    Shared Exponent: -3.0
+    Values: 2 1 2 -1 3 0 1 -1 -1 2 0 7 1 4 1 -2 -1 -1 0 -3 0 -3 4 1 -4 1 1 2 -1 -1 -4 1 
+
+  Block 2
+    Shared Exponent: -4.0
+    Values: -3 4 -1 1 -2 1 -4 0 -3 -3 6 3 4 6 3 -1 -6 -5 1 3 -3 5 1 6 -2 0 0 1 -1 -6 -7 -2 
+
+  Block 3
+    Shared Exponent: -4.0
+    Values: -4 0 5 -2 2 4 -3 -1 -6 1 1 1 6 -4 -6 -5 -1 1 -6 1 -2 1 3 -2 -1 -1 3 -3 0 5 1 -1 
+
+  Block 4
+    Shared Exponent: -3.0
+    Values: -1 0 3 1 -4 1 -1 0 -1 2 -1 -1 3 3 1 0 3 0 5 1 -1 2 0 3 0 2 0 0 -1 -3 1 -1 
+
+  Block 5
+    Shared Exponent: -3.0
+    Values: -3 -4 -2 1 1 -1 -1 2 3 1 0 -1 -1 -1 1 3 -1 4 -2 6 -1 3 1 -1 1 2 -2 1 -3 4 4 -3 
+
+Token Index 188
+  Block 0
+    Shared Exponent: -3.0
+    Values: -1 0 0 2 1 2 2 0 -4 -3 0 -2 1 2 -1 1 -2 2 1 0 -1 -1 -3 -2 -1 -1 -1 -1 0 0 0 -3 
+
+  Block 1
+    Shared Exponent: -4.0
+    Values: 4 4 4 -3 -3 0 -1 0 -2 0 -1 -3 6 0 3 -3 2 -2 2 -2 -2 -2 -2 -7 -1 0 -1 -7 0 -2 3 1 
+
+  Block 2
+    Shared Exponent: -3.0
+    Values: -1 -5 0 -3 -1 -5 2 2 -2 2 -1 0 -1 0 4 -2 -4 -4 -2 6 -2 1 0 -2 -3 0 1 1 1 -2 -1 2 
+
+  Block 3
+    Shared Exponent: -4.0
+    Values: -2 2 -1 6 -1 0 1 -1 3 -7 5 -6 2 -3 -7 -4 -5 -4 -6 -3 4 2 3 1 -3 -4 -7 2 -7 2 1 -3 
+
+  Block 4
+    Shared Exponent: -3.0
+    Values: -5 -3 0 1 -4 -1 0 1 -3 -2 1 1 -1 0 1 0 -1 0 0 1 -1 1 2 0 -3 2 1 4 0 1 -1 -1 
+
+  Block 5
+    Shared Exponent: -3.0
+    Values: 3 -1 3 5 -1 2 -1 -1 0 -1 -2 0 0 3 3 0 4 -1 1 -3 -2 3 -1 -1 0 -2 0 1 -1 -4 -1 -2 
+
+Token Index 189
+  Block 0
+    Shared Exponent: -3.0
+    Values: 1 -2 6 -1 -1 0 2 1 0 1 2 -1 3 7 0 -1 -3 1 -2 -4 -1 -4 -1 -3 0 -6 -1 -3 -3 1 2 -2 
+
+  Block 1
+    Shared Exponent: -2.0
+    Values: 2 4 3 -1 1 2 0 0 -1 0 0 1 -1 0 -1 0 1 -3 0 2 0 2 0 1 -1 3 0 1 0 0 -1 1 
+
+  Block 2
+    Shared Exponent: -5.0
+    Values: 1 -1 1 -1 1 1 3 1 -4 -4 0 -6 1 2 1 -1 1 -4 -1 -2 3 0 3 2 1 0 5 -2 4 2 5 -4 
+
+  Block 3
+    Shared Exponent: -5.0
+    Values: -4 -1 7 4 4 -3 0 -1 -1 6 -3 -1 -6 1 -4 2 2 -6 2 2 1 -3 -1 4 -1 3 0 1 4 0 -1 1 
+
+  Block 4
+    Shared Exponent: -6.0
+    Values: -3 3 6 1 -1 0 0 -1 0 1 -3 0 1 -2 -1 -7 6 -2 2 0 7 -1 -1 1 -4 -1 0 -3 1 3 -2 3 
+
+  Block 5
+    Shared Exponent: -6.0
+    Values: -2 2 1 2 -2 -2 3 -4 1 1 -1 -3 -3 0 2 -6 1 -5 -2 -4 -2 -1 1 -3 -5 -4 -2 -5 -5 1 4 5 
+
+Token Index 190
+  Block 0
+    Shared Exponent: -3.0
+    Values: 1 2 -2 1 -2 1 0 -1 -3 -1 2 1 -2 0 1 -2 2 -1 -2 1 -2 1 2 -3 1 5 1 -4 0 0 3 1 
+
+  Block 1
+    Shared Exponent: -3.0
+    Values: 0 -1 -1 0 1 -1 5 0 0 1 0 -2 0 -2 -1 0 6 -3 -1 0 1 5 1 1 0 1 -5 1 0 -1 -1 -1 
+
+  Block 2
+    Shared Exponent: -4.0
+    Values: -3 1 4 2 -4 -6 0 -4 1 -3 -2 4 1 5 4 4 4 4 3 3 3 6 -1 0 1 -1 -4 6 2 -7 2 -3 
+
+  Block 3
+    Shared Exponent: -4.0
+    Values: -7 0 -1 -5 4 -4 -7 2 -2 4 0 3 -2 -1 -6 -3 -2 6 7 1 0 -5 -3 1 5 -5 2 1 3 -2 -1 4 
+
+  Block 4
+    Shared Exponent: -3.0
+    Values: -1 -2 1 -1 -3 1 3 -3 -1 0 1 -1 -2 1 -4 0 0 -7 2 1 1 -1 -3 1 1 -1 2 0 -1 -2 2 -1 
+
+  Block 5
+    Shared Exponent: -3.0
+    Values: 1 0 2 0 -3 -5 0 4 3 4 -4 -2 -1 1 -3 1 -2 1 1 0 3 -1 2 1 -2 2 0 -1 -3 2 -2 -2 
+
+Token Index 191
+  Block 0
+    Shared Exponent: -3.0
+    Values: -1 -5 0 1 -2 -2 -3 1 3 1 3 1 -3 2 -1 0 -1 -1 1 1 -3 -5 4 3 0 1 3 -1 0 -2 -1 0 
+
+  Block 1
+    Shared Exponent: -3.0
+    Values: 0 2 1 -4 0 -1 -1 0 -1 -1 2 1 2 -1 1 -4 0 1 -1 -2 -1 1 -1 2 -2 -1 -7 2 -2 0 0 0 
+
+  Block 2
+    Shared Exponent: -3.0
+    Values: 5 0 0 -1 0 -1 1 2 1 0 3 -1 2 0 -2 3 0 -2 3 2 1 1 0 -1 -1 1 0 -2 -2 -1 1 -1 
+
+  Block 3
+    Shared Exponent: -4.0
+    Values: 6 5 4 -1 5 7 -7 0 -2 6 -6 6 -1 4 3 7 -2 7 7 -4 0 0 -7 -3 6 -3 2 -2 -5 4 -5 5 
+
+  Block 4
+    Shared Exponent: -3.0
+    Values: -4 0 0 0 1 1 0 1 -2 -2 0 2 -1 3 3 0 1 2 -2 7 0 -3 0 1 0 0 1 4 -3 0 -3 1 
+
+  Block 5
+    Shared Exponent: -3.0
+    Values: -2 3 0 0 1 -2 1 -1 2 -1 1 2 -3 2 0 1 3 -2 -2 4 0 0 2 -4 2 -1 3 0 -1 -1 -2 1 
+

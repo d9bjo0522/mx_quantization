@@ -228,6 +228,29 @@ class Linear(torch.nn.Linear):
         self.prequantized_weights = False
         self.mx_specs = apply_mx_specs(mx_specs)
         super().__init__(in_features, out_features, bias)
+        self._last_qis_weight = None  # Store the last quantized weight
+
+    def get_quantized_weight(self):
+        """Get the quantized weight (qis_weight) from the last forward pass."""
+        if self.mx_none:
+            return self.weight
+            
+        # Compute quantized weight directly
+        bf_weight = quantize_elemwise_op(
+            self.weight, 
+            mx_specs=self.mx_specs, 
+            round=self.mx_specs["round_weight"]
+        )
+        
+        qis_weight = quantize_mx_op(
+            bf_weight,
+            self.mx_specs,
+            elem_format=self.mx_specs['w_elem_format'],
+            axes=[-1],
+            round=self.mx_specs["round_mx_output"],
+        )
+        
+        return qis_weight
 
     def apply_mx_specs(self, mx_specs):
         mx_assert_test(mx_specs)

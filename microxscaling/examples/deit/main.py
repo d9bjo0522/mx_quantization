@@ -9,6 +9,7 @@ import torch.backends.cudnn as cudnn
 import json
 import torch.nn as nn
 from pathlib import Path
+import os
 
 from timm.data import Mixup
 from timm.models import create_model
@@ -34,7 +35,7 @@ import utils
 ## added by ckj
 from mx.quantize import quantize_bfloat
 from mx.elemwise_ops import quantize_elemwise_op
-from mx.mx_ops import quantize_mx_op
+from mx.mx_ops import quantize_mx_op, _reshape_to_blocks, _shared_exponents
 from mx import Linear, matmul
 ## added by ckj to implement mx quantization
 
@@ -71,13 +72,13 @@ class QuantizedAttention(nn.Module):
         self.proj_drop = nn.Dropout(orig_attn.proj_drop.p)
         self.attn_drop = nn.Dropout(orig_attn.attn_drop.p)
 
-        self.qkv.weight.data.copy_(orig_attn.qkv.weight.data)
+        self.qkv.weight.data = orig_attn.qkv.weight.data
         if orig_attn.qkv.bias is not None:
-            self.qkv.bias.data.copy_(orig_attn.qkv.bias.data)
+            self.qkv.bias.data = orig_attn.qkv.bias.data
             
-        self.proj.weight.data.copy_(orig_attn.proj.weight.data)
+        self.proj.weight.data = orig_attn.proj.weight.data
         if orig_attn.proj.bias is not None:
-            self.proj.bias.data.copy_(orig_attn.proj.bias.data)
+            self.proj.bias.data = orig_attn.proj.bias.data
 
     def forward(self, x):
         B, N, C = x.shape
@@ -176,20 +177,211 @@ class QuantizedBlock(nn.Module):
         x = x + self.drop_path(self.attn(self.norm1(x)))
         x = x + self.drop_path(self.mlp(self.norm2(x)))
         return x
+    
+class SaveStats:
+    def __init__(self, first_eval=False):
+        self.first_eval = first_eval
+        self.output_dir = 'outputs/quantization_stats'
+        self.hooks = []  # Store hooks so we can remove them later
+        self.has_run = False  # Track if we've already run once
 
-def apply_quantization_to_deit(model, config):
+    def save_binary_stats(self, tensor, name, mx_specs, axes=[-1]):
+        """Save shared exponents and binary representations of values.
+        
+        Args:
+            tensor: Input tensor
+            name: Name for the output file
+            mx_specs: Quantization specifications
+            axes: Axes along which to compute shared exponents
+        """
+        print(f"Saving binary stats for {name}")
+        # Create directory if it doesn't exist
+        os.makedirs(self.output_dir, exist_ok=True)
+        
+        # Convert tensor to CPU if it's on GPU
+        tensor = tensor.detach().cpu()
+        
+        # First reshape to blocks
+        if mx_specs['block_size'] > 0:
+            # print(f"Processing {name}, tensor shape: {tensor.shape}")
+            tensor_blocked, reshaped_axes, orig_shape, padded_shape = _reshape_to_blocks(
+                tensor, axes, mx_specs['block_size']
+            )
+            # print(f"{name} blocked shape: {tensor_blocked.shape}")
+            # Adjust axes for reshaped tensor
+            shared_exp_axes = [x + 1 for x in reshaped_axes]
+        else:
+            tensor_blocked = tensor
+            shared_exp_axes = axes
+            
+        # Get shared exponents
+        shared_exp = _shared_exponents(
+            tensor_blocked,
+            method=mx_specs.get('shared_exp_method', 'max'),
+            axes=shared_exp_axes,
+            ebits=0
+        )
+        
+        # Process in chunks to save memory
+        with open(f'{self.output_dir}/{name}_binary.txt', 'w') as f:
+            # Get the number of dimensions
+            n_dims = len(tensor_blocked.shape)
+            
+            # Handle different tensor shapes
+            if n_dims == 2:  # Simple matrix
+                self._process_2d_tensor(tensor_blocked, shared_exp, f, mx_specs)
+            elif n_dims == 3:  # 3D tensor
+                self._process_3d_tensor(tensor_blocked, shared_exp, f, mx_specs)
+            elif n_dims == 4:  # 4D tensor (e.g., for attention)
+                self._process_4d_tensor(tensor_blocked, shared_exp, f, mx_specs)
+            else:
+                raise ValueError(f"Unsupported tensor dimension: {n_dims}")
+                
+    def _process_2d_tensor(self, tensor_blocked, shared_exp, f, mx_specs):
+        """Process a 2D tensor (matrix)."""
+        for block_idx in range(tensor_blocked.shape[0]):
+            f.write(f"Block {block_idx}\n")
+            block_values = tensor_blocked[block_idx]
+            exp = shared_exp[block_idx].item()
+            self._write_block_data(block_values, exp, f, mx_specs)
+            
+    def _process_3d_tensor(self, tensor_blocked, shared_exp, f, mx_specs):
+        """Process a 3D tensor."""
+        for dim1_idx in range(tensor_blocked.shape[0]):
+            f.write(f"Token Index {dim1_idx}\n")
+            for block_idx in range(tensor_blocked.shape[1]):
+                f.write(f"  Block {block_idx}\n")
+                block_values = tensor_blocked[dim1_idx, block_idx]
+                exp = shared_exp[dim1_idx, block_idx].item()
+                self._write_block_data(block_values, exp, f, mx_specs, indent="    ")
+                
+    def _process_4d_tensor(self, tensor_blocked, shared_exp, f, mx_specs):
+        """Process a 4D tensor."""
+        for dim1_idx in range(tensor_blocked.shape[0]):
+            f.write(f"Dimension 1 Index {dim1_idx}\n")
+            for dim2_idx in range(tensor_blocked.shape[1]):
+                f.write(f"  Dimension 2 Index {dim2_idx}\n")
+                for block_idx in range(tensor_blocked.shape[2]):
+                    f.write(f"    Block {block_idx}\n")
+                    block_values = tensor_blocked[dim1_idx, dim2_idx, block_idx]
+                    exp = shared_exp[dim1_idx, dim2_idx, block_idx].item()
+                    self._write_block_data(block_values, exp, f, mx_specs, indent="      ")
+                    
+    def _write_block_data(self, block_values, exp, f, mx_specs, indent="  "):
+        """Write the data for a single block."""
+        f.write(f"{indent}Shared Exponent: {exp}\n")
+        f.write(f"{indent}Values: ")
+        
+        # Process values in smaller chunks
+        values = block_values.reshape(-1)
+        for i in range(0, len(values)):
+            # Convert to quantized value
+            val_bits = (values[i].item() / (2**exp)) * (2**2)
+            val_bits = int(val_bits)
+            f.write(f"{val_bits} ")
+        f.write("\n\n")
+
+    def save_quantization_stats(self, name, module, inp, out):
+        """Hook function to save quantized activations and weights.""" 
+        # Skip if this isn't the first evaluation or if we've already run
+        # print(self.first_eval, self.has_run)
+        if not self.first_eval or self.has_run:
+            return
+        # Create directory if it doesn't exist
+        os.makedirs(self.output_dir, exist_ok=True)
+        
+        # For QuantizedAttention, save q, k, v values and quantized weights
+        if isinstance(module, QuantizedAttention):
+            B, N, C = inp[0].shape
+            
+            # print(f"Saving quantization stats for {name}")
+            # Get quantized weights and move to CPU
+            quantized_qkv_weight = module.qkv.get_quantized_weight().detach().cpu()
+            self.save_binary_stats(quantized_qkv_weight, f"{name}_qkv_weight", module.qkv.mx_specs)
+            
+            quantized_proj_weight = module.proj.get_quantized_weight().detach().cpu()
+            self.save_binary_stats(quantized_proj_weight, f"{name}_proj_weight", module.proj.mx_specs)
+
+            # Compute q, k, v values
+            # qkv = module.qkv(inp[0]).reshape(B, N, 3, module.num_heads, C // module.num_heads).permute(2, 0, 3, 1, 4)
+            # print(f"qkv: {qkv.shape}")
+            # q, k, v = qkv[0], qkv[1], qkv[2]
+            # print(f"q: {q.shape}, k: {k.shape}, v: {v.shape}")
+            # Save binary representations for q, k, v
+            # self.save_binary_stats(q, f"{name}_q", module.qkv.mx_specs)
+            # self.save_binary_stats(k, f"{name}_k", module.qkv.mx_specs)
+            # self.save_binary_stats(v, f"{name}_v", module.qkv.mx_specs)
+        
+        # For QuantizedMlp, save activation and quantized weights
+        elif isinstance(module, QuantizedMlp):
+            # Save binary representations for fc1 and fc2 weights
+            quantized_fc1_weight = module.fc1.get_quantized_weight()
+            quantized_fc2_weight = module.fc2.get_quantized_weight()
+            self.save_binary_stats(quantized_fc1_weight, f"{name}_fc1_weight", module.fc1.mx_specs)
+            self.save_binary_stats(quantized_fc2_weight, f"{name}_fc2_weight", module.fc2.mx_specs)
+            
+            # if isinstance(out, torch.Tensor):
+            #     self.save_binary_stats(out, f"{name}_activation", module.fc1.mx_specs)
+        
+        self.has_run = True
+        del quantized_qkv_weight
+        del quantized_proj_weight
+        torch.cuda.empty_cache()
+    def register_stats_hooks(self, model):
+        """Register hooks on quantized attention and MLP layers in the model."""
+        if not self.first_eval:
+            print("Not first evaluation, skipping hook registration")
+            return []
+            
+        if self.has_run:
+            print("Already collected stats once, skipping hook registration")
+            return []
+
+        print("Registering hooks for first evaluation...")
+        
+        # Create closure to capture block_idx properly
+        def make_hook(idx, layer_type='attn'):
+            def hook(module, inp, out):
+                self.save_quantization_stats(f'blocks_{idx}_{layer_type}', module, inp, out)
+            return hook
+        
+        # Hook quantized layers in transformer blocks
+        for block_idx, block in enumerate(model.blocks):
+
+            # Hook attention if it's quantized
+            if self.first_eval and block_idx == 0:
+                # print(f"Hooking attention in block {block_idx}")
+                if isinstance(block.attn, QuantizedAttention):
+                    hook = block.attn.register_forward_hook(make_hook(block_idx, 'attn'))
+                    self.hooks.append(hook)
+                    
+                if isinstance(block.mlp, QuantizedMlp):
+                    hook = block.mlp.register_forward_hook(make_hook(block_idx, 'mlp'))
+                    self.hooks.append(hook)
+        
+        print("Finished hooking quantized layers.")
+        return self.hooks
+    
+    def remove_hooks(self):
+        """Remove all registered hooks."""
+        for hook in self.hooks:
+            hook.remove()
+        self.hooks = []
+
+def apply_quantization_to_deit(model, config, first_eval=False):
     """
     Apply weight and activation quantization to specific parts of DeiT model
     
     Args:
         model: DeiT model instance
         config: dict containing quantization configuration
+        first_eval (bool): Whether this is the first evaluation run
     """
     block_indices = config.get('blocks', [])
     components = config.get('components', ['attn', 'ffn'])
     mx_specs = config.get('mx_specs', {
-        'w_elem_format': 'int8',
-        'a_elem_format': 'int8',
+        'w_elem_format': 'int4',
+        'a_elem_format': 'int4',
         'block_size': 32,
         'bfloat': 16,
         'custom_cuda': False,
@@ -208,36 +400,24 @@ def apply_quantization_to_deit(model, config):
             continue
             
         block = model.blocks[idx]
-        # print(block.attn)  # Print the entire module
-        # Quantize attention if specified
         if 'attn' in components:
             print(f"Quantizing attention in block {idx}")
-            
-            
-            # Replace with quantized attention
             block.attn = QuantizedAttention(
                 orig_attn=block.attn, 
                 mx_specs=mx_specs
             ).to(device)
         
-        # Quantize feed-forward network if specified
         if 'ffn' in components:
             print(f"Quantizing FFN in block {idx}")
-            
-            # Replace with quantized MLP
             block.mlp = QuantizedMlp(
                 orig_mlp=block.mlp,
                 mx_specs=mx_specs
             ).to(device)
-
-    # model.head = Linear(
-    #     model.head.in_features,
-    #     model.head.out_features,
-    #     bias=model.head.bias is not None,
-    #     mx_specs=mx_specs
-    # ).to(device)
     
-    return model
+    # Register hooks to collect quantization statistics
+    save_stats = SaveStats(first_eval)
+    hooks = save_stats.register_stats_hooks(model)
+    return model, hooks
 
 # Function to verify quantization was applied correctly
 def verify_quantization(model, block_indices):
@@ -578,27 +758,7 @@ def main(args):
                 loss_scaler.load_state_dict(checkpoint['scaler'])
             lr_scheduler.step(args.start_epoch)
     
-    ## Apply quantization after loading the checkpoint
-    quantization_config = {
-        'blocks': [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
-        'components': ['attn', 'ffn'],
-        'mx_specs': {
-            'w_elem_format': 'int4',
-            'a_elem_format': 'int8',
-            'scale_bits': 8,
-            'block_size': 32,
-            'bfloat': 16,
-            'custom_cuda': False,
-            'quantize_backprop': False,
-        }
-    }
-    
-    # First move model to device
-    model.to(device)
-    # Then apply quantization (it will respect the device)
-    if args.quantize:
-        model = apply_quantization_to_deit(model, quantization_config)
-    ## --------------------------------------------------------------         
+         
     
     model_ema = None
     if args.model_ema:
@@ -661,10 +821,39 @@ def main(args):
         criterion, teacher_model, args.distillation_type, args.distillation_alpha, args.distillation_tau
     )
 
+    ## Apply quantization after loading the checkpoint
+    quantization_config = {
+        'blocks': [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
+        'components': ['attn', 'ffn'],
+        'mx_specs': {
+            'w_elem_format': 'int4',
+            'a_elem_format': 'int4',
+            'scale_bits': 8,
+            'block_size': 32,
+            'bfloat': 16,
+            'custom_cuda': False,
+            'quantize_backprop': False,
+        }
+    }
+    
+    # First move model to device
+    model.to(device)
+    ## Eval with MXINT quantization--------------------------------------------------------------    
     output_dir = Path(args.output_dir)
     if args.eval:
+        # Initialize SaveStats with first_eval flag
+        save_stats = None
+        if args.quantize:
+            save_stats = SaveStats(first_eval=True)
+            model, hooks = apply_quantization_to_deit(model, quantization_config, first_eval=True)
+        
         test_stats = evaluate(data_loader_val, model, device)
         print(f"Accuracy of the network on the {len(dataset_val)} test images: {test_stats['acc1']:.1f}%")
+        
+        # Clean up hooks and save stats instance
+        if save_stats:
+            save_stats.remove_hooks()
+            del save_stats
         
         return
 
@@ -733,6 +922,11 @@ def main(args):
     total_time = time.time() - start_time
     total_time_str = str(datetime.timedelta(seconds=int(total_time)))
     print('Training time {}'.format(total_time_str))
+
+    # Clean up hooks at the end
+    if hooks:
+        for hook in hooks:
+            hook.remove()
 
 
 if __name__ == '__main__':
