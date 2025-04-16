@@ -36,25 +36,18 @@ actually causes a matmul with FP32 inputs to be downcast to BF16, but the result
 You can also force this fast execution mode even if the element format is not fully representable in BF16 by setting the force_bf16 option to True.
 """
 @contextmanager
-def set_matmul_precision(qis_input, qis_weight, mx_specs):
-    """Set matmul precision for the duration of the context.
-    
-    For PyTorch versions that support it, this will manage float32 matmul precision.
-    For older versions, this will act as a pass-through context manager.
-    """
-    try:
-        # Only try to modify precision if the function exists
-        if hasattr(torch, 'get_float32_matmul_precision') and hasattr(torch, 'set_float32_matmul_precision'):
-            old_matmul_precision = torch.get_float32_matmul_precision()
-            # Set to highest precision for quantized operations
-            torch.set_float32_matmul_precision('highest')
-            try:
-                yield
-            finally:
-                torch.set_float32_matmul_precision(old_matmul_precision)
-        else:
-            # For older PyTorch versions, just yield without changing anything
-            yield
-    except Exception as e:
-        # Fallback in case of any issues
-        yield
+def set_matmul_precision(a, b, a_elem_format, b_elem_format, force_bf16=False):
+    a_elem_format, b_elem_format = get_elem_format(a_elem_format), get_elem_format(b_elem_format)
+    narrow_precision = [ElemFormat.int4, ElemFormat.int2, ElemFormat.fp6_e3m2, ElemFormat.fp6_e2m3,
+                        ElemFormat.fp4, ElemFormat.fp4_e2m1]
+    fp32_matmul_precision = torch.get_float32_matmul_precision()
+    allow_bf16_reduced_precision_reduction = torch.backends.cuda.matmul.allow_bf16_reduced_precision_reduction
+    if a.device.type == "cuda" and b.device.type == "cuda" \
+        and torch.cuda.is_bf16_supported() and \
+        ((a_elem_format in narrow_precision and b_elem_format in narrow_precision) or
+         force_bf16):
+        torch.backends.cuda.matmul.allow_bf16_reduced_precision_reduction = False
+        torch.set_float32_matmul_precision("medium")
+    yield
+    torch.set_float32_matmul_precision(fp32_matmul_precision)
+    torch.backends.cuda.matmul.allow_bf16_reduced_precision_reduction = allow_bf16_reduced_precision_reduction

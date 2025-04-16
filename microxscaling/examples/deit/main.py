@@ -53,16 +53,6 @@ class QuantizedAttention(nn.Module):
             bias=orig_attn.qkv.bias is not None,
             mx_specs=mx_specs
         )
-        # self.qkv = nn.Linear(
-        #     orig_attn.qkv.in_features,
-        #     orig_attn.qkv.out_features,
-        #     bias=orig_attn.qkv.bias is not None
-        # )
-        # self.proj = nn.Linear(
-        #     orig_attn.proj.in_features,
-        #     orig_attn.proj.out_features,
-        #     bias=orig_attn.proj.bias is not None
-        # )
         self.proj = Linear(
             orig_attn.proj.in_features,
             orig_attn.proj.out_features,
@@ -79,24 +69,64 @@ class QuantizedAttention(nn.Module):
         self.proj.weight.data = orig_attn.proj.weight.data
         if orig_attn.proj.bias is not None:
             self.proj.bias.data = orig_attn.proj.bias.data
-
+            
+        # Store last quantized values for inspection
+        self.last_quantized_q = None
+        self.last_quantized_k = None
+        self.last_quantized_v = None
+        self.last_quantized_attn = None
     def forward(self, x):
         B, N, C = x.shape
         qkv = self.qkv(x).reshape(B, N, 3, self.num_heads, C // self.num_heads).permute(2, 0, 3, 1, 4)
         q, k, v = qkv[0], qkv[1], qkv[2]
         
-        # print(f"q: max {q.max()}, min {q.min()}")
-        # print(f"k: max {k.max()}, min {k.min()}")
-        # print(f"v: max {v.max()}, min {v.min()}")
         q = q * self.scale
-
-        attn = (q @ k.transpose(-2, -1))
+        k_t = k.transpose(-2, -1)
+        
+        # Quantize q, k, v to bfloat16 before matmul
+        bf_q = quantize_elemwise_op(q, mx_specs=self.mx_specs, round=self.mx_specs["round_output"])
+        bf_k = quantize_elemwise_op(k_t, mx_specs=self.mx_specs, round=self.mx_specs["round_output"])
+        
+        # Store quantized values
+        self.last_quantized_q = quantize_mx_op(
+            bf_q,
+            self.mx_specs,
+            elem_format=self.mx_specs["a_elem_format"],
+            axes=[-1],
+            round=self.mx_specs["round_mx_output"]
+        )
+        self.last_quantized_k = quantize_mx_op(
+            bf_k,
+            self.mx_specs,
+            elem_format=self.mx_specs["a_elem_format"],
+            axes=[-2],
+            round=self.mx_specs["round_mx_output"]
+        )
+        
+        # Use matmul with quantized inputs
+        attn = matmul(q, k_t, mx_specs=self.mx_specs, mode_config='aa')
         attn = attn.softmax(dim=-1)
         attn = self.attn_drop(attn)
 
-        ## doesn't quantize attn
+        bf_v = quantize_elemwise_op(v, mx_specs=self.mx_specs, round=self.mx_specs["round_output"])
+        self.last_quantized_v = quantize_mx_op(
+            bf_v,
+            self.mx_specs,
+            elem_format=self.mx_specs["a_elem_format"],
+            axes=[-2],
+            round=self.mx_specs["round_mx_output"]
+        )
+        bf_attn = quantize_elemwise_op(attn, mx_specs=self.mx_specs, round=self.mx_specs["round_output"])
+        self.last_quantized_attn = quantize_mx_op(
+            bf_attn,
+            self.mx_specs,
+            elem_format=self.mx_specs["a_elem_format"],
+            axes=[-1],
+            round=self.mx_specs["round_mx_output"]
+        )
 
-        x = (attn @ v).transpose(1, 2).reshape(B, N, C)
+        x = matmul(attn, v, mx_specs=self.mx_specs, mode_config='aa')
+        x = x.transpose(1, 2).reshape(B, N, C)
         x = self.proj(x)
         x = self.proj_drop(x)
         return x
@@ -110,18 +140,7 @@ class QuantizedMlp(nn.Module):
         self.mx_specs = mx_specs
         self.act = orig_mlp.act
         self.drop = nn.Dropout(orig_mlp.drop.p)
-        
-        # Replace linear layers with quantized versions
-        # self.fc1 = nn.Linear(
-        #     orig_mlp.fc1.in_features,
-        #     orig_mlp.fc1.out_features,
-        #     bias=orig_mlp.fc1.bias is not None
-        # )
-        # self.fc2 = nn.Linear(
-        #     orig_mlp.fc2.in_features, 
-        #     orig_mlp.fc2.out_features,
-        #     bias=orig_mlp.fc2.bias is not None
-        # )
+
         self.fc1 = Linear(
             orig_mlp.fc1.in_features,
             orig_mlp.fc1.out_features,
@@ -207,7 +226,7 @@ class SaveStats:
             tensor_blocked, reshaped_axes, orig_shape, padded_shape = _reshape_to_blocks(
                 tensor, axes, mx_specs['block_size']
             )
-            # print(f"{name} blocked shape: {tensor_blocked.shape}")
+            print(f"{name} blocked shape: {tensor_blocked.shape}")
             # Adjust axes for reshaped tensor
             shared_exp_axes = [x + 1 for x in reshaped_axes]
         else:
@@ -228,22 +247,14 @@ class SaveStats:
             n_dims = len(tensor_blocked.shape)
             
             # Handle different tensor shapes
-            if n_dims == 2:  # Simple matrix
-                self._process_2d_tensor(tensor_blocked, shared_exp, f, mx_specs)
-            elif n_dims == 3:  # 3D tensor
+            if n_dims == 3:  # 3D tensor
                 self._process_3d_tensor(tensor_blocked, shared_exp, f, mx_specs)
             elif n_dims == 4:  # 4D tensor (e.g., for attention)
                 self._process_4d_tensor(tensor_blocked, shared_exp, f, mx_specs)
+            elif n_dims == 5:  # 5D tensor (e.g., for attention)
+                self._process_5d_tensor(tensor_blocked, shared_exp, f, mx_specs)
             else:
                 raise ValueError(f"Unsupported tensor dimension: {n_dims}")
-                
-    def _process_2d_tensor(self, tensor_blocked, shared_exp, f, mx_specs):
-        """Process a 2D tensor (matrix)."""
-        for block_idx in range(tensor_blocked.shape[0]):
-            f.write(f"Block {block_idx}\n")
-            block_values = tensor_blocked[block_idx]
-            exp = shared_exp[block_idx].item()
-            self._write_block_data(block_values, exp, f, mx_specs)
             
     def _process_3d_tensor(self, tensor_blocked, shared_exp, f, mx_specs):
         """Process a 3D tensor."""
@@ -254,13 +265,27 @@ class SaveStats:
                 block_values = tensor_blocked[dim1_idx, block_idx]
                 exp = shared_exp[dim1_idx, block_idx].item()
                 self._write_block_data(block_values, exp, f, mx_specs, indent="    ")
-                
+
     def _process_4d_tensor(self, tensor_blocked, shared_exp, f, mx_specs):
         """Process a 4D tensor."""
+        tensor_blocked = tensor_blocked[0]      # first batch
+        shared_exp = shared_exp[0]
         for dim1_idx in range(tensor_blocked.shape[0]):
-            f.write(f"Dimension 1 Index {dim1_idx}\n")
+            f.write(f"Token Index {dim1_idx}\n")
+            for block_idx in range(tensor_blocked.shape[1]):
+                f.write(f"  Block {block_idx}\n")
+                block_values = tensor_blocked[dim1_idx, block_idx]
+                exp = shared_exp[dim1_idx, block_idx].item()
+                self._write_block_data(block_values, exp, f, mx_specs, indent="    ")
+
+    def _process_5d_tensor(self, tensor_blocked, shared_exp, f, mx_specs):
+        """Process a 5D tensor."""
+        tensor_blocked = tensor_blocked[0]      # first batch
+        shared_exp = shared_exp[0]
+        for dim1_idx in range(tensor_blocked.shape[0]):
+            f.write(f" Head Index {dim1_idx}\n")
             for dim2_idx in range(tensor_blocked.shape[1]):
-                f.write(f"  Dimension 2 Index {dim2_idx}\n")
+                f.write(f"  Token Index {dim2_idx}\n")
                 for block_idx in range(tensor_blocked.shape[2]):
                     f.write(f"    Block {block_idx}\n")
                     block_values = tensor_blocked[dim1_idx, dim2_idx, block_idx]
@@ -277,14 +302,13 @@ class SaveStats:
         for i in range(0, len(values)):
             # Convert to quantized value
             val_bits = (values[i].item() / (2**exp)) * (2**2)
-            val_bits = int(val_bits)
+            # val_bits = int(val_bits)
             f.write(f"{val_bits} ")
         f.write("\n\n")
 
     def save_quantization_stats(self, name, module, inp, out):
         """Hook function to save quantized activations and weights.""" 
         # Skip if this isn't the first evaluation or if we've already run
-        # print(self.first_eval, self.has_run)
         if not self.first_eval or self.has_run:
             return
         # Create directory if it doesn't exist
@@ -292,9 +316,6 @@ class SaveStats:
         
         # For QuantizedAttention, save q, k, v values and quantized weights
         if isinstance(module, QuantizedAttention):
-            B, N, C = inp[0].shape
-            
-            # print(f"Saving quantization stats for {name}")
             # Get quantized weights and move to CPU
             quantized_qkv_weight = module.qkv.get_quantized_weight().detach().cpu()
             self.save_binary_stats(quantized_qkv_weight, f"{name}_qkv_weight", module.qkv.mx_specs)
@@ -302,16 +323,20 @@ class SaveStats:
             quantized_proj_weight = module.proj.get_quantized_weight().detach().cpu()
             self.save_binary_stats(quantized_proj_weight, f"{name}_proj_weight", module.proj.mx_specs)
 
-            # Compute q, k, v values
-            # qkv = module.qkv(inp[0]).reshape(B, N, 3, module.num_heads, C // module.num_heads).permute(2, 0, 3, 1, 4)
-            # print(f"qkv: {qkv.shape}")
-            # q, k, v = qkv[0], qkv[1], qkv[2]
-            # print(f"q: {q.shape}, k: {k.shape}, v: {v.shape}")
-            # Save binary representations for q, k, v
-            # self.save_binary_stats(q, f"{name}_q", module.qkv.mx_specs)
-            # self.save_binary_stats(k, f"{name}_k", module.qkv.mx_specs)
-            # self.save_binary_stats(v, f"{name}_v", module.qkv.mx_specs)
-        
+            # Save quantized q, k, v values if available
+            if module.last_quantized_q is not None:
+                # print(module.last_quantized_q.size())
+                self.save_binary_stats(module.last_quantized_q.detach().cpu(), f"{name}_q", module.mx_specs)
+            if module.last_quantized_k is not None:
+                # print(module.last_quantized_k.size())
+                self.save_binary_stats(module.last_quantized_k.transpose(-2, -1).detach().cpu(), f"{name}_k", module.mx_specs)
+            if module.last_quantized_v is not None:
+                # print(module.last_quantized_v.size())
+                self.save_binary_stats(module.last_quantized_v.transpose(-2, -1).detach().cpu(), f"{name}_v", module.mx_specs)
+            if module.last_quantized_attn is not None:
+                print(module.last_quantized_attn.size())
+                self.save_binary_stats(module.last_quantized_attn.detach().cpu(), f"{name}_attn", module.mx_specs)
+
         # For QuantizedMlp, save activation and quantized weights
         elif isinstance(module, QuantizedMlp):
             # Save binary representations for fc1 and fc2 weights
@@ -319,14 +344,12 @@ class SaveStats:
             quantized_fc2_weight = module.fc2.get_quantized_weight()
             self.save_binary_stats(quantized_fc1_weight, f"{name}_fc1_weight", module.fc1.mx_specs)
             self.save_binary_stats(quantized_fc2_weight, f"{name}_fc2_weight", module.fc2.mx_specs)
-            
-            # if isinstance(out, torch.Tensor):
-            #     self.save_binary_stats(out, f"{name}_activation", module.fc1.mx_specs)
         
         self.has_run = True
         del quantized_qkv_weight
         del quantized_proj_weight
         torch.cuda.empty_cache()
+
     def register_stats_hooks(self, model):
         """Register hooks on quantized attention and MLP layers in the model."""
         if not self.first_eval:
@@ -380,12 +403,18 @@ def apply_quantization_to_deit(model, config, first_eval=False):
     block_indices = config.get('blocks', [])
     components = config.get('components', ['attn', 'ffn'])
     mx_specs = config.get('mx_specs', {
-        'w_elem_format': 'int4',
-        'a_elem_format': 'int4',
-        'block_size': 32,
-        'bfloat': 16,
-        'custom_cuda': False,
-        'quantize_backprop': False,
+            'w_elem_format': 'int4',
+            'a_elem_format': 'int8',
+            'scale_bits': 8,
+            'block_size': 32,
+            'bfloat': 16,
+            'fp': 0,
+            'round': 'nearest',
+            'round_mx_output': 'nearest',
+            'round_output': 'nearest',
+            'round_weight': 'nearest',
+            'custom_cuda': False,
+            'quantize_backprop': False,
     })
     
     print(f"Applying quantization to blocks: {block_indices}")
@@ -576,7 +605,7 @@ def get_args_parser():
     parser.add_argument('--eval', action='store_true', help='Perform evaluation only')
     parser.add_argument('--eval-crop-ratio', default=0.875, type=float, help="Crop ratio for evaluation")
     parser.add_argument('--dist-eval', action='store_true', default=False, help='Enabling distributed evaluation')
-    parser.add_argument('--num_workers', default=10, type=int)
+    parser.add_argument('--num_workers', default=4, type=int)
     parser.add_argument('--pin-mem', action='store_true',
                         help='Pin CPU memory in DataLoader for more efficient (sometimes) transfer to GPU.')
     parser.add_argument('--no-pin-mem', action='store_false', dest='pin_mem',
@@ -826,11 +855,19 @@ def main(args):
         'blocks': [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
         'components': ['attn', 'ffn'],
         'mx_specs': {
-            'w_elem_format': 'int4',
-            'a_elem_format': 'int4',
+            'w_elem_format': 'int8',
+            'a_elem_format': 'int8',
             'scale_bits': 8,
+            'shared_exp_method': 'max',
             'block_size': 32,
             'bfloat': 16,
+            'fp': 0,
+            'bfloat_subnorms': True,
+            'round': 'nearest',
+            'round_mx_output': 'nearest',
+            'round_output': 'nearest',
+            'round_weight': 'nearest',
+            'mx_flush_fp32_subnorms': False,
             'custom_cuda': False,
             'quantize_backprop': False,
         }

@@ -30,7 +30,7 @@ class LinearFunction(torch.autograd.Function):
         bf_in = quantize_elemwise_op(
             input, mx_specs=mx_specs, round=mx_specs["round_output"]
         )
-        # print(f"bf_in: max {bf_in.max()}, min {bf_in.min()}")
+
         # element-wise quantize for weight and bias
         if not prequantized_weights:
             bf_weight = quantize_elemwise_op(
@@ -39,7 +39,7 @@ class LinearFunction(torch.autograd.Function):
         else:
             assert(weight.dtype == torch.bfloat16)
             bf_weight = weight
-        # print(f"bf_weight: max {bf_weight.max()}, min {bf_weight.min()}")
+
         if bias is not None:
             ctx.has_bias = True
             if not prequantized_weights:
@@ -80,7 +80,9 @@ class LinearFunction(torch.autograd.Function):
             qis_weight = qis_weight.to(qis_input.dtype)
 
         # compute output
-        with set_matmul_precision(qis_input, qis_weight, mx_specs):
+        with set_matmul_precision(qis_input, qis_weight,
+                                mx_specs['a_elem_format'],
+                                mx_specs['w_elem_format']):
             output = f_linear(qis_input, qis_weight)
         
         output = quantize_elemwise_op(
@@ -139,7 +141,9 @@ class LinearFunction(torch.autograd.Function):
         qex_input = qex_input.reshape(-1, in_dim)
 
         # Compute grad_weight
-        with set_matmul_precision(qex_grad_output, qex_input, ctx.mx_specs):
+        with set_matmul_precision(qex_grad_output, qex_input,
+                        ctx.mx_specs['a_elem_format_bp_ex'],
+                        ctx.mx_specs['a_elem_format_bp']):
             grad_weight = torch_matmul(qex_grad_output.transpose(0, 1), qex_input)
         
         grad_weight = quantize_elemwise_op(
@@ -169,7 +173,9 @@ class LinearFunction(torch.autograd.Function):
         )
 
         # Compute grad_input
-        with set_matmul_precision(qos_grad_output, qos_weight, ctx.mx_specs):
+        with set_matmul_precision(qos_grad_output, qos_weight,
+                        ctx.mx_specs['a_elem_format_bp_os'],
+                        ctx.mx_specs['w_elem_format_bp']):
             grad_input = torch_matmul(qos_grad_output, qos_weight)
         
         grad_input = quantize_elemwise_op(
@@ -228,8 +234,16 @@ class Linear(torch.nn.Linear):
         self.prequantized_weights = False
         self.mx_specs = apply_mx_specs(mx_specs)
         super().__init__(in_features, out_features, bias)
-        self._last_qis_weight = None  # Store the last quantized weight
 
+    def apply_mx_specs(self, mx_specs):
+        mx_assert_test(mx_specs)
+        self.mx_none = mx_specs is None
+        self.mx_specs = apply_mx_specs(mx_specs)
+
+    def append_name(self, postfix):
+        self.name += postfix
+
+    ## added by ckj to get quantized weight
     def get_quantized_weight(self):
         """Get the quantized weight (qis_weight) from the last forward pass."""
         if self.mx_none:
@@ -251,15 +265,7 @@ class Linear(torch.nn.Linear):
         )
         
         return qis_weight
-
-    def apply_mx_specs(self, mx_specs):
-        mx_assert_test(mx_specs)
-        self.mx_none = mx_specs is None
-        self.mx_specs = apply_mx_specs(mx_specs)
-
-    def append_name(self, postfix):
-        self.name += postfix
-    
+    ## added by ckj to get quantized weight
     def prequantize_weights(self):
         # Can't prequantize if not using bfloat weights
         if self.mx_none:
