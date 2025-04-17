@@ -37,13 +37,16 @@ from mx.quantize import quantize_bfloat
 from mx.elemwise_ops import quantize_elemwise_op
 from mx.mx_ops import quantize_mx_op, _reshape_to_blocks, _shared_exponents
 from mx import Linear, matmul
+from top_k import top_k_attn, top_k_pruning, top_k_pruning_with_softmax
 ## added by ckj to implement mx quantization
 
 class QuantizedAttention(nn.Module):
     # taken from https://github.com/rwightman/pytorch-image-models/blob/master/timm/models/vision_transformer.py
-    def __init__(self, orig_attn, mx_specs=None):
+    def __init__(self, orig_attn, mx_specs=None, top_k=True, k=20):
         super().__init__()
         self.mx_specs = mx_specs
+        self.top_k = top_k
+        self.k = k
 
         self.num_heads = orig_attn.num_heads
         self.scale = orig_attn.scale
@@ -61,7 +64,6 @@ class QuantizedAttention(nn.Module):
         )
         self.proj_drop = nn.Dropout(orig_attn.proj_drop.p)
         self.attn_drop = nn.Dropout(orig_attn.attn_drop.p)
-
         self.qkv.weight.data = orig_attn.qkv.weight.data
         if orig_attn.qkv.bias is not None:
             self.qkv.bias.data = orig_attn.qkv.bias.data
@@ -75,6 +77,10 @@ class QuantizedAttention(nn.Module):
         self.last_quantized_k = None
         self.last_quantized_v = None
         self.last_quantized_attn = None
+        self.orig_attn = None
+        self.top_k_attn = None
+        self.top_k_pruned_attn = None
+
     def forward(self, x):
         B, N, C = x.shape
         qkv = self.qkv(x).reshape(B, N, 3, self.num_heads, C // self.num_heads).permute(2, 0, 3, 1, 4)
@@ -105,8 +111,19 @@ class QuantizedAttention(nn.Module):
         
         # Use matmul with quantized inputs
         attn = matmul(q, k_t, mx_specs=self.mx_specs, mode_config='aa')
-        attn = attn.softmax(dim=-1)
-        attn = self.attn_drop(attn)
+        # Apply top-k pruning and softmax in one step
+        if self.top_k:
+            attn = top_k_pruning_with_softmax(attn, k=self.k)
+        else:
+            attn = attn.softmax(dim=-1)
+        
+        self.top_k_pruned_attn = attn
+        attn = self.attn_drop(attn)     # inference dropout = 0 
+
+        # top_k = top_k_attn(attn, k=20)
+        # self.top_k_attn = top_k
+        # pruned_attn = top_k_pruning(attn, k=20)
+        # self.top_k_pruned_attn = pruned_attn
 
         bf_v = quantize_elemwise_op(v, mx_specs=self.mx_specs, round=self.mx_specs["round_output"])
         self.last_quantized_v = quantize_mx_op(
@@ -172,7 +189,7 @@ class QuantizedMlp(nn.Module):
     
 class QuantizedBlock(nn.Module):
     # taken from https://github.com/rwightman/pytorch-image-models/blob/master/timm/models/vision_transformer.py
-    def __init__(self, orig_block, mx_specs=None):
+    def __init__(self, orig_block, mx_specs=None, top_k=True, k=20):
         super().__init__()
         # Copy attributes from original block
         self.mx_specs = mx_specs
@@ -183,7 +200,9 @@ class QuantizedBlock(nn.Module):
         # Replace with quantized versions
         self.attn = QuantizedAttention(
             orig_attn=orig_block.attn,
-            mx_specs=mx_specs
+            mx_specs=mx_specs,
+            top_k=top_k,
+            k=k
         )
         
         # Create quantized MLP
@@ -278,6 +297,19 @@ class SaveStats:
                 exp = shared_exp[dim1_idx, block_idx].item()
                 self._write_block_data(block_values, exp, f, mx_specs, indent="    ")
 
+    def _process_4d_orig_attn(self, tensor, f, mx_specs):
+        """Process a 4D tensor."""
+        tensor = tensor[0]      # first batch
+        for dim1_idx in range(tensor.shape[0]):
+            f.write(f"Head Index {dim1_idx}\n")
+            for token_idx in range(tensor.shape[1]):
+                f.write(f"  Token Index {token_idx}\n")
+                for k_idx in range(tensor.shape[2]):
+                    f.write(f"    {tensor[dim1_idx, token_idx, k_idx]}")
+                f.write("\n")
+            
+                
+
     def _process_5d_tensor(self, tensor_blocked, shared_exp, f, mx_specs):
         """Process a 5D tensor."""
         tensor_blocked = tensor_blocked[0]      # first batch
@@ -305,6 +337,11 @@ class SaveStats:
             # val_bits = int(val_bits)
             f.write(f"{val_bits} ")
         f.write("\n\n")
+
+    def save_attn_stats(self, name, tensor, mx_specs):
+        """Save attention stats."""
+        with open(f'{self.output_dir}/{name}_binary.txt', 'w') as f:
+            self._process_4d_orig_attn(tensor, f, mx_specs)
 
     def save_quantization_stats(self, name, module, inp, out):
         """Hook function to save quantized activations and weights.""" 
@@ -336,7 +373,15 @@ class SaveStats:
             if module.last_quantized_attn is not None:
                 print(module.last_quantized_attn.size())
                 self.save_binary_stats(module.last_quantized_attn.detach().cpu(), f"{name}_attn", module.mx_specs)
-
+            if module.orig_attn is not None:
+                print(module.orig_attn.size())
+                self.save_attn_stats(f"{name}_orig_attn", module.orig_attn.detach().cpu(), module.mx_specs)
+            if module.top_k_attn is not None:
+                print(module.top_k_attn.size())
+                self.save_attn_stats(f"{name}_top_k_attn", module.top_k_attn.detach().cpu(), module.mx_specs)
+            if module.top_k_pruned_attn is not None:
+                print(module.top_k_pruned_attn.size())
+                self.save_attn_stats(f"{name}_top_k_pruned_attn", module.top_k_pruned_attn.detach().cpu(), module.mx_specs)
         # For QuantizedMlp, save activation and quantized weights
         elif isinstance(module, QuantizedMlp):
             # Save binary representations for fc1 and fc2 weights
@@ -391,7 +436,7 @@ class SaveStats:
             hook.remove()
         self.hooks = []
 
-def apply_quantization_to_deit(model, config, first_eval=False):
+def apply_quantization_to_deit(model, config, first_eval=False, top_k=True, k=20):
     """
     Apply weight and activation quantization to specific parts of DeiT model
     
@@ -433,7 +478,9 @@ def apply_quantization_to_deit(model, config, first_eval=False):
             print(f"Quantizing attention in block {idx}")
             block.attn = QuantizedAttention(
                 orig_attn=block.attn, 
-                mx_specs=mx_specs
+                mx_specs=mx_specs,
+                top_k=top_k,
+                k=k
             ).to(device)
         
         if 'ffn' in components:
@@ -620,6 +667,10 @@ def get_args_parser():
 
     # Quantization signal
     parser.add_argument('--quantize', action='store_true')
+    # top k signal
+    parser.add_argument('--top_k', action='store_true')
+    # k signal
+    parser.add_argument('--k', type=int, default=20)
     return parser
  
             
@@ -882,7 +933,7 @@ def main(args):
         save_stats = None
         if args.quantize:
             save_stats = SaveStats(first_eval=True)
-            model, hooks = apply_quantization_to_deit(model, quantization_config, first_eval=True)
+            model, hooks = apply_quantization_to_deit(model, quantization_config, first_eval=True, top_k=args.top_k, k=args.k)
         
         test_stats = evaluate(data_loader_val, model, device)
         print(f"Accuracy of the network on the {len(dataset_val)} test images: {test_stats['acc1']:.1f}%")
