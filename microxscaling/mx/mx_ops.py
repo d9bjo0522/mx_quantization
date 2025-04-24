@@ -67,6 +67,13 @@ def _shared_exponents(A, method="max", axes=None, ebits=0):
             shared_exp = A
             for axis in axes:
                 shared_exp, _ = torch.max(torch.abs(shared_exp), dim=axis, keepdim=True)
+    elif method == "min":
+        if axes is None:
+            shared_exp = torch.min(torch.abs(A))
+        else:
+            shared_exp = A
+            for axis in axes:
+                shared_exp, _ = torch.min(torch.abs(shared_exp), dim=axis, keepdim=True)
     elif method == "none":
         shared_exp = torch.abs(A)
     else:

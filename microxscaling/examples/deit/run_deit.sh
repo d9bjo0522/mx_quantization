@@ -12,7 +12,8 @@ export PYTHONPATH=/home/tttpd9bjo/mx_quantization/microxscaling:$PYTHONPATH
 #     --data-path /work/tttpd9bjo/ImageNet \
 #     --quantize \
 #     --top_k \
-#     --k 80
+#     --k 120 \
+#     --exponent_based_prediction
 
 ## deit-small
 # python main.py \
@@ -20,11 +21,10 @@ export PYTHONPATH=/home/tttpd9bjo/mx_quantization/microxscaling:$PYTHONPATH
 #     --resume /work/tttpd9bjo/deit/deit_small/pretrained_models/deit_small_patch16_224-cd65a155.pth \
 #     --model deit_small_patch16_224 \
 #     --data-path /work/tttpd9bjo/ImageNet \
-#     --output_dir /home/tttpd9bjo/mx_quantization/microxscaling/examples/deit/output \
 #     --quantize \
 #     --top_k \
-#     --k 40
-
+#     --k 90 \
+#     --exponent_based_prediction
 
 ## deit-base
 python main.py \
@@ -34,4 +34,5 @@ python main.py \
     --data-path /work/tttpd9bjo/ImageNet \
     --quantize \
     --top_k \
-    --k 20
+    --k 60 \
+    --exponent_based_prediction
