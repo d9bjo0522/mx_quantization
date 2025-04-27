@@ -41,20 +41,20 @@ from top_k import classtopk
 from exponent_based_prediction import exponent_approximation
 ## added by ckj to implement mx quantization
 
-def int_to_twos_complement(value, bits):
-    """Convert an integer to its two's complement binary representation."""
-    if value < 0:
-        value = (1 << bits) + value
-    return format(value, f'0{bits}b')
+# def int_to_twos_complement(value, bits):
+#     """Convert an integer to its two's complement binary representation."""
+#     if value < 0:
+#         value = (1 << bits) + value
+#     return format(value, f'0{bits}b')
 
-def get_bits_from_format(format_name):
-    """Convert format name to number of bits."""
-    if format_name.startswith('int'):
-        return int(format_name[3:])
-    elif format_name.startswith('uint'):
-        return int(format_name[4:])
-    else:
-        raise ValueError(f"Unsupported format: {format_name}")
+# def get_bits_from_format(format_name):
+#     """Convert format name to number of bits."""
+#     if format_name.startswith('int'):
+#         return int(format_name[3:])
+#     elif format_name.startswith('uint'):
+#         return int(format_name[4:])
+#     else:
+#         raise ValueError(f"Unsupported format: {format_name}")
 
 class QuantizedAttention(nn.Module):
     # taken from https://github.com/rwightman/pytorch-image-models/blob/master/timm/models/vision_transformer.py
@@ -131,14 +131,16 @@ class QuantizedAttention(nn.Module):
             self.mx_specs,
             elem_format=self.mx_specs["a_elem_format"],
             axes=[-1],
-            round=self.mx_specs["round_mx_output"]
+            round=self.mx_specs["round_mx_output"],
+            predict_phase=False
         )
         self.last_quantized_k = quantize_mx_op(
             bf_k,
             self.mx_specs,
             elem_format=self.mx_specs["a_elem_format"],
             axes=[-2],
-            round=self.mx_specs["round_mx_output"]
+            round=self.mx_specs["round_mx_output"],
+            predict_phase=False
         )
         
         # Use matmul with quantized inputs
@@ -206,7 +208,8 @@ class QuantizedAttention(nn.Module):
             self.mx_specs,
             elem_format=self.mx_specs["a_elem_format"],
             axes=[-2],
-            round=self.mx_specs["round_mx_output"]
+            round=self.mx_specs["round_mx_output"],
+            predict_phase=False,
         )
         bf_attn = quantize_elemwise_op(attn, mx_specs=self.mx_specs, round=self.mx_specs["round_output"])
         self.last_quantized_attn = quantize_mx_op(
@@ -214,7 +217,8 @@ class QuantizedAttention(nn.Module):
             self.mx_specs,
             elem_format=self.mx_specs["a_elem_format"],
             axes=[-1],
-            round=self.mx_specs["round_mx_output"]
+            round=self.mx_specs["round_mx_output"],
+            predict_phase=False,
         )
 
         x = matmul(attn, v, mx_specs=self.mx_specs, mode_config='aa')
@@ -298,7 +302,20 @@ class SaveStats:
         self.output_dir = 'outputs/quantization_stats'
         self.hooks = []  # Store hooks so we can remove them later
         self.has_run = False  # Track if we've already run once
+    def int_to_twos_complement(self, value, bits):
+        """Convert an integer to its two's complement binary representation."""
+        if value < 0:
+            value = (1 << bits) + value
+        return format(value, f'0{bits}b')
 
+    def get_bits_from_format(self, format_name):
+        """Convert format name to number of bits."""
+        if format_name.startswith('int'):
+            return int(format_name[3:])
+        elif format_name.startswith('uint'):
+            return int(format_name[4:])
+        else:
+            raise ValueError(f"Unsupported format: {format_name}")
     def save_binary_stats(self, tensor, name, mx_specs, axes=[-1]):
         """Save shared exponents and binary representations of values.
         
@@ -416,12 +433,12 @@ class SaveStats:
         # Process values in smaller chunks
         values = block_values.reshape(-1)
         # Get number of bits from format name
-        n_bits = get_bits_from_format(mx_specs['a_elem_format'])
+        n_bits = self.get_bits_from_format(mx_specs['a_elem_format'])
         
         for i in range(0, len(values)):
             # Convert to quantized value
             val_bits = (values[i].item() / (2**exp)) * 2**(n_bits-2)
-            val_bits = int_to_twos_complement(int(val_bits), n_bits)
+            val_bits = self.int_to_twos_complement(int(val_bits), n_bits)
             f.write(f"{val_bits} ")
         f.write("\n\n")
 
@@ -564,10 +581,10 @@ def apply_quantization_to_deit(model, config, first_eval=False, top_k=True, k=20
             'block_size': 32,
             'bfloat': 16,
             'fp': 0,
-            'round': 'nearest',
-            'round_mx_output': 'nearest',
-            'round_output': 'nearest',
-            'round_weight': 'nearest',
+            'round': 'floor',
+            'round_mx_output': 'floor',
+            'round_output': 'floor',
+            'round_weight': 'floor',
             'custom_cuda': False,
             'quantize_backprop': False,
     })
@@ -621,7 +638,7 @@ def verify_quantization(model, block_indices):
 
 def get_args_parser():
     parser = argparse.ArgumentParser('DeiT training and evaluation script', add_help=False)
-    parser.add_argument('--batch-size', default=72, type=int)
+    parser.add_argument('--batch-size', default=64, type=int)
     parser.add_argument('--epochs', default=300, type=int)
     parser.add_argument('--bce-loss', action='store_true')
     parser.add_argument('--unscale-lr', action='store_true')
@@ -1026,10 +1043,10 @@ def main(args):
             'bfloat': 16,
             'fp': 0,
             'bfloat_subnorms': True,
-            'round': 'nearest',
-            'round_mx_output': 'nearest',
-            'round_output': 'nearest',
-            'round_weight': 'nearest',
+            'round': 'floor',
+            'round_mx_output': 'floor',
+            'round_output': 'floor',
+            'round_weight': 'floor',
             'mx_flush_fp32_subnorms': False,
             'custom_cuda': False,
             'quantize_backprop': False,

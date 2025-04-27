@@ -51,8 +51,8 @@ class exponent_approximation:
         self.K = K
         self.bf_Q = quantize_elemwise_op(self.Q, self.mx_specs, round=self.mx_specs["round_output"])
         self.bf_K = quantize_elemwise_op(self.K, self.mx_specs, round=self.mx_specs["round_output"])
-        self.MX_Q = quantize_mx_op(self.bf_Q, self.mx_specs, elem_format=self.mx_specs["a_elem_format"], axes=[-1], round=self.mx_specs["round_mx_output"])
-        self.MX_K = quantize_mx_op(self.bf_K, self.mx_specs, elem_format=self.mx_specs["a_elem_format"], axes=[-1], round=self.mx_specs["round_mx_output"])
+        self.MX_Q = quantize_mx_op(self.bf_Q, self.mx_specs, elem_format=self.mx_specs["a_elem_format"], axes=[-1], round=self.mx_specs["round_mx_output"], predict_phase=True)
+        self.MX_K = quantize_mx_op(self.bf_K, self.mx_specs, elem_format=self.mx_specs["a_elem_format"], axes=[-1], round=self.mx_specs["round_mx_output"], predict_phase=True)
         self.shared_exponent_method = self.mx_specs.get("shared_exp_method", "max")
         self.reshaped_MX_Q, self.axes_Q, self.orig_shape_Q, self.padded_shape_Q = _reshape_to_blocks(self.MX_Q, [-1], self.mx_specs["block_size"])
         self.reshaped_MX_K, self.axes_K, self.orig_shape_K, self.padded_shape_K = _reshape_to_blocks(self.MX_K, [-1], self.mx_specs["block_size"])
@@ -103,8 +103,10 @@ class exponent_approximation:
         
         
         # Convert all non-zero values to +1 or -1 based on their sign
-        signs_Q = torch.sign(self.reshaped_MX_Q)
-        signs_K = torch.sign(self.reshaped_MX_K)
+        signs_Q = torch.where(self.reshaped_MX_Q < 0, -1, +1)
+        signs_K = torch.where(self.reshaped_MX_K < 0, -1, +1)
+        # signs_Q = torch.sign(self.reshaped_MX_Q)
+        # signs_K = torch.sign(self.reshaped_MX_K)
 
         # Expand shared_exponents to match the block size dimension
         expanded_exponents_Q = self.shared_exponent_Q.expand_as(self.reshaped_MX_Q)
@@ -273,7 +275,8 @@ class exponent_approximation:
         approx_Q = _undo_reshape_to_blocks(threshold_Q, self.padded_shape_Q, self.orig_shape_Q, self.axes_Q)
         approx_K = _undo_reshape_to_blocks(threshold_K, self.padded_shape_K, self.orig_shape_K, self.axes_K)
         return approx_Q, approx_K
-        
+
+
         
         
         

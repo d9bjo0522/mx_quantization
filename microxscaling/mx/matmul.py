@@ -71,6 +71,7 @@ class MatMulFunction(torch.autograd.Function):
             elem_format=qin1_elem_format,
             axes=[-1],
             round=mx_specs["round_mx_output"],
+            predict_phase=False,
         )
         qin2 = quantize_mx_op(
             bf_in2,
@@ -78,6 +79,7 @@ class MatMulFunction(torch.autograd.Function):
             elem_format=qin2_elem_format,
             axes=[-2],
             round=mx_specs["round_mx_output"],
+            predict_phase=False,
         )
 
         with set_matmul_precision(qin1, qin2,
@@ -134,6 +136,7 @@ class MatMulFunction(torch.autograd.Function):
             elem_format=qin1_elem_format,
             axes=[-2],
             round=ctx.mx_specs["round_mx_input_grad_input"],
+            predict_phase=False,
         )
         qin2 = quantize_mx_op(
             in2,
@@ -141,6 +144,7 @@ class MatMulFunction(torch.autograd.Function):
             elem_format=qin2_elem_format,
             axes=[-1],
             round=ctx.mx_specs["round_mx_input_grad_input"],
+            predict_phase=False,
         )
 
         # quantize along out_cols
@@ -150,6 +154,7 @@ class MatMulFunction(torch.autograd.Function):
             elem_format=ctx.mx_specs["a_elem_format_bp_os"],
             axes=[-1],
             round=ctx.mx_specs["round_mx_grad_output_grad_input"],
+            predict_phase=False,
         )
         # quantize along out_rows
         qgrad_out2 = quantize_mx_op(
@@ -158,6 +163,7 @@ class MatMulFunction(torch.autograd.Function):
             elem_format=ctx.mx_specs["a_elem_format_bp_os"],
             axes=[-2],
             round=ctx.mx_specs["round_mx_grad_output_grad_input"],
+            predict_phase=False,
         )
 
         # compute grad_in1 and grad_in2

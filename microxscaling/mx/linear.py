@@ -65,6 +65,7 @@ class LinearFunction(torch.autograd.Function):
             elem_format=mx_specs['a_elem_format'],
             axes=[-1],
             round=mx_specs["round_mx_output"],
+            predict_phase=False,
         )
         qis_weight = quantize_mx_op(
             bf_weight,
@@ -72,6 +73,7 @@ class LinearFunction(torch.autograd.Function):
             elem_format=mx_specs['w_elem_format'],
             axes=[-1],
             round=mx_specs["round_mx_output"],
+            predict_phase=False,
         )
 
         # In case of prequantized weights, the output of quantize_mx_op will return bfloat16 output.
@@ -127,6 +129,7 @@ class LinearFunction(torch.autograd.Function):
             elem_format=ctx.mx_specs['a_elem_format_bp'],
             axes=[-2],
             round=ctx.mx_specs["round_mx_input_grad_weight"],
+            predict_phase=False,
         )
         qex_grad_output = quantize_mx_op(
             grad_output,
@@ -134,6 +137,7 @@ class LinearFunction(torch.autograd.Function):
             elem_format=ctx.mx_specs['a_elem_format_bp_ex'],
             axes=[-2],
             round=ctx.mx_specs["round_mx_grad_output_grad_weight"],
+            predict_phase=False,
         )
 
         # compute grad_weight [out_features, in_features]
@@ -162,6 +166,7 @@ class LinearFunction(torch.autograd.Function):
             elem_format=ctx.mx_specs['w_elem_format_bp'],
             axes=[0],
             round=ctx.mx_specs["round_mx_weight_grad_input"],
+            predict_phase=False,
         )
         # grad_output shape is (B, seq, out_dim)
         qos_grad_output = quantize_mx_op(
@@ -170,6 +175,7 @@ class LinearFunction(torch.autograd.Function):
             elem_format=ctx.mx_specs['a_elem_format_bp_os'],
             axes=[-1],
             round=ctx.mx_specs["round_mx_grad_output_grad_input"],
+            predict_phase=False,
         )
 
         # Compute grad_input
@@ -262,6 +268,7 @@ class Linear(torch.nn.Linear):
             elem_format=self.mx_specs['w_elem_format'],
             axes=[-1],
             round=self.mx_specs["round_mx_output"],
+            predict_phase=False,
         )
         
         return qis_weight

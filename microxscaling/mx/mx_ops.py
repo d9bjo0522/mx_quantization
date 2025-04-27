@@ -187,6 +187,7 @@ def _quantize_mx(
     round="nearest",
     flush_fp32_subnorms=False,
     custom_cuda=False,
+    predict_phase=False,
 ):
     """Function used for MX* quantization
     """
@@ -294,7 +295,7 @@ def _quantize_mx(
         A = _quantize_elemwise_core(
                 A, mbits, ebits, max_norm, round=round,
                 allow_denorm=True, saturate_normals=True,
-                custom_cuda=custom_cuda)
+                custom_cuda=custom_cuda, flag=predict_phase)
 
         A = A * (2**shared_exp)
 
@@ -313,6 +314,7 @@ def quantize_mx_op(
     axes=None,
     round="nearest",
     expand_and_reshape=False,
+    predict_phase=False,
 ):
     mx_assert_test(mx_specs)
 
@@ -335,4 +337,5 @@ def quantize_mx_op(
             axes=axes, round=round,
             shared_exp_method=mx_specs["shared_exp_method"],
             flush_fp32_subnorms=mx_specs["mx_flush_fp32_subnorms"],
-            custom_cuda=mx_specs["custom_cuda"])
+            custom_cuda=mx_specs["custom_cuda"],
+            predict_phase=predict_phase)

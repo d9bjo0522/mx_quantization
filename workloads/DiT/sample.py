@@ -28,13 +28,33 @@ def main(args):
         assert args.model == "DiT-XL/2", "Only DiT-XL/2 models are available for auto-download."
         assert args.image_size in [256, 512]
         assert args.num_classes == 1000
-
+    # mx-quantization config
+    mx_specs = {
+        'w_elem_format': 'int8',
+        'a_elem_format': 'int8',
+        'scale_bits': 8,
+        'shared_exp_method': 'max',
+        'block_size': 32,
+        'bfloat': 16,
+        'fp': 0,
+        'bfloat_subnorms': True,
+        'round': 'floor',
+        'round_mx_output': 'floor',
+        'round_output': 'floor',
+        'round_weight': 'floor',
+        'mx_flush_fp32_subnorms': False,
+        'custom_cuda': False,
+        'quantize_backprop': False,
+    }
     # Load model:
     latent_size = args.image_size // 8
     model = DiT_models[args.model](
         input_size=latent_size,
-        num_classes=args.num_classes
+        num_classes=args.num_classes,
+        mx_quant = args.mx_quant,
+        mx_specs = mx_specs
     ).to(device)
+
     # Auto-download a pre-trained model or load a custom DiT checkpoint from train.py:
     ckpt_path = args.ckpt or f"DiT-XL-2-{args.image_size}x{args.image_size}.pt"
     state_dict = find_model(ckpt_path)
@@ -44,7 +64,8 @@ def main(args):
     vae = AutoencoderKL.from_pretrained(f"stabilityai/sd-vae-ft-{args.vae}").to(device)
 
     # Labels to condition the model with (feel free to change):
-    class_labels = [387]
+    class_labels = [207, 360, 387, 974, 88, 979, 417, 279]
+    # class_labels = [387]
 
     # Create sampling noise:
     n = len(class_labels)
@@ -65,7 +86,7 @@ def main(args):
     samples = vae.decode(samples / 0.18215).sample
 
     # Save and display images:
-    save_image(samples, "sample.png", nrow=4, normalize=True, value_range=(-1, 1))
+    save_image(samples, f"{args.sample_dir}.png", nrow=4, normalize=True, value_range=(-1, 1))
 
 
 if __name__ == "__main__":
@@ -79,5 +100,8 @@ if __name__ == "__main__":
     parser.add_argument("--seed", type=int, default=0)
     parser.add_argument("--ckpt", type=str, default=None,
                         help="Optional path to a DiT checkpoint (default: auto-download a pre-trained DiT-XL/2 model).")
+    # mx-quantization configs
+    parser.add_argument("--mx-quant", type=bool, default=True)
+    parser.add_argument("--sample-dir", type=str, default=None)
     args = parser.parse_args()
     main(args)

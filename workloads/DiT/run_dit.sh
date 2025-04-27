@@ -7,6 +7,7 @@
 #  --sample-dir /work/tttpd9bjo/diffusion/DiT/DiT-XL-2-256x256/samples
 
 #export CUDA_VISIBLE_DEVICES=0
+export PYTHONPATH=/home/tttpd9bjo/mx_quantization/microxscaling:$PYTHONPATH
 
 python sample.py \
     --model DiT-XL/2 \
@@ -14,6 +15,8 @@ python sample.py \
     --image-size 256 \
     --vae mse \
     --num-sampling-steps 250 \
-    --seed 0
+    --seed 0 \
+    --sample-dir sample_mx_32 \
+    --mx-quant True
     
     

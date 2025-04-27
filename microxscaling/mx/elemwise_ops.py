@@ -42,7 +42,7 @@ def _safe_rshift(x, bits, exp):
         return x / (2**bits) * (2 ** exp)
 
 
-def _round_mantissa(A, bits, round, clamp=False):
+def _round_mantissa(A, bits, round, clamp=False, flag=False):
     """
     Rounds mantissa to nearest bits depending on the rounding method 'round'
     Args:
@@ -53,7 +53,9 @@ def _round_mantissa(A, bits, round, clamp=False):
     Returns:
       A {PyTorch tensor} -- Tensor with mantissas rounded
     """
-
+    # Replace zeros with small epsilon while preserving sign
+    pos_mask = (A > 0)
+    neg_mask = (A < 0)
     if round == "dither":
         rand_A = torch.rand_like(A, requires_grad=False)
         A = torch.sign(A) * torch.floor(torch.abs(A) + rand_A)
@@ -73,6 +75,14 @@ def _round_mantissa(A, bits, round, clamp=False):
     if clamp:
         max_mantissa = 2 ** (bits - 1) - 1
         A = torch.clamp(A, -max_mantissa, max_mantissa)
+
+    zeros_mask = (A == 0)
+    epsilon = 1e-4
+    pos_zeros_mask = zeros_mask & pos_mask
+    neg_zeros_mask = zeros_mask & neg_mask
+    if flag:
+        A = torch.where(pos_zeros_mask, epsilon, A)
+        A = torch.where(neg_zeros_mask, -epsilon, A)
     return A
 
 
@@ -81,7 +91,7 @@ def _round_mantissa(A, bits, round, clamp=False):
 # -------------------------------------------------------------------------
 def _quantize_elemwise_core(A, bits, exp_bits, max_norm, round='nearest',
                             saturate_normals=False, allow_denorm=True,
-                            custom_cuda=False):
+                            custom_cuda=False, flag=False):
     """ Core function used for element-wise quantization
     Arguments:
       A         {PyTorch tensor} -- A tensor to be quantized
@@ -143,8 +153,8 @@ def _quantize_elemwise_core(A, bits, exp_bits, max_norm, round='nearest',
 
     # Scale up so appropriate number of bits are in the integer portion of the number
     out = _safe_lshift(out, bits - 2, private_exp)
-
-    out = _round_mantissa(out, bits, round, clamp=False)
+    
+    out = _round_mantissa(out, bits, round, clamp=False, flag=flag)
 
     # Undo scaling
     out = _safe_rshift(out, bits - 2, private_exp)
@@ -171,7 +181,7 @@ def _quantize_elemwise_core(A, bits, exp_bits, max_norm, round='nearest',
 
 
 def _quantize_elemwise(A, elem_format, round='nearest', custom_cuda=False,
-                       saturate_normals=False, allow_denorm=True):
+                       saturate_normals=False, allow_denorm=True, predict_phase=False):
     """ Quantize values to a defined format. See _quantize_elemwise_core()
     """
     if elem_format == None:
@@ -183,7 +193,7 @@ def _quantize_elemwise(A, elem_format, round='nearest', custom_cuda=False,
             A, mbits, ebits, max_norm,
             round=round, allow_denorm=allow_denorm,
             saturate_normals=saturate_normals,
-            custom_cuda=custom_cuda)
+            custom_cuda=custom_cuda, flag=predict_phase)
 
     return output
 
@@ -203,7 +213,7 @@ def _quantize_bfloat(A, bfloat, round='nearest', custom_cuda=False, allow_denorm
 
     return _quantize_elemwise_core(
             A, bits=bfloat-7, exp_bits=8, max_norm=max_norm, round=round,
-            allow_denorm=allow_denorm, custom_cuda=custom_cuda)
+            allow_denorm=allow_denorm, custom_cuda=custom_cuda, flag=False)
 
 
 def _quantize_fp(A, exp_bits=None, mantissa_bits=None,
@@ -225,7 +235,7 @@ def _quantize_fp(A, exp_bits=None, mantissa_bits=None,
     output = _quantize_elemwise_core(
             A, bits=mantissa_bits + 2, exp_bits=exp_bits,
             max_norm=max_norm, round=round, allow_denorm=allow_denorm,
-            custom_cuda=custom_cuda)
+            custom_cuda=custom_cuda, flag = False)
 
     return output
 
