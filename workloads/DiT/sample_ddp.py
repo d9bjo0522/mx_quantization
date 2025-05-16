@@ -25,7 +25,7 @@ import math
 import argparse
 
 
-def create_npz_from_sample_folder(sample_dir, num=50_000):
+def create_npz_from_sample_folder(sample_dir, npz_dir, num=50_000):
     """
     Builds a single .npz file from a folder of .png samples.
     """
@@ -36,7 +36,7 @@ def create_npz_from_sample_folder(sample_dir, num=50_000):
         samples.append(sample_np)
     samples = np.stack(samples)
     assert samples.shape == (num, samples.shape[1], samples.shape[2], 3)
-    npz_path = f"{sample_dir}.npz"
+    npz_path = f"{npz_dir}.npz"
     np.savez(npz_path, arr_0=samples)
     print(f"Saved .npz file to {npz_path} [shape={samples.shape}].")
     return npz_path
@@ -63,13 +63,39 @@ def main(args):
         assert args.model == "DiT-XL/2", "Only DiT-XL/2 models are available for auto-download."
         assert args.image_size in [256, 512]
         assert args.num_classes == 1000
+    
+    ## mx-quantization config
+    mx_specs = {
+        'w_elem_format': 'int8',
+        'a_elem_format': 'int8',
+        'scale_bits': 8,
+        'shared_exp_method': 'max',
+        'block_size': 32,
+        'bfloat': 16,
+        'fp': 0,
+        'bfloat_subnorms': True,
+        'round': 'nearest',
+        'round_mx_output': 'nearest',
+        'round_output': 'nearest',
+        'round_weight': 'nearest',
+        'mx_flush_fp32_subnorms': False,
+        'custom_cuda': False,
+        'quantize_backprop': False,
+    }
 
     # Load model:
+    ## add mx-quantization config/ top-k/ k/ ex_pred
     latent_size = args.image_size // 8
     model = DiT_models[args.model](
         input_size=latent_size,
-        num_classes=args.num_classes
+        num_classes=args.num_classes,
+        mx_quant = args.mx_quant,
+        mx_specs = mx_specs,
+        top_k = args.top_k,
+        k = args.k,
+        ex_pred = args.ex_pred
     ).to(device)
+
     # Auto-download a pre-trained model or load a custom DiT checkpoint from train.py:
     ckpt_path = args.ckpt or f"DiT-XL-2-{args.image_size}x{args.image_size}.pt"
     state_dict = find_model(ckpt_path)
@@ -85,7 +111,10 @@ def main(args):
     ckpt_string_name = os.path.basename(args.ckpt).replace(".pt", "") if args.ckpt else "pretrained"
     folder_name = f"{model_string_name}-{ckpt_string_name}-size-{args.image_size}-vae-{args.vae}-" \
                   f"cfg-{args.cfg_scale}-seed-{args.global_seed}"
-    sample_folder_dir = f"{args.sample_dir}/{folder_name}"
+    config = f"-num_samples-12000-w8a8-top128-ex-pred"
+    config_npz = f"-num_samples-15000-w8a8-top128-ex-pred"
+    sample_folder_dir = f"{args.sample_dir}/{folder_name}{config}"
+    sample_folder_dir_npz = f"{args.sample_dir}/{folder_name}{config_npz}"
     if rank == 0:
         os.makedirs(sample_folder_dir, exist_ok=True)
         print(f"Saving .png samples at {sample_folder_dir}")
@@ -93,7 +122,7 @@ def main(args):
 
     # Figure out how many samples we need to generate on each GPU and how many iterations we need to run:
     n = args.per_proc_batch_size
-    global_batch_size = n * dist.get_world_size()
+    global_batch_size = n * dist.get_world_size()   # n * num of gpus
     # To make things evenly-divisible, we'll sample a bit more than we need and then discard the extra samples:
     total_samples = int(math.ceil(args.num_fid_samples / global_batch_size) * global_batch_size)
     if rank == 0:
@@ -105,42 +134,72 @@ def main(args):
     pbar = range(iterations)
     pbar = tqdm(pbar) if rank == 0 else pbar
     total = 0
-    for _ in pbar:
-        # Sample inputs:
-        z = torch.randn(n, model.in_channels, latent_size, latent_size, device=device)
-        y = torch.randint(0, args.num_classes, (n,), device=device)
+    # for _ in pbar:
+    #     # Sample inputs:
+    #     z = torch.randn(n, model.in_channels, latent_size, latent_size, device=device)
+    #     y = torch.randint(0, args.num_classes, (n,), device=device)
 
-        # Setup classifier-free guidance:
-        if using_cfg:
-            z = torch.cat([z, z], 0)
-            y_null = torch.tensor([1000] * n, device=device)
-            y = torch.cat([y, y_null], 0)
-            model_kwargs = dict(y=y, cfg_scale=args.cfg_scale)
-            sample_fn = model.forward_with_cfg
-        else:
-            model_kwargs = dict(y=y)
-            sample_fn = model.forward
+    #     # Setup classifier-free guidance:
+    #     if using_cfg:
+    #         z = torch.cat([z, z], 0)
+    #         y_null = torch.tensor([1000] * n, device=device)
+    #         y = torch.cat([y, y_null], 0)
+    #         model_kwargs = dict(y=y, cfg_scale=args.cfg_scale)
+    #         sample_fn = model.forward_with_cfg
+    #     else:
+    #         model_kwargs = dict(y=y)
+    #         sample_fn = model.forward
 
-        # Sample images:
-        samples = diffusion.p_sample_loop(
-            sample_fn, z.shape, z, clip_denoised=False, model_kwargs=model_kwargs, progress=False, device=device
-        )
-        if using_cfg:
-            samples, _ = samples.chunk(2, dim=0)  # Remove null class samples
+    #     # Sample images:
+    #     samples = diffusion.p_sample_loop(
+    #         sample_fn, z.shape, z, clip_denoised=False, model_kwargs=model_kwargs, progress=False, device=device
+    #     )
+    #     final_sample = None
+    #     for sample_output in diffusion.p_sample_loop_progressive(
+    #         sample_fn,
+    #         z.shape,
+    #         z,
+    #         clip_denoised=False,
+    #         model_kwargs=model_kwargs,
+    #         progress=False,
+    #         device=device
+    #     ):
+    #         current_timestep = sample_output["timestep"]
+    #         current_sample = sample_output["sample"]
+            
+    #         # if 25 >= current_timestep >= 21:
+    #         #     # Need to update the blocks since these are model init parameters
+    #         #     for block in model.blocks:
+    #         #         block.attn.ex_pred = False
+    #         #         block.attn.top_k = False
+    #         #         block.attn.k = 128
+    #         # else:
+    #         #     for block in model.blocks:
+    #         #         block.attn.ex_pred = True
+    #         #         block.attn.top_k = True
+    #         #         block.attn.k = 128
+                
+    #         final_sample = current_sample
 
-        samples = vae.decode(samples / 0.18215).sample
-        samples = torch.clamp(127.5 * samples + 128.0, 0, 255).permute(0, 2, 3, 1).to("cpu", dtype=torch.uint8).numpy()
+    # # Process the final samples
+    #     samples = final_sample
+    #     if using_cfg:
+    #         samples, _ = samples.chunk(2, dim=0)  # Remove null class samples
 
-        # Save samples to disk as individual .png files
-        for i, sample in enumerate(samples):
-            index = i * dist.get_world_size() + rank + total
-            Image.fromarray(sample).save(f"{sample_folder_dir}/{index:06d}.png")
-        total += global_batch_size
+    #     samples = vae.decode(samples / 0.18215).sample
+    #     samples = torch.clamp(127.5 * samples + 128.0, 0, 255).permute(0, 2, 3, 1).to("cpu", dtype=torch.uint8).numpy()
+
+    #     # Save samples to disk as individual .png files
+    #     for i, sample in enumerate(samples):
+    #         index = i * dist.get_world_size() + rank + total + args.current_num_samples
+    #         Image.fromarray(sample).save(f"{sample_folder_dir}/{index:06d}.png")
+    #     total += global_batch_size
 
     # Make sure all processes have finished saving their samples before attempting to convert to .npz
     dist.barrier()
     if rank == 0:
-        create_npz_from_sample_folder(sample_folder_dir, args.num_fid_samples)
+        # create_npz_from_sample_folder(sample_folder_dir, args.num_fid_samples)
+        create_npz_from_sample_folder(sample_folder_dir, sample_folder_dir_npz, 15000)
         print("Done.")
     dist.barrier()
     dist.destroy_process_group()
@@ -162,5 +221,11 @@ if __name__ == "__main__":
                         help="By default, use TF32 matmuls. This massively accelerates sampling on Ampere GPUs.")
     parser.add_argument("--ckpt", type=str, default=None,
                         help="Optional path to a DiT checkpoint (default: auto-download a pre-trained DiT-XL/2 model).")
+    parser.add_argument("--current-num-samples", type=int, default=0)
+    ## mx-quantization configs
+    parser.add_argument("--mx-quant", action='store_true')
+    parser.add_argument("--top-k", action='store_true')
+    parser.add_argument("--k", type=int, default=20)
+    parser.add_argument("--ex-pred", action='store_true')
     args = parser.parse_args()
     main(args)

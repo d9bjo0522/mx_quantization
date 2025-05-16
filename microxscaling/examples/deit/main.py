@@ -33,37 +33,22 @@ import models_v2
 import utils
 
 ## added by ckj
-from mx.quantize import quantize_bfloat
+# from mx.quantize import quantize_bfloat
 from mx.elemwise_ops import quantize_elemwise_op
 from mx.mx_ops import quantize_mx_op, _reshape_to_blocks, _shared_exponents
 from mx import Linear, matmul
 from top_k import classtopk
 from exponent_based_prediction import exponent_approximation
+
 ## added by ckj to implement mx quantization
-
-# def int_to_twos_complement(value, bits):
-#     """Convert an integer to its two's complement binary representation."""
-#     if value < 0:
-#         value = (1 << bits) + value
-#     return format(value, f'0{bits}b')
-
-# def get_bits_from_format(format_name):
-#     """Convert format name to number of bits."""
-#     if format_name.startswith('int'):
-#         return int(format_name[3:])
-#     elif format_name.startswith('uint'):
-#         return int(format_name[4:])
-#     else:
-#         raise ValueError(f"Unsupported format: {format_name}")
-
 class QuantizedAttention(nn.Module):
     # taken from https://github.com/rwightman/pytorch-image-models/blob/master/timm/models/vision_transformer.py
-    def __init__(self, orig_attn, mx_specs=None, top_k=True, k=20, exponent_based_prediction=True):
+    def __init__(self, orig_attn, mx_specs=None, top_k=True, k=20, ex_pred=True):
         super().__init__()
         self.mx_specs = mx_specs
         self.top_k = top_k
         self.k = k
-        self.exponent_based_prediction = exponent_based_prediction
+        self.ex_pred = ex_pred
         self.num_heads = orig_attn.num_heads
         self.scale = orig_attn.scale
         self.top_k_obj = classtopk(k)
@@ -175,7 +160,7 @@ class QuantizedAttention(nn.Module):
         ori_pred_mask = self.top_k_obj.generate_top_k_mask(attn)
         self.ori_pred_mask = ori_pred_mask
 
-        if self.exponent_based_prediction:
+        if self.ex_pred:
             mask = ex_pred_mask
         else:
             mask = ori_pred_mask
@@ -268,7 +253,7 @@ class QuantizedMlp(nn.Module):
     
 class QuantizedBlock(nn.Module):
     # taken from https://github.com/rwightman/pytorch-image-models/blob/master/timm/models/vision_transformer.py
-    def __init__(self, orig_block, mx_specs=None, top_k=True, k=20, exponent_based_prediction=False):
+    def __init__(self, orig_block, mx_specs=None, top_k=True, k=20, ex_pred=True):
         super().__init__()
         # Copy attributes from original block
         self.mx_specs = mx_specs
@@ -282,7 +267,7 @@ class QuantizedBlock(nn.Module):
             mx_specs=mx_specs,
             top_k=top_k,
             k=k,
-            exponent_based_prediction=exponent_based_prediction
+            ex_pred=ex_pred
         )
         
         # Create quantized MLP
@@ -563,7 +548,7 @@ class SaveStats:
             hook.remove()
         self.hooks = []
 
-def apply_quantization_to_deit(model, config, first_eval=False, top_k=True, k=20, exponent_based_prediction=False):
+def apply_quantization_to_deit(model, config, first_eval=False, top_k=True, k=20, ex_pred=True):
     """
     Apply weight and activation quantization to specific parts of DeiT model
     
@@ -608,7 +593,7 @@ def apply_quantization_to_deit(model, config, first_eval=False, top_k=True, k=20
                 mx_specs=mx_specs,
                 top_k=top_k,
                 k=k,
-                exponent_based_prediction=exponent_based_prediction
+                ex_pred=ex_pred
             ).to(device)
         
         if 'ffn' in components:
@@ -794,12 +779,12 @@ def get_args_parser():
     parser.add_argument('--dist_url', default='env://', help='url used to set up distributed training')
 
     # Quantization signal
-    parser.add_argument('--quantize', action='store_true')
+    parser.add_argument('--mx-quant', action='store_true')
     # top k signal
     parser.add_argument('--top_k', action='store_true')
     # k signal
     parser.add_argument('--k', type=int, default=20)
-    parser.add_argument('--exponent_based_prediction', action='store_true')
+    parser.add_argument('--ex_pred', action='store_true')
     return parser
  
             
@@ -1043,10 +1028,10 @@ def main(args):
             'bfloat': 16,
             'fp': 0,
             'bfloat_subnorms': True,
-            'round': 'floor',
-            'round_mx_output': 'floor',
-            'round_output': 'floor',
-            'round_weight': 'floor',
+            'round': 'nearest',
+            'round_mx_output': 'nearest',
+            'round_output': 'nearest',
+            'round_weight': 'nearest',
             'mx_flush_fp32_subnorms': False,
             'custom_cuda': False,
             'quantize_backprop': False,
@@ -1060,9 +1045,9 @@ def main(args):
     if args.eval:
         # Initialize SaveStats with first_eval flag
         save_stats = None
-        if args.quantize:
+        if args.mx_quant:
             save_stats = SaveStats(first_eval=True)
-            model, hooks = apply_quantization_to_deit(model, quantization_config, first_eval=True, top_k=args.top_k, k=args.k, exponent_based_prediction=args.exponent_based_prediction)
+            model, hooks = apply_quantization_to_deit(model, quantization_config, first_eval=True, top_k=args.top_k, k=args.k, ex_pred=args.ex_pred)
         
         test_stats = evaluate(data_loader_val, model, device)
         print(f"Accuracy of the network on the {len(dataset_val)} test images: {test_stats['acc1']:.1f}%")

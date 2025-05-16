@@ -460,6 +460,10 @@ class GaussianDiffusion:
         ):
             final = sample
         return final["sample"]
+        
+        # Return both the sample and timestep
+        # return {"sample": final["sample"], "timestep": final["timestep"]}
+        
 
     def p_sample_loop_progressive(
         self,
@@ -490,9 +494,7 @@ class GaussianDiffusion:
         indices = list(range(self.num_timesteps))[::-1]
 
         if progress:
-            # Lazy import so that we don't depend on tqdm.
             from tqdm.auto import tqdm
-
             indices = tqdm(indices)
 
         for i in indices:
@@ -507,6 +509,7 @@ class GaussianDiffusion:
                     cond_fn=cond_fn,
                     model_kwargs=model_kwargs,
                 )
+                out["timestep"] = i
                 yield out
                 img = out["sample"]
 
@@ -658,9 +661,7 @@ class GaussianDiffusion:
         indices = list(range(self.num_timesteps))[::-1]
 
         if progress:
-            # Lazy import so that we don't depend on tqdm.
             from tqdm.auto import tqdm
-
             indices = tqdm(indices)
 
         for i in indices:
@@ -676,6 +677,7 @@ class GaussianDiffusion:
                     model_kwargs=model_kwargs,
                     eta=eta,
                 )
+                out["timestep"] = i
                 yield out
                 img = out["sample"]
 

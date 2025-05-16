@@ -1,0 +1,2 @@
+Looking in indexes: https://pypi.org/simple, https://pypi.ngc.nvidia.com
+Requirement already satisfied: accelerate in /work/tttpd9bjo/miniconda3/envs/PixArt/lib/python3.10/site-packages (1.6.0)

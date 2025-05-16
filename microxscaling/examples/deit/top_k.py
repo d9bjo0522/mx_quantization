@@ -5,13 +5,13 @@ class classtopk:
     def __init__(self, k):
         self.k = k
 
-    def top_k_attn(self, attn):
-        """
-        Get the top k attention values and their indices.
-        """
-        top_k_attn = torch.topk(attn, self.k, dim=-1)
-        top_k_attn = top_k_attn.values
-        return top_k_attn
+    # def top_k_attn(self, attn):
+    #     """
+    #     Get the top k attention values and their indices.
+    #     """
+    #     top_k_attn = torch.topk(attn, self.k, dim=-1)
+    #     top_k_attn = top_k_attn.values
+    #     return top_k_attn
 
     def generate_top_k_mask(self, attn):
         """
@@ -118,3 +118,53 @@ class classtopk:
     
         return result
 
+def generate_top_k_mask(attn, k):
+    """
+    Generate a binary mask for top k attention values.
+    
+    Args:
+        attn: attention tensor of shape (batch, head, N, N)
+        k: number of top values to keep per row
+    
+    Returns:
+        Binary mask tensor of same shape as input, where 1 indicates top-k positions
+    """
+    # Get top k indices
+    _, top_k_indices = torch.topk(attn, k, dim=-1)
+    
+    # Create binary mask tensor
+    mask = torch.zeros_like(attn, dtype=torch.bool)
+    
+    # Create indices for setting mask values
+    batch_size, num_heads, seq_len, _ = attn.shape
+    batch_indices = torch.arange(batch_size, device=attn.device).view(-1, 1, 1, 1).expand(-1, num_heads, seq_len, k)
+    head_indices = torch.arange(num_heads, device=attn.device).view(1, -1, 1, 1).expand(batch_size, -1, seq_len, k)
+    seq_indices = torch.arange(seq_len, device=attn.device).view(1, 1, -1, 1).expand(batch_size, num_heads, -1, k)
+    
+    # Set top-k positions to True
+    mask[batch_indices, head_indices, seq_indices, top_k_indices] = True
+    # print(f"top_k_indices shape: {top_k_indices.shape}")
+    return mask
+
+def apply_masked_softmax(attn, mask):
+    """
+    Apply softmax only to the masked positions.
+    
+    Args:
+        attn: attention tensor of shape (batch, head, N, N)
+        mask: boolean mask of same shape as attn
+    
+    Returns:
+        Attention tensor with softmax applied only to masked positions
+    """
+    # Create output tensor
+    result = torch.zeros_like(attn)
+    
+    # Get masked values for softmax
+    masked_attn = attn.clone()
+    masked_attn[~mask] = float('-inf')  # Set non-masked values to -inf
+    
+    # Apply softmax
+    result = torch.softmax(masked_attn, dim=-1)
+
+    return result

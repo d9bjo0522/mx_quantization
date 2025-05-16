@@ -38,10 +38,10 @@ def main(args):
         'bfloat': 16,
         'fp': 0,
         'bfloat_subnorms': True,
-        'round': 'floor',
-        'round_mx_output': 'floor',
-        'round_output': 'floor',
-        'round_weight': 'floor',
+        'round': 'nearest',
+        'round_mx_output': 'nearest',
+        'round_output': 'nearest',
+        'round_weight': 'nearest',
         'mx_flush_fp32_subnorms': False,
         'custom_cuda': False,
         'quantize_backprop': False,
@@ -52,7 +52,10 @@ def main(args):
         input_size=latent_size,
         num_classes=args.num_classes,
         mx_quant = args.mx_quant,
-        mx_specs = mx_specs
+        mx_specs = mx_specs,
+        top_k = args.top_k,
+        k = args.k,
+        ex_pred = args.ex_pred
     ).to(device)
 
     # Auto-download a pre-trained model or load a custom DiT checkpoint from train.py:
@@ -65,9 +68,9 @@ def main(args):
 
     # Labels to condition the model with (feel free to change):
     class_labels = [207, 360, 387, 974, 88, 979, 417, 279]
-    # class_labels = [387]
-
-    # Create sampling noise:
+    # class_labels = [207]
+   
+    # # Create sampling noise:
     n = len(class_labels)
     z = torch.randn(n, 4, latent_size, latent_size, device=device)
     y = torch.tensor(class_labels, device=device)
@@ -77,11 +80,41 @@ def main(args):
     y_null = torch.tensor([1000] * n, device=device)
     y = torch.cat([y, y_null], 0)
     model_kwargs = dict(y=y, cfg_scale=args.cfg_scale)
-
     # Sample images:
-    samples = diffusion.p_sample_loop(
-        model.forward_with_cfg, z.shape, z, clip_denoised=False, model_kwargs=model_kwargs, progress=True, device=device
-    )
+    # samples = diffusion.p_sample_loop(
+        # model.forward_with_cfg, z.shape, z, clip_denoised=False, model_kwargs=model_kwargs, progress=True, device=device
+    # )
+
+    # Progressive sampling with timestep control
+    final_sample = None
+    for sample_output in diffusion.p_sample_loop_progressive(
+        model.forward_with_cfg,
+        z.shape,
+        z,
+        clip_denoised=False,
+        model_kwargs=model_kwargs,
+        progress=True,
+        device=device
+    ):
+        current_timestep = sample_output["timestep"]
+        current_sample = sample_output["sample"]
+        
+        if 25 >= current_timestep >= 21:
+            # Need to update the blocks since these are model init parameters
+            for block in model.blocks:
+                block.attn.ex_pred = False
+                block.attn.top_k = False
+                block.attn.k = 128
+        else:
+            for block in model.blocks:
+                block.attn.ex_pred = True
+                block.attn.top_k = True
+                block.attn.k = 128
+            
+        final_sample = current_sample
+
+    # Process the final samples
+    samples = final_sample
     samples, _ = samples.chunk(2, dim=0)  # Remove null class samples
     samples = vae.decode(samples / 0.18215).sample
 
@@ -96,12 +129,15 @@ if __name__ == "__main__":
     parser.add_argument("--image-size", type=int, choices=[256, 512], default=256)
     parser.add_argument("--num-classes", type=int, default=1000)
     parser.add_argument("--cfg-scale", type=float, default=4.0)
-    parser.add_argument("--num-sampling-steps", type=int, default=250)
+    parser.add_argument("--num-sampling-steps", type=int, default=50)  # Set to 50 timesteps
     parser.add_argument("--seed", type=int, default=0)
     parser.add_argument("--ckpt", type=str, default=None,
                         help="Optional path to a DiT checkpoint (default: auto-download a pre-trained DiT-XL/2 model).")
     # mx-quantization configs
-    parser.add_argument("--mx-quant", type=bool, default=True)
+    parser.add_argument("--mx-quant", action='store_true')
     parser.add_argument("--sample-dir", type=str, default=None)
+    parser.add_argument("--top-k", action='store_true')
+    parser.add_argument("--k", type=int, default=128)
+    parser.add_argument("--ex-pred", action='store_true')
     args = parser.parse_args()
     main(args)
