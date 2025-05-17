@@ -47,7 +47,7 @@ def main(args):
     tr_cfg_dict = read_cfg(f"{folder}/transformer/config.json")
 
     transformer = MXPixArtTransformer2DModel.from_config(tr_cfg_dict)
-    # print(f"Initial model configs: mx_quant={transformer.mx_quant}, mx_specs={transformer.mx_specs}, self_top_k={transformer.self_top_k}, self_k={transformer.self_k}, cross_top_k={transformer.cross_top_k}, cross_k={transformer.cross_k}, ex_pred={transformer.ex_pred}")
+    print(f"Initial model configs: mx_quant={transformer.mx_quant}, mx_specs={transformer.mx_specs}, self_top_k={transformer.self_top_k}, self_k={transformer.self_k}, cross_top_k={transformer.cross_top_k}, cross_k={transformer.cross_k}, ex_pred={transformer.ex_pred}")
 
     ## set the model configs
     mx_specs = {
@@ -56,27 +56,27 @@ def main(args):
         'scale_bits': 8,
         'shared_exp_method': 'max',
         'block_size': 32,
-        'bfloat': 16,
+        'bfloat': 32,
         'fp': 0,
         'bfloat_subnorms': True,
         'round': 'nearest',
         'round_mx_output': 'nearest',
         'round_output': 'nearest',
         'round_weight': 'nearest',
-        'mx_flush_fp32_subnorms': False,
+        'mx_flush_fp32_subnorms': True,
         'custom_cuda': False,
         'quantize_backprop': False,
     }
-    # transformer.set_config(mx_quant=args.mx_quant, mx_specs=mx_specs, self_top_k=args.self_top_k, self_k=args.self_k, cross_top_k=args.cross_top_k, cross_k=args.cross_k, ex_pred=args.ex_pred)
-    # print(f"Model configs: mx_quant={transformer.transformer_blocks[0].mx_quant}, mx_specs={transformer.transformer_blocks[0].mx_specs}, self_top_k={transformer.transformer_blocks[0].self_top_k}, self_k={transformer.transformer_blocks[0].self_k}, cross_top_k={transformer.transformer_blocks[0].cross_top_k}, cross_k={transformer.transformer_blocks[0].cross_k}, ex_pred={transformer.transformer_blocks[0].ex_pred}")
-    # transformer.load_state_dict(state_dict)
+    transformer.set_config(mx_quant=args.mx_quant, mx_specs=mx_specs, self_top_k=args.self_top_k, self_k=args.self_k, cross_top_k=args.cross_top_k, cross_k=args.cross_k, ex_pred=args.ex_pred)
+    print(f"Model configs: mx_quant={transformer.transformer_blocks[0].mx_quant}, mx_specs={transformer.transformer_blocks[0].mx_specs}, self_top_k={transformer.transformer_blocks[0].self_top_k}, self_k={transformer.transformer_blocks[0].self_k}, cross_top_k={transformer.transformer_blocks[0].cross_top_k}, cross_k={transformer.transformer_blocks[0].cross_k}, ex_pred={transformer.transformer_blocks[0].ex_pred}")
+
     transformer_checkpoint = load_file(
         f"{folder}/transformer/diffusion_pytorch_model.safetensors",
         device="cpu"
     )
 
     transformer.load_state_dict(transformer_checkpoint)
-    dtype   = torch.float32
+    dtype   = torch.float16
     device  = torch.device("cuda")
 
     ## text-encoder
@@ -89,14 +89,21 @@ def main(args):
 
 
     ## test the model
-
     pipe = PixArtSigmaPipeline(
         transformer=transformer,
         vae=vae,
         text_encoder=text_encoder,
         tokenizer=tokenizer,        # let diffusers infer from folder path
         scheduler=scheduler,
-    ).to(device = device, dtype = dtype)
+    ).to(dtype = dtype)
+
+    pipe.text_encoder.to(dtype=torch.float32)
+
+    orig_encode = pipe.encode_prompt
+    def _encode_prompt_fp16(*args, **kwargs):
+        prompts_embeds, prompt_attention_mask, negative_prompt_embeds, negative_prompt_attention_mask = orig_encode(*args, **kwargs)
+        return prompts_embeds.to(dtype=torch.float16), prompt_attention_mask.to(dtype=torch.float16), negative_prompt_embeds.to(dtype=torch.float16), negative_prompt_attention_mask.to(dtype=torch.float16)
+    pipe.encode_prompt = _encode_prompt_fp16
 
     ## reduce memory usage
     pipe.enable_model_cpu_offload()
@@ -113,9 +120,9 @@ def main(args):
         for line in lines:
             prompts.append(line.strip())
 
-    N_batch = len(prompts) // args.batch_size # drop_last
+    N_batch = len(prompts) // args.batch_size
+
     for i in range(N_batch):
-        # with torch.inference_mode(), torch.autocast("cuda", dtype=torch.float16):
         images = pipe(
             prompt=prompts[i*args.batch_size: (i+1)*args.batch_size],
             num_inference_steps=args.num_sampling_steps,

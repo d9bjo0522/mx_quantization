@@ -23,17 +23,30 @@ def seed_everything(seed=42):
     torch.backends.cudnn.deterministic = True
     torch.backends.cudnn.benchmark = False
 
+from collections import defaultdict
+
+def list_fp32_params(pipe):
+    """
+    Return {component_name: [param_full_name, …]} for params that are fp32
+    """
+    fp32 = defaultdict(list)
+
+    # diffusers ≥ 0.25 has `pipe.components`; fall back to dir() otherwise
+    comp_dict = getattr(pipe, "components", None)
+    if comp_dict is None:                        # older versions
+        comp_dict = {n: getattr(pipe, n) for n in dir(pipe)}
+
+    for comp_name, obj in comp_dict.items():
+        if isinstance(obj, torch.nn.Module):
+            for p_name, p in obj.named_parameters(recurse=True):
+                if p.dtype == torch.float32:
+                    fp32[f"{comp_name}"].append(f"{comp_name}.{p_name}")
+    return fp32
+
 def main(args):
     seed_everything(args.seed)
     torch.set_grad_enabled(False)
     device="cuda" if torch.cuda.is_available() else "cpu"
-
-    # if args.log is not None:
-    #     if not os.path.exists(args.log):
-    #         os.makedirs(args.log)
-    # log_file = os.path.join(args.log, 'run.log')
-    # setup_logging(log_file)
-    # logger = logging.getLogger(__name__)
 
     # ckpt_path = args.ckpt if args.ckpt is not None else "./pretrained_models/"
     pipe = PixArtSigmaPipeline.from_pretrained(
@@ -41,6 +54,12 @@ def main(args):
         # ckpt_path,
         torch_dtype=torch.float16  # due to CUDA kernel only supports fp16, we donot use bfloat16 here. 
     ).to(device)
+
+    fp32_layers = list_fp32_params(pipe)
+    for comp, names in fp32_layers.items():
+        print(f"{comp:<15}  —  {len(names)} fp32 tensors")
+        for n in names:
+            print("   ", n)
 
     # INFO: if memory intense
     # pipe.enable_model_cpu_offload()

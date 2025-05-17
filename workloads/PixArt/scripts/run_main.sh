@@ -24,11 +24,21 @@ PROMPT_PATH='../prompts/sample.txt'
 #     # --cross-k 21 \
 #     # --ex-pred
 
-python local_inference.py \
+# python local_inference.py \
+#     --log ${LOG} \
+#     --prompt ${PROMPT_PATH} \
+#     --batch-size 1 \
+#     --mx-quant \
+#     --self-top-k \
+#     --self-k 4096 \
+#     # --ex-pred
+
+python text_local_inference.py \
     --log ${LOG} \
     --prompt ${PROMPT_PATH} \
+    --start-idx 10 \
     --batch-size 1 \
     # --mx-quant \
     # --self-top-k \
-    # --self-k 3686 \
+    # --self-k 2048 \
     # --ex-pred

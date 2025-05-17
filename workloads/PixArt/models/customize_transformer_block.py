@@ -15,12 +15,14 @@ from diffusers.models.normalization import AdaLayerNorm, AdaLayerNormContinuous,
 from diffusers.models.attention import _chunked_feed_forward, GatedSelfAttentionDense
 from diffusers.models.activations import LinearActivation, ApproximateGELU, SwiGLU
 
+import math
 import xformers.ops
 from mx import Linear, matmul
 # from examples.deit.top_k import classtopk
 from examples.deit.top_k import generate_top_k_mask, apply_masked_softmax
 from examples.deit.exponent_based_prediction import exponent_approximation
 import numpy as np
+from mx.mx_ops import quantize_mx_op
 
 if is_torch_npu_available():
     import torch_npu
@@ -354,7 +356,7 @@ class MXBasicTransformerBlock(nn.Module):
         self.ex_pred = ex_pred
         ## submodule set_configs
         self.attn1.set_config(mx_quant=mx_quant, mx_specs=mx_specs, top_k=self_top_k, k=self_k, ex_pred=ex_pred)
-        self.attn2.set_config(mx_quant=mx_quant, mx_specs=mx_specs, top_k=cross_top_k, k=cross_k, ex_pred=ex_pred)
+        self.attn2.set_config(mx_quant=mx_quant, mx_specs=mx_specs)
         self.ff.set_config(mx_quant=mx_quant, mx_specs=mx_specs)
         return self
     
@@ -624,78 +626,62 @@ class MXSelfAttention(nn.Module):
         v = v.view(B, N, self.num_heads, C // self.num_heads).transpose(1, 2)
 
         if not self.mx_quant:
-            # q = q.to(torch.float32)
-            # k = k.to(torch.float32)
-            # v = v.to(torch.float32)
             out = torch.nn.functional.scaled_dot_product_attention(
                 q, k, v, None, 0.0, is_causal=False
             )
             out = out.transpose(1, 2).reshape(B, N, C)
             x = self.to_out(out)
-            # x = x.to(torch.float16)
             return x
         else:
-            # q = q.to(torch.float32)
-            # k = k.to(torch.float32)
-            # v = v.to(torch.float32)
-            scores = matmul(q, k.transpose(-2, -1), mx_specs=self.mx_specs, mode_config='aa')
-            scores = scores / self.head_dim ** 0.5
-            # Only create top_k_obj if it's None and top_k is True
-            # print(f"scores.shape: {scores.shape}")
-            # if self.top_k:
-            #     ori_pred_mask = generate_top_k_mask(scores, self.k)
-            #     if self.ex_pred:
-            #         self.exponent_based_obj = exponent_approximation(Q=q, K=k, mx_specs=self.mx_specs)
-            #         ex_quant_q, ex_quant_k = self.exponent_based_obj.exponent_based_sign()
-            #         # ex_quant_q, ex_quant_k = self.exponent_based_obj.exponent_based_sign_leading_ones()
-            #         pred_scores = ex_quant_q @ ex_quant_k.transpose(-2, -1)
-            #         mask = generate_top_k_mask(pred_scores, self.k)
-
-            #         ## prevent OOM issue caused by large pred_attn
-            #         del pred_scores, ex_quant_q, ex_quant_k
-            #         torch.cuda.empty_cache()
-            #     else:
-            #         mask = ori_pred_mask
-
-            #     attn = apply_masked_softmax(scores, mask)
-
-            # else:
-            #     attn = torch.softmax(scores, dim=-1)
-            
-            ## try another method to avoid OOM issue
+            q = q.to(torch.float32)
+            k = k.to(torch.float32)
+            v = v.to(torch.float32)
+            # attention_mask = attention_mask.to(torch.float32)
+            scale_factor = 1 / math.sqrt(q.size(-1))
+            k_scaled = k * scale_factor
+            true_scores = matmul(q, k_scaled.transpose(-2, -1), mx_specs=self.mx_specs, mode_config='aa')
+            # mx_q = quantize_mx_op(
+            #     q,
+            #     self.mx_specs,
+            #     elem_format=self.mx_specs["a_elem_format"],
+            #     axes=[-1],
+            #     round=self.mx_specs["round_mx_output"],
+            #     predict_phase=False,
+            # )
+            # mx_k_scaled = quantize_mx_op(
+            #     k_scaled,
+            #     self.mx_specs,
+            #     elem_format=self.mx_specs["a_elem_format"],
+            #     axes=[-1],
+            #     round=self.mx_specs["round_mx_output"],
+            #     predict_phase=False,
+            # )
+            # attn = mx_q @ mx_k_scaled.transpose(-2, -1)
+            # print(f"attn.shape: {attn.shape}")
             if self.top_k:
                 if self.ex_pred:
-                    self.exponent_based_obj = exponent_approximation(Q=q, K=k, mx_specs=self.mx_specs)
+                    self.exponent_based_obj = exponent_approximation(Q=q, K=k_scaled, mx_specs=self.mx_specs)
                     ex_quant_q, ex_quant_k = self.exponent_based_obj.exponent_based_sign()
                     # ex_quant_q, ex_quant_k = self.exponent_based_obj.exponent_based_sign_leading_ones()
                     pred_scores = ex_quant_q @ ex_quant_k.transpose(-2, -1)
                     _, idx = torch.topk(pred_scores, self.k, dim=-1, largest=True, sorted=True)
-                    vals = scores.gather(dim=-1, index=idx)
+                    vals = true_scores.gather(dim=-1, index=idx)
                     del pred_scores, ex_quant_q, ex_quant_k, self.exponent_based_obj
-                    torch.cuda.empty_cache()
                 else:
-                    vals, idx = torch.topk(scores, self.k, dim=-1, largest=True, sorted=True)
-                # vals = vals.to(torch.float32)
-                attn = torch.softmax(vals, dim=-1)
-                # attn = attn.to(torch.float16)
-                attn_dense = torch.zeros_like(scores)          # (B,H,N,N) – full size
-                attn_dense.scatter_(-1, idx, attn)     # write the k weights back
-                attn = attn_dense
-                del attn_dense
-                torch.cuda.empty_cache()
+                    vals, idx = torch.topk(true_scores, self.k, dim=-1, largest=True, sorted=True)
+                topk_attn = torch.softmax(vals, dim=-1)
+                attn = torch.zeros_like(true_scores)          # (B,H,N,N) – full size
+                attn.scatter_(-1, idx, topk_attn)     # write the k weights back
+                del topk_attn
             else:
-                # scores = scores.to(torch.float32)
-                attn = torch.softmax(scores, dim=-1)
-                # attn = attn.to(torch.float16)
+                attn = torch.softmax(true_scores, dim=-1)
 
-            del scores, vals
+            del true_scores
             torch.cuda.empty_cache()
 
-
             x = matmul(attn, v, mx_specs=self.mx_specs, mode_config='aa')
+            x = x.to(torch.float16)
             x = x.transpose(1, 2).reshape(B, N, C)
-            # Convert to float32 before passing to self.to_out instead of float16
-            # x = x.to(torch.float32)
             x = self.to_out(x)
             return x
 
@@ -731,12 +717,9 @@ class MXCrossAttention(nn.Module):
         # self.top_k_obj = None
         # self.exponent_based_obj = None
 
-    def set_config(self, mx_quant:bool=False, mx_specs:dict=None, top_k:bool=False, k:int=20, ex_pred:bool=False):
+    def set_config(self, mx_quant:bool=False, mx_specs:dict=None):
         self.mx_quant = mx_quant
         self.mx_specs = mx_specs
-        self.top_k = top_k
-        self.k = k
-        self.ex_pred = ex_pred
         ## submodule set_configs
         self.to_q = Linear(self.dim, self.dim, bias=self.has_bias, mx_specs=mx_specs) if mx_quant else self.to_q
         self.to_k = Linear(self.dim, self.dim, bias=self.has_bias, mx_specs=mx_specs) if mx_quant else self.to_k
@@ -761,15 +744,9 @@ class MXCrossAttention(nn.Module):
         q = self.to_q(hidden_states).view(B, -1, self.num_heads, self.head_dim).transpose(1, 2) # [B, N, num_heads, head_dim]
         k = self.to_k(encoder_hidden_states).reshape([B, target_length, self.num_heads, -1]).transpose(1, 2) # [B, target_length, num_heads, head_dim]
         v = self.to_v(encoder_hidden_states).reshape([B, target_length, self.num_heads, -1]).transpose(1, 2) # [B, target_length, num_heads, head_dim]
-        # q = q.to(torch.float32)
-        # k = k.to(torch.float32)
-        # v = v.to(torch.float32)
 
         ## original scaled dot product attention
         if not self.mx_quant:
-            # q = q.to(torch.float32)
-            # k = k.to(torch.float32)
-            # v = v.to(torch.float32)
             # attention_mask = attention_mask.to(torch.float32)
             out = F.scaled_dot_product_attention(
                 q, k, v, attn_mask=attention_mask, dropout_p=0.0, is_causal=False
@@ -779,48 +756,61 @@ class MXCrossAttention(nn.Module):
             # x = x.to(torch.float16)
             return x
         else:
-            # q = q.to(torch.float32)
-            # k = k.to(torch.float32)
-            # v = v.to(torch.float32)
+            q = q.to(torch.float32)
+            k = k.to(torch.float32)
+            v = v.to(torch.float32)
             # attention_mask = attention_mask.to(torch.float32)
-            attn = matmul(q, k.transpose(-2, -1), mx_specs=self.mx_specs, mode_config='aa')
-            attn = attn / self.head_dim ** 0.5
-            attn_bias = torch.zeros([N, target_length], device=q.device)
+            scale_factor = 1 / math.sqrt(q.size(-1))
+            k_t_scaled = k.transpose(-2, -1) * scale_factor
+            attn = matmul(q, k_t_scaled, mx_specs=self.mx_specs, mode_config='wa')
+            # q = quantize_mx_op(
+            #     q,
+            #     self.mx_specs,
+            #     elem_format=self.mx_specs["a_elem_format"],
+            #     axes=[-1],
+            #     round=self.mx_specs["round_mx_output"],
+            #     predict_phase=False,
+            # )
+            # k_t_scaled = quantize_mx_op(
+            #     k_t_scaled,
+            #     self.mx_specs,
+            #     elem_format=self.mx_specs["a_elem_format"],
+            #     axes=[-2],
+            #     round=self.mx_specs["round_mx_output"],
+            #     predict_phase=False,
+            # )
+            # attn = q @ k_t_scaled
+
+            attn_bias = torch.zeros([N, target_length], device=q.device, dtype=q.dtype)
             ## copied from F.scaled_dot_product_attention
             if attention_mask is not None:
                 if attention_mask.dtype == torch.bool:
                     attn_bias.masked_fill_(attention_mask.logical_not(), float("-inf"))
                 else:
                     attn_bias = attention_mask + attn_bias
+
             attn += attn_bias
-
-            # Only create top_k_obj if it's None and top_k is True
-            # if self.top_k:
-            #     if self.top_k_obj is None:
-            #         self.top_k_obj = classtopk(self.k)
-            #     ori_pred_mask = self.top_k_obj.generate_top_k_mask(attn)
-
-            #     if self.ex_pred:
-            #         self.exponent_based_obj = exponent_approximation(Q=q, K=k, mx_specs=self.mx_specs)
-            #         ex_quant_q, ex_quant_k = self.exponent_based_obj.exponent_based_sign()
-            #         ex_quant_k_t = ex_quant_k.transpose(-2, -1)
-            #         pred_attn = ex_quant_q @ ex_quant_k_t
-            #         pred_attn += attn_bias      ## experimental: needs to rethink properly
-
-            #         mask = self.top_k_obj.generate_top_k_mask(pred_attn)
-            #         ## prevent OOM issue caused by large pred_attn
-            #         del pred_attn
-            #         torch.cuda.empty_cache()
-            #     else:
-            #         mask = ori_pred_mask
-
-            #     attn = self.top_k_obj.apply_masked_softmax(attn, mask)
-            # else:
             attn = torch.softmax(attn, dim=-1)
-
+            # attn = quantize_mx_op(
+            #     attn,
+            #     self.mx_specs,
+            #     elem_format=self.mx_specs["a_elem_format"],
+            #     axes=[-1],
+            #     round=self.mx_specs["round_mx_output"],
+            #     predict_phase=False,
+            # )
+            # v = quantize_mx_op(
+            #     v,
+            #     self.mx_specs,
+            #     elem_format=self.mx_specs["a_elem_format"],
+            #     axes=[-1],
+            #     round=self.mx_specs["round_mx_output"],
+            #     predict_phase=False,
+            # )
             x = matmul(attn, v, mx_specs=self.mx_specs, mode_config='aa')
+            x = attn @ v
+            x = x.to(torch.float16)
             x = x.transpose(1, 2).reshape(B, N, C)
-            # x = x.to(torch.float32)
             x = self.to_out(x)
             return x
         
