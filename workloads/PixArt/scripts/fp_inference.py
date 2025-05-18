@@ -100,7 +100,7 @@ def main(args):
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("--log", type=str)
-    parser.add_argument("--cfg-scale", type=float, default=4.0)
+    parser.add_argument("--cfg-scale", type=float, default=4.5)
     parser.add_argument("--num-sampling-steps", type=int, default=20)
     parser.add_argument("--prompt", type=str, default=None)
     parser.add_argument("--seed", type=int, default=42)

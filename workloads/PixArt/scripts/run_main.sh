@@ -33,12 +33,23 @@ PROMPT_PATH='../prompts/sample.txt'
 #     --self-k 4096 \
 #     # --ex-pred
 
-python text_local_inference.py \
+python text_local_inference_sigma.py \
     --log ${LOG} \
     --prompt ${PROMPT_PATH} \
-    --start-idx 10 \
+    --resolution 1024 \
+    --start-idx 1 \
     --batch-size 1 \
-    # --mx-quant \
-    # --self-top-k \
-    # --self-k 2048 \
-    # --ex-pred
+    --mx-quant \
+    --self-top-k \
+    --self-k 2458 \
+    --ex-pred
+
+# python text_local_inference_alpha.py \
+#     --log ${LOG} \
+#     --prompt ${PROMPT_PATH} \
+#     --start-idx 1 \
+#     --batch-size 1 \
+#     --mx-quant \
+#     --self-top-k \
+#     --self-k 410 \
+#     --ex-pred

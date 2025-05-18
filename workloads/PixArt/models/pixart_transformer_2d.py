@@ -606,8 +606,6 @@ class MXPixArtTransformer2DModel(ModelMixin, ConfigMixin):
         self.mx_specs = None
         self.self_top_k = False
         self.self_k = 20
-        self.cross_top_k = False
-        self.cross_k = 20
         self.ex_pred = False
 
         # Validate inputs.
@@ -686,9 +684,9 @@ class MXPixArtTransformer2DModel(ModelMixin, ConfigMixin):
                 in_features=self.config.caption_channels, hidden_size=self.inner_dim
             )
 
-    def set_config(self, mx_quant:bool=False, mx_specs:dict=None, self_top_k:bool=False, self_k:int=20, cross_top_k:bool=False, cross_k:int=20, ex_pred:bool=False):
+    def set_config(self, mx_quant:bool=False, mx_specs:dict=None, self_top_k:bool=False, self_k:int=20, ex_pred:bool=False):
         for block in self.transformer_blocks:
-            block.set_config(mx_quant=mx_quant, mx_specs=mx_specs, self_top_k=self_top_k, self_k=self_k, cross_top_k=cross_top_k, cross_k=cross_k, ex_pred=ex_pred)
+            block.set_config(mx_quant=mx_quant, mx_specs=mx_specs, self_top_k=self_top_k, self_k=self_k, ex_pred=ex_pred)
         return self
     
     @property
