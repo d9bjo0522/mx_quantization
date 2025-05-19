@@ -344,14 +344,14 @@ class MXBasicTransformerBlock(nn.Module):
         self._chunk_size = chunk_size
         self._chunk_dim = dim
 
-    def set_config(self, mx_quant:bool=False, mx_specs:dict=None, self_top_k:bool=False, self_k:int=20, ex_pred:bool=False):
+    def set_config(self, mx_quant:bool=False, mx_specs:dict=None, self_top_k:bool=False, self_k:int=20, ex_pred:bool=False, zero_counts_file:str=None):
         self.mx_quant = mx_quant
         self.mx_specs = mx_specs
         self.self_top_k = self_top_k
         self.self_k = self_k
         self.ex_pred = ex_pred
         ## submodule set_configs
-        self.attn1.set_config(mx_quant=mx_quant, mx_specs=mx_specs, top_k=self_top_k, k=self_k, ex_pred=ex_pred)
+        self.attn1.set_config(mx_quant=mx_quant, mx_specs=mx_specs, top_k=self_top_k, k=self_k, ex_pred=ex_pred, zero_counts_file=zero_counts_file)
         self.attn2.set_config(mx_quant=mx_quant, mx_specs=mx_specs)
         self.ff.set_config(mx_quant=mx_quant, mx_specs=mx_specs)
         return self
@@ -587,16 +587,19 @@ class MXSelfAttention(nn.Module):
             nn.Dropout(p=0.0)
         )
 
+        ## zero counts file
+        self.zero_counts_file = None
         ## top-k
         # self.top_k_obj = None
         self.exponent_based_obj = None
 
-    def set_config(self, mx_quant:bool=False, mx_specs:dict=None, top_k:bool=False, k:int=20, ex_pred:bool=False):
+    def set_config(self, mx_quant:bool=False, mx_specs:dict=None, top_k:bool=False, k:int=20, ex_pred:bool=False, zero_counts_file:str=None):
         self.mx_quant = mx_quant
         self.mx_specs = mx_specs
         self.top_k = top_k
         self.k = k
         self.ex_pred = ex_pred
+        self.zero_counts_file = zero_counts_file
         ## submodule set_configs
         self.to_q = Linear(self.dim, self.dim, bias=self.has_bias, mx_specs=mx_specs) if mx_quant else self.to_q
         self.to_k = Linear(self.dim, self.dim, bias=self.has_bias, mx_specs=mx_specs) if mx_quant else self.to_k
@@ -635,16 +638,19 @@ class MXSelfAttention(nn.Module):
             # v = v.to(torch.float32)
             scale_factor = 1 / math.sqrt(q.size(-1))
             k_scaled = k
+            q = q
             # print(f"q any nan: {torch.any(torch.isnan(q))}")
             # print(f"k any nan: {torch.any(torch.isnan(k))}")
             # print(f"v any nan: {torch.any(torch.isnan(v))}")
             ## true q*k^T
             true_scores = matmul(q, k_scaled.transpose(-2, -1), mx_specs=self.mx_specs, mode_config='aa')
+            # true_scores = q @ k_scaled.transpose(-2, -1)
             true_scores = true_scores * scale_factor
             ## top-k
             if self.top_k:
                 if self.ex_pred:
                     self.exponent_based_obj = exponent_approximation(Q=q, K=k_scaled, mx_specs=self.mx_specs)
+                    # self.exponent_based_obj.report_zero_counts(output_file=self.zero_counts_file)
                     ex_quant_q, ex_quant_k = self.exponent_based_obj.exponent_based_sign()
                     # ex_quant_q, ex_quant_k = self.exponent_based_obj.exponent_based_sign_leading_ones()
                     pred_scores = ex_quant_q @ ex_quant_k.transpose(-2, -1)     ## approximated q*k using exponent-based method
@@ -663,7 +669,7 @@ class MXSelfAttention(nn.Module):
             del true_scores
             torch.cuda.empty_cache()
 
-            ## attn @ v
+            # x = attn @ v
             x = matmul(attn, v, mx_specs=self.mx_specs, mode_config='aa')
 
             # x = x.to(torch.float16) ## output from matmul is fp32
@@ -742,6 +748,7 @@ class MXCrossAttention(nn.Module):
             # v = v.to(torch.float32)
             scale_factor = 1 / math.sqrt(q.size(-1))
             k_t_scaled = k.transpose(-2, -1)
+            # k_t_scaled = k_t_scaled * scale_factor
             attn = matmul(q, k_t_scaled, mx_specs=self.mx_specs, mode_config='aa')
             attn = attn * scale_factor
             attn_bias = torch.zeros([N, target_length], device=q.device, dtype=q.dtype)

@@ -684,9 +684,12 @@ class MXPixArtTransformer2DModel(ModelMixin, ConfigMixin):
                 in_features=self.config.caption_channels, hidden_size=self.inner_dim
             )
 
-    def set_config(self, mx_quant:bool=False, mx_specs:dict=None, self_top_k:bool=False, self_k:int=20, ex_pred:bool=False):
-        for block in self.transformer_blocks:
-            block.set_config(mx_quant=mx_quant, mx_specs=mx_specs, self_top_k=self_top_k, self_k=self_k, ex_pred=ex_pred)
+    def set_config(self, mx_quant:bool=False, mx_specs:dict=None, self_top_k:bool=False, self_k:int=20, ex_pred:bool=False, zero_counts_dir:str=None):
+        for idx, block in enumerate(self.transformer_blocks):
+            block.set_config(mx_quant=mx_quant, mx_specs=mx_specs, self_top_k=self_top_k, self_k=self_k, ex_pred=ex_pred, zero_counts_file=f"{zero_counts_dir}/zero_counts_self_attn_block_{idx}.txt")
+            ## clear the file
+            # with open(f"{zero_counts_dir}/zero_counts_self_attn_block_{idx}.txt", 'w') as f:
+            #     pass
         return self
     
     @property
