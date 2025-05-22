@@ -11,7 +11,7 @@ from diffusers import (
 )
 from safetensors.torch import load_file
 from transformers import T5EncoderModel, T5TokenizerFast
-from diffusers import PixArtSigmaPipeline
+from diffusers import PixArtSigmaPipeline, PixArtAlphaPipeline
 from diffusers import Transformer2DModel
 import argparse
 import gc
@@ -22,7 +22,6 @@ from models.pixart_transformer_2d import MXPixArtTransformer2DModel, PixArtTrans
 # print("Transformer now points to:", PixArtTransformer2DModel)
 # print("Pipeline    now points to:", PixArtSigmaPipeline)
 
-folder = "/work/tttpd9bjo/diffusion/PixArt/PixArt-XL-2-512x512"
 
 def print_gpu_memory(label=""):
     if torch.cuda.is_available():
@@ -47,6 +46,8 @@ def read_cfg(path):
 def main(args):
     seed_everything(args.seed)
 
+    folder = "/work/tttpd9bjo/diffusion/PixArt/PixArt-XL-2-512x512"
+    mismatch_idx_dir = f"../analysis/mismatch_idx/alpha-512/top-614"
     ## sample images from prompts
     prompt_path = args.prompt if args.prompt is not None else "./prompts.txt"
     prompts = []
@@ -58,13 +59,6 @@ def main(args):
 
     print(f"Found {len(prompts)} prompts, will process in {N_batch} batches")
     # print_gpu_memory("Before any model loading")
-
-    ## text encoder
-    ## generated text first
-    # text_encoder = T5EncoderModel.from_pretrained(
-    #     f"{folder}/text_encoder",
-    #     load_in_8bit=False,
-    #     device_map="auto")
 
     text_encoder = T5EncoderModel.from_pretrained(
         f"{folder}/text_encoder",
@@ -118,12 +112,17 @@ def main(args):
         'quantize_backprop': False,
     }
     # Apply MX quantization settings to reduce memory usage
+    exclude_timesteps = []
+    exclude_blocks = []
     transformer.set_config(
         mx_quant=args.mx_quant, 
         mx_specs=mx_specs, 
         self_top_k=args.self_top_k, 
         self_k=args.self_k, 
-        ex_pred=args.ex_pred
+        ex_pred=args.ex_pred,
+        exclude_timesteps=exclude_timesteps,
+        exclude_blocks=exclude_blocks,
+        mismatch_idx_dir=mismatch_idx_dir
     )
     print(f"Model configs: mx_quant={transformer.transformer_blocks[0].mx_quant}, mx_specs={transformer.transformer_blocks[0].mx_specs}, self_top_k={transformer.transformer_blocks[0].self_top_k}, self_k={transformer.transformer_blocks[0].self_k}, ex_pred={transformer.transformer_blocks[0].ex_pred}")
 
@@ -192,7 +191,7 @@ def main(args):
         ).images
 
         print(f"Export image of batch {i}")
-        save_path = os.path.join(args.log, "alpha-512/mx_quant")
+        save_path = os.path.join(args.log)
         if not os.path.exists(save_path):
             os.makedirs(save_path)
 

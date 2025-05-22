@@ -684,11 +684,16 @@ class MXPixArtTransformer2DModel(ModelMixin, ConfigMixin):
                 in_features=self.config.caption_channels, hidden_size=self.inner_dim
             )
 
-    def set_config(self, mx_quant:bool=False, mx_specs:dict=None, self_top_k:bool=False, self_k:int=20, ex_pred:bool=False, zero_counts_dir:str=None):
+    def set_config(self, mx_quant:bool=False, mx_specs:dict=None, self_top_k:bool=False, self_k:int=20, ex_pred:bool=False, zero_counts_dir:str=None, mismatch_idx_dir:str=None, exclude_timesteps:list=[], exclude_blocks:list=[]):
         for idx, block in enumerate(self.transformer_blocks):
-            block.set_config(mx_quant=mx_quant, mx_specs=mx_specs, self_top_k=self_top_k, self_k=self_k, ex_pred=ex_pred, zero_counts_file=f"{zero_counts_dir}/zero_counts_self_attn_block_{idx}.txt")
+            if idx in exclude_blocks:
+                block.set_config(mx_quant=mx_quant, mx_specs=mx_specs, self_top_k=self_top_k, self_k=self_k, ex_pred=False, zero_counts_file=f"{zero_counts_dir}/zero_counts_self_attn_block_{idx}.txt", mismatch_idx_file=f"{mismatch_idx_dir}/mismatch_idx_self_attn_block_{idx}.txt", exclude_timesteps=exclude_timesteps)
+            else:
+                block.set_config(mx_quant=mx_quant, mx_specs=mx_specs, self_top_k=self_top_k, self_k=self_k, ex_pred=ex_pred, zero_counts_file=f"{zero_counts_dir}/zero_counts_self_attn_block_{idx}.txt", mismatch_idx_file=f"{mismatch_idx_dir}/mismatch_idx_self_attn_block_{idx}.txt", exclude_timesteps=exclude_timesteps)
             ## clear the file
             # with open(f"{zero_counts_dir}/zero_counts_self_attn_block_{idx}.txt", 'w') as f:
+            #     pass
+            # with open(f"{mismatch_idx_dir}/mismatch_idx_self_attn_block_{idx}.txt", 'w') as f:
             #     pass
         return self
     
@@ -799,38 +804,7 @@ class MXPixArtTransformer2DModel(ModelMixin, ConfigMixin):
         """
         if self.original_attn_processors is not None:
             self.set_attn_processor(self.original_attn_processors)
-    ## Added by MX-Quant
-    # def _replace_transformer_blocks(self):
-    #     """
-    #     Re-instantiate each BasicTransformerBlock with MX-aware layers and copy
-    #     the pretrained weights over.
-    #     """
-    #     new_blocks = nn.ModuleList()
-    #     for old in self.transformer_blocks:
-    #         new = MXBasicTransformerBlock(
-    #             dim=old.dim,
-    #             num_attention_heads=old.num_attention_heads,
-    #             attention_head_dim=old.attention_head_dim,
-    #             dropout=old.dropout,
-    #             cross_attention_dim=old.cross_attention_dim,
-    #             activation_fn=old.activation_fn,
-    #             num_embeds_ada_norm=old.num_embeds_ada_norm,
-    #             attention_bias=old.attn1.to_q.bias is not None,
-    #             upcast_attention=old.attn1.upcast_attention,
-    #             norm_type=old.norm_type,
-    #             norm_elementwise_affine=old.norm_elementwise_affine,
-    #             norm_eps=old.norm1.eps,
-    #             mx_quant=self.mx_quant,          #  ← actual switch
-    #             mx_specs=self.mx_specs,
-    #             top_k=self.top_k,
-    #             k=self.k,
-    #             ex_pred=self.ex_pred,
-    #         )
-    #         # copy everything we can; ignore keys that don't exist in MX version
-    #         new.load_state_dict(old.state_dict(), strict=False)
-    #         new_blocks.append(new)
-
-    #     self.transformer_blocks = new_blocks
+    
     def forward(
         self,
         hidden_states: torch.Tensor,
@@ -914,7 +888,6 @@ class MXPixArtTransformer2DModel(ModelMixin, ConfigMixin):
         timestep, embedded_timestep = self.adaln_single(
             timestep, added_cond_kwargs, batch_size=batch_size, hidden_dtype=hidden_states.dtype
         )
-
         if self.caption_projection is not None:
             encoder_hidden_states = self.caption_projection(encoder_hidden_states)
             encoder_hidden_states = encoder_hidden_states.view(batch_size, -1, hidden_states.shape[-1])

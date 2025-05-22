@@ -47,8 +47,10 @@ def main(args):
     folder = "/work/tttpd9bjo/diffusion/PixArt/PixArt-Sigma-XL-2"
     transformer_folder = f"{folder}/PixArt-Sigma-XL-2-1024-MS" if args.resolution == 1024 else f"{folder}/PixArt-Sigma-XL-2-2K-MS"
 
-    image_path = "sigma-1024/fp32_self_attn_test"
-    zero_counts_dir = f"../analysis/zero_counts/sf_prev/scale_q"
+    image_path = "sigma-1024/mx_quant"
+    zero_counts_dir = f"../analysis/zero_counts/"
+    # mismatch_idx_dir = f"../analysis/mismatch_idx/sigma-1024/top-2048/hybrid_block"
+    mismatch_idx_dir = f"../analysis/mismatch_idx/sigma-1024/top-2048/hybrid_t/f4t_true"
 
     ## sample images from prompts
     prompt_path = args.prompt if args.prompt is not None else "./prompts.txt"
@@ -66,7 +68,7 @@ def main(args):
     text_encoder = T5EncoderModel.from_pretrained(
         f"{folder}/text_encoder",
         local_files_only=True,
-        load_in_8bit=False,     ## set true saves 2GB but slows down 22s
+        load_in_8bit=True,     ## set true saves 2GB but slows down 22s
         device_map="auto")
     
     pipe = PixArtSigmaPipeline.from_pretrained(
@@ -114,6 +116,8 @@ def main(args):
         'custom_cuda': False,
         'quantize_backprop': False,
     }
+    exclude_timesteps = []
+    exclude_blocks = []
     # Apply MX quantization settings to reduce memory usage
     transformer.set_config(
         mx_quant=args.mx_quant, 
@@ -121,7 +125,10 @@ def main(args):
         self_top_k=args.self_top_k, 
         self_k=args.self_k, 
         ex_pred=args.ex_pred,
-        zero_counts_dir=zero_counts_dir
+        exclude_timesteps=exclude_timesteps,
+        exclude_blocks=exclude_blocks,
+        zero_counts_dir=zero_counts_dir,
+        mismatch_idx_dir=mismatch_idx_dir
     )
     ## analysis initialization
     print(f"Model configs: mx_quant={transformer.transformer_blocks[0].mx_quant}, mx_specs={transformer.transformer_blocks[0].mx_specs}, self_top_k={transformer.transformer_blocks[0].self_top_k}, self_k={transformer.transformer_blocks[0].self_k}, ex_pred={transformer.transformer_blocks[0].ex_pred}")

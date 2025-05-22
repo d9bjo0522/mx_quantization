@@ -1,8 +1,8 @@
-LOG='../outputs/'
+LOG='../evaluation/generated_images/alpha-512/top512/true/'
 PROMPT_PATH='../prompts/sample.txt'
 
 # Add both paths to PYTHONPATH
-export PYTHONPATH=$PYTHONPATH:/home/tttpd9bjo/mx_quantization/workloads/PixArt:/home/tttpd9bjo/mx_quantization/microxscaling
+# export PYTHONPATH=$PYTHONPATH:/home/tttpd9bjo/mx_quantization/workloads/PixArt:/home/tttpd9bjo/mx_quantization/microxscaling
 
 # echo "PYTHONPATH: $PYTHONPATH"
 
@@ -33,22 +33,23 @@ export PYTHONPATH=$PYTHONPATH:/home/tttpd9bjo/mx_quantization/workloads/PixArt:/
 #     --self-k 4096 \
 #     # --ex-pred
 
-python text_local_inference_sigma.py \
-    --log ${LOG} \
-    --prompt ${PROMPT_PATH} \
-    --resolution 1024 \
-    --start-idx 1 \
-    --batch-size 1 \
-    --self-top-k \
-    --self-k 2867 \
-    --ex-pred
-
-# python text_local_inference_alpha.py \
+# python text_local_inference_sigma.py \
 #     --log ${LOG} \
 #     --prompt ${PROMPT_PATH} \
+#     --resolution 1024 \
 #     --start-idx 1 \
 #     --batch-size 1 \
 #     --mx-quant \
 #     --self-top-k \
-#     --self-k 410 \
-#     --ex-pred
+#     --self-k 2867 \
+#     # --ex-pred
+
+python text_local_inference_alpha.py \
+    --log ${LOG} \
+    --prompt ${PROMPT_PATH} \
+    --start-idx 0 \
+    --batch-size 2 \
+    --mx-quant \
+    --self-top-k \
+    --self-k 512 \
+    # --ex-pred
