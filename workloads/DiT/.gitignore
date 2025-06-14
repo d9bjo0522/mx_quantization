@@ -1,3 +1,5 @@
 *.png
 __pycache__/
 sample_images/
+visuals/
+evaluations/classify*

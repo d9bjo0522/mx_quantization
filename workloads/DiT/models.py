@@ -17,8 +17,7 @@ from timm.models.vision_transformer import PatchEmbed
 from timm.layers.helpers import to_2tuple
 from functools import partial
 
-from examples.deit.top_k import classtopk
-from examples.deit.exponent_based_prediction import exponent_approximation
+from funcs import exponent_approximation
 from mx import Linear, matmul
 
 def modulate(x, shift, scale):
@@ -117,6 +116,7 @@ class Attention(nn.Module):
             top_k: bool=False,
             k: int=20,
             ex_pred: bool=False,
+            pred_mode: str="ex_pred",
     ) -> None:
         super().__init__()
         assert dim % num_heads == 0, 'dim should be divisible by num_heads'
@@ -135,11 +135,11 @@ class Attention(nn.Module):
         ## top-k
         self.top_k = top_k
         self.k = k
-        self.top_k_obj = classtopk(k)
         self.ex_pred = ex_pred
         self.exponent_based_obj = None
-        self.chosen_ori_indices = None
-        self.chosen_ex_indices = None
+        self.pred_mode = pred_mode
+        # self.chosen_ori_indices = None
+        # self.chosen_ex_indices = None
         # self.flag=True
     def forward(self, x: torch.Tensor) -> torch.Tensor:
         B, N, C = x.shape
@@ -147,44 +147,44 @@ class Attention(nn.Module):
         q, k, v = qkv.unbind(0)
         q, k = self.q_norm(q), self.k_norm(k)
 
-        q = q * self.scale
-        if self.mx_quant:
-            attn = matmul(q, k.transpose(-2, -1), mx_specs=self.mx_specs, mode_config='aa')
+        if not self.mx_quant:
+            out = torch.nn.functional.scaled_dot_product_attention(
+                q, k, v, None, 0.0, is_causal=False
+            )
+            out = out.transpose(1, 2).reshape(B, N, C)
+            out = self.proj(out)
+            out = self.proj_drop(out)
+            return out
         else:
-            attn = q @ k.transpose(-2, -1)
+            true_scores = matmul(q, k.transpose(-2,-1), mx_specs=self.mx_specs, mode_config='aa')
+            true_scores = true_scores * self.scale
 
-        ## exponent-based top-k prediction
-        self.exponent_based_obj = exponent_approximation(Q=q, K=k, mx_specs=self.mx_specs)
-        ex_quant_q, ex_quant_k = self.exponent_based_obj.exponent_based_sign()
-        ex_quant_k_t = ex_quant_k.transpose(-2, -1)
-        pred_attn = ex_quant_q @ ex_quant_k_t
-        
-        ## mask
-        ex_pred_mask = self.top_k_obj.generate_top_k_mask(pred_attn)
-        ori_pred_mask = self.top_k_obj.generate_top_k_mask(attn)
+            if self.top_k:
+                if self.ex_pred:
+                    self.exponent_based_obj = exponent_approximation(Q=q, K=k, mx_specs=self.mx_specs)
+                    if self.pred_mode == "ex_pred":
+                        ex_quant_q, ex_quant_k = self.exponent_based_obj.exponent_based_sign()
+                    elif self.pred_mode == "true_ex":
+                        ex_quant_q, ex_quant_k = self.exponent_based_obj.exponent_based_sign_leading_ones()
 
-        if self.ex_pred:
-            mask = ex_pred_mask
-        else:
-            mask = ori_pred_mask
+                    pred_scores = ex_quant_q @ (ex_quant_k.transpose(-2, -1))
+                    _, idx = torch.topk(pred_scores, self.k, dim=-1, largest=True, sorted=True)
+                    vals = true_scores.gather(dim=-1, index=idx)
+                    del pred_scores, ex_quant_q, ex_quant_k, self.exponent_based_obj
+                    torch.cuda.empty_cache()
+                else:
+                    vals, idx = torch.topk(true_scores, self.k, dim=-1, largest=True, sorted=True)
+                topk_attn = torch.softmax(vals, dim=-1)
+                attn = torch.zeros_like(true_scores)
+                attn.scatter_(-1, idx, topk_attn)
+                del topk_attn, vals, idx
+                torch.cuda.empty_cache()
+            else:
+                attn = torch.softmax(true_scores, dim=-1)
 
-        # top-k mismatch
-        # chosen_ori_indices = self.top_k_obj.top_k_indices(ori_pred_mask, k=self.k)
-        # chosen_ex_indices = self.top_k_obj.top_k_indices(ex_pred_mask, k=self.k)
-        # self.chosen_ori_indices = chosen_ori_indices
-        # self.chosen_ex_indices = chosen_ex_indices
-
-        if self.top_k:
-            attn = self.top_k_obj.apply_masked_softmax(attn, mask)
-        else:
-            attn = torch.softmax(attn, dim=-1)
-        
-        attn = self.attn_drop(attn)
-        if self.mx_quant:
-            x = matmul(attn, v, mx_specs=self.mx_specs, mode_config='aa')
-        else:
-            x = attn @ v
-
+        del true_scores
+        torch.cuda.empty_cache()
+        x = matmul(attn, v, mx_specs=self.mx_specs, mode_config='aa')
         x = x.transpose(1, 2).reshape(B, N, C)
         x = self.proj(x)
         x = self.proj_drop(x)
@@ -238,10 +238,10 @@ class DiTBlock(nn.Module):
     """
     A DiT block with adaptive layer norm zero (adaLN-Zero) conditioning.
     """
-    def __init__(self, hidden_size, num_heads, mlp_ratio=4.0, mx_quant=True, mx_specs=None, top_k=False, k=20, ex_pred=True, **block_kwargs):
+    def __init__(self, hidden_size, num_heads, mlp_ratio=4.0, mx_quant=True, mx_specs=None, top_k=False, k=20, ex_pred=True, pred_mode="ex_pred", **block_kwargs):
         super().__init__()
         self.norm1 = nn.LayerNorm(hidden_size, elementwise_affine=False, eps=1e-6)
-        self.attn = Attention(hidden_size, num_heads=num_heads, qkv_bias=True, mx_quant=mx_quant, mx_specs=mx_specs, top_k=top_k, k=k, ex_pred=ex_pred)
+        self.attn = Attention(hidden_size, num_heads=num_heads, qkv_bias=True, mx_quant=mx_quant, mx_specs=mx_specs, top_k=top_k, k=k, ex_pred=ex_pred, pred_mode=pred_mode)
         self.norm2 = nn.LayerNorm(hidden_size, elementwise_affine=False, eps=1e-6)
         mlp_hidden_dim = int(hidden_size * mlp_ratio)
         approx_gelu = lambda: nn.GELU(approximate="tanh")
@@ -268,7 +268,7 @@ class FinalLayer(nn.Module):
         self.linear = Linear(hidden_size, patch_size * patch_size * out_channels, bias=True, mx_specs=mx_specs) if mx_quant else nn.Linear(hidden_size, patch_size * patch_size * out_channels, bias=True)
         self.adaLN_modulation = nn.Sequential(
             nn.SiLU(),
-            nn.Linear(hidden_size, 2 * hidden_size, bias=True)
+            Linear(hidden_size, 2 * hidden_size, bias=True, mx_specs=mx_specs) if mx_quant else nn.Linear(hidden_size, 2 * hidden_size, bias=True)
         )
 
     def forward(self, x, c):
@@ -299,6 +299,8 @@ class DiT(nn.Module):
         top_k: bool=False,
         k: int=20,
         ex_pred: bool=True,
+        exclude_blocks: list=None,
+        pred_mode: str="ex_pred",
     ):
         super().__init__()
         self.learn_sigma = learn_sigma
@@ -315,7 +317,17 @@ class DiT(nn.Module):
         self.pos_embed = nn.Parameter(torch.zeros(1, num_patches, hidden_size), requires_grad=False)
         # self.flag=False
         self.blocks = nn.ModuleList([
-            DiTBlock(hidden_size, num_heads, mlp_ratio=mlp_ratio, mx_quant=mx_quant, mx_specs=mx_specs, top_k=top_k, k=k, ex_pred=ex_pred) for _ in range(depth)
+            DiTBlock(
+                hidden_size, 
+                num_heads, 
+                mlp_ratio=mlp_ratio, 
+                mx_quant=mx_quant,
+                mx_specs=mx_specs,
+                top_k=top_k,
+                k=k,
+                ex_pred=ex_pred if exclude_blocks is None or i not in exclude_blocks else False,
+                pred_mode=pred_mode
+            ) for i in range(depth)
         ])
         self.final_layer = FinalLayer(hidden_size, patch_size, self.out_channels, mx_quant=mx_quant, mx_specs=mx_specs)
         self.initialize_weights()
@@ -466,41 +478,41 @@ def get_1d_sincos_pos_embed_from_grid(embed_dim, pos):
 #                                   DiT Configs                                  #
 #################################################################################
 
-def DiT_XL_2(mx_quant=False, mx_specs=None, top_k=True, k=20, ex_pred=True, **kwargs):
-    return DiT(depth=28, hidden_size=1152, patch_size=2, num_heads=16, mx_quant=mx_quant, mx_specs=mx_specs, top_k=top_k, k=k, ex_pred=ex_pred, **kwargs)
+def DiT_XL_2(mx_quant=False, mx_specs=None, top_k=True, k=20, ex_pred=True, exclude_blocks=None, pred_mode="ex_pred", **kwargs):
+    return DiT(depth=28, hidden_size=1152, patch_size=2, num_heads=16, mx_quant=mx_quant, mx_specs=mx_specs, top_k=top_k, k=k, ex_pred=ex_pred, exclude_blocks=exclude_blocks, pred_mode=pred_mode, **kwargs)
 
-def DiT_XL_4(mx_quant=False, mx_specs=None, top_k=False, k=20, ex_pred=False, **kwargs):
-    return DiT(depth=28, hidden_size=1152, patch_size=4, num_heads=16, mx_quant=mx_quant, mx_specs=mx_specs, top_k=top_k, k=k, ex_pred=ex_pred, **kwargs)
+def DiT_XL_4(mx_quant=False, mx_specs=None, top_k=False, k=20, ex_pred=False, exclude_blocks=None, pred_mode="ex_pred", **kwargs):
+    return DiT(depth=28, hidden_size=1152, patch_size=4, num_heads=16, mx_quant=mx_quant, mx_specs=mx_specs, top_k=top_k, k=k, ex_pred=ex_pred, exclude_blocks=exclude_blocks, pred_mode=pred_mode, **kwargs)
 
-def DiT_XL_8(mx_quant=False, mx_specs=None, top_k=False, k=20, ex_pred=False, **kwargs):
-    return DiT(depth=28, hidden_size=1152, patch_size=8, num_heads=16, mx_quant=mx_quant, mx_specs=mx_specs, top_k=top_k, k=k, ex_pred=ex_pred, **kwargs)
+def DiT_XL_8(mx_quant=False, mx_specs=None, top_k=False, k=20, ex_pred=False, exclude_blocks=None, pred_mode="ex_pred", **kwargs):
+    return DiT(depth=28, hidden_size=1152, patch_size=8, num_heads=16, mx_quant=mx_quant, mx_specs=mx_specs, top_k=top_k, k=k, ex_pred=ex_pred, exclude_blocks=exclude_blocks, pred_mode=pred_mode, **kwargs)
 
-def DiT_L_2(mx_quant=False, mx_specs=None, top_k=False, k=20, ex_pred=False, **kwargs):
-    return DiT(depth=24, hidden_size=1024, patch_size=2, num_heads=16, mx_quant=mx_quant, mx_specs=mx_specs, top_k=top_k, k=k, ex_pred=ex_pred, **kwargs)
+def DiT_L_2(mx_quant=False, mx_specs=None, top_k=False, k=20, ex_pred=False, exclude_blocks=None, pred_mode="ex_pred", **kwargs):
+    return DiT(depth=24, hidden_size=1024, patch_size=2, num_heads=16, mx_quant=mx_quant, mx_specs=mx_specs, top_k=top_k, k=k, ex_pred=ex_pred, exclude_blocks=exclude_blocks, pred_mode=pred_mode, **kwargs)
 
-def DiT_L_4(mx_quant=False, mx_specs=None, top_k=False, k=20, ex_pred=False, **kwargs):
-    return DiT(depth=24, hidden_size=1024, patch_size=4, num_heads=16, mx_quant=mx_quant, mx_specs=mx_specs, top_k=top_k, k=k, ex_pred=ex_pred, **kwargs)
+def DiT_L_4(mx_quant=False, mx_specs=None, top_k=False, k=20, ex_pred=False, exclude_blocks=None, pred_mode="ex_pred", **kwargs):
+    return DiT(depth=24, hidden_size=1024, patch_size=4, num_heads=16, mx_quant=mx_quant, mx_specs=mx_specs, top_k=top_k, k=k, ex_pred=ex_pred, exclude_blocks=exclude_blocks, pred_mode=pred_mode, **kwargs)
 
-def DiT_L_8(mx_quant=False, mx_specs=None, top_k=False, k=20, ex_pred=False, **kwargs):
-    return DiT(depth=24, hidden_size=1024, patch_size=8, num_heads=16, mx_quant=mx_quant, mx_specs=mx_specs, top_k=top_k, k=k, ex_pred=ex_pred, **kwargs)
+def DiT_L_8(mx_quant=False, mx_specs=None, top_k=False, k=20, ex_pred=False, exclude_blocks=None, pred_mode="ex_pred", **kwargs):
+    return DiT(depth=24, hidden_size=1024, patch_size=8, num_heads=16, mx_quant=mx_quant, mx_specs=mx_specs, top_k=top_k, k=k, ex_pred=ex_pred, exclude_blocks=exclude_blocks, pred_mode=pred_mode, **kwargs)
 
-def DiT_B_2(mx_quant=False, mx_specs=None, top_k=False, k=20, ex_pred=False, **kwargs):
-    return DiT(depth=12, hidden_size=768, patch_size=2, num_heads=12, mx_quant=mx_quant, mx_specs=mx_specs, top_k=top_k, k=k, ex_pred=ex_pred, **kwargs)
+def DiT_B_2(mx_quant=False, mx_specs=None, top_k=False, k=20, ex_pred=False, exclude_blocks=None, pred_mode="ex_pred", **kwargs):
+    return DiT(depth=12, hidden_size=768, patch_size=2, num_heads=12, mx_quant=mx_quant, mx_specs=mx_specs, top_k=top_k, k=k, ex_pred=ex_pred, exclude_blocks=exclude_blocks, pred_mode=pred_mode, **kwargs)
 
-def DiT_B_4(mx_quant=False, mx_specs=None, top_k=False, k=20, ex_pred=False, **kwargs):
-    return DiT(depth=12, hidden_size=768, patch_size=4, num_heads=12, mx_quant=mx_quant, mx_specs=mx_specs, top_k=top_k, k=k, ex_pred=ex_pred, **kwargs)
+def DiT_B_4(mx_quant=False, mx_specs=None, top_k=False, k=20, ex_pred=False, exclude_blocks=None, pred_mode="ex_pred", **kwargs):
+    return DiT(depth=12, hidden_size=768, patch_size=4, num_heads=12, mx_quant=mx_quant, mx_specs=mx_specs, top_k=top_k, k=k, ex_pred=ex_pred, exclude_blocks=exclude_blocks, pred_mode=pred_mode, **kwargs)
 
-def DiT_B_8(mx_quant=False, mx_specs=None, top_k=False, k=20, ex_pred=False, **kwargs):
-    return DiT(depth=12, hidden_size=768, patch_size=8, num_heads=12, mx_quant=mx_quant, mx_specs=mx_specs, top_k=top_k, k=k, ex_pred=ex_pred, **kwargs)
+def DiT_B_8(mx_quant=False, mx_specs=None, top_k=False, k=20, ex_pred=False, exclude_blocks=None, pred_mode="ex_pred", **kwargs):
+    return DiT(depth=12, hidden_size=768, patch_size=8, num_heads=12, mx_quant=mx_quant, mx_specs=mx_specs, top_k=top_k, k=k, ex_pred=ex_pred, exclude_blocks=exclude_blocks, pred_mode=pred_mode, **kwargs)
 
-def DiT_S_2(mx_quant=False, mx_specs=None, top_k=False, k=20, ex_pred=False, **kwargs):
-    return DiT(depth=12, hidden_size=384, patch_size=2, num_heads=6, mx_quant=mx_quant, mx_specs=mx_specs, top_k=top_k, k=k, ex_pred=ex_pred, **kwargs)
+def DiT_S_2(mx_quant=False, mx_specs=None, top_k=False, k=20, ex_pred=False, exclude_blocks=None, pred_mode="ex_pred", **kwargs):
+    return DiT(depth=12, hidden_size=384, patch_size=2, num_heads=6, mx_quant=mx_quant, mx_specs=mx_specs, top_k=top_k, k=k, ex_pred=ex_pred, exclude_blocks=exclude_blocks, pred_mode=pred_mode, **kwargs)
 
-def DiT_S_4(mx_quant=False, mx_specs=None, top_k=False, k=20, ex_pred=False, **kwargs):
-    return DiT(depth=12, hidden_size=384, patch_size=4, num_heads=6, mx_quant=mx_quant, mx_specs=mx_specs, top_k=top_k, k=k, ex_pred=ex_pred, **kwargs)
+def DiT_S_4(mx_quant=False, mx_specs=None, top_k=False, k=20, ex_pred=False, exclude_blocks=None, pred_mode="ex_pred", **kwargs):
+    return DiT(depth=12, hidden_size=384, patch_size=4, num_heads=6, mx_quant=mx_quant, mx_specs=mx_specs, top_k=top_k, k=k, ex_pred=ex_pred, exclude_blocks=exclude_blocks, pred_mode=pred_mode, **kwargs)
 
-def DiT_S_8(mx_quant=False, mx_specs=None, top_k=False, k=20, ex_pred=False, **kwargs):
-    return DiT(depth=12, hidden_size=384, patch_size=8, num_heads=6, mx_quant=mx_quant, mx_specs=mx_specs, top_k=top_k, k=k, ex_pred=ex_pred, **kwargs)
+def DiT_S_8(mx_quant=False, mx_specs=None, top_k=False, k=20, ex_pred=False, exclude_blocks=None, pred_mode="ex_pred", **kwargs):
+    return DiT(depth=12, hidden_size=384, patch_size=8, num_heads=6, mx_quant=mx_quant, mx_specs=mx_specs, top_k=top_k, k=k, ex_pred=ex_pred, exclude_blocks=exclude_blocks, pred_mode=pred_mode, **kwargs)
 
 
 DiT_models = {

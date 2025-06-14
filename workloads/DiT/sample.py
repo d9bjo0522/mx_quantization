@@ -98,29 +98,18 @@ def main(args):
     ):
         current_timestep = sample_output["timestep"]
         current_sample = sample_output["sample"]
-        
-        if 25 >= current_timestep >= 21:
-            # Need to update the blocks since these are model init parameters
-            for block in model.blocks:
-                block.attn.ex_pred = False
-                block.attn.top_k = False
-                block.attn.k = 128
-        else:
-            for block in model.blocks:
-                block.attn.ex_pred = True
-                block.attn.top_k = True
-                block.attn.k = 128
             
         final_sample = current_sample
-
+        del current_sample
+        torch.cuda.empty_cache()
     # Process the final samples
     samples = final_sample
     samples, _ = samples.chunk(2, dim=0)  # Remove null class samples
     samples = vae.decode(samples / 0.18215).sample
-
     # Save and display images:
     save_image(samples, f"{args.sample_dir}.png", nrow=4, normalize=True, value_range=(-1, 1))
-
+    del samples, final_sample
+    torch.cuda.empty_cache()
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
@@ -139,5 +128,6 @@ if __name__ == "__main__":
     parser.add_argument("--top-k", action='store_true')
     parser.add_argument("--k", type=int, default=128)
     parser.add_argument("--ex-pred", action='store_true')
+    parser.add_argument("--pred-mode", type=str, default="ex_pred", choices=["ex_pred", "true_ex"])
     args = parser.parse_args()
     main(args)

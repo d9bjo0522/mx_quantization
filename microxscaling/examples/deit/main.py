@@ -43,15 +43,17 @@ from exponent_based_prediction import exponent_approximation
 ## added by ckj to implement mx quantization
 class QuantizedAttention(nn.Module):
     # taken from https://github.com/rwightman/pytorch-image-models/blob/master/timm/models/vision_transformer.py
-    def __init__(self, orig_attn, mx_specs=None, top_k=True, k=20, ex_pred=True):
+    def __init__(self, orig_attn, mx_quant=False, mx_specs=None, top_k=True, k=20, ex_pred=True, pred_mode="ex_pred"):
         super().__init__()
+        self.mx_quant = mx_quant
         self.mx_specs = mx_specs
         self.top_k = top_k
         self.k = k
         self.ex_pred = ex_pred
         self.num_heads = orig_attn.num_heads
         self.scale = orig_attn.scale
-        self.top_k_obj = classtopk(k)
+        self.pred_mode = pred_mode
+        # self.top_k_obj = classtopk(k)
         self.exponent_based_obj =  None
         # mx-quantized linear layers
         self.qkv = Linear(
@@ -80,132 +82,45 @@ class QuantizedAttention(nn.Module):
         if orig_attn.proj.bias is not None:
             self.proj.bias.data = orig_attn.proj.bias.data
             
-        # Store last quantized values for inspection
-        self.last_quantized_q = None
-        self.last_quantized_k = None
-        self.last_quantized_v = None
-        self.last_quantized_attn = None
-        self.origin_attn_values = None
-        self.top_k_pruned_attn = None
-        self.exponent_based_prediction_attn = None
-        self.ex_quant_q = None
-        self.ex_quant_k = None
-        self.exponent_based_prediction_mask = None
-        self.ori_pred_mask = None
-        self.origin_softmax = None
-        self.top_k_mismatch = None
-        self.chosen_ori_indices = None
-        self.chosen_ex_indices = None
-        self.ori_top_k_softmax = None
-        self.ex_top_k_softmax = None
     def forward(self, x):
         B, N, C = x.shape
         qkv = self.qkv(x).reshape(B, N, 3, self.num_heads, C // self.num_heads).permute(2, 0, 3, 1, 4)
         q, k, v = qkv[0], qkv[1], qkv[2]
         
-        q = q * self.scale
-        k_t = k.transpose(-2, -1)
-        
-        # Quantize q, k, v to bfloat16 before matmul
-        bf_q = quantize_elemwise_op(q, mx_specs=self.mx_specs, round=self.mx_specs["round_output"])
-        bf_k = quantize_elemwise_op(k_t, mx_specs=self.mx_specs, round=self.mx_specs["round_output"])
-        
-        # Store quantized values
-        self.last_quantized_q = quantize_mx_op(
-            bf_q,
-            self.mx_specs,
-            elem_format=self.mx_specs["a_elem_format"],
-            axes=[-1],
-            round=self.mx_specs["round_mx_output"],
-            predict_phase=False
-        )
-        self.last_quantized_k = quantize_mx_op(
-            bf_k,
-            self.mx_specs,
-            elem_format=self.mx_specs["a_elem_format"],
-            axes=[-2],
-            round=self.mx_specs["round_mx_output"],
-            predict_phase=False
-        )
-        
         # Use matmul with quantized inputs
 
-        attn = matmul(q, k_t, mx_specs=self.mx_specs, mode_config='aa')
-        self.origin_attn_values = attn
-        origin_softmax = torch.softmax(attn, dim=-1)
-        self.origin_softmax = origin_softmax
-
-
-        # exponent-based top-k prediction
-        self.exponent_based_obj = exponent_approximation(Q=q, K=k, mx_specs=self.mx_specs)
-        
-        # ex_quant_q, ex_quant_k = self.exponent_based_obj.exponent_based_sign_leading_ones()
-        # ex_quant_q, ex_quant_k = self.exponent_based_obj.exponent_based_sign_bias()
-        # ex_quant_q, ex_quant_k = self.exponent_based_obj.exponent_based_sign_top_2()
-        # ex_quant_q, ex_quant_k = self.exponent_based_obj.exponent_based_hybrid_head_selector()
-        ex_quant_q, ex_quant_k = self.exponent_based_obj.exponent_based_sign()
-        # ex_quant_q, ex_quant_k = self.exponent_based_obj.exponent_based_threshold_exponent()
-        self.ex_quant_q = ex_quant_q
-        self.ex_quant_k = ex_quant_k
-        ex_quant_k_t = ex_quant_k.transpose(-2, -1)
-
-        pred_attn = ex_quant_q @ ex_quant_k_t
-        pred_softmax = torch.softmax(pred_attn, dim=-1)
-        self.exponent_based_prediction_attn = pred_softmax
-
-        ex_pred_mask = self.top_k_obj.generate_top_k_mask(pred_attn)
-        self.exponent_based_prediction_mask = ex_pred_mask
-
-        ## original top-k prediction
-        ori_pred_mask = self.top_k_obj.generate_top_k_mask(attn)
-        self.ori_pred_mask = ori_pred_mask
-
-        if self.ex_pred:
-            mask = ex_pred_mask
+        if not self.mx_quant:
+            out = torch.nn.functional.scaled_dot_product_attention(
+                q, k, v, None, 0.0, is_causal=False
+            )
+            out = out.transpose(1, 2).reshape(B, N, C)
+            out = self.proj(out)
+            out = self.proj_drop(out)
+            return out
         else:
-            mask = ori_pred_mask
+            true_scores = matmul(q, k.transpose(-2, -1), mx_specs=self.mx_specs, mode_config='aa')
+            true_scores = true_scores * self.scale
+            
+            if self.top_k:
+                if self.ex_pred:
+                    self.exponent_based_obj = exponent_approximation(Q=q, K=k, mx_specs=self.mx_specs)
+                    if self.pred_mode == "ex_pred":
+                        ex_quant_q, ex_quant_k = self.exponent_based_obj.exponent_based_sign()
+                    elif self.pred_mode == "true_ex":
+                        ex_quant_q, ex_quant_k = self.exponent_based_obj.exponent_based_sign_leading_ones()
+
+                    pred_scores = ex_quant_q @ ex_quant_k.transpose(-2, -1)
+                    _, idx = torch.topk(pred_scores, self.k, dim=-1, largest=True, sorted=True)
+                    vals = true_scores.gather(dim=-1, index=idx)
+                else:
+                    vals, idx = torch.topk(true_scores, self.k, dim=-1, largest=True, sorted=True)
+                
+                topk_attn = torch.softmax(vals, dim=-1)
+                attn = torch.zeros_like(true_scores, dtype=topk_attn.dtype)
+                attn.scatter_(-1, idx, topk_attn)
+            else:
+                attn = torch.softmax(true_scores, dim=-1)
         
-        ## top-k mismatch
-        chosen_ori_indices = self.top_k_obj.top_k_indices(ori_pred_mask, k=self.k)
-        chosen_ex_indices = self.top_k_obj.top_k_indices(ex_pred_mask, k=self.k)
-        self.chosen_ori_indices = chosen_ori_indices
-        self.chosen_ex_indices = chosen_ex_indices
-        
-        ori_top_k_softmax = self.top_k_obj.top_k_softmax(attn, ori_pred_mask, self.k)
-        self.ori_top_k_softmax = ori_top_k_softmax
-
-        ex_top_k_softmax = self.top_k_obj.top_k_softmax(attn, ex_pred_mask, self.k)
-        self.ex_top_k_softmax = ex_top_k_softmax
-
-        # Apply top-k pruning and softmax in one step
-        if self.top_k:
-            attn = self.top_k_obj.apply_masked_softmax(attn, mask)
-            self.top_k_pruned_attn = attn       # inspect the top-k pruned attention
-        else:
-            attn = torch.softmax(attn, dim=-1)
-        
-        attn = self.attn_drop(attn)     # inference dropout = 0 
-
-
-        bf_v = quantize_elemwise_op(v, mx_specs=self.mx_specs, round=self.mx_specs["round_output"])
-        self.last_quantized_v = quantize_mx_op(
-            bf_v,
-            self.mx_specs,
-            elem_format=self.mx_specs["a_elem_format"],
-            axes=[-2],
-            round=self.mx_specs["round_mx_output"],
-            predict_phase=False,
-        )
-        bf_attn = quantize_elemwise_op(attn, mx_specs=self.mx_specs, round=self.mx_specs["round_output"])
-        self.last_quantized_attn = quantize_mx_op(
-            bf_attn,
-            self.mx_specs,
-            elem_format=self.mx_specs["a_elem_format"],
-            axes=[-1],
-            round=self.mx_specs["round_mx_output"],
-            predict_phase=False,
-        )
-
         x = matmul(attn, v, mx_specs=self.mx_specs, mode_config='aa')
         x = x.transpose(1, 2).reshape(B, N, C)
         x = self.proj(x)
@@ -280,275 +195,8 @@ class QuantizedBlock(nn.Module):
         x = x + self.drop_path(self.attn(self.norm1(x)))
         x = x + self.drop_path(self.mlp(self.norm2(x)))
         return x
-    
-class SaveStats:
-    def __init__(self, first_eval=False):
-        self.first_eval = first_eval
-        self.output_dir = 'outputs/quantization_stats'
-        self.hooks = []  # Store hooks so we can remove them later
-        self.has_run = False  # Track if we've already run once
-    def int_to_twos_complement(self, value, bits):
-        """Convert an integer to its two's complement binary representation."""
-        if value < 0:
-            value = (1 << bits) + value
-        return format(value, f'0{bits}b')
 
-    def get_bits_from_format(self, format_name):
-        """Convert format name to number of bits."""
-        if format_name.startswith('int'):
-            return int(format_name[3:])
-        elif format_name.startswith('uint'):
-            return int(format_name[4:])
-        else:
-            raise ValueError(f"Unsupported format: {format_name}")
-    def save_binary_stats(self, tensor, name, mx_specs, axes=[-1]):
-        """Save shared exponents and binary representations of values.
-        
-        Args:
-            tensor: Input tensor
-            name: Name for the output file
-            mx_specs: Quantization specifications
-            axes: Axes along which to compute shared exponents
-        """
-        print(f"Saving binary stats for {name}")
-        # Create directory if it doesn't exist
-        os.makedirs(self.output_dir, exist_ok=True)
-        
-        # Convert tensor to CPU if it's on GPU
-        tensor = tensor.detach().cpu()
-        
-        # First reshape to blocks
-        if mx_specs['block_size'] > 0:
-            # print(f"Processing {name}, tensor shape: {tensor.shape}")
-            tensor_blocked, reshaped_axes, orig_shape, padded_shape = _reshape_to_blocks(
-                tensor, axes, mx_specs['block_size']
-            )
-            print(f"{name} blocked shape: {tensor_blocked.shape}")
-            # Adjust axes for reshaped tensor
-            shared_exp_axes = [x + 1 for x in reshaped_axes]
-        else:
-            tensor_blocked = tensor
-            shared_exp_axes = axes
-            
-        # Get shared exponents
-        shared_exp = _shared_exponents(
-            tensor_blocked,
-            method=mx_specs.get('shared_exp_method', 'max'),
-            axes=shared_exp_axes,
-            ebits=0
-        )
-        
-        # Process in chunks to save memory
-        with open(f'{self.output_dir}/{name}_binary.txt', 'w') as f:
-            # Get the number of dimensions
-            n_dims = len(tensor_blocked.shape)
-            
-            # Handle different tensor shapes
-            if n_dims == 3:  # 3D tensor
-                self._process_3d_tensor(tensor_blocked, shared_exp, f, mx_specs)
-            elif n_dims == 4:  # 4D tensor (e.g., for attention)
-                self._process_4d_tensor(tensor_blocked, shared_exp, f, mx_specs)
-            elif n_dims == 5:  # 5D tensor (e.g., for attention)
-                self._process_5d_tensor(tensor_blocked, shared_exp, f, mx_specs)
-            else:
-                raise ValueError(f"Unsupported tensor dimension: {n_dims}")
-            
-    def _process_3d_tensor(self, tensor_blocked, shared_exp, f, mx_specs):
-        """Process a 3D tensor."""
-        for dim1_idx in range(tensor_blocked.shape[0]):
-            f.write(f"Token Index {dim1_idx}\n")
-            for block_idx in range(tensor_blocked.shape[1]):
-                f.write(f"  Block {block_idx}\n")
-                block_values = tensor_blocked[dim1_idx, block_idx]
-                exp = shared_exp[dim1_idx, block_idx].item()
-                self._write_block_data(block_values, exp, f, mx_specs, indent="    ")
-
-    def _process_4d_tensor(self, tensor_blocked, shared_exp, f, mx_specs):
-        """Process a 4D tensor."""
-        tensor_blocked = tensor_blocked[0]      # first batch
-        shared_exp = shared_exp[0]
-        for dim1_idx in range(tensor_blocked.shape[0]):
-            f.write(f"Token Index {dim1_idx}\n")
-            for block_idx in range(tensor_blocked.shape[1]):
-                f.write(f"  Block {block_idx}\n")
-                block_values = tensor_blocked[dim1_idx, block_idx]
-                exp = shared_exp[dim1_idx, block_idx].item()
-                self._write_block_data(block_values, exp, f, mx_specs, indent="    ")
-
-    def _process_4d_orig_attn(self, tensor, f, mx_specs):
-        """Process a 4D tensor."""
-        tensor = tensor[0]      # first batch
-        for dim1_idx in range(tensor.shape[0]):
-            f.write(f"Head Index {dim1_idx}\n")
-            for token_idx in range(tensor.shape[1]):
-                f.write(f"  Token Index {token_idx}\n")
-                for k_idx in range(tensor.shape[2]):
-                    f.write(f"    {tensor[dim1_idx, token_idx, k_idx]}")
-                f.write("\n")
-    def _process_3d_top_k_mismatch(self, mismatch, f, mx_specs):
-        """Process a 3D tensor."""
-        mismatch = mismatch[0]
-        for dim1_idx in range(mismatch.shape[0]):
-            f.write(f"Head Index {dim1_idx}\n")
-            for block_idx in range(mismatch.shape[1]):
-                f.write(f"  Token Index {block_idx}: sum = {mismatch[dim1_idx, block_idx]}\n")
-                
-
-    def _process_5d_tensor(self, tensor_blocked, shared_exp, f, mx_specs):
-        """Process a 5D tensor."""
-        tensor_blocked = tensor_blocked[0]      # first batch
-        shared_exp = shared_exp[0]
-        for dim1_idx in range(tensor_blocked.shape[0]):
-            f.write(f" Head Index {dim1_idx}\n")
-            for dim2_idx in range(tensor_blocked.shape[1]):
-                f.write(f"  Token Index {dim2_idx}\n")
-                for block_idx in range(tensor_blocked.shape[2]):
-                    f.write(f"    Block {block_idx}\n")
-                    f.write(f"    {tensor_blocked[dim1_idx, dim2_idx, block_idx]}")
-                    f.write("\n")
-                    # block_values = tensor_blocked[dim1_idx, dim2_idx, block_idx]
-                    # exp = shared_exp[dim1_idx, dim2_idx, block_idx].item()
-                    # self._write_block_data(block_values, exp, f, mx_specs, indent="      ")
-                    
-    def _write_block_data(self, block_values, exp, f, mx_specs, indent="  "):
-        """Write the data for a single block."""
-        f.write(f"{indent}Shared Exponent: {exp}\n")
-        f.write(f"{indent}Values: ")
-        
-        # Process values in smaller chunks
-        values = block_values.reshape(-1)
-        # Get number of bits from format name
-        n_bits = self.get_bits_from_format(mx_specs['a_elem_format'])
-        
-        for i in range(0, len(values)):
-            # Convert to quantized value
-            val_bits = (values[i].item() / (2**exp)) * 2**(n_bits-2)
-            val_bits = self.int_to_twos_complement(int(val_bits), n_bits)
-            f.write(f"{val_bits} ")
-        f.write("\n\n")
-
-    def save_attn_stats(self, name, tensor, mx_specs):
-        """Save attention stats."""
-        with open(f'{self.output_dir}/{name}_binary.txt', 'w') as f:
-            self._process_4d_orig_attn(tensor, f, mx_specs)
-    def save_mismatch_stats(self, name, mismatch, mx_specs):
-        """Save mismatch stats."""
-        with open(f'{self.output_dir}/{name}_binary.txt', 'w') as f:
-            self._process_3d_top_k_mismatch(mismatch, f, mx_specs)
-
-    def save_quantization_stats(self, name, module, inp, out):
-        """Hook function to save quantized activations and weights.""" 
-        # Skip if this isn't the first evaluation or if we've already run
-        if not self.first_eval or self.has_run:
-            return
-        # Create directory if it doesn't exist
-        os.makedirs(self.output_dir, exist_ok=True)
-        
-        # For QuantizedAttention, save q, k, v values and quantized weights
-        if isinstance(module, QuantizedAttention):
-            # Get quantized weights and move to CPU
-            quantized_qkv_weight = module.qkv.get_quantized_weight().detach().cpu()
-            self.save_binary_stats(quantized_qkv_weight, f"{name}_qkv_weight", module.qkv.mx_specs)
-            
-            quantized_proj_weight = module.proj.get_quantized_weight().detach().cpu()
-            self.save_binary_stats(quantized_proj_weight, f"{name}_proj_weight", module.proj.mx_specs)
-
-            # Save quantized q, k, v values if available
-            if module.last_quantized_q is not None:
-                # print(module.last_quantized_q.size())
-                self.save_binary_stats(module.last_quantized_q.detach().cpu(), f"{name}_q", module.mx_specs)
-            if module.last_quantized_k is not None:
-                # print(module.last_quantized_k.size())
-                self.save_binary_stats(module.last_quantized_k.transpose(-2, -1).detach().cpu(), f"{name}_k", module.mx_specs)
-            if module.ex_quant_q is not None:
-                self.save_binary_stats(module.ex_quant_q.detach().cpu(), f"{name}_ex_q", module.mx_specs)
-            if module.ex_quant_k is not None:
-                self.save_binary_stats(module.ex_quant_k.detach().cpu(), f"{name}_ex_k", module.mx_specs)
-            if module.last_quantized_v is not None:
-                # print(module.last_quantized_v.size())
-                self.save_binary_stats(module.last_quantized_v.transpose(-2, -1).detach().cpu(), f"{name}_v", module.mx_specs)
-            if module.last_quantized_attn is not None:
-                print(module.last_quantized_attn.size())
-                self.save_binary_stats(module.last_quantized_attn.detach().cpu(), f"{name}_attn", module.mx_specs)
-            # if module.origin_attn_values is not None:
-            #     print(module.origin_attn_values.size())
-            #     self.save_attn_stats(f"{name}_origin_attn_values", module.origin_attn_values.detach().cpu(), module.mx_specs)
-            # if module.top_k_pruned_attn is not None:
-            #     print(module.top_k_pruned_attn.size())
-            #     self.save_attn_stats(f"{name}_top_k_pruned_attn", module.top_k_pruned_attn.detach().cpu(), module.mx_specs)
-            # if module.exponent_based_prediction_attn is not None:
-            #     print(module.exponent_based_prediction_attn.size())
-            #     self.save_attn_stats(f"{name}_exponent_based_prediction_attn", module.exponent_based_prediction_attn.detach().cpu(), module.mx_specs)
-            # if module.exponent_based_prediction_mask is not None:
-            #     print(module.exponent_based_prediction_mask.size())
-            #     self.save_attn_stats(f"{name}_exponent_based_prediction_mask", module.exponent_based_prediction_mask.detach().cpu(), module.mx_specs)
-            # if module.ori_pred_mask is not None:
-            #     print(module.ori_pred_mask.size())
-            #     self.save_attn_stats(f"{name}_ori_pred_mask", module.ori_pred_mask.detach().cpu(), module.mx_specs)
-            # if module.origin_softmax is not None:
-            #     print(module.origin_softmax.size())
-            #     self.save_attn_stats(f"{name}_origin_softmax", module.origin_softmax.detach().cpu(), module.mx_specs)
-            if module.chosen_ori_indices is not None and module.chosen_ex_indices is not None:
-                self.save_attn_stats(f"{name}_chosen_ori_indices", module.chosen_ori_indices.detach().cpu(), module.mx_specs)
-                self.save_attn_stats(f"{name}_chosen_ex_indices", module.chosen_ex_indices.detach().cpu(), module.mx_specs)
-            if module.ori_top_k_softmax is not None and module.ex_top_k_softmax is not None:
-                self.save_attn_stats(f"{name}_ori_top_k_softmax", module.ori_top_k_softmax.detach().cpu(), module.mx_specs)
-                self.save_attn_stats(f"{name}_ex_top_k_softmax", module.ex_top_k_softmax.detach().cpu(), module.mx_specs)
-        # For QuantizedMlp, save activation and quantized weights
-        elif isinstance(module, QuantizedMlp):
-            # Save binary representations for fc1 and fc2 weights
-            quantized_fc1_weight = module.fc1.get_quantized_weight()
-            quantized_fc2_weight = module.fc2.get_quantized_weight()
-            self.save_binary_stats(quantized_fc1_weight, f"{name}_fc1_weight", module.fc1.mx_specs)
-            self.save_binary_stats(quantized_fc2_weight, f"{name}_fc2_weight", module.fc2.mx_specs)
-        
-        self.has_run = True
-        del quantized_qkv_weight
-        del quantized_proj_weight
-        torch.cuda.empty_cache()
-
-    def register_stats_hooks(self, model):
-        """Register hooks on quantized attention and MLP layers in the model."""
-        if not self.first_eval:
-            print("Not first evaluation, skipping hook registration")
-            return []
-            
-        if self.has_run:
-            print("Already collected stats once, skipping hook registration")
-            return []
-
-        print("Registering hooks for first evaluation...")
-        
-        # Create closure to capture block_idx properly
-        def make_hook(idx, layer_type='attn'):
-            def hook(module, inp, out):
-                self.save_quantization_stats(f'blocks_{idx}_{layer_type}', module, inp, out)
-            return hook
-        
-        # Hook quantized layers in transformer blocks
-        for block_idx, block in enumerate(model.blocks):
-
-            # Hook attention if it's quantized
-            if self.first_eval and block_idx == 0:
-                # print(f"Hooking attention in block {block_idx}")
-                if isinstance(block.attn, QuantizedAttention):
-                    hook = block.attn.register_forward_hook(make_hook(block_idx, 'attn'))
-                    self.hooks.append(hook)
-                    
-                if isinstance(block.mlp, QuantizedMlp):
-                    hook = block.mlp.register_forward_hook(make_hook(block_idx, 'mlp'))
-                    self.hooks.append(hook)
-        
-        print("Finished hooking quantized layers.")
-        return self.hooks
-    
-    def remove_hooks(self):
-        """Remove all registered hooks."""
-        for hook in self.hooks:
-            hook.remove()
-        self.hooks = []
-
-def apply_quantization_to_deit(model, config, first_eval=False, top_k=True, k=20, ex_pred=True):
+def apply_quantization_to_deit(model, config, mx_quant=False, top_k=True, k=20, ex_pred=True, pred_mode="ex_pred", exclude_blocks=[]):
     """
     Apply weight and activation quantization to specific parts of DeiT model
     
@@ -564,12 +212,12 @@ def apply_quantization_to_deit(model, config, first_eval=False, top_k=True, k=20
             'a_elem_format': 'int8',
             'scale_bits': 8,
             'block_size': 32,
-            'bfloat': 16,
+            'bfloat': 32,
             'fp': 0,
-            'round': 'floor',
-            'round_mx_output': 'floor',
-            'round_output': 'floor',
-            'round_weight': 'floor',
+            'round': 'nearest',
+            'round_mx_output': 'nearest',
+            'round_output': 'nearest',
+            'round_weight': 'nearest',
             'custom_cuda': False,
             'quantize_backprop': False,
     })
@@ -577,36 +225,46 @@ def apply_quantization_to_deit(model, config, first_eval=False, top_k=True, k=20
     print(f"Applying quantization to blocks: {block_indices}")
     print(f"Quantizing components: {components}")
     
-    # Get the device of the original model
-    device = next(model.parameters()).device
-    
     for idx in block_indices:
         if idx >= len(model.blocks):
             print(f"Block {idx} out of range, skipping")
             continue
             
         block = model.blocks[idx]
-        if 'attn' in components:
+        if 'attn' in components and idx not in exclude_blocks:
             print(f"Quantizing attention in block {idx}")
             block.attn = QuantizedAttention(
                 orig_attn=block.attn, 
+                mx_quant=mx_quant,
                 mx_specs=mx_specs,
                 top_k=top_k,
                 k=k,
-                ex_pred=ex_pred
-            ).to(device)
-        
+                ex_pred=ex_pred,
+                pred_mode=pred_mode
+            )
+        elif 'attn' in components and idx in exclude_blocks:
+            print(f"Skipping ex_pred of attention in block {idx}")
+            block.attn = QuantizedAttention(
+                orig_attn=block.attn, 
+                mx_quant=mx_quant,
+                mx_specs=mx_specs,
+                top_k=top_k,
+                k=k,
+                ex_pred=False,
+                pred_mode="ex_pred"
+            )
         if 'ffn' in components:
             print(f"Quantizing FFN in block {idx}")
             block.mlp = QuantizedMlp(
                 orig_mlp=block.mlp,
                 mx_specs=mx_specs
-            ).to(device)
+            )
     
     # Register hooks to collect quantization statistics
-    save_stats = SaveStats(first_eval)
-    hooks = save_stats.register_stats_hooks(model)
-    return model, hooks
+    # save_stats = SaveStats(first_eval)
+    # hooks = save_stats.register_stats_hooks(model)
+    # return model, hooks
+    return model
 
 # Function to verify quantization was applied correctly
 def verify_quantization(model, block_indices):
@@ -785,6 +443,7 @@ def get_args_parser():
     # k signal
     parser.add_argument('--k', type=int, default=20)
     parser.add_argument('--ex_pred', action='store_true')
+    parser.add_argument('--pred_mode', type=str, default="ex_pred", choices=["ex_pred", "true_ex"])
     return parser
  
             
@@ -1024,8 +683,8 @@ def main(args):
             'a_elem_format': 'int8',
             'scale_bits': 8,
             'shared_exp_method': 'max',
-            'block_size': 16,
-            'bfloat': 16,
+            'block_size': 32,
+            'bfloat': 32,
             'fp': 0,
             'bfloat_subnorms': True,
             'round': 'nearest',
@@ -1037,25 +696,22 @@ def main(args):
             'quantize_backprop': False,
         }
     }
-    
+    exclude_blocks = [10, 11]
+
     # First move model to device
     model.to(device)
     ## Eval with MXINT quantization--------------------------------------------------------------    
     output_dir = Path(args.output_dir)
     if args.eval:
-        # Initialize SaveStats with first_eval flag
-        save_stats = None
-        if args.mx_quant:
-            save_stats = SaveStats(first_eval=True)
-            model, hooks = apply_quantization_to_deit(model, quantization_config, first_eval=True, top_k=args.top_k, k=args.k, ex_pred=args.ex_pred)
+        model = apply_quantization_to_deit(model, quantization_config, mx_quant=args.mx_quant, top_k=args.top_k, k=args.k, ex_pred=args.ex_pred, pred_mode=args.pred_mode, exclude_blocks=exclude_blocks)
         
         test_stats = evaluate(data_loader_val, model, device)
         print(f"Accuracy of the network on the {len(dataset_val)} test images: {test_stats['acc1']:.1f}%")
         
         # Clean up hooks and save stats instance
-        if save_stats:
-            save_stats.remove_hooks()
-            del save_stats
+        # if save_stats:
+        #     save_stats.remove_hooks()
+        #     del save_stats
         
         return
 
@@ -1126,9 +782,9 @@ def main(args):
     print('Training time {}'.format(total_time_str))
 
     # Clean up hooks at the end
-    if hooks:
-        for hook in hooks:
-            hook.remove()
+    # if hooks:
+    #     for hook in hooks:
+    #         hook.remove()
 
 
 if __name__ == '__main__':

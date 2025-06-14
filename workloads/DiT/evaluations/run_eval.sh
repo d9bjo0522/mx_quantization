@@ -1,13 +1,21 @@
-ref_batch_dir="/work/tttpd9bjo/diffusion/DiT/DiT-XL-2-256x256/evaluation"
-sample_batch_dir="/work/tttpd9bjo/diffusion/DiT/DiT-XL-2-256x256/samples"
+EVAL_ROOT_DIR="/work/tttpd9bjo/diffusion/DiT/DiT-XL-2-256x256/evaluation"
+SAMPLE_ROOT_DIR="/work/tttpd9bjo/diffusion/DiT/DiT-XL-2-256x256/samples"
 
-ref_batch_file_name="VIRTUAL_imagenet256_labeled.npz"
-sample_batch_file_name="DiT-XL-2-DiT-XL-2-256x256-size-256-vae-ema-cfg-1.5-seed-0-num_samples-15000-w8a8-top128-ex-pred.npz"
+REF_FILE_NAME="VIRTUAL_imagenet256_labeled.npz"
+# REF_FILE_NAME="fp32.npz"
+SAMPLE_NAME="top179_27_block_true"
 
-ref_batch_file_path="${ref_batch_dir}/${ref_batch_file_name}"
-sample_batch_file_path="${sample_batch_dir}/${sample_batch_file_name}"
+REF_FILE_PATH="${EVAL_ROOT_DIR}/${REF_FILE_NAME}"
+SAMPLE_FILE_PATH="${SAMPLE_ROOT_DIR}/${SAMPLE_NAME}"
 
-python evaluator.py "${ref_batch_file_path}" "${sample_batch_file_path}"
+SAMPLE_NUM=10000
+SAMPLE_NPZ_DIR="${EVAL_ROOT_DIR}/sample_npz/${SAMPLE_NAME}"
+
+## compress to npz files first
+python to_NPZ.py --sample_dir $SAMPLE_FILE_PATH --npz_dir $SAMPLE_NPZ_DIR --num $SAMPLE_NUM
+
+
+python evaluator.py "${REF_FILE_PATH}" "${SAMPLE_NPZ_DIR}.npz"
 
 
 

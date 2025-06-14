@@ -86,7 +86,6 @@ class MatMulFunction(torch.autograd.Function):
                         qin1_elem_format,
                         qin2_elem_format):
             out = torch_matmul(qin1, qin2)
-        
         out = quantize_elemwise_op(
             out, mx_specs=mx_specs, round=mx_specs["round_output"]
         )

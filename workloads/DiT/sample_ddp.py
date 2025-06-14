@@ -25,21 +25,21 @@ import math
 import argparse
 
 
-def create_npz_from_sample_folder(sample_dir, npz_dir, num=50_000):
-    """
-    Builds a single .npz file from a folder of .png samples.
-    """
-    samples = []
-    for i in tqdm(range(num), desc="Building .npz file from samples"):
-        sample_pil = Image.open(f"{sample_dir}/{i:06d}.png")
-        sample_np = np.asarray(sample_pil).astype(np.uint8)
-        samples.append(sample_np)
-    samples = np.stack(samples)
-    assert samples.shape == (num, samples.shape[1], samples.shape[2], 3)
-    npz_path = f"{npz_dir}.npz"
-    np.savez(npz_path, arr_0=samples)
-    print(f"Saved .npz file to {npz_path} [shape={samples.shape}].")
-    return npz_path
+# def create_npz_from_sample_folder(sample_dir, npz_dir, num=50_000):
+#     """
+#     Builds a single .npz file from a folder of .png samples.
+#     """
+#     samples = []
+#     for i in tqdm(range(num), desc="Building .npz file from samples"):
+#         sample_pil = Image.open(f"{sample_dir}/{i:06d}.png")
+#         sample_np = np.asarray(sample_pil).astype(np.uint8)
+#         samples.append(sample_np)
+#     samples = np.stack(samples)
+#     assert samples.shape == (num, samples.shape[1], samples.shape[2], 3)
+#     npz_path = f"{npz_dir}.npz"
+#     np.savez(npz_path, arr_0=samples)
+#     print(f"Saved .npz file to {npz_path} [shape={samples.shape}].")
+#     return npz_path
 
 
 def main(args):
@@ -71,7 +71,7 @@ def main(args):
         'scale_bits': 8,
         'shared_exp_method': 'max',
         'block_size': 32,
-        'bfloat': 16,
+        'bfloat': 32,
         'fp': 0,
         'bfloat_subnorms': True,
         'round': 'nearest',
@@ -82,6 +82,7 @@ def main(args):
         'custom_cuda': False,
         'quantize_backprop': False,
     }
+    exclude_blocks = [27]
 
     # Load model:
     ## add mx-quantization config/ top-k/ k/ ex_pred
@@ -93,7 +94,9 @@ def main(args):
         mx_specs = mx_specs,
         top_k = args.top_k,
         k = args.k,
-        ex_pred = args.ex_pred
+        ex_pred = args.ex_pred,
+        pred_mode = args.pred_mode,
+        exclude_blocks = exclude_blocks
     ).to(device)
 
     # Auto-download a pre-trained model or load a custom DiT checkpoint from train.py:
@@ -107,14 +110,7 @@ def main(args):
     using_cfg = args.cfg_scale > 1.0
 
     # Create folder to save samples:
-    model_string_name = args.model.replace("/", "-")
-    ckpt_string_name = os.path.basename(args.ckpt).replace(".pt", "") if args.ckpt else "pretrained"
-    folder_name = f"{model_string_name}-{ckpt_string_name}-size-{args.image_size}-vae-{args.vae}-" \
-                  f"cfg-{args.cfg_scale}-seed-{args.global_seed}"
-    config = f"-num_samples-12000-w8a8-top128-ex-pred"
-    config_npz = f"-num_samples-15000-w8a8-top128-ex-pred"
-    sample_folder_dir = f"{args.sample_dir}/{folder_name}{config}"
-    sample_folder_dir_npz = f"{args.sample_dir}/{folder_name}{config_npz}"
+    sample_folder_dir = args.sample_dir
     if rank == 0:
         os.makedirs(sample_folder_dir, exist_ok=True)
         print(f"Saving .png samples at {sample_folder_dir}")
@@ -132,76 +128,79 @@ def main(args):
     assert samples_needed_this_gpu % n == 0, "samples_needed_this_gpu must be divisible by the per-GPU batch size"
     iterations = int(samples_needed_this_gpu // n)
     pbar = range(iterations)
+
     pbar = tqdm(pbar) if rank == 0 else pbar
     total = 0
-    # for _ in pbar:
-    #     # Sample inputs:
-    #     z = torch.randn(n, model.in_channels, latent_size, latent_size, device=device)
-    #     y = torch.randint(0, args.num_classes, (n,), device=device)
 
-    #     # Setup classifier-free guidance:
-    #     if using_cfg:
-    #         z = torch.cat([z, z], 0)
-    #         y_null = torch.tensor([1000] * n, device=device)
-    #         y = torch.cat([y, y_null], 0)
-    #         model_kwargs = dict(y=y, cfg_scale=args.cfg_scale)
-    #         sample_fn = model.forward_with_cfg
-    #     else:
-    #         model_kwargs = dict(y=y)
-    #         sample_fn = model.forward
+    for _ in pbar:
+        # Sample inputs:
+        z = torch.randn(n, model.in_channels, latent_size, latent_size, device=device)
+        y = torch.randint(0, args.num_classes, (n,), device=device)
 
-    #     # Sample images:
-    #     samples = diffusion.p_sample_loop(
-    #         sample_fn, z.shape, z, clip_denoised=False, model_kwargs=model_kwargs, progress=False, device=device
-    #     )
-    #     final_sample = None
-    #     for sample_output in diffusion.p_sample_loop_progressive(
-    #         sample_fn,
-    #         z.shape,
-    #         z,
-    #         clip_denoised=False,
-    #         model_kwargs=model_kwargs,
-    #         progress=False,
-    #         device=device
-    #     ):
-    #         current_timestep = sample_output["timestep"]
-    #         current_sample = sample_output["sample"]
-            
-    #         # if 25 >= current_timestep >= 21:
-    #         #     # Need to update the blocks since these are model init parameters
-    #         #     for block in model.blocks:
-    #         #         block.attn.ex_pred = False
-    #         #         block.attn.top_k = False
-    #         #         block.attn.k = 128
-    #         # else:
-    #         #     for block in model.blocks:
-    #         #         block.attn.ex_pred = True
-    #         #         block.attn.top_k = True
-    #         #         block.attn.k = 128
-                
-    #         final_sample = current_sample
+        # Setup classifier-free guidance:
+        if using_cfg:
+            z = torch.cat([z, z], 0)
+            y_null = torch.tensor([1000] * n, device=device)
+            y = torch.cat([y, y_null], 0)
+            model_kwargs = dict(y=y, cfg_scale=args.cfg_scale)
+            sample_fn = model.forward_with_cfg
+        else:
+            model_kwargs = dict(y=y)
+            sample_fn = model.forward
 
-    # # Process the final samples
-    #     samples = final_sample
-    #     if using_cfg:
-    #         samples, _ = samples.chunk(2, dim=0)  # Remove null class samples
+        # Sample images:
+        samples = diffusion.p_sample_loop(
+            sample_fn, 
+            z.shape, 
+            z, 
+            clip_denoised=False, 
+            model_kwargs=model_kwargs, 
+            progress=(rank == 0), 
+            device=device
+        )
+        
+        # timestep_iterator = diffusion.p_sample_loop_progressive(
+        #     sample_fn,
+        #     z.shape,
+        #     z,
+        #     clip_denoised=False,
+        #     model_kwargs=model_kwargs,
+        #     progress=False,  # Keep this False to avoid double progress bars
+        #     device=device
+        # )
+        # if rank == 0:
+        #     timestep_iterator = tqdm(timestep_iterator, desc="Timesteps", total=args.num_sampling_steps, leave=False)
+        # final_sample = None
+        # for sample_output in timestep_iterator:
+        #     current_sample = sample_output["sample"]
+        #     final_sample = current_sample
+        #     del current_sample
+        # samples = final_sample
 
-    #     samples = vae.decode(samples / 0.18215).sample
-    #     samples = torch.clamp(127.5 * samples + 128.0, 0, 255).permute(0, 2, 3, 1).to("cpu", dtype=torch.uint8).numpy()
+        # Process the final samples
+        
+        if using_cfg:
+            samples, _ = samples.chunk(2, dim=0)  # Remove null class samples
 
-    #     # Save samples to disk as individual .png files
-    #     for i, sample in enumerate(samples):
-    #         index = i * dist.get_world_size() + rank + total + args.current_num_samples
-    #         Image.fromarray(sample).save(f"{sample_folder_dir}/{index:06d}.png")
-    #     total += global_batch_size
+        samples = vae.decode(samples / 0.18215).sample
+        samples = torch.clamp(127.5 * samples + 128.0, 0, 255).permute(0, 2, 3, 1).to("cpu", dtype=torch.uint8).numpy()
+
+        # Save samples to disk as individual .png files
+        for i, sample in enumerate(samples):
+            index = i * dist.get_world_size() + rank + total + args.current_num_samples
+            Image.fromarray(sample).save(f"{sample_folder_dir}/{index:06d}.png")
+
+        del samples
+        torch.cuda.empty_cache()
+        total += global_batch_size
 
     # Make sure all processes have finished saving their samples before attempting to convert to .npz
     dist.barrier()
-    if rank == 0:
-        # create_npz_from_sample_folder(sample_folder_dir, args.num_fid_samples)
-        create_npz_from_sample_folder(sample_folder_dir, sample_folder_dir_npz, 15000)
-        print("Done.")
-    dist.barrier()
+    # if rank == 0:
+    #     # create_npz_from_sample_folder(sample_folder_dir, args.num_fid_samples)
+    #     create_npz_from_sample_folder(sample_folder_dir, sample_folder_dir_npz, 15000)
+    #     print("Done.")
+    # dist.barrier()
     dist.destroy_process_group()
 
 
@@ -227,5 +226,6 @@ if __name__ == "__main__":
     parser.add_argument("--top-k", action='store_true')
     parser.add_argument("--k", type=int, default=20)
     parser.add_argument("--ex-pred", action='store_true')
+    parser.add_argument("--pred-mode", type=str, default="ex_pred", choices=["ex_pred", "true_ex"])
     args = parser.parse_args()
     main(args)

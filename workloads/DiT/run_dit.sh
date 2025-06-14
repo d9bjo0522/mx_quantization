@@ -7,13 +7,19 @@
 #  --sample-dir /work/tttpd9bjo/diffusion/DiT/DiT-XL-2-256x256/samples
 
 #export CUDA_VISIBLE_DEVICES=0
-export PYTHONPATH=/home/tttpd9bjo/mx_quantization/microxscaling:$PYTHONPATH
+root_dir=/home/tttpd9bjo/mx_quantization
+dit_dir=$root_dir/workloads/DiT
+mx_dir=$root_dir/microxscaling
+export PYTHONPATH=$root_dir:$dit_dir:$mx_dir
+
+model_dir=/work/tttpd9bjo/diffusion/DiT/DiT-XL-2-256x256
+sample_dir=$model_dir/samples
 
 ## DiT-XL/2 256x256
 
 python sample.py \
     --model DiT-XL/2 \
-    --ckpt /work/tttpd9bjo/diffusion/DiT/DiT-XL-2-256x256/pretrained_models/DiT-XL-2-256x256.pt \
+    --ckpt $model_dir/pretrained_models/DiT-XL-2-256x256.pt \
     --image-size 256 \
     --vae mse \
     --num-sampling-steps 50 \

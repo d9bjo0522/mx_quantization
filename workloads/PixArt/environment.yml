@@ -4,9 +4,9 @@ channels:
   - nvidia
 dependencies:
   - python=3.10
-  - pytorch=2.0
-  - torchvision=0.15
-  - torchaudio=2.0
+  - pytorch=2.7.0
+  - torchvision=0.22.0
+  - torchaudio=2.0.2
   - pytorch-cuda=11.7
   - pip:
     - timm==0.6.12
@@ -22,3 +22,5 @@ dependencies:
     - bs4
     - einops
     - xformers
+    - torchmetrics==1.7.1
+    - bitsandbytes

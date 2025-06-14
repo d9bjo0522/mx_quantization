@@ -70,9 +70,31 @@ class exponent_approximation:
         self.reshaped_MX_K, self.axes_K, self.orig_shape_K, self.padded_shape_K = _reshape_to_blocks(self.MX_K, [-1], self.mx_specs["block_size"])
         self.shared_exponent_Q = _shared_exponents(self.reshaped_MX_Q, method=self.shared_exponent_method, axes=[-1], ebits=0)
         self.shared_exponent_K = _shared_exponents(self.reshaped_MX_K, method=self.shared_exponent_method, axes=[-1], ebits=0)
-        ## free memory
+
+        ## zeros
+        self.Q_zeros = torch.sum(Q == 0).item()
+        self.K_zeros = torch.sum(K == 0).item()
+        self.MX_Q_zeros = torch.sum(self.MX_Q == 0).item()
+        self.MX_K_zeros = torch.sum(self.MX_K == 0).item()
+        self.L1_diff_Q = torch.sum(torch.abs(Q - self.MX_Q)).item()
+        self.L1_diff_K = torch.sum(torch.abs(K - self.MX_K)).item()
+        self.total_Q_zeros = self.Q_zeros
+        self.total_K_zeros = self.K_zeros
+        ## free memory to avoid OOM issue
         del self.MX_Q, self.MX_K
         torch.cuda.empty_cache()
+
+    def report_zero_counts(self, output_file):
+        """Report zero counts at each quantization stage."""
+        # print(f"Original: Q_zeros: {self.Q_zeros},       K_zeros: {self.K_zeros}")
+        # print(f"MX:       MX_Q_zeros: {self.MX_Q_zeros}, MX_K_zeros: {self.MX_K_zeros}")
+        with open(output_file, 'a') as f:
+            f.write(f"Original: Q_zeros: {self.Q_zeros},       K_zeros: {self.K_zeros}\n")
+            f.write(f"MX:       MX_Q_zeros: {self.MX_Q_zeros}, MX_K_zeros: {self.MX_K_zeros}\n")
+            f.write(f"L1_diff:   L1_diff_Q: {self.L1_diff_Q}, L1_diff_K: {self.L1_diff_K}\n")
+            f.write("\n")
+        return self
+    
     def get_true_exponents(self, tensor):
         """
         Extract true exponents from tensor values.
@@ -118,10 +140,10 @@ class exponent_approximation:
         
         
         # Convert all non-zero values to +1 or -1 based on their sign
-        # signs_Q = torch.where(self.reshaped_MX_Q < 0, -1, +1)
-        # signs_K = torch.where(self.reshaped_MX_K < 0, -1, +1)
-        signs_Q = torch.sign(self.reshaped_MX_Q)
-        signs_K = torch.sign(self.reshaped_MX_K)
+        signs_Q = torch.where(self.reshaped_MX_Q < 0, -1, +1)
+        signs_K = torch.where(self.reshaped_MX_K < 0, -1, +1)
+        # signs_Q = torch.sign(self.reshaped_MX_Q)
+        # signs_K = torch.sign(self.reshaped_MX_K)
         # Expand shared_exponents to match the block size dimension
         expanded_exponents_Q = self.shared_exponent_Q.expand_as(self.reshaped_MX_Q)
         expanded_exponents_K = self.shared_exponent_K.expand_as(self.reshaped_MX_K)
@@ -142,13 +164,14 @@ class exponent_approximation:
         """
         Approximate each elements with the true leading ones.
         """
-
+        signs_Q = torch.where(self.reshaped_MX_Q < 0, -1, +1)
+        signs_K = torch.where(self.reshaped_MX_K < 0, -1, +1)
         true_exponent_Q = self.get_true_exponents(self.reshaped_MX_Q)
         true_exponent_K = self.get_true_exponents(self.reshaped_MX_K)
 
         # Convert all non-zero values to +- leading ones of each element
-        leading_ones_Q = torch.sign(self.reshaped_MX_Q) * (2 ** true_exponent_Q)
-        leading_ones_K = torch.sign(self.reshaped_MX_K) * (2 ** true_exponent_K)
+        leading_ones_Q = signs_Q * (2 ** true_exponent_Q)
+        leading_ones_K = signs_K * (2 ** true_exponent_K)
 
         approx_Q = _undo_reshape_to_blocks(leading_ones_Q, self.padded_shape_Q, self.orig_shape_Q, self.axes_Q)
         approx_K = _undo_reshape_to_blocks(leading_ones_K, self.padded_shape_K, self.orig_shape_K, self.axes_K)

@@ -2,4 +2,5 @@
 outputs/
 analysis/
 evaluation/generated_images/
+evaluation/classify*
 *.jpg

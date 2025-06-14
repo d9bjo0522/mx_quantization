@@ -50,4 +50,5 @@ def set_matmul_precision(a, b, a_elem_format, b_elem_format, force_bf16=False):
         torch.set_float32_matmul_precision("medium")
     yield
     torch.set_float32_matmul_precision(fp32_matmul_precision)
-    torch.backends.cuda.matmul.allow_bf16_reduced_precision_reduction = allow_bf16_reduced_precision_reduction
+    # torch.backends.cuda.matmul.allow_bf16_reduced_precision_reduction = allow_bf16_reduced_precision_reduction
+    torch.backends.cuda.matmul.allow_bf16_reduced_precision_reduction = False

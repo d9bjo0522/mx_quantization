@@ -1,32 +1,25 @@
 import os
 # os.environ["HF_HUB_OFFLINE"] = "1"
+import torchvision
+torchvision.disable_beta_transforms_warning()
 
 import json, torch
 import random
 import numpy as np
-import diffusers
-from diffusers import (
-    AutoencoderKL,
-    DPMSolverMultistepScheduler
-)
+from diffusers import AutoencoderKL, DPMSolverMultistepScheduler
 from safetensors.torch import load_file
-from transformers import T5EncoderModel, T5TokenizerFast
-from diffusers import PixArtSigmaPipeline, PixArtAlphaPipeline
-from diffusers import Transformer2DModel
-import argparse
+from transformers import T5EncoderModel, T5TokenizerFast, BitsAndBytesConfig
+from diffusers import PixArtSigmaPipeline
+
 import gc
+import argparse
 
+from models import MXPixArtTransformer2DModel
 
-from models.pixart_transformer_2d import MXPixArtTransformer2DModel, PixArtTransformer2DModel
-
-# print("Transformer now points to:", PixArtTransformer2DModel)
-# print("Pipeline    now points to:", PixArtSigmaPipeline)
-
-
-def print_gpu_memory(label=""):
-    if torch.cuda.is_available():
-        print(f"{label} GPU memory allocated: {torch.cuda.memory_allocated() / 1024**2:.2f} MB")
-        print(f"{label} GPU memory reserved: {torch.cuda.memory_reserved() / 1024**2:.2f} MB")
+# def print_gpu_memory(label=""):
+#     if torch.cuda.is_available():
+#         print(f"{label} GPU memory allocated: {torch.cuda.memory_allocated() / 1024**2:.2f} MB")
+#         print(f"{label} GPU memory reserved: {torch.cuda.memory_reserved() / 1024**2:.2f} MB")
 
 def seed_everything(seed=42):
     random.seed(seed)
@@ -46,24 +39,34 @@ def read_cfg(path):
 def main(args):
     seed_everything(args.seed)
 
-    folder = "/work/tttpd9bjo/diffusion/PixArt/PixArt-XL-2-512x512"
+    folder = f"{args.pretrained_models_dir}"
+    transformer_folder = f"{folder}/PixArt-XL-2-512x512" if args.resolution == 512 else f"{folder}/PixArt-XL-2-256x256"
     mismatch_idx_dir = f"../analysis/mismatch_idx/alpha-512/top-614"
+
     ## sample images from prompts
     prompt_path = args.prompt if args.prompt is not None else "./prompts.txt"
+    image_dir = args.image_dir
     prompts = []
     with open(prompt_path, 'r') as f:
         lines = f.readlines()
-        for line in lines:
-            prompts.append(line.strip())
+        for i, line in enumerate(lines):
+            if args.start_idx <= i < args.start_idx + 1000:
+                prompts.append(line.strip())
+            elif i >= args.start_idx + 1000:
+                break
     N_batch = len(prompts) // args.batch_size
 
     print(f"Found {len(prompts)} prompts, will process in {N_batch} batches")
-    # print_gpu_memory("Before any model loading")
 
+    # Configure 8-bit quantization using BitsAndBytesConfig
+    quantization_config = BitsAndBytesConfig(
+        load_in_8bit=True
+    )
+    
     text_encoder = T5EncoderModel.from_pretrained(
         f"{folder}/text_encoder",
         local_files_only=True,
-        load_in_8bit=False,     ## set true saves 2GB but slows down 22s
+        quantization_config=quantization_config,     ## saves 2GB but slows down 22s
         device_map="auto")
     
     pipe = PixArtSigmaPipeline.from_pretrained(
@@ -89,9 +92,9 @@ def main(args):
     gc.collect()
     torch.cuda.empty_cache()
 
-    tr_cfg_dict = read_cfg(f"{folder}/transformer/config.json")
+    tr_cfg_dict = read_cfg(f"{transformer_folder}/transformer/config.json")
     transformer = MXPixArtTransformer2DModel.from_config(tr_cfg_dict)
-    print(f"Initial model configs: mx_quant={transformer.mx_quant}, mx_specs={transformer.mx_specs}, self_top_k={transformer.self_top_k}, self_k={transformer.self_k}, ex_pred={transformer.ex_pred}")
+    print(f"Initial model configs: mx_quant={transformer.mx_quant}, mx_specs={transformer.mx_specs}, self_top_k={transformer.self_top_k}, self_k={transformer.self_k}, ex_pred={transformer.ex_pred}, pred_mode={transformer.pred_mode}")
 
     ## set the model configs
     mx_specs = {
@@ -111,23 +114,29 @@ def main(args):
         'custom_cuda': False,
         'quantize_backprop': False,
     }
-    # Apply MX quantization settings to reduce memory usage
+
+    ## test timestep/block sensitivity
     exclude_timesteps = []
     exclude_blocks = []
+
+    # Apply MX quantization settings to reduce memory usage
     transformer.set_config(
-        mx_quant=args.mx_quant, 
+        mx_quant=args.mx_quant,
         mx_specs=mx_specs, 
         self_top_k=args.self_top_k, 
         self_k=args.self_k, 
+        cross_top_k=args.cross_top_k,
+        cross_k=args.cross_k,
         ex_pred=args.ex_pred,
+        pred_mode=args.pred_mode,
         exclude_timesteps=exclude_timesteps,
-        exclude_blocks=exclude_blocks,
-        mismatch_idx_dir=mismatch_idx_dir
+        exclude_blocks=exclude_blocks
     )
-    print(f"Model configs: mx_quant={transformer.transformer_blocks[0].mx_quant}, mx_specs={transformer.transformer_blocks[0].mx_specs}, self_top_k={transformer.transformer_blocks[0].self_top_k}, self_k={transformer.transformer_blocks[0].self_k}, ex_pred={transformer.transformer_blocks[0].ex_pred}")
+
+    print(f"Model configs: mx_quant={transformer.transformer_blocks[0].mx_quant}, mx_specs={transformer.transformer_blocks[0].mx_specs}, self_top_k={transformer.transformer_blocks[0].self_top_k}, self_k={transformer.transformer_blocks[0].self_k}, ex_pred={transformer.transformer_blocks[0].ex_pred}, pred_mode={transformer.transformer_blocks[0].pred_mode}")
 
     transformer_checkpoint = load_file(
-        f"{folder}/transformer/diffusion_pytorch_model.safetensors",
+        f"{transformer_folder}/transformer/diffusion_pytorch_model.safetensors",
         device="cpu"
     )
     transformer.load_state_dict(transformer_checkpoint, strict=False)
@@ -167,8 +176,8 @@ def main(args):
     pipe.enable_attention_slicing()
     # pipe.enable_sequential_cpu_offload(gpu_id=0)        # streams weights & acts
     pipe.vae.enable_tiling()
-
-    # print_gpu_memory("After loading pipe")
+    pipe.vae.enable_slicing()
+    
     for i in range(N_batch):
         print(f"\nProcessing batch {i+1}/{N_batch}")
         
@@ -177,8 +186,7 @@ def main(args):
         prompt_attention_mask = all_prompt_attention_masks[i]
         negative_prompt_embeds = all_negative_prompt_embeds[i]
         negative_prompt_attention_mask = all_negative_prompt_attention_masks[i]
-                
-        # print_gpu_memory(f"Before generating batch {i+1}")
+        
         images = pipe(
             negative_prompt = None,
             prompt_embeds = prompt_embeds,
@@ -190,25 +198,25 @@ def main(args):
             generator=torch.Generator(device="cuda").manual_seed(args.seed),
         ).images
 
-        print(f"Export image of batch {i}")
-        save_path = os.path.join(args.log)
+        print(f"Export image of batch {i+1}")
+        save_path = image_dir
         if not os.path.exists(save_path):
             os.makedirs(save_path)
 
         for i_image in range(args.batch_size):
-            images[i_image].save(os.path.join(save_path, f"{args.start_idx + i_image + args.batch_size*i}.jpg"))
-        
+            images[0].save(os.path.join(save_path, f"{args.start_idx + i_image + args.batch_size*i}.jpg"))
+            del images[0]       ## makes the image array short down
         
         ## added to avoid OOM issue
         # Delete the images variable to free up memory (already saved)
-        del images, prompt_embeds, prompt_attention_mask, negative_prompt_embeds, negative_prompt_attention_mask
+        del images, prompt_embeds, prompt_attention_mask, negative_prompt_embeds, negative_prompt_attention_mask, 
         gc.collect()
         torch.cuda.empty_cache()
-        # print_gpu_memory(f"After generating batch {i+1}")
-
+        
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    parser.add_argument("--log", type=str)
+    parser.add_argument("--pretrained-models-dir", type=str, default='/work/tttpd9bjo/diffusion/PixArt/PixArt-XL-2/pretrained_models')
+    parser.add_argument("--image-dir", type=str, default='../evaluation/generated_images/alpha-512/fp32/')
     parser.add_argument("--cfg-scale", type=float, default=4.0)
     parser.add_argument("--num-sampling-steps", type=int, default=20)
     parser.add_argument("--prompt", type=str, default=None)
@@ -219,8 +227,12 @@ if __name__ == "__main__":
     parser.add_argument("--mx-quant", action="store_true", default=False)
     parser.add_argument("--self-top-k", action="store_true", default=False)
     parser.add_argument("--self-k", type=int, default=20)
+    parser.add_argument("--cross-top-k", action="store_true", default=False)
+    parser.add_argument("--cross-k", type=int, default=20)
     parser.add_argument("--ex-pred", action="store_true", default=False)
     parser.add_argument("--start-idx", type=int, default=0)
+    parser.add_argument("--resolution", type=int, default=512)
+    parser.add_argument("--pred-mode", type=str, default="ex_pred")
     args = parser.parse_args()
     main(args)
 
