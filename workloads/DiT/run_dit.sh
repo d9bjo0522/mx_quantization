@@ -13,7 +13,7 @@ mx_dir=$root_dir/microxscaling
 export PYTHONPATH=$root_dir:$dit_dir:$mx_dir
 
 model_dir=/work/tttpd9bjo/diffusion/DiT/DiT-XL-2-256x256
-sample_dir=$model_dir/samples
+sample_dir=$model_dir/samples/all_ex
 
 ## DiT-XL/2 256x256
 
@@ -22,13 +22,23 @@ python sample.py \
     --ckpt $model_dir/pretrained_models/DiT-XL-2-256x256.pt \
     --image-size 256 \
     --vae mse \
-    --num-sampling-steps 50 \
+    --num-sampling-steps 20 \
     --seed 0 \
-    --sample-dir sample_256_mx32_w8a8_top128_mid45t \
+    --sample-dir $sample_dir \
     --mx-quant \
     --top-k \
-    --k 128 \
-    --ex-pred
+    --k 179
+    # --ex-pred \
+    # --pred-mode "ex_pred"
+    # --top-k \
+    # --k 102 \
+    # --anal
+
+    # --ex-pred \
+    # --pred-mode "ex_pred"
+    # --anal
+    # --pred-mode "ex_pred" \
+    # --ex-pred
 
 ## DiT-XL/2 512x512
 

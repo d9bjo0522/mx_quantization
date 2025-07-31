@@ -14,7 +14,7 @@ from diffusers import PixArtSigmaPipeline
 import gc
 import argparse
 
-from models import MXPixArtTransformer2DModel
+from models import MXPixArtTransformer2DModelEx
 
 # def print_gpu_memory(label=""):
 #     if torch.cuda.is_available():
@@ -85,7 +85,7 @@ def main(args):
             prompts_embeds, prompt_attention_mask, negative_prompt_embeds, negative_prompt_attention_mask = pipe.encode_prompt(prompts[i*args.batch_size: (i+1)*args.batch_size])
         all_prompts_embeds.append(prompts_embeds)
         all_prompt_attention_masks.append(prompt_attention_mask)
-        print((prompt_attention_mask != 0).sum().item())
+        # print((prompt_attention_mask != 0).sum().item())
         all_negative_prompt_embeds.append(negative_prompt_embeds)
         all_negative_prompt_attention_masks.append(negative_prompt_attention_mask)
     
@@ -94,7 +94,7 @@ def main(args):
     torch.cuda.empty_cache()
 
     tr_cfg_dict = read_cfg(f"{transformer_folder}/transformer/config.json")
-    transformer = MXPixArtTransformer2DModel.from_config(tr_cfg_dict)
+    transformer = MXPixArtTransformer2DModelEx.from_config(tr_cfg_dict)
     print(f"Initial model configs: mx_quant={transformer.mx_quant}, mx_specs={transformer.mx_specs}, self_top_k={transformer.self_top_k}, self_k={transformer.self_k}, ex_pred={transformer.ex_pred}, pred_mode={transformer.pred_mode}")
 
     ## set the model configs
@@ -118,7 +118,9 @@ def main(args):
 
     ## test timestep/block sensitivity
     exclude_timesteps = []
-    exclude_blocks = []
+    exclude_blocks = [0, 27]
+    # exclude_blocks = [0, 1, 2, 25, 26, 27]
+    # exclude_blocks = [3,4,5,6,7,8,9,10,11,12,13,27]
 
     # Apply MX quantization settings to reduce memory usage
     transformer.set_config(

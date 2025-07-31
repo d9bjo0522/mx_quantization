@@ -15,4 +15,4 @@ if funcs_dir not in sys.path:
 import funcs
 from .MX_pixart_transformer_2d import MXPixArtTransformer2DModel
 from .MX_transformer_block import MXBasicTransformerBlock
-from .MX_pixart_transformer_2d_ex import MXPixArtTransformer2DModel_ex
+from .MX_pixart_transformer_2d_ex import MXPixArtTransformer2DModelEx

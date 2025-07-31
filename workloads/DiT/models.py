@@ -17,7 +17,7 @@ from timm.models.vision_transformer import PatchEmbed
 from timm.layers.helpers import to_2tuple
 from functools import partial
 
-from funcs import exponent_approximation
+from funcs import exponent_approximation, save_idx_file, diff_idx_analysis, save_diff_score_file
 from mx import Linear, matmul
 
 def modulate(x, shift, scale):
@@ -117,6 +117,10 @@ class Attention(nn.Module):
             k: int=20,
             ex_pred: bool=False,
             pred_mode: str="ex_pred",
+            anal: bool=False,
+            file_name_dict: dict=None,
+            block_idx: int=None,
+            exclude_timesteps: list=None,
     ) -> None:
         super().__init__()
         assert dim % num_heads == 0, 'dim should be divisible by num_heads'
@@ -138,9 +142,11 @@ class Attention(nn.Module):
         self.ex_pred = ex_pred
         self.exponent_based_obj = None
         self.pred_mode = pred_mode
-        # self.chosen_ori_indices = None
-        # self.chosen_ex_indices = None
-        # self.flag=True
+        self.anal = anal
+        self.file_name_dict = file_name_dict
+        self.current_timestep = 0
+        self.block_idx = block_idx
+        self.exclude_timesteps = exclude_timesteps
     def forward(self, x: torch.Tensor) -> torch.Tensor:
         B, N, C = x.shape
         qkv = self.qkv(x).reshape(B, N, 3, self.num_heads, self.head_dim).permute(2, 0, 3, 1, 4)
@@ -159,7 +165,7 @@ class Attention(nn.Module):
             true_scores = matmul(q, k.transpose(-2,-1), mx_specs=self.mx_specs, mode_config='aa')
             true_scores = true_scores * self.scale
 
-            if self.top_k:
+            if self.top_k and self.current_timestep not in self.exclude_timesteps:
                 if self.ex_pred:
                     self.exponent_based_obj = exponent_approximation(Q=q, K=k, mx_specs=self.mx_specs)
                     if self.pred_mode == "ex_pred":
@@ -169,11 +175,24 @@ class Attention(nn.Module):
 
                     pred_scores = ex_quant_q @ (ex_quant_k.transpose(-2, -1))
                     _, idx = torch.topk(pred_scores, self.k, dim=-1, largest=True, sorted=True)
+                    # idx = torch.randint(0, pred_scores.shape[-1], (pred_scores.shape[0], pred_scores.shape[1], pred_scores.shape[2], self.k), device=pred_scores.device)
                     vals = true_scores.gather(dim=-1, index=idx)
                     del pred_scores, ex_quant_q, ex_quant_k, self.exponent_based_obj
                     torch.cuda.empty_cache()
                 else:
                     vals, idx = torch.topk(true_scores, self.k, dim=-1, largest=True, sorted=True)
+
+                if self.anal:
+                    post_softmax_vals = torch.softmax(true_scores, dim=-1)
+                    scores = post_softmax_vals.gather(dim=-1, index=idx)
+                    true_vals, true_idx = torch.topk(post_softmax_vals, self.k, dim=-1, largest=True, sorted=True)
+                    save_idx_file(idx, self.file_name_dict[self.current_timestep]['idx'], block_idx=self.block_idx)
+                    save_idx_file(scores, self.file_name_dict[self.current_timestep]['vals'], block_idx=self.block_idx)
+                    diff_score = diff_idx_analysis(true_vals, scores)
+                    save_diff_score_file(diff_score, self.file_name_dict[self.current_timestep]['diff_idx'], block_idx=self.block_idx)
+                    del post_softmax_vals, scores
+                    torch.cuda.empty_cache()
+
                 topk_attn = torch.softmax(vals, dim=-1)
                 attn = torch.zeros_like(true_scores)
                 attn.scatter_(-1, idx, topk_attn)
@@ -188,6 +207,7 @@ class Attention(nn.Module):
         x = x.transpose(1, 2).reshape(B, N, C)
         x = self.proj(x)
         x = self.proj_drop(x)
+        self.current_timestep += 1
         return x
     
 class Mlp(nn.Module):
@@ -238,10 +258,10 @@ class DiTBlock(nn.Module):
     """
     A DiT block with adaptive layer norm zero (adaLN-Zero) conditioning.
     """
-    def __init__(self, hidden_size, num_heads, mlp_ratio=4.0, mx_quant=True, mx_specs=None, top_k=False, k=20, ex_pred=True, pred_mode="ex_pred", **block_kwargs):
+    def __init__(self, hidden_size, num_heads, mlp_ratio=4.0, mx_quant=True, mx_specs=None, top_k=False, k=20, ex_pred=True, pred_mode="ex_pred", anal=False, file_name_dict=None, block_idx=None, exclude_timesteps=None, **block_kwargs):
         super().__init__()
         self.norm1 = nn.LayerNorm(hidden_size, elementwise_affine=False, eps=1e-6)
-        self.attn = Attention(hidden_size, num_heads=num_heads, qkv_bias=True, mx_quant=mx_quant, mx_specs=mx_specs, top_k=top_k, k=k, ex_pred=ex_pred, pred_mode=pred_mode)
+        self.attn = Attention(hidden_size, num_heads=num_heads, qkv_bias=True, mx_quant=mx_quant, mx_specs=mx_specs, top_k=top_k, k=k, ex_pred=ex_pred, pred_mode=pred_mode, anal=anal, file_name_dict=file_name_dict, block_idx=block_idx, exclude_timesteps=exclude_timesteps)
         self.norm2 = nn.LayerNorm(hidden_size, elementwise_affine=False, eps=1e-6)
         mlp_hidden_dim = int(hidden_size * mlp_ratio)
         approx_gelu = lambda: nn.GELU(approximate="tanh")
@@ -277,7 +297,6 @@ class FinalLayer(nn.Module):
         x = self.linear(x)
         return x
 
-
 class DiT(nn.Module):
     """
     Diffusion model with a Transformer backbone.
@@ -301,6 +320,9 @@ class DiT(nn.Module):
         ex_pred: bool=True,
         exclude_blocks: list=None,
         pred_mode: str="ex_pred",
+        anal: bool=False,
+        file_name_dict: dict=None,
+        exclude_timesteps: list=None,
     ):
         super().__init__()
         self.learn_sigma = learn_sigma
@@ -323,10 +345,14 @@ class DiT(nn.Module):
                 mlp_ratio=mlp_ratio, 
                 mx_quant=mx_quant,
                 mx_specs=mx_specs,
-                top_k=top_k,
+                top_k=top_k if exclude_blocks is None or i not in exclude_blocks else False,
                 k=k,
                 ex_pred=ex_pred if exclude_blocks is None or i not in exclude_blocks else False,
-                pred_mode=pred_mode
+                pred_mode=pred_mode,
+                anal=anal,
+                file_name_dict=file_name_dict,
+                block_idx=i,
+                exclude_timesteps=exclude_timesteps
             ) for i in range(depth)
         ])
         self.final_layer = FinalLayer(hidden_size, patch_size, self.out_channels, mx_quant=mx_quant, mx_specs=mx_specs)
@@ -478,8 +504,8 @@ def get_1d_sincos_pos_embed_from_grid(embed_dim, pos):
 #                                   DiT Configs                                  #
 #################################################################################
 
-def DiT_XL_2(mx_quant=False, mx_specs=None, top_k=True, k=20, ex_pred=True, exclude_blocks=None, pred_mode="ex_pred", **kwargs):
-    return DiT(depth=28, hidden_size=1152, patch_size=2, num_heads=16, mx_quant=mx_quant, mx_specs=mx_specs, top_k=top_k, k=k, ex_pred=ex_pred, exclude_blocks=exclude_blocks, pred_mode=pred_mode, **kwargs)
+def DiT_XL_2(mx_quant=False, mx_specs=None, top_k=True, k=20, ex_pred=True, exclude_blocks=None, pred_mode="ex_pred",anal=False, file_name_dict=None, exclude_timesteps=None, **kwargs):
+    return DiT(depth=28, hidden_size=1152, patch_size=2, num_heads=16, mx_quant=mx_quant, mx_specs=mx_specs, top_k=top_k, k=k, ex_pred=ex_pred, exclude_blocks=exclude_blocks, pred_mode=pred_mode, anal=anal, file_name_dict=file_name_dict, exclude_timesteps=exclude_timesteps, **kwargs)
 
 def DiT_XL_4(mx_quant=False, mx_specs=None, top_k=False, k=20, ex_pred=False, exclude_blocks=None, pred_mode="ex_pred", **kwargs):
     return DiT(depth=28, hidden_size=1152, patch_size=4, num_heads=16, mx_quant=mx_quant, mx_specs=mx_specs, top_k=top_k, k=k, ex_pred=ex_pred, exclude_blocks=exclude_blocks, pred_mode=pred_mode, **kwargs)

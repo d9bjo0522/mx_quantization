@@ -1,5 +1,5 @@
 from typing import Any, Dict, List, Optional, Tuple
-
+import numpy as np
 import torch
 import torch.nn.functional as F
 from torch import nn
@@ -14,6 +14,10 @@ from diffusers.models.activations import LinearActivation, ApproximateGELU, SwiG
 import math
 from mx import Linear, matmul
 from funcs import exponent_approximation
+from funcs import save_idx_file, create_file, diff_idx_analysis, save_diff_score_file
+from mx.elemwise_ops import quantize_elemwise_op
+from mx.mx_ops import quantize_mx_op
+# from funcs import plot_diff_box
 
 if is_torch_npu_available():
     import torch_npu
@@ -183,6 +187,8 @@ class MXBasicTransformerBlock(nn.Module):
         self.self_top_k = False
         self.self_k = 20
         self.ex_pred = False
+        self.cross_file_name_dict = None
+        self.self_file_name_dict = None
         # We keep these boolean flags for backward-compatibility.
         self.use_ada_layer_norm_zero = (num_embeds_ada_norm is not None) and norm_type == "ada_norm_zero"
         self.use_ada_layer_norm = (num_embeds_ada_norm is not None) and norm_type == "ada_norm"
@@ -335,17 +341,23 @@ class MXBasicTransformerBlock(nn.Module):
         self._chunk_size = chunk_size
         self._chunk_dim = dim
 
-    def set_config(self, mx_quant:bool=False, mx_specs:dict=None, self_top_k:bool=False, self_k:int=20, cross_top_k:bool=False, cross_k:int=20, ex_pred:bool=False, zero_counts_file:str=None, mismatch_idx_file:str=None, exclude_timesteps:list=None, pred_mode:str="ex_pred"):
+    def set_config(self, mx_quant:bool=False, mx_specs:dict=None, self_top_k:bool=False, self_k:int=20, cross_top_k:bool=False, cross_k:int=20, ex_pred:bool=False, exclude_timesteps:list=None, pred_mode:str="ex_pred", block_idx:int=None, self_anal:bool=False, cross_anal:bool=False, cross_file_name_dict:dict=None, self_file_name_dict:dict=None):
         self.mx_quant = mx_quant
         self.mx_specs = mx_specs
         self.self_top_k = self_top_k
         self.self_k = self_k
         self.ex_pred = ex_pred
         self.pred_mode = pred_mode
-        self.mismatch_idx_file = mismatch_idx_file
+        self.block_idx = block_idx
+
+        self.self_anal = self_anal
+        self.cross_anal = cross_anal
+        self.cross_file_name_dict = cross_file_name_dict
+        self.self_file_name_dict = self_file_name_dict
+
         ## submodule set_configs
-        self.attn1.set_config(mx_quant=mx_quant, mx_specs=mx_specs, top_k=self_top_k, k=self_k, ex_pred=ex_pred, zero_counts_file=zero_counts_file, mismatch_idx_file=mismatch_idx_file, exclude_timesteps=exclude_timesteps, pred_mode=pred_mode)
-        self.attn2.set_config(mx_quant=mx_quant, mx_specs=mx_specs, top_k=cross_top_k, k=cross_k, ex_pred=ex_pred, pred_mode=pred_mode)
+        self.attn1.set_config(mx_quant=mx_quant, mx_specs=mx_specs, top_k=self_top_k, k=self_k, ex_pred=ex_pred, exclude_timesteps=exclude_timesteps, pred_mode=pred_mode, block_idx=block_idx, anal=self_anal, file_name_dict=self_file_name_dict)
+        self.attn2.set_config(mx_quant=mx_quant, mx_specs=mx_specs, top_k=cross_top_k, k=cross_k, ex_pred=ex_pred, pred_mode=pred_mode, exclude_timesteps=exclude_timesteps, block_idx=block_idx, anal=cross_anal, file_name_dict=cross_file_name_dict)
         self.ff.set_config(mx_quant=mx_quant, mx_specs=mx_specs)
         return self
     
@@ -584,22 +596,19 @@ class MXSelfAttention(nn.Module):
         # self.top_k_obj = None
         self.exponent_based_obj = None
         # self.ex_pred_idx = None
-        self.curr_pred_idx = None
-        self.true_idx = None
         self.current_timestep = 0
         self.exclude_timesteps = None
 
-    def set_config(self, mx_quant:bool=False, mx_specs:dict=None, top_k:bool=False, k:int=20, ex_pred:bool=False, zero_counts_file:str=None, mismatch_idx_file:str=None, exclude_timesteps:list=None, pred_mode:str="ex_pred"):
+    def set_config(self, mx_quant:bool=False, mx_specs:dict=None, top_k:bool=False, k:int=20, ex_pred:bool=False, exclude_timesteps:list=None, pred_mode:str="ex_pred", block_idx:int=None, anal:bool=False, file_name_dict:dict=None):
         self.mx_quant = mx_quant
         self.mx_specs = mx_specs
         self.top_k = top_k
         self.k = k
         self.ex_pred = ex_pred
         self.pred_mode = pred_mode
-        self.zero_counts_file = zero_counts_file
-        self.mismatch_idx_file = mismatch_idx_file
-        # with open(mismatch_idx_file, 'w') as f:
-        #     pass
+        self.block_idx = block_idx
+        self.anal = anal
+        self.file_name_dict = file_name_dict
         self.exclude_timesteps = exclude_timesteps
         ## submodule set_configs
         self.to_q = Linear(self.dim, self.dim, bias=self.has_bias, mx_specs=mx_specs) if mx_quant else self.to_q
@@ -607,40 +616,6 @@ class MXSelfAttention(nn.Module):
         self.to_v = Linear(self.dim, self.dim, bias=self.has_bias, mx_specs=mx_specs) if mx_quant else self.to_v
         self.to_out[0] = Linear(self.dim, self.dim, bias=self.has_bias, mx_specs=mx_specs) if mx_quant else self.to_out[0]
         return self
-    
-    # def mismatch_idx_stats(self, true_scores, output_file:str=None):
-    #     true_head_scores = torch.zeros(1, device=self.curr_pred_idx.device)
-    #     ex_pred_head_scores = torch.zeros(1, device=self.curr_pred_idx.device)
-
-    #     true_softmax = true_scores.softmax(dim=-1)
-    #     values, true_idx = torch.topk(true_softmax, self.k, dim=-1, largest=True, sorted=True)
-
-    #     curr_pred_idx, _ = torch.sort(self.curr_pred_idx, dim=-1)
-    #     true_idx, _ = torch.sort(true_idx, dim=-1)
-    #     curr_pred_softmax = true_softmax.gather(dim=-1, index=curr_pred_idx)
-
-    #     true_head_scores = values[0,:,:, -1]
-    #     curr_pred_head_scores = curr_pred_softmax[0,:,:, -1]
-        
-    #     # curr_pred_softmax = true_softmax.gather(dim=-1, index=curr_pred_idx)
-    #     # true_softmax = true_softmax.gather(dim=-1, index=true_idx)
-    #     # curr_pred_softmax = torch.sum(curr_pred_softmax, dim=-1)
-    #     # true_softmax = torch.sum(true_softmax, dim=-1)
-
-    #     # curr_pred_head_scores = torch.sum(curr_pred_softmax[0,:,:]).item()
-    #     # true_head_scores = torch.sum(true_softmax[0,:,:]).item()
-
-    #     # curr_pred_head_scores = curr_pred_head_scores / (curr_pred_idx.shape[2] * curr_pred_idx.shape[1])
-    #     # true_head_scores = true_head_scores / (true_idx.shape[2] * true_idx.shape[1])
-
-    #     with open(output_file, 'a') as f:
-    #         # f.write(f"self_attn_mismatch_idx: {ex_pred_idx}\n\n")
-    #         f.write(f"true_head_scores: {true_head_scores}\n")
-    #         f.write(f"curr_pred_head_scores: {curr_pred_head_scores}\n\n")
-
-    #     # del true_head_scores, curr_pred_head_scores, true_idx, curr_pred_idx, true_softmax, curr_pred_softmax
-    #     torch.cuda.empty_cache()
-    #     return self
 
     def forward(
         self,
@@ -684,25 +659,35 @@ class MXSelfAttention(nn.Module):
                         ex_quant_q, ex_quant_k = self.exponent_based_obj.exponent_based_sign()
                     elif self.pred_mode == "true_ex":
                         ex_quant_q, ex_quant_k = self.exponent_based_obj.exponent_based_sign_leading_ones()
+                    elif self.pred_mode == "partial_Q": # Q is MX, K is ex-approx
+                        ex_quant_q, ex_quant_k = self.exponent_based_obj.partial_Q()
+                    elif self.pred_mode == "partial_K": # Q is ex-approx, K is MX
+                        ex_quant_q, ex_quant_k = self.exponent_based_obj.partial_K()
 
-                    # self.exponent_based_obj.report_zero_counts(output_file=self.zero_counts_file)
                     pred_scores = ex_quant_q @ ex_quant_k.transpose(-2, -1)     ## approximated q*k using exponent-based method
                     _, idx = torch.topk(pred_scores, self.k, dim=-1, largest=True, sorted=True)  ## the top-k chosen by approximated q*k
                     vals = true_scores.gather(dim=-1, index=idx)  ## the top-k values chosen by true q*k
-
-                    del pred_scores, ex_quant_q, ex_quant_k, self.exponent_based_obj    ## free memory to avoid OOM
+                    del ex_quant_q, ex_quant_k, pred_scores
+                    self.exponent_based_obj = None
                     torch.cuda.empty_cache()
                 else:
                     vals, idx = torch.topk(true_scores, self.k, dim=-1, largest=True, sorted=True)  ## true top-k values, indexes
                 
-                self.curr_pred_idx = idx
-                # self.mismatch_idx_stats(true_scores=true_scores, output_file=self.mismatch_idx_file)
+                if self.anal:
+                    post_softmax_vals = torch.softmax(true_scores, dim=-1)
+                    scores = post_softmax_vals.gather(dim=-1, index=idx)
+                    true_vals, true_idx = torch.topk(post_softmax_vals, self.k, dim=-1, largest=True, sorted=True)
+                    save_idx_file(idx, self.file_name_dict[self.current_timestep]['idx'], block_idx=self.block_idx)
+                    save_idx_file(scores, self.file_name_dict[self.current_timestep]['vals'], block_idx=self.block_idx)
+                    diff_score = diff_idx_analysis(true_vals, scores)
+                    save_diff_score_file(diff_score, self.file_name_dict[self.current_timestep]['diff_idx'], block_idx=self.block_idx)
+                    del post_softmax_vals, scores
+                    torch.cuda.empty_cache()
+
                 topk_attn = torch.softmax(vals, dim=-1)  ## softmax of only top-k values
                 attn = torch.zeros_like(true_scores)  
                 attn.scatter_(-1, idx, topk_attn)     ## expand top-k attn to full size
                 del topk_attn, vals, idx     ## free memory to avoid OOM
-                self.true_idx = None
-                self.curr_pred_idx = None
             else:
                 attn = torch.softmax(true_scores, dim=-1)
             del true_scores
@@ -735,6 +720,8 @@ class MXCrossAttention(nn.Module):
         ## MX quantization configs
         self.mx_quant = False
         self.mx_specs = None
+        self.current_timestep = 0
+        self.exclude_timesteps = None
 
         self.to_q = nn.Linear(dim, dim, bias=has_bias)
         self.to_k = nn.Linear(dim, dim, bias=has_bias)
@@ -744,18 +731,22 @@ class MXCrossAttention(nn.Module):
             nn.Dropout(p=0.0)
         )
 
-    def set_config(self, mx_quant:bool=False, mx_specs:dict=None, top_k:bool=False, k:int=20, ex_pred:bool=False, pred_mode:str="ex_pred"):
+    def set_config(self, mx_quant:bool=False, mx_specs:dict=None, top_k:bool=False, k:int=20, ex_pred:bool=False, pred_mode:str="ex_pred", exclude_timesteps:list=None, anal:bool=False, block_idx:int=None, file_name_dict:dict=None):
         self.mx_quant = mx_quant
         self.mx_specs = mx_specs
         self.top_k = top_k
         self.k = k
         self.ex_pred = ex_pred
         self.pred_mode = pred_mode
+        self.exclude_timesteps = exclude_timesteps
+        self.block_idx = block_idx
         ## submodule set_configs
         self.to_q = Linear(self.dim, self.dim, bias=self.has_bias, mx_specs=mx_specs) if mx_quant else self.to_q
         self.to_k = Linear(self.dim, self.dim, bias=self.has_bias, mx_specs=mx_specs) if mx_quant else self.to_k
         self.to_v = Linear(self.dim, self.dim, bias=self.has_bias, mx_specs=mx_specs) if mx_quant else self.to_v
         self.to_out[0] = Linear(self.dim, self.dim, bias=self.has_bias, mx_specs=mx_specs) if mx_quant else self.to_out[0]
+        self.anal = anal
+        self.file_name_dict = file_name_dict
         return self
     
     def forward(
@@ -800,22 +791,43 @@ class MXCrossAttention(nn.Module):
             true_scores += attn_bias
             
             if self.top_k:
-                if self.ex_pred:
+                if self.ex_pred and self.current_timestep not in self.exclude_timesteps:
                     self.exponent_based_obj = exponent_approximation(Q=q, K=k_t_scaled, mx_specs=self.mx_specs)
 
                     if self.pred_mode == "ex_pred":
                         ex_quant_q, ex_quant_k = self.exponent_based_obj.exponent_based_sign()
                     elif self.pred_mode == "true_ex":
                         ex_quant_q, ex_quant_k = self.exponent_based_obj.exponent_based_sign_leading_ones()
+                    elif self.pred_mode == "partial_Q":
+                        ex_quant_q, ex_quant_k = self.exponent_based_obj.partial_Q()
+                    elif self.pred_mode == "partial_K":
+                        ex_quant_q, ex_quant_k = self.exponent_based_obj.partial_K()
                     pred_scores = ex_quant_q @ ex_quant_k.transpose(-2, -1)
                     pred_scores = pred_scores + attn_bias
+                    
+                    # _, idx_top1 = torch.topk(true_scores, 2, dim=-1, largest=True, sorted=True)
                     _, idx = torch.topk(pred_scores, self.k, dim=-1, largest=True, sorted=True)
+                    # idx = idx[:,:,:, 2:self.k]
+                    # idx = torch.cat([idx_top1, idx], dim=-1)
+
                     vals = true_scores.gather(dim=-1, index=idx)
-                    del pred_scores, ex_quant_q, ex_quant_k
+                    del ex_quant_q, ex_quant_k, pred_scores
                     self.exponent_based_obj = None
                     torch.cuda.empty_cache()
                 else:
                     vals, idx = torch.topk(true_scores, self.k, dim=-1, largest=True, sorted=True)
+
+                if self.anal:
+                    post_softmax_vals = torch.softmax(true_scores, dim=-1)
+                    scores = post_softmax_vals.gather(dim=-1, index=idx)
+                    true_vals, true_idx = torch.topk(post_softmax_vals, self.k, dim=-1, largest=True, sorted=True)
+                    save_idx_file(idx, self.file_name_dict[self.current_timestep]['idx'], block_idx=self.block_idx)
+                    save_idx_file(scores, self.file_name_dict[self.current_timestep]['vals'], block_idx=self.block_idx)
+                    diff_score = diff_idx_analysis(true_vals, scores)
+                    save_diff_score_file(diff_score, self.file_name_dict[self.current_timestep]['diff_idx'], block_idx=self.block_idx)
+                    del post_softmax_vals, scores
+                    torch.cuda.empty_cache()
+                
                 topk_attn = torch.softmax(vals, dim=-1)
                 attn = torch.zeros_like(true_scores)
                 attn.scatter_(-1, idx, topk_attn)
@@ -828,4 +840,5 @@ class MXCrossAttention(nn.Module):
             x = matmul(attn, v, mx_specs=self.mx_specs, mode_config='aa')
             x = x.transpose(1, 2).reshape(B, N, C)
             x = self.to_out(x)
+            self.current_timestep += 1
             return x

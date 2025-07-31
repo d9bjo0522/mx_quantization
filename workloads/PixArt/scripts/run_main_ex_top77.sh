@@ -1,4 +1,4 @@
-LOG='/work/tttpd9bjo/diffusion/PixArt/PixArt-XL-2/evaluation/PixArt-XL-2-256x256/generated_images/top140/exclude_blocks/27_blocks_true_20ex/'
+LOG='/work/tttpd9bjo/diffusion/PixArt/PixArt-XL-2/evaluation/PixArt-XL-2-256x256/generated_images/except_27_block/ex_pred/top77'
 pretrained_models_dir=/work/tttpd9bjo/diffusion/PixArt/PixArt-XL-2/pretrained_models
 
 PROMPT_PATH='../prompts/coco2017_val5000.txt'
@@ -12,10 +12,10 @@ if [[ ":$PYTHONPATH:" != *":$pixart_dir:"* ]]; then
 fi
 
 # Loop over different start-idx values
-for start_idx in 1000 2000 3000 4000; do
-    echo "Running top140 27_blocks_true_20ex"
+for start_idx in 0 1000 2000 3000 4000; do
+    echo "Running top77 ex_pred top-k except 27th block no top-k"
     echo "Running with start-idx = $start_idx"
-    python text_local_inference_alpha_27_blocks_true_20ex.py \
+    python text_local_inference_alpha_ex_blocks.py \
         --pretrained-models-dir $pretrained_models_dir \
         --image-dir ${LOG} \
         --prompt ${PROMPT_PATH} \
@@ -24,7 +24,7 @@ for start_idx in 1000 2000 3000 4000; do
         --batch-size 100 \
         --mx-quant \
         --self-top-k \
-        --self-k 140 \
+        --self-k 77 \
         --ex-pred \
         --pred-mode "ex_pred"
     echo "Completed start-idx = $start_idx"

@@ -41,7 +41,7 @@ def main(args):
 
     folder = f"{args.pretrained_models_dir}"
     transformer_folder = f"{folder}/PixArt-XL-2-512x512" if args.resolution == 512 else f"{folder}/PixArt-XL-2-256x256"
-    mismatch_idx_dir = f"../analysis/mismatch_idx/alpha-512/top-614"
+    anal_dir = "/work/tttpd9bjo/diffusion/PixArt/PixArt-XL-2/analysis"
 
     ## sample images from prompts
     prompt_path = args.prompt if args.prompt is not None else "./prompts.txt"
@@ -85,6 +85,7 @@ def main(args):
             prompts_embeds, prompt_attention_mask, negative_prompt_embeds, negative_prompt_attention_mask = pipe.encode_prompt(prompts[i*args.batch_size: (i+1)*args.batch_size])
         all_prompts_embeds.append(prompts_embeds)
         all_prompt_attention_masks.append(prompt_attention_mask)
+        # print((prompt_attention_mask != 0).sum().item())
         all_negative_prompt_embeds.append(negative_prompt_embeds)
         all_negative_prompt_attention_masks.append(negative_prompt_attention_mask)
     
@@ -117,7 +118,9 @@ def main(args):
 
     ## test timestep/block sensitivity
     exclude_timesteps = []
-    exclude_blocks = [27]
+    exclude_blocks = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26]
+    # exclude_blocks = [0, 1, 2, 25, 26, 27]
+    # exclude_blocks = [3,4,5,6,7,8,9,10,11,12,13,27]
 
     # Apply MX quantization settings to reduce memory usage
     transformer.set_config(
@@ -130,7 +133,11 @@ def main(args):
         ex_pred=args.ex_pred,
         pred_mode=args.pred_mode,
         exclude_timesteps=exclude_timesteps,
-        exclude_blocks=exclude_blocks
+        exclude_blocks=exclude_blocks,
+        self_anal=args.self_anal,
+        cross_anal=args.cross_anal,
+        anal_dir=anal_dir,
+        exclude_blocks_type=args.exclude_blocks_type
     )
 
     print(f"Model configs: mx_quant={transformer.transformer_blocks[0].mx_quant}, mx_specs={transformer.transformer_blocks[0].mx_specs}, self_top_k={transformer.transformer_blocks[0].self_top_k}, self_k={transformer.transformer_blocks[0].self_k}, ex_pred={transformer.transformer_blocks[0].ex_pred}, pred_mode={transformer.transformer_blocks[0].pred_mode}")
@@ -233,6 +240,9 @@ if __name__ == "__main__":
     parser.add_argument("--start-idx", type=int, default=0)
     parser.add_argument("--resolution", type=int, default=512)
     parser.add_argument("--pred-mode", type=str, default="ex_pred")
+    parser.add_argument("--self-anal", action="store_true", default=False)
+    parser.add_argument("--cross-anal", action="store_true", default=False)
+    parser.add_argument("--exclude-blocks-type", type=str, default="ex_pred")
     args = parser.parse_args()
     main(args)
 

@@ -23,6 +23,7 @@ from diffusers.models.embeddings import PatchEmbed, PixArtAlphaTextProjection
 from diffusers.models.modeling_outputs import Transformer2DModelOutput
 from diffusers.models.modeling_utils import ModelMixin
 from diffusers.models.normalization import AdaLayerNormSingle
+from funcs.analysis import create_file, init_analysis_files
 
 from .MX_transformer_block import MXBasicTransformerBlock
 
@@ -192,12 +193,23 @@ class MXPixArtTransformer2DModel(ModelMixin, ConfigMixin):
             )
     
     # Set MX-specific quantization configs
-    def set_config(self, mx_quant:bool=False, mx_specs:dict=None, self_top_k:bool=False, self_k:int=20, cross_top_k:bool=False, cross_k:int=20, ex_pred:bool=False, exclude_timesteps:list=[], exclude_blocks:list=[], pred_mode:str="ex_pred"):
+    def set_config(self, mx_quant:bool=False, mx_specs:dict=None, self_top_k:bool=False, self_k:int=20, cross_top_k:bool=False, cross_k:int=20, ex_pred:bool=False, exclude_timesteps:list=[], exclude_blocks:list=[], pred_mode:str="ex_pred", self_anal:bool=False, cross_anal:bool=False, anal_dir:str=None, exclude_blocks_type:str="ex_pred"):
+        ## analysis mode
+        self.self_anal = self_anal
+        self.cross_anal = cross_anal
+        self.cross_file_name_dict = None
+        self.self_file_name_dict = None
+
+        if cross_anal:
+            self.cross_file_name_dict = init_analysis_files(attn_type='cross_attention', anal_dir=anal_dir, k=cross_k, ex_pred=ex_pred, total_timestep=20)
+        if self_anal:
+            self.self_file_name_dict = init_analysis_files(attn_type='self_attention', anal_dir=anal_dir, k=self_k, ex_pred=ex_pred, total_timestep=20)
+
         for idx, block in enumerate(self.transformer_blocks):
             if idx in exclude_blocks:
-                block.set_config(mx_quant=mx_quant, mx_specs=mx_specs, self_top_k=self_top_k, self_k=self_k, cross_top_k=cross_top_k, cross_k=cross_k, ex_pred=False, exclude_timesteps=exclude_timesteps, pred_mode=pred_mode)
+                block.set_config(mx_quant=mx_quant, mx_specs=mx_specs, self_top_k=False, self_k=self_k, cross_top_k=cross_top_k, cross_k=cross_k, ex_pred=ex_pred, exclude_timesteps=exclude_timesteps, pred_mode=exclude_blocks_type, block_idx=idx, self_anal=self_anal, cross_anal=cross_anal, cross_file_name_dict=self.cross_file_name_dict, self_file_name_dict=self.self_file_name_dict)
             else:
-                block.set_config(mx_quant=mx_quant, mx_specs=mx_specs, self_top_k=self_top_k, self_k=self_k, cross_top_k=cross_top_k, cross_k=cross_k, ex_pred=ex_pred, exclude_timesteps=exclude_timesteps, pred_mode=pred_mode)
+                block.set_config(mx_quant=mx_quant, mx_specs=mx_specs, self_top_k=self_top_k, self_k=self_k, cross_top_k=cross_top_k, cross_k=cross_k, ex_pred=ex_pred, exclude_timesteps=exclude_timesteps, pred_mode=pred_mode, block_idx=idx, self_anal=self_anal, cross_anal=cross_anal, cross_file_name_dict=self.cross_file_name_dict, self_file_name_dict=self.self_file_name_dict)
         return self
     
     @property

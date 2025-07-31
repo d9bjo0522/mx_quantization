@@ -1,8 +1,8 @@
-LOG='/work/tttpd9bjo/diffusion/PixArt/PixArt-XL-2/evaluation/PixArt-XL-2-256x256/generated_images/top154/test/'
+LOG='/work/tttpd9bjo/diffusion/PixArt/PixArt-XL-2/evaluation/PixArt-XL-2-256x256/generated_images/rescue_analysis/block0/true_top77'
 pretrained_models_dir=/work/tttpd9bjo/diffusion/PixArt/PixArt-XL-2/pretrained_models
 
-# PROMPT_PATH='../prompts/coco2017_val5000.txt'
-PROMPT_PATH='../prompts/sample_test.txt'
+PROMPT_PATH='../prompts/coco2017_val5000.txt'
+# PROMPT_PATH='../prompts/sample_test.txt'
 
 # Add both paths to PYTHONPATH
 pixart_dir=/home/tttpd9bjo/mx_quantization/workloads/PixArt
@@ -13,9 +13,9 @@ fi
 
 # Loop over different start-idx values
 for start_idx in 0 1000 2000 3000 4000; do
-    echo "Running top140 27_blocks_true_20ex"
+    echo "Running top77 true top-k block0"
     echo "Running with start-idx = $start_idx"
-    python text_local_inference_alpha_27_blocks_true_20ex.py \
+    python text_local_inference_alpha_ex_blocks.py \
         --pretrained-models-dir $pretrained_models_dir \
         --image-dir ${LOG} \
         --prompt ${PROMPT_PATH} \
@@ -24,10 +24,6 @@ for start_idx in 0 1000 2000 3000 4000; do
         --batch-size 100 \
         --mx-quant \
         --self-top-k \
-        --self-k 154 \
-        --cross-top-k \
-        --cross-k 20 \
-        --ex-pred \
-        --pred-mode "ex_pred"
+        --self-k 77
     echo "Completed start-idx = $start_idx"
 done

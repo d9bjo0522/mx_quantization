@@ -1,13 +1,15 @@
 ## Exit on any error
-set -e
+# set -e
 
 RES="256"
-TOPK="top140"
-SAMPLE_IMG_NAME="27_blocks_true_20ex"
+TOPK="top77"
+SAMPLE_IMG_NAME="true"
 NUM="5000"
 
 if [ -n "$TOPK" ]; then
-    SAMPLE_IMG_DIR="${TOPK}/exclude_blocks/${SAMPLE_IMG_NAME}"
+    # SAMPLE_IMG_DIR="${TOPK}/exclude_blocks_top154/${SAMPLE_IMG_NAME}"
+    SAMPLE_IMG_DIR="${SAMPLE_IMG_NAME}_${TOPK}"
+    # SAMPLE_IMG_DIR="${SAMPLE_IMG_NAME}"
     FILE_NAME="${TOPK}_${SAMPLE_IMG_NAME}"
     echo "Running $RES x $RES $TOPK $SAMPLE_IMG_NAME"
 else
@@ -20,7 +22,7 @@ echo -e "Running sample number: $NUM\n"
 
 PROMPT_PTH='../prompts/coco2017_val5000.txt'
 
-SAMPLE_DIR="/work/tttpd9bjo/diffusion/PixArt/PixArt-XL-2/evaluation/PixArt-XL-2-${RES}x${RES}/generated_images"
+SAMPLE_DIR="/work/tttpd9bjo/diffusion/PixArt/PixArt-XL-2/evaluation/PixArt-XL-2-${RES}x${RES}/generated_images/rescue_analysis/block0"
 SAMPLE_NPZ_DIR="/work/tttpd9bjo/diffusion/PixArt/PixArt-XL-2/evaluation/PixArt-XL-2-${RES}x${RES}/fid"
 
 REF_NPZ_DIR="/work/tttpd9bjo/diffusion/PixArt/PixArt-XL-2/evaluation/PixArt-XL-2-${RES}x${RES}/val2017_${RES}_5000.npz"

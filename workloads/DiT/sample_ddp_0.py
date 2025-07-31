@@ -82,7 +82,7 @@ def main(args):
         'custom_cuda': False,
         'quantize_backprop': False,
     }
-    exclude_blocks = []
+    exclude_blocks = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27]
     exclude_timesteps = []
     # Load model:
     ## add mx-quantization config/ top-k/ k/ ex_pred

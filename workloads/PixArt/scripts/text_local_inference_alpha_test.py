@@ -85,7 +85,7 @@ def main(args):
             prompts_embeds, prompt_attention_mask, negative_prompt_embeds, negative_prompt_attention_mask = pipe.encode_prompt(prompts[i*args.batch_size: (i+1)*args.batch_size])
         all_prompts_embeds.append(prompts_embeds)
         all_prompt_attention_masks.append(prompt_attention_mask)
-        print((prompt_attention_mask != 0).sum().item())
+        # print((prompt_attention_mask != 0).sum().item())
         all_negative_prompt_embeds.append(negative_prompt_embeds)
         all_negative_prompt_attention_masks.append(negative_prompt_attention_mask)
     
@@ -118,7 +118,10 @@ def main(args):
 
     ## test timestep/block sensitivity
     exclude_timesteps = []
-    exclude_blocks = []
+    exclude_blocks = [27]
+    # exclude_blocks = []
+    # exclude_blocks = [0, 1, 2, 25, 26, 27]
+    # exclude_blocks = [3,4,5,6,7,8,9,10,11,12,13,27]
 
     # Apply MX quantization settings to reduce memory usage
     transformer.set_config(

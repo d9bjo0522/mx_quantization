@@ -15,6 +15,7 @@ from diffusion import create_diffusion
 from diffusers.models import AutoencoderKL
 from download import find_model
 from models import DiT_models
+from funcs import init_analysis_files
 import argparse
 
 
@@ -23,6 +24,9 @@ def main(args):
     torch.manual_seed(args.seed)
     torch.set_grad_enabled(False)
     device = "cuda" if torch.cuda.is_available() else "cpu"
+
+    base_dir = "/work/tttpd9bjo/diffusion/DiT/DiT-XL-2-256x256"
+    anal_dir = f"{base_dir}/analysis"
 
     if args.ckpt is None:
         assert args.model == "DiT-XL/2", "Only DiT-XL/2 models are available for auto-download."
@@ -48,6 +52,16 @@ def main(args):
     }
     # Load model:
     latent_size = args.image_size // 8
+
+    file_name_dict = {}
+
+    if args.anal:
+        file_name_dict = init_analysis_files(attn_type='self_attention', anal_dir=anal_dir, k=args.k, ex_pred=args.ex_pred, total_timestep=args.num_sampling_steps)
+
+    exclude_blocks = [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26]
+    # exclude_blocks = [27]
+    # exclude_timesteps = [0,1,2,3,4,5,6,7,8,9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27,28,29]
+    exclude_timesteps = []
     model = DiT_models[args.model](
         input_size=latent_size,
         num_classes=args.num_classes,
@@ -55,7 +69,12 @@ def main(args):
         mx_specs = mx_specs,
         top_k = args.top_k,
         k = args.k,
-        ex_pred = args.ex_pred
+        ex_pred = args.ex_pred,
+        pred_mode = args.pred_mode,
+        anal = args.anal,
+        file_name_dict = file_name_dict,
+        exclude_blocks = exclude_blocks,
+        exclude_timesteps = exclude_timesteps
     ).to(device)
 
     # Auto-download a pre-trained model or load a custom DiT checkpoint from train.py:
@@ -118,7 +137,7 @@ if __name__ == "__main__":
     parser.add_argument("--image-size", type=int, choices=[256, 512], default=256)
     parser.add_argument("--num-classes", type=int, default=1000)
     parser.add_argument("--cfg-scale", type=float, default=4.0)
-    parser.add_argument("--num-sampling-steps", type=int, default=50)  # Set to 50 timesteps
+    parser.add_argument("--num-sampling-steps", type=int, default=100)  # Set to 100 timesteps
     parser.add_argument("--seed", type=int, default=0)
     parser.add_argument("--ckpt", type=str, default=None,
                         help="Optional path to a DiT checkpoint (default: auto-download a pre-trained DiT-XL/2 model).")
@@ -129,5 +148,6 @@ if __name__ == "__main__":
     parser.add_argument("--k", type=int, default=128)
     parser.add_argument("--ex-pred", action='store_true')
     parser.add_argument("--pred-mode", type=str, default="ex_pred", choices=["ex_pred", "true_ex"])
+    parser.add_argument("--anal", action='store_true')
     args = parser.parse_args()
     main(args)
