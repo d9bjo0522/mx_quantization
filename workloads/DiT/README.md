@@ -1,9 +1,43 @@
-## DiT Image Generation and Evaluation
+# DiT Image Generation and Evaluation
+
+## DiT conda environment setup
+``` 
+cd environments/ 
+source env.sh
+```
+```environment.yml```: conda environment for running image generation \
+```../evaluations/requirements.txt```: required packages for evaluation \
+```env.sh```: install packages for both image generation and evaluation
+
+## Overview
+- Apply MX quantization and top-k attention pruning on DiT models
+  - ```models.py```: for changed Attention module
+  - funcs/: directory for different approximation related (proposed, Sanger, EXION, ELSA) modules
+- Run 256x256 image generation
+  - scripts/: directory for running image generation process
+    - ```sample.py```, ```run_dit.sh```: for single GPU image generation
+    - ```sample_ddp.py```, ```run_dit_metric.sh```: enable multi-GPU image generation (**generate large amount of images for FID evaluation (e.g. 10000 samples)**)
+- Evaluate generated images
+  - evaluations/: directory for image generation metric evaluation
+  - ```run_eval.sh```: run sFID, FID, IS, precision, recall
+    - Evaluate through comparing reference and generated images
+      - Need reference compressed npz file first
+      - Specify the generated image directory
+        - This script will compress the generated images to an npz file
+      - Acquire FID results through comparing reference and generated npz files
+
+## Fast implementation process
+```
+cd scripts
+source run_dit_metric.sh (or run_dit.sh)
+
+cd ../evaluations
+source run_eval.sh
+```
 
 
-
-
-## Scalable Diffusion Models with Transformers (DiT)<br><sub>Official PyTorch Implementation</sub>
+## DiT official guide
+### Scalable Diffusion Models with Transformers (DiT)<br><sub>Official PyTorch Implementation</sub>
 
 ### [Paper](http://arxiv.org/abs/2212.09748) | [Project Page](https://www.wpeebles.com/DiT) | Run DiT-XL/2 [![Hugging Face Spaces](https://img.shields.io/badge/%F0%9F%A4%97%20Hugging%20Face-Spaces-blue)](https://huggingface.co/spaces/wpeebles/DiT) [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](http://colab.research.google.com/github/facebookresearch/DiT/blob/main/run_DiT.ipynb) <a href="https://replicate.com/arielreplicate/scalable_diffusion_with_transformers"><img src="https://replicate.com/arielreplicate/scalable_diffusion_with_transformers/badge"></a>
 

@@ -1,4 +1,4 @@
-name: DiT_test
+name: DiT
 channels:
   - pytorch
   - nvidia
