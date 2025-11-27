@@ -34,18 +34,18 @@ import models_v2
 
 ## added by ckj
 from mx import Linear, matmul
-from funcs import exponent_approximation, save_idx_file, save_diff_score_file, diff_idx_analysis, init_analysis_files
-
+from funcs import exponent_approximation, elsa_approximation, save_idx_file, save_diff_score_file, diff_idx_analysis, init_analysis_files, _create_structured_orthogonal_matrix, _modified_gram_schmidt, total_chosen_k
+from scipy.stats import spearmanr
 ## added by ckj to implement mx quantization
 class QuantizedAttention(nn.Module):
     # copied from https://github.com/rwightman/pytorch-image-models/blob/master/timm/models/vision_transformer.py
-    def __init__(self, orig_attn, mx_quant=False, mx_specs=None, top_k=True, k=20, ex_pred=True, pred_mode="ex_pred", anal=False, file_name_dict=None, block_idx=None):
+    def __init__(self, orig_attn, mx_quant=False, mx_specs=None, top_k=True, k=20, approx_flag=True, pred_mode="ex_pred", anal=False, file_name_dict=None, block_idx=None, orthogonal_matrix=None):
         super().__init__()
         self.mx_quant = mx_quant
         self.mx_specs = mx_specs
         self.top_k = top_k
         self.k = k
-        self.ex_pred = ex_pred
+        self.approx_flag = approx_flag
         self.num_heads = orig_attn.num_heads
         self.scale = orig_attn.scale
         self.pred_mode = pred_mode
@@ -53,8 +53,9 @@ class QuantizedAttention(nn.Module):
         self.file_name_dict = file_name_dict
         self.block_idx = block_idx
         self.exponent_based_obj =  None
-        self.current_timestep = 0
-        # mx-quantized linear layers
+        self.elsa_based_obj = None
+        self.orthogonal_matrix = orthogonal_matrix
+        self.current_timestep = 0        # mx-quantized linear layers
         self.qkv = Linear(
             orig_attn.qkv.in_features,
             orig_attn.qkv.out_features,
@@ -101,28 +102,43 @@ class QuantizedAttention(nn.Module):
             true_scores = true_scores * self.scale
             
             if self.top_k:
-                if self.ex_pred:
-                    self.exponent_based_obj = exponent_approximation(Q=q, K=k, mx_specs=self.mx_specs)
-                    if self.pred_mode == "ex_pred":
-                        ex_quant_q, ex_quant_k = self.exponent_based_obj.exponent_based_sign()
-                    elif self.pred_mode == "true_ex":
-                        ex_quant_q, ex_quant_k = self.exponent_based_obj.exponent_based_sign_leading_ones()
-                    elif self.pred_mode == "partial_Q":
-                        ex_quant_q, ex_quant_k = self.exponent_based_obj.partial_Q()
-                    elif self.pred_mode == "partial_K":
-                        ex_quant_q, ex_quant_k = self.exponent_based_obj.partial_K()
-                    pred_scores = ex_quant_q @ ex_quant_k.transpose(-2, -1)
+                if self.approx_flag:
+                    if self.pred_mode != "ELSA":
+                        self.exponent_based_obj = exponent_approximation(Q=q, K=k, mx_specs=self.mx_specs)
+                        if self.pred_mode == "ex_pred":
+                            ex_quant_q, ex_quant_k = self.exponent_based_obj.exponent_based_sign()
+                        elif self.pred_mode == "partial_Q":
+                            ex_quant_q, ex_quant_k = self.exponent_based_obj.partial_Q()
+                        elif self.pred_mode == "partial_K":
+                            ex_quant_q, ex_quant_k = self.exponent_based_obj.partial_K()
+                        elif self.pred_mode == "two_step_leading_ones":
+                            ex_quant_q, ex_quant_k = self.exponent_based_obj.two_step_leading_ones()
+                        elif self.pred_mode == "MXINT4":
+                            ex_quant_q, ex_quant_k = self.exponent_based_obj.MXINT4()
+                        pred_scores = ex_quant_q @ ex_quant_k.transpose(-2, -1)
+                    else:       ## ELSA approximation: sign orthogonal projection of Q, K
+                        self.elsa_based_obj = elsa_approximation(Q=q, K=k, mx_specs=self.mx_specs, orthogonal_matrix=self.orthogonal_matrix)
+                        pred_scores = self.elsa_based_obj.approximation_scores()
+
                     _, idx = torch.topk(pred_scores, self.k, dim=-1, largest=True, sorted=True)
                     vals = true_scores.gather(dim=-1, index=idx)
+                    del pred_scores
+                    torch.cuda.empty_cache()
+                    self.elsa_based_obj = None
+                    self.exponent_based_obj = None
                 else:
                     vals, idx = torch.topk(true_scores, self.k, dim=-1, largest=True, sorted=True)
+                    self.elsa_based_obj = None
+                    self.exponent_based_obj = None
 
                 if self.anal:
+                    avg_chosen_k = total_chosen_k(idx)
+                    print(f"Average chosen k: {avg_chosen_k:.3f}")
                     post_softmax_vals = torch.softmax(true_scores, dim=-1)
                     scores = post_softmax_vals.gather(dim=-1, index=idx)
                     true_vals, true_idx = torch.topk(post_softmax_vals, self.k, dim=-1, largest=True, sorted=True)
-                    save_idx_file(idx, self.file_name_dict[0]['idx'], block_idx=self.block_idx)
-                    save_idx_file(scores, self.file_name_dict[0]['vals'], block_idx=self.block_idx)
+                    # save_idx_file(idx, self.file_name_dict[0]['idx'], block_idx=self.block_idx)
+                    # save_idx_file(scores, self.file_name_dict[0]['vals'], block_idx=self.block_idx)
                     diff_score = diff_idx_analysis(true_vals, scores)
                     save_diff_score_file(diff_score, self.file_name_dict[0]['diff_idx'], block_idx=self.block_idx)
                     del post_softmax_vals, scores
@@ -181,7 +197,7 @@ class QuantizedMlp(nn.Module):
     
 class QuantizedBlock(nn.Module):
     # taken from https://github.com/rwightman/pytorch-image-models/blob/master/timm/models/vision_transformer.py
-    def __init__(self, orig_block, mx_specs=None, top_k=True, k=20, ex_pred=True, anal=False, file_name_dict=None, block_idx=None):
+    def __init__(self, orig_block, mx_specs=None, top_k=True, k=20, approx_flag=True, anal=False, file_name_dict=None, block_idx=None):
         super().__init__()
         # Copy attributes from original block
         self.mx_specs = mx_specs
@@ -195,7 +211,7 @@ class QuantizedBlock(nn.Module):
             mx_specs=mx_specs,
             top_k=top_k,
             k=k,
-            ex_pred=ex_pred,
+            approx_flag=approx_flag,
             anal=anal,
             file_name_dict=file_name_dict,
             block_idx=block_idx
@@ -212,7 +228,7 @@ class QuantizedBlock(nn.Module):
         x = x + self.drop_path(self.mlp(self.norm2(x)))
         return x
 
-def apply_quantization_to_deit(model, config, mx_quant=True, top_k=True, k=20, ex_pred=True, pred_mode="ex_pred", anal=False, file_name_dict=None, exclude_blocks=[], exclude_block_type="ex_pred"):
+def apply_quantization_to_deit(model, config, mx_quant=True, top_k=True, k=20, approx_flag=True, pred_mode="ex_pred", anal=False, file_name_dict=None, exclude_blocks=[], exclude_block_type="ex_pred", orthogonal_matrix=None):
     """
     Apply weight and activation quantization to specific parts of DeiT model
     
@@ -224,7 +240,7 @@ def apply_quantization_to_deit(model, config, mx_quant=True, top_k=True, k=20, e
     block_indices = config.get('blocks', [])
     components = config.get('components', ['attn', 'ffn'])
     mx_specs = config.get('mx_specs', {
-            'w_elem_format': 'int4',
+            'w_elem_format': 'int8',
             'a_elem_format': 'int8',
             'scale_bits': 8,
             'block_size': 32,
@@ -238,7 +254,7 @@ def apply_quantization_to_deit(model, config, mx_quant=True, top_k=True, k=20, e
             'quantize_backprop': False,
     })
     
-    print(f"configuration:\nmx_quant: {mx_quant}\ntop_k: {top_k}\nk: {k}\nex_pred: {ex_pred}\npred_mode: {pred_mode}")
+    print(f"configuration:\nmx_quant: {mx_quant}\ntop_k: {top_k}\nk: {k}\napprox_flag: {approx_flag}\npred_mode: {pred_mode}")
     print(f"Applying quantization to blocks: {block_indices}")
     print(f"Quantizing components: {components}")
     
@@ -248,21 +264,22 @@ def apply_quantization_to_deit(model, config, mx_quant=True, top_k=True, k=20, e
             continue
             
         block = model.blocks[idx]
-        if 'attn' in components and idx not in exclude_blocks and idx != 10:
+        if 'attn' in components and idx not in exclude_blocks and idx != 11:
             print(f"Quantizing attention in block {idx}")
             block.attn = QuantizedAttention(
                 orig_attn=block.attn, 
                 mx_quant=mx_quant,
                 mx_specs=mx_specs,
-                top_k=False,
+                top_k=top_k,
                 k=k,
-                ex_pred=ex_pred,
+                approx_flag=approx_flag,
                 pred_mode=pred_mode,
                 anal=anal,
                 file_name_dict=file_name_dict,
-                block_idx=idx
+                block_idx=idx,
+                orthogonal_matrix=orthogonal_matrix
             )
-        elif 'attn' in components and idx == 10:
+        elif 'attn' in components and idx == 11:
             print(f"Skipping topk of attention in block {idx}")
             block.attn = QuantizedAttention(
                 orig_attn=block.attn, 
@@ -270,13 +287,14 @@ def apply_quantization_to_deit(model, config, mx_quant=True, top_k=True, k=20, e
                 mx_specs=mx_specs,
                 top_k=False,
                 k=k,
-                ex_pred=ex_pred,
+                approx_flag=approx_flag,
                 pred_mode=exclude_block_type,
                 anal=anal,
                 file_name_dict=file_name_dict,
-                block_idx=idx
+                block_idx=idx,
+                orthogonal_matrix=orthogonal_matrix
             )
-        elif 'attn' in components and idx in exclude_blocks and idx != 10:
+        elif 'attn' in components and idx in exclude_blocks and idx != 11:
             print(f"Skipping ex_pred of attention in block {idx}")
             block.attn = QuantizedAttention(
                 orig_attn=block.attn, 
@@ -284,11 +302,12 @@ def apply_quantization_to_deit(model, config, mx_quant=True, top_k=True, k=20, e
                 mx_specs=mx_specs,
                 top_k=top_k,
                 k=k,
-                ex_pred=ex_pred,
+                approx_flag=approx_flag,
                 pred_mode=exclude_block_type,
                 anal=anal,
                 file_name_dict=file_name_dict,
-                block_idx=idx
+                block_idx=idx,
+                orthogonal_matrix=orthogonal_matrix
             )
         if 'ffn' in components:
             print(f"Quantizing FFN in block {idx}")
@@ -296,29 +315,11 @@ def apply_quantization_to_deit(model, config, mx_quant=True, top_k=True, k=20, e
                 orig_mlp=block.mlp,
                 mx_specs=mx_specs
             )
-    
-    # Register hooks to collect quantization statistics
-    # save_stats = SaveStats(first_eval)
-    # hooks = save_stats.register_stats_hooks(model)
-    # return model, hooks
     return model
-
-# Function to verify quantization was applied correctly
-def verify_quantization(model, block_indices):
-    print("\nVerifying quantization:")
-    for i, block in enumerate(model.blocks):
-        is_quantized = i in block_indices
-        attn_type = type(block.attn).__name__
-        ffn_type = type(block.mlp).__name__
-        
-        status = "QUANTIZED" if is_quantized else "not quantized"
-        print(f"Block {i}: {status}")
-        print(f"  Attention: {attn_type}")
-        print(f"  FFN: {ffn_type}")
 
 def get_args_parser():
     parser = argparse.ArgumentParser('DeiT training and evaluation script', add_help=False)
-    parser.add_argument('--batch-size', default=64, type=int)
+    parser.add_argument('--batch-size', default=5000, type=int)
     parser.add_argument('--epochs', default=300, type=int)
     parser.add_argument('--bce-loss', action='store_true')
     parser.add_argument('--unscale-lr', action='store_true')
@@ -479,16 +480,13 @@ def get_args_parser():
     parser.add_argument('--top-k', action='store_true')
     # k signal
     parser.add_argument('--k', type=int, default=20)
-    parser.add_argument('--ex-pred', action='store_true')
-    parser.add_argument('--pred-mode', type=str, default="ex_pred", choices=["ex_pred", "true_ex", "partial_Q", "partial_K"])
+    parser.add_argument('--approx-flag', action='store_true')
+    parser.add_argument('--pred-mode', type=str, default="ex_pred", choices=["ex_pred", "true_ex", "partial_Q", "partial_K", "two_step_leading_ones", "MXINT4", "ELSA"])
     parser.add_argument('--anal', action='store_true')
     parser.add_argument('--anal-dir', type=str, default="")
-    parser.add_argument('--exclude-block-type', type=str, default="ex_pred", choices=["ex_pred", "true_ex", "partial_Q", "partial_K"])
+    parser.add_argument('--exclude-block-type', type=str, default="ex_pred", choices=["ex_pred", "true_ex", "partial_Q", "partial_K", "two_step_leading_ones", "MXINT4", "ELSA"])
     return parser
  
-            
-           
-
 
 def main(args):
     utils.init_distributed_mode(args)
@@ -547,7 +545,7 @@ def main(args):
 
     data_loader_val = torch.utils.data.DataLoader(
         dataset_val, sampler=sampler_val,
-        batch_size=int(1.5 * args.batch_size),
+        batch_size=int(args.batch_size),
         num_workers=args.num_workers,
         pin_memory=args.pin_mem,
         drop_last=False
@@ -736,7 +734,7 @@ def main(args):
             'quantize_backprop': False,
         }
     }
-    exclude_blocks = [7]
+    exclude_blocks = []
 
     # First move model to device
     model.to(device)
@@ -746,11 +744,16 @@ def main(args):
         # Initialize SaveStats with first_eval flag
         file_name_dict = None
         if args.anal:
-            file_name_dict = init_analysis_files(attn_type="self_attention", anal_dir=args.anal_dir, k=args.k, ex_pred=args.ex_pred, total_timestep=1)
+            file_name_dict = init_analysis_files(attn_type="self_attention", anal_dir=args.anal_dir, k=args.k, pred_mode=args.pred_mode, approx_flag=args.approx_flag, total_timestep=1)
         if args.mx_quant:
             # save_stats = SaveStats(first_eval=True)
-            # model, hooks = apply_quantization_to_deit(model, quantization_config, first_eval=True, top_k=args.top_k, k=args.k, ex_pred=args.ex_pred)
-            model = apply_quantization_to_deit(model, quantization_config, top_k=args.top_k, k=args.k, ex_pred=args.ex_pred, pred_mode=args.pred_mode, anal=args.anal, file_name_dict=file_name_dict, exclude_blocks=exclude_blocks, exclude_block_type=args.exclude_block_type)
+            # print(f"Pred mode: {args.pred_mode}")
+            orthogonal_matrix = None
+            if args.pred_mode == "ELSA":
+                print(f"Creating orthogonal matrix")
+                orthogonal_matrix = _create_structured_orthogonal_matrix(dim=64).to(device)
+                # print(f"Orthogonal matrix: {orthogonal_matrix.type()}")
+            model = apply_quantization_to_deit(model, quantization_config, top_k=args.top_k, k=args.k, approx_flag=args.approx_flag, pred_mode=args.pred_mode, anal=args.anal, file_name_dict=file_name_dict, exclude_blocks=exclude_blocks, exclude_block_type=args.exclude_block_type, orthogonal_matrix=orthogonal_matrix)
         
         test_stats = evaluate(data_loader_val, model, device)
         print(f"Accuracy of the network on the {len(dataset_val)} test images: {test_stats['acc1']:.1f}%")

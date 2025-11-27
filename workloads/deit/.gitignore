@@ -3,4 +3,5 @@ __pycache__/
 .dumbo.json
 checkpoints/
 outputs/
+scripts/patterns*
 .github/

@@ -24,7 +24,6 @@ anal_dir="/work/tttpd9bjo/deit/${anal_model_name}/analysis"
 #     --k 80 \
 #     --ex-pred \
 #     --pred-mode "ex_pred"
-    # --anal
 
 ## deit-small
 # python main.py \
@@ -37,9 +36,7 @@ anal_dir="/work/tttpd9bjo/deit/${anal_model_name}/analysis"
 #     --top-k \
 #     --k 60 \
 #     --ex-pred \
-#     --pred-mode "ex_pred" \
-#     --exclude-block-type "partial_K"
-    # --anal
+#     --pred-mode "ex_pred"
 
 ## deit-base
 python main.py \
@@ -48,10 +45,9 @@ python main.py \
     --model deit_base_patch16_224 \
     --data-path /work/tttpd9bjo/ImageNet \
     --anal-dir $anal_dir \
+    --batch-size 100 \
     --mx-quant \
     --top-k \
-    --k 20
-    # --anal
-    # --ex-pred \
-    # --pred-mode "ex_pred" \
-    # --exclude-block-type "partial_K"
+    --k 30 \
+    --approx-flag \
+    --pred-mode "two_step_leading_ones"

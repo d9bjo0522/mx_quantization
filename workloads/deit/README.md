@@ -1,4 +1,28 @@
-# Data-Efficient architectures and training for Image classification
+# DeiT Image classification
+
+## DeiT conda environment setup
+``` 
+cd environments/ 
+source run_env.sh
+```
+```environment.yml```: conda environment for deit \
+```run_env.sh```: create "deit" conda environment and activate
+
+## Overview
+- Apply MX quantization and top-k attention pruning on DeiT models and accuracy evaluation
+  - scripts/: directory to run
+    - ```main.py```: MX quantization, top-k pruning, approximate top-k pruning, evaluation
+    - ```run_deit.sh```: run inference for accuracy results for deit-tiny, deit-small, deit-base
+  - funcs/: directory for different approximation related (proposed, Sanger, EXION, ELSA) modules
+
+## Fast implementation process
+```
+cd scripts
+source run_deit.sh
+```
+
+## DeiT official guide
+### Data-Efficient architectures and training for Image classification
 
 This repository contains PyTorch evaluation code, training code and pretrained models for the following papers:
 <details>

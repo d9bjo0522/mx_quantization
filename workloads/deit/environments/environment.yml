@@ -1,0 +1,13 @@
+name: deit
+channels:
+  - pytorch
+  - nvidia
+  - conda-forge
+dependencies:
+  - python=3.9.21
+  - scipy=1.13.1
+  - numpy=1.26.4
+  - packaging
+  - pip
+  - pip:
+    - timm==0.4.12
