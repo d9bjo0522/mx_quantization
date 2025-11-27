@@ -4,11 +4,9 @@ channels:
   - nvidia
 dependencies:
   - python=3.10
-  - pytorch=2.7.0
-  - torchvision=0.22.0
-  - torchaudio=2.0.2
   - pytorch-cuda=11.7
   - pip:
+    - torch==2.7.0
     - timm==0.6.12
     - diffusers
     - accelerate

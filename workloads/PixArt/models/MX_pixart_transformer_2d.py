@@ -24,6 +24,7 @@ from diffusers.models.modeling_outputs import Transformer2DModelOutput
 from diffusers.models.modeling_utils import ModelMixin
 from diffusers.models.normalization import AdaLayerNormSingle
 from funcs.analysis import create_file, init_analysis_files
+from funcs import _create_structured_orthogonal_matrix
 
 from .MX_transformer_block import MXBasicTransformerBlock
 
@@ -200,16 +201,19 @@ class MXPixArtTransformer2DModel(ModelMixin, ConfigMixin):
         self.cross_file_name_dict = None
         self.self_file_name_dict = None
 
+        orthogonal_matrix = None
+        if pred_mode == "ELSA":
+            orthogonal_matrix = _create_structured_orthogonal_matrix(dim=72)
         if cross_anal:
-            self.cross_file_name_dict = init_analysis_files(attn_type='cross_attention', anal_dir=anal_dir, k=cross_k, ex_pred=ex_pred, total_timestep=20)
+            self.cross_file_name_dict = init_analysis_files(attn_type='cross_attention', anal_dir=anal_dir, k=cross_k, pred_mode=pred_mode, approx_flag=ex_pred, total_timestep=20)
         if self_anal:
-            self.self_file_name_dict = init_analysis_files(attn_type='self_attention', anal_dir=anal_dir, k=self_k, ex_pred=ex_pred, total_timestep=20)
+            self.self_file_name_dict = init_analysis_files(attn_type='self_attention', anal_dir=anal_dir, k=self_k, pred_mode=pred_mode, approx_flag=ex_pred, total_timestep=20)
 
         for idx, block in enumerate(self.transformer_blocks):
             if idx in exclude_blocks:
-                block.set_config(mx_quant=mx_quant, mx_specs=mx_specs, self_top_k=False, self_k=self_k, cross_top_k=cross_top_k, cross_k=cross_k, ex_pred=ex_pred, exclude_timesteps=exclude_timesteps, pred_mode=exclude_blocks_type, block_idx=idx, self_anal=self_anal, cross_anal=cross_anal, cross_file_name_dict=self.cross_file_name_dict, self_file_name_dict=self.self_file_name_dict)
+                block.set_config(mx_quant=mx_quant, mx_specs=mx_specs, self_top_k=False, self_k=self_k, cross_top_k=cross_top_k, cross_k=cross_k, ex_pred=ex_pred, exclude_timesteps=exclude_timesteps, pred_mode=exclude_blocks_type, block_idx=idx, self_anal=self_anal, cross_anal=cross_anal, cross_file_name_dict=self.cross_file_name_dict, self_file_name_dict=self.self_file_name_dict, orthogonal_matrix=orthogonal_matrix)
             else:
-                block.set_config(mx_quant=mx_quant, mx_specs=mx_specs, self_top_k=self_top_k, self_k=self_k, cross_top_k=cross_top_k, cross_k=cross_k, ex_pred=ex_pred, exclude_timesteps=exclude_timesteps, pred_mode=pred_mode, block_idx=idx, self_anal=self_anal, cross_anal=cross_anal, cross_file_name_dict=self.cross_file_name_dict, self_file_name_dict=self.self_file_name_dict)
+                block.set_config(mx_quant=mx_quant, mx_specs=mx_specs, self_top_k=self_top_k, self_k=self_k, cross_top_k=cross_top_k, cross_k=cross_k, ex_pred=ex_pred, exclude_timesteps=exclude_timesteps, pred_mode=pred_mode, block_idx=idx, self_anal=self_anal, cross_anal=cross_anal, cross_file_name_dict=self.cross_file_name_dict, self_file_name_dict=self.self_file_name_dict, orthogonal_matrix=orthogonal_matrix)
         return self
     
     @property

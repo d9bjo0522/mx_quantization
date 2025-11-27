@@ -3,4 +3,5 @@ outputs/
 analysis/
 evaluation/generated_images/
 evaluation/classify*
+scripts/patterns*
 *.jpg

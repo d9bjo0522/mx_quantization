@@ -9,7 +9,7 @@ import numpy as np
 from diffusers import AutoencoderKL, DPMSolverMultistepScheduler
 from safetensors.torch import load_file
 from transformers import T5EncoderModel, T5TokenizerFast, BitsAndBytesConfig
-from diffusers import PixArtSigmaPipeline
+from diffusers import PixArtSigmaPipeline, PixArtAlphaPipeline
 
 import gc
 import argparse
@@ -54,8 +54,15 @@ def main(args):
                 prompts.append(line.strip())
             elif i >= args.start_idx + 1000:
                 break
-    N_batch = len(prompts) // args.batch_size
+    
+    print(f"prompts_length: {len(prompts)}")
+    if args.self_anal or args.cross_anal:
+        np.random.seed(42)
+        choice_indices = np.random.choice(1000, size=100, replace=False).tolist()
+        print(f"choice_indices: {choice_indices}")
+        prompts = [prompts[i] for i in choice_indices]
 
+    N_batch = len(prompts) // args.batch_size
     print(f"Found {len(prompts)} prompts, will process in {N_batch} batches")
 
     # Configure 8-bit quantization using BitsAndBytesConfig
@@ -69,7 +76,7 @@ def main(args):
         quantization_config=quantization_config,     ## saves 2GB but slows down 22s
         device_map="auto")
     
-    pipe = PixArtSigmaPipeline.from_pretrained(
+    pipe = PixArtAlphaPipeline.from_pretrained(
         f"{folder}", 
         text_encoder=text_encoder, 
         transformer=None, 
@@ -85,7 +92,7 @@ def main(args):
             prompts_embeds, prompt_attention_mask, negative_prompt_embeds, negative_prompt_attention_mask = pipe.encode_prompt(prompts[i*args.batch_size: (i+1)*args.batch_size])
         all_prompts_embeds.append(prompts_embeds)
         all_prompt_attention_masks.append(prompt_attention_mask)
-        print((prompt_attention_mask != 0).sum().item())
+        # print((prompt_attention_mask != 0).sum().item())
         all_negative_prompt_embeds.append(negative_prompt_embeds)
         all_negative_prompt_attention_masks.append(negative_prompt_attention_mask)
     
@@ -118,7 +125,7 @@ def main(args):
 
     ## test timestep/block sensitivity
     exclude_timesteps = []
-    exclude_blocks = []
+    exclude_blocks = [27]
 
     # Apply MX quantization settings to reduce memory usage
     transformer.set_config(
@@ -167,7 +174,7 @@ def main(args):
     print("Building pipeline...")
     dtype = torch.float32
 
-    pipe = PixArtSigmaPipeline(
+    pipe = PixArtAlphaPipeline(
         transformer=transformer,
         vae=vae,
         text_encoder=None,

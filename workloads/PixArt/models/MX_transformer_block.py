@@ -13,8 +13,8 @@ from diffusers.models.activations import LinearActivation, ApproximateGELU, SwiG
 
 import math
 from mx import Linear, matmul
-from funcs import exponent_approximation
-from funcs import save_idx_file, create_file, diff_idx_analysis, save_diff_score_file
+from funcs import exponent_approximation, elsa_approximation
+from funcs import save_idx_file, create_file, diff_idx_analysis, save_diff_score_file, total_chosen_k
 from mx.elemwise_ops import quantize_elemwise_op
 from mx.mx_ops import quantize_mx_op
 # from funcs import plot_diff_box
@@ -341,7 +341,7 @@ class MXBasicTransformerBlock(nn.Module):
         self._chunk_size = chunk_size
         self._chunk_dim = dim
 
-    def set_config(self, mx_quant:bool=False, mx_specs:dict=None, self_top_k:bool=False, self_k:int=20, cross_top_k:bool=False, cross_k:int=20, ex_pred:bool=False, exclude_timesteps:list=None, pred_mode:str="ex_pred", block_idx:int=None, self_anal:bool=False, cross_anal:bool=False, cross_file_name_dict:dict=None, self_file_name_dict:dict=None):
+    def set_config(self, mx_quant:bool=False, mx_specs:dict=None, self_top_k:bool=False, self_k:int=20, cross_top_k:bool=False, cross_k:int=20, ex_pred:bool=False, exclude_timesteps:list=None, pred_mode:str="ex_pred", block_idx:int=None, self_anal:bool=False, cross_anal:bool=False, cross_file_name_dict:dict=None, self_file_name_dict:dict=None, orthogonal_matrix:torch.Tensor=None):
         self.mx_quant = mx_quant
         self.mx_specs = mx_specs
         self.self_top_k = self_top_k
@@ -356,7 +356,7 @@ class MXBasicTransformerBlock(nn.Module):
         self.self_file_name_dict = self_file_name_dict
 
         ## submodule set_configs
-        self.attn1.set_config(mx_quant=mx_quant, mx_specs=mx_specs, top_k=self_top_k, k=self_k, ex_pred=ex_pred, exclude_timesteps=exclude_timesteps, pred_mode=pred_mode, block_idx=block_idx, anal=self_anal, file_name_dict=self_file_name_dict)
+        self.attn1.set_config(mx_quant=mx_quant, mx_specs=mx_specs, top_k=self_top_k, k=self_k, ex_pred=ex_pred, exclude_timesteps=exclude_timesteps, pred_mode=pred_mode, block_idx=block_idx, anal=self_anal, file_name_dict=self_file_name_dict, orthogonal_matrix=orthogonal_matrix)
         self.attn2.set_config(mx_quant=mx_quant, mx_specs=mx_specs, top_k=cross_top_k, k=cross_k, ex_pred=ex_pred, pred_mode=pred_mode, exclude_timesteps=exclude_timesteps, block_idx=block_idx, anal=cross_anal, file_name_dict=cross_file_name_dict)
         self.ff.set_config(mx_quant=mx_quant, mx_specs=mx_specs)
         return self
@@ -595,11 +595,13 @@ class MXSelfAttention(nn.Module):
         ## top-k
         # self.top_k_obj = None
         self.exponent_based_obj = None
+        self.elsa_based_obj = None
         # self.ex_pred_idx = None
         self.current_timestep = 0
         self.exclude_timesteps = None
-
-    def set_config(self, mx_quant:bool=False, mx_specs:dict=None, top_k:bool=False, k:int=20, ex_pred:bool=False, exclude_timesteps:list=None, pred_mode:str="ex_pred", block_idx:int=None, anal:bool=False, file_name_dict:dict=None):
+        self.orthogonal_matrix = None
+        
+    def set_config(self, mx_quant:bool=False, mx_specs:dict=None, top_k:bool=False, k:int=20, ex_pred:bool=False, exclude_timesteps:list=None, pred_mode:str="ex_pred", block_idx:int=None, anal:bool=False, file_name_dict:dict=None, orthogonal_matrix:torch.Tensor=None):
         self.mx_quant = mx_quant
         self.mx_specs = mx_specs
         self.top_k = top_k
@@ -610,6 +612,8 @@ class MXSelfAttention(nn.Module):
         self.anal = anal
         self.file_name_dict = file_name_dict
         self.exclude_timesteps = exclude_timesteps
+        self.orthogonal_matrix = orthogonal_matrix
+
         ## submodule set_configs
         self.to_q = Linear(self.dim, self.dim, bias=self.has_bias, mx_specs=mx_specs) if mx_quant else self.to_q
         self.to_k = Linear(self.dim, self.dim, bias=self.has_bias, mx_specs=mx_specs) if mx_quant else self.to_k
@@ -625,7 +629,6 @@ class MXSelfAttention(nn.Module):
         **kwargs,                    # keeps .processor kwargs happy
     ):
         B, N, C = hidden_states.shape
-
         q = self.to_q(hidden_states)
         k = self.to_k(hidden_states)
         v = self.to_v(hidden_states)
@@ -634,7 +637,6 @@ class MXSelfAttention(nn.Module):
         q = q.view(B, N, self.num_heads, C // self.num_heads).transpose(1, 2)
         k = k.view(B, N, self.num_heads, C // self.num_heads).transpose(1, 2)
         v = v.view(B, N, self.num_heads, C // self.num_heads).transpose(1, 2)
-
         if not self.mx_quant:
             out = torch.nn.functional.scaled_dot_product_attention(
                 q, k, v, None, 0.0, is_causal=False
@@ -653,32 +655,43 @@ class MXSelfAttention(nn.Module):
             ## top-k
             if self.top_k and self.current_timestep not in self.exclude_timesteps:
                 if self.ex_pred:
-                    self.exponent_based_obj = exponent_approximation(Q=q, K=k_scaled, mx_specs=self.mx_specs)
+                    if self.pred_mode != "ELSA":
+                        self.exponent_based_obj = exponent_approximation(Q=q, K=k_scaled, mx_specs=self.mx_specs)
 
-                    if self.pred_mode == "ex_pred":
-                        ex_quant_q, ex_quant_k = self.exponent_based_obj.exponent_based_sign()
-                    elif self.pred_mode == "true_ex":
-                        ex_quant_q, ex_quant_k = self.exponent_based_obj.exponent_based_sign_leading_ones()
-                    elif self.pred_mode == "partial_Q": # Q is MX, K is ex-approx
-                        ex_quant_q, ex_quant_k = self.exponent_based_obj.partial_Q()
-                    elif self.pred_mode == "partial_K": # Q is ex-approx, K is MX
-                        ex_quant_q, ex_quant_k = self.exponent_based_obj.partial_K()
-
-                    pred_scores = ex_quant_q @ ex_quant_k.transpose(-2, -1)     ## approximated q*k using exponent-based method
+                        if self.pred_mode == "ex_pred":
+                            ex_quant_q, ex_quant_k = self.exponent_based_obj.exponent_based_sign()
+                        elif self.pred_mode == "true_ex":
+                            ex_quant_q, ex_quant_k = self.exponent_based_obj.exponent_based_sign_leading_ones()
+                        elif self.pred_mode == "partial_Q": # Q is MX, K is ex-approx
+                            ex_quant_q, ex_quant_k = self.exponent_based_obj.partial_Q()
+                        elif self.pred_mode == "partial_K": # Q is ex-approx, K is MX
+                            ex_quant_q, ex_quant_k = self.exponent_based_obj.partial_K()
+                        elif self.pred_mode == "two_step_leading_ones":
+                            ex_quant_q, ex_quant_k = self.exponent_based_obj.two_step_leading_ones()
+                        elif self.pred_mode == "MXINT4":
+                            ex_quant_q, ex_quant_k = self.exponent_based_obj.MXINT4()
+                        pred_scores = ex_quant_q @ ex_quant_k.transpose(-2, -1)     ## approximated q*k using exponent-based method
+                        del ex_quant_q, ex_quant_k
+                    else:
+                        self.elsa_based_obj = elsa_approximation(Q=q, K=k_scaled, mx_specs=self.mx_specs, orthogonal_matrix=self.orthogonal_matrix)
+                        pred_scores = self.elsa_based_obj.approximation_scores()
                     _, idx = torch.topk(pred_scores, self.k, dim=-1, largest=True, sorted=True)  ## the top-k chosen by approximated q*k
                     vals = true_scores.gather(dim=-1, index=idx)  ## the top-k values chosen by true q*k
-                    del ex_quant_q, ex_quant_k, pred_scores
+                    del pred_scores
                     self.exponent_based_obj = None
+                    self.elsa_based_obj = None
                     torch.cuda.empty_cache()
                 else:
                     vals, idx = torch.topk(true_scores, self.k, dim=-1, largest=True, sorted=True)  ## true top-k values, indexes
                 
                 if self.anal:
+                    avg_chosen_k = total_chosen_k(idx)
+                    print(f"Average chosen k: {avg_chosen_k:.3f}")
                     post_softmax_vals = torch.softmax(true_scores, dim=-1)
                     scores = post_softmax_vals.gather(dim=-1, index=idx)
                     true_vals, true_idx = torch.topk(post_softmax_vals, self.k, dim=-1, largest=True, sorted=True)
-                    save_idx_file(idx, self.file_name_dict[self.current_timestep]['idx'], block_idx=self.block_idx)
-                    save_idx_file(scores, self.file_name_dict[self.current_timestep]['vals'], block_idx=self.block_idx)
+                    # save_idx_file(idx, self.file_name_dict[self.current_timestep]['idx'], block_idx=self.block_idx)
+                    # save_idx_file(scores, self.file_name_dict[self.current_timestep]['vals'], block_idx=self.block_idx)
                     diff_score = diff_idx_analysis(true_vals, scores)
                     save_diff_score_file(diff_score, self.file_name_dict[self.current_timestep]['diff_idx'], block_idx=self.block_idx)
                     del post_softmax_vals, scores
@@ -766,7 +779,6 @@ class MXCrossAttention(nn.Module):
         q = self.to_q(hidden_states).view(B, -1, self.num_heads, self.head_dim).transpose(1, 2) # [B, N, num_heads, head_dim]
         k = self.to_k(encoder_hidden_states).reshape([B, target_length, self.num_heads, -1]).transpose(1, 2) # [B, target_length, num_heads, head_dim]
         v = self.to_v(encoder_hidden_states).reshape([B, target_length, self.num_heads, -1]).transpose(1, 2) # [B, target_length, num_heads, head_dim]
-
         ## original scaled dot product attention
         if not self.mx_quant:
             # scaled dot product attention upcasts q, k, v to fp32
@@ -802,6 +814,10 @@ class MXCrossAttention(nn.Module):
                         ex_quant_q, ex_quant_k = self.exponent_based_obj.partial_Q()
                     elif self.pred_mode == "partial_K":
                         ex_quant_q, ex_quant_k = self.exponent_based_obj.partial_K()
+                    elif self.pred_mode == "two_step_leading_ones":
+                        ex_quant_q, ex_quant_k = self.exponent_based_obj.two_step_leading_ones()
+                    elif self.pred_mode == "MXINT4":
+                        ex_quant_q, ex_quant_k = self.exponent_based_obj.MXINT4()
                     pred_scores = ex_quant_q @ ex_quant_k.transpose(-2, -1)
                     pred_scores = pred_scores + attn_bias
                     

@@ -2,15 +2,13 @@
 # set -e
 
 RES="256"
-TOPK="top77"
-SAMPLE_IMG_NAME="true"
+TOPK="top_77"
+SAMPLE_IMG_NAME="ex_pred"
 NUM="5000"
 
 if [ -n "$TOPK" ]; then
-    # SAMPLE_IMG_DIR="${TOPK}/exclude_blocks_top154/${SAMPLE_IMG_NAME}"
-    SAMPLE_IMG_DIR="${SAMPLE_IMG_NAME}_${TOPK}"
-    # SAMPLE_IMG_DIR="${SAMPLE_IMG_NAME}"
-    FILE_NAME="${TOPK}_${SAMPLE_IMG_NAME}"
+    SAMPLE_IMG_DIR="${SAMPLE_IMG_NAME}/${TOPK}"
+    FILE_NAME="${SAMPLE_IMG_NAME}_${TOPK}"
     echo "Running $RES x $RES $TOPK $SAMPLE_IMG_NAME"
 else
     SAMPLE_IMG_DIR="${SAMPLE_IMG_NAME}"
@@ -22,7 +20,7 @@ echo -e "Running sample number: $NUM\n"
 
 PROMPT_PTH='../prompts/coco2017_val5000.txt'
 
-SAMPLE_DIR="/work/tttpd9bjo/diffusion/PixArt/PixArt-XL-2/evaluation/PixArt-XL-2-${RES}x${RES}/generated_images/rescue_analysis/block0"
+SAMPLE_DIR="/work/tttpd9bjo/diffusion/PixArt/PixArt-XL-2/evaluation/PixArt-XL-2-${RES}x${RES}/generated_images/related_works/exclude_block27_topk/${SAMPLE_IMG_NAME}/${TOPK}"
 SAMPLE_NPZ_DIR="/work/tttpd9bjo/diffusion/PixArt/PixArt-XL-2/evaluation/PixArt-XL-2-${RES}x${RES}/fid"
 
 REF_NPZ_DIR="/work/tttpd9bjo/diffusion/PixArt/PixArt-XL-2/evaluation/PixArt-XL-2-${RES}x${RES}/val2017_${RES}_5000.npz"
@@ -30,7 +28,7 @@ REF_NPZ_DIR="/work/tttpd9bjo/diffusion/PixArt/PixArt-XL-2/evaluation/PixArt-XL-2
 
 echo "Compress to npz file"
 python toNPZ.py \
-    --sample_dir "${SAMPLE_DIR}/${SAMPLE_IMG_DIR}" \
+    --sample_dir "${SAMPLE_DIR}" \
     --npz_dir $SAMPLE_NPZ_DIR \
     --file_name $FILE_NAME \
     --num $NUM
