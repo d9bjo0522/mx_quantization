@@ -31,14 +31,13 @@ def save_idx_file(idx, output_file, block_idx:int=None):
 
 def save_diff_score_file(diff_score, output_file, block_idx:int=None):
     with open(output_file, "a") as f:
-        f.write(f"Cross-attention Block {block_idx}\n")
-        f.write(f"Diff Score: {diff_score}\n")
+        f.write(f"{diff_score}\n")
 
-def init_analysis_files(attn_type:str, anal_dir, k, ex_pred, total_timestep):
+def init_analysis_files(attn_type:str, anal_dir, k, approx_flag, pred_mode, total_timestep):
     file_name_dict = {}
     anal_dir = anal_dir + f'/{attn_type}'
-    anal_dir = f"{anal_dir}/ex_pred" if ex_pred else f"{anal_dir}/true"
-    print(f"ex_pred mode: {ex_pred}")
+    anal_dir = f"{anal_dir}/{pred_mode}" if approx_flag else f"{anal_dir}/true"
+    print(f"approx_flag mode: {approx_flag}")
     print(f"Initializing {anal_dir} ...")
     print(f"Creating files ...")
     for timestep in range(total_timestep):
@@ -46,13 +45,69 @@ def init_analysis_files(attn_type:str, anal_dir, k, ex_pred, total_timestep):
         file_name_dict[timestep]['idx'] = f"{anal_dir}/top{k}_idx_t{timestep}.txt"
         file_name_dict[timestep]['vals'] = f"{anal_dir}/top{k}_vals_t{timestep}.txt"
         file_name_dict[timestep]['diff_idx'] = f"{anal_dir}/top{k}_diff_idx_t{timestep}.txt"
-        print(f"Creating file {file_name_dict[timestep]['idx']} ...")
-        create_file(file_name_dict[timestep]['idx'])
-        print(f"Creating file {file_name_dict[timestep]['vals']} ...")
-        create_file(file_name_dict[timestep]['vals'])
-        print(f"Creating file {file_name_dict[timestep]['diff_idx']} ...")
+        # print(f"Creating file {file_name_dict[timestep]['idx']} ...")
+        # create_file(file_name_dict[timestep]['idx'])
+        # print(f"Creating file {file_name_dict[timestep]['vals']} ...")
+        # create_file(file_name_dict[timestep]['vals'])
+        # print(f"Creating file {file_name_dict[timestep]['diff_idx']} ...")
         create_file(file_name_dict[timestep]['diff_idx'])
     return file_name_dict
+
+def total_chosen_k(pred_idx):
+    """
+    Calculate the total number of unique indices chosen across all attention rows.
+    
+    Example:
+        Row 0 chooses indices: [0, 1, 2]
+        Row 1 chooses indices: [0, 5, 6]
+        Total unique indices chosen: {0, 1, 2, 5, 6} = 5 unique indices
+    
+    Args:
+        pred_idx: Multi-dimensional tensor where:
+                 - Last dimension contains the chosen indices
+                 - Second-to-last dimension (-2) is the attention row number (e.g., 256)
+                 - Other dimensions are batch, head, etc.
+    
+    Returns:
+        dict: Dictionary with statistics averaged over batches and heads:
+            - 'unique_k_count': Average number of unique indices chosen across all rows
+            - 'coverage_rate': Average ratio of unique indices to total possible indices
+    """
+    batch_size, num_heads = pred_idx.shape[0], pred_idx.shape[1]
+    results = []
+    
+    # Process each batch and head separately
+    for b in range(batch_size):
+        for h in range(num_heads):
+            # Get indices for this batch and head across all 256 rows
+            indices_2d = pred_idx[b, h]  # Shape: [256, k]
+            
+            # print(f"Indices 2D: {indices_2d}")
+            # Flatten and get unique indices (pred_idx already contains chosen indices)
+            all_indices = indices_2d.flatten()
+            unique_indices = torch.unique(all_indices)
+            
+            # Count unique indices
+            unique_k_count = len(unique_indices)
+            
+            # Calculate coverage rate (assuming indices range from 0 to some max value)
+            # max_possible_idx = torch.max(all_indices).item() if len(all_indices) > 0 else 1
+            coverage_rate = unique_k_count / pred_idx.shape[-2]
+            
+            results.append({
+                'unique_k_count': unique_k_count,
+                'coverage_rate': coverage_rate
+            })
+    
+    # Average across all batches and heads
+    avg_unique_k = sum(r['unique_k_count'] for r in results) / len(results)
+    avg_coverage_rate = sum(r['coverage_rate'] for r in results) / len(results)
+    
+    # return {
+    #     'unique_k_count': avg_unique_k,
+    #     'coverage_rate': avg_coverage_rate
+    # }
+    return avg_coverage_rate
 
 def parse_tokens(path, token_re):
     """Return a dict {token_id: list} from lines that look like:
@@ -94,10 +149,10 @@ def diff_idx_analysis(true_idx: torch.Tensor, pred_idx: torch.Tensor):
     unique_vals = torch.where(present_mask, true_idx, torch.zeros_like(true_idx))
     true_sum = true_idx.sum(dim=-1, keepdim=True)
     diff_sum = unique_vals.sum(dim=-1, keepdim=True)
-    # diff_ratio = diff_sum / true_sum
-    diff_ratio = true_sum
-    diff_ratio_all = diff_ratio[1,:,:,0].sum().item()       # item(): convert tensor to float
-    all_dim = diff_ratio.shape[1] * diff_ratio.shape[2]
+    diff_ratio = diff_sum / true_sum
+    # diff_ratio = true_sum
+    diff_ratio_all = diff_ratio[0:100,:,:,0].sum().item()       # item(): convert tensor to float
+    all_dim = 100 * diff_ratio.shape[1] * diff_ratio.shape[2]
     diff_ratio_all = diff_ratio_all / all_dim
     return diff_ratio_all
 
