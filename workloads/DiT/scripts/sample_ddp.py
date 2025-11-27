@@ -25,23 +25,6 @@ import math
 import argparse
 
 
-# def create_npz_from_sample_folder(sample_dir, npz_dir, num=50_000):
-#     """
-#     Builds a single .npz file from a folder of .png samples.
-#     """
-#     samples = []
-#     for i in tqdm(range(num), desc="Building .npz file from samples"):
-#         sample_pil = Image.open(f"{sample_dir}/{i:06d}.png")
-#         sample_np = np.asarray(sample_pil).astype(np.uint8)
-#         samples.append(sample_np)
-#     samples = np.stack(samples)
-#     assert samples.shape == (num, samples.shape[1], samples.shape[2], 3)
-#     npz_path = f"{npz_dir}.npz"
-#     np.savez(npz_path, arr_0=samples)
-#     print(f"Saved .npz file to {npz_path} [shape={samples.shape}].")
-#     return npz_path
-
-
 def main(args):
     """
     Run sampling.
@@ -82,7 +65,7 @@ def main(args):
         'custom_cuda': False,
         'quantize_backprop': False,
     }
-    exclude_blocks = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26]
+    exclude_blocks = [27]
     exclude_timesteps = []
     # Load model:
     ## add mx-quantization config/ top-k/ k/ ex_pred
@@ -147,7 +130,7 @@ def main(args):
         z = torch.randn(n, model.in_channels, latent_size, latent_size, device=device)
 
         ## specify generation classes
-        ## method 1: random
+        ## method 1: random (default)
         # y = torch.randint(0, args.num_classes, (n,), device=device)
         
         ## method 2: balanced sampling
@@ -158,6 +141,7 @@ def main(args):
             z = torch.cat([z, z], 0)
             y_null = torch.tensor([1000] * n, device=device)
             y = torch.cat([y, y_null], 0)
+            # print(f"y: {y}")
             model_kwargs = dict(y=y, cfg_scale=args.cfg_scale)
             sample_fn = model.forward_with_cfg
         else:
@@ -186,7 +170,7 @@ def main(args):
             index = i * dist.get_world_size() + rank + total + args.current_num_samples
             Image.fromarray(sample).save(f"{sample_folder_dir}/{index:06d}.png")
 
-        del samples
+        del samples     # free cuda memory for larger batch size
         torch.cuda.empty_cache()
         total += global_batch_size
 
@@ -217,6 +201,6 @@ if __name__ == "__main__":
     parser.add_argument("--top-k", action='store_true')
     parser.add_argument("--k", type=int, default=20)
     parser.add_argument("--ex-pred", action='store_true')
-    parser.add_argument("--pred-mode", type=str, default="ex_pred", choices=["ex_pred", "true_ex"])
+    parser.add_argument("--pred-mode", type=str, default="ex_pred", choices=["ex_pred", "true_ex", "two_step_leading_ones", "MXINT4", "ELSA"])
     args = parser.parse_args()
     main(args)

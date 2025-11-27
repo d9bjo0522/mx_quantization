@@ -17,7 +17,7 @@ from download import find_model
 from models import DiT_models
 from funcs import init_analysis_files
 import argparse
-
+import numpy as np
 
 def main(args):
     # Setup PyTorch:
@@ -56,11 +56,9 @@ def main(args):
     file_name_dict = {}
 
     if args.anal:
-        file_name_dict = init_analysis_files(attn_type='self_attention', anal_dir=anal_dir, k=args.k, ex_pred=args.ex_pred, total_timestep=args.num_sampling_steps)
+        file_name_dict = init_analysis_files(attn_type='self_attention', anal_dir=anal_dir, k=args.k, approx_flag=args.approx_flag, pred_mode=args.pred_mode, total_timestep=args.num_sampling_steps)
 
-    exclude_blocks = [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26]
-    # exclude_blocks = [27]
-    # exclude_timesteps = [0,1,2,3,4,5,6,7,8,9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27,28,29]
+    exclude_blocks = [27]
     exclude_timesteps = []
     model = DiT_models[args.model](
         input_size=latent_size,
@@ -69,7 +67,7 @@ def main(args):
         mx_specs = mx_specs,
         top_k = args.top_k,
         k = args.k,
-        ex_pred = args.ex_pred,
+        ex_pred = args.approx_flag,
         pred_mode = args.pred_mode,
         anal = args.anal,
         file_name_dict = file_name_dict,
@@ -86,9 +84,11 @@ def main(args):
     vae = AutoencoderKL.from_pretrained(f"stabilityai/sd-vae-ft-{args.vae}").to(device)
 
     # Labels to condition the model with (feel free to change):
-    class_labels = [207, 360, 387, 974, 88, 979, 417, 279]
-    # class_labels = [207]
-   
+    class_labels = [207]
+    np.random.seed(42)  # Fix random seed
+    # class_labels = np.random.choice(1000, size=100, replace=False).tolist()
+    # class_labels = [0]
+    print(f"class_labels: {class_labels}")
     # # Create sampling noise:
     n = len(class_labels)
     z = torch.randn(n, 4, latent_size, latent_size, device=device)
@@ -99,6 +99,7 @@ def main(args):
     y_null = torch.tensor([1000] * n, device=device)
     y = torch.cat([y, y_null], 0)
     model_kwargs = dict(y=y, cfg_scale=args.cfg_scale)
+
     # Sample images:
     # samples = diffusion.p_sample_loop(
         # model.forward_with_cfg, z.shape, z, clip_denoised=False, model_kwargs=model_kwargs, progress=True, device=device
@@ -126,7 +127,7 @@ def main(args):
     samples, _ = samples.chunk(2, dim=0)  # Remove null class samples
     samples = vae.decode(samples / 0.18215).sample
     # Save and display images:
-    save_image(samples, f"{args.sample_dir}.png", nrow=4, normalize=True, value_range=(-1, 1))
+    save_image(samples, f"{args.sample_dir}/{args.pred_mode}_top{args.k}.png", nrow=4, normalize=True, value_range=(-1, 1))
     del samples, final_sample
     torch.cuda.empty_cache()
 
@@ -146,8 +147,8 @@ if __name__ == "__main__":
     parser.add_argument("--sample-dir", type=str, default=None)
     parser.add_argument("--top-k", action='store_true')
     parser.add_argument("--k", type=int, default=128)
-    parser.add_argument("--ex-pred", action='store_true')
-    parser.add_argument("--pred-mode", type=str, default="ex_pred", choices=["ex_pred", "true_ex"])
+    parser.add_argument("--approx-flag", action='store_true')
+    parser.add_argument("--pred-mode", type=str, default="ex_pred", choices=["ex_pred", "true_ex", "MXINT4", "partial_Q", "partial_K", "ELSA","two_step_leading_ones"])
     parser.add_argument("--anal", action='store_true')
     args = parser.parse_args()
     main(args)

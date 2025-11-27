@@ -1,19 +1,15 @@
-# torchrun --nnodes=1 --nproc_per_node=8 sample_ddp.py \
-#  --model DiT-XL/2 \
-#  --num-fid-samples 50000 \
-#  --ckpt /work/tttpd9bjo/diffusion/DiT/DiT-XL-2-256x256/pretrained_models/DiT-XL-2-256x256.pt \
-#  --image-size 256 \
-#  --num-classes 1000 \
-#  --sample-dir /work/tttpd9bjo/diffusion/DiT/DiT-XL-2-256x256/samples
-
 #export CUDA_VISIBLE_DEVICES=0
 root_dir=/home/tttpd9bjo/mx_quantization
 dit_dir=$root_dir/workloads/DiT
 mx_dir=$root_dir/microxscaling
-export PYTHONPATH=$root_dir:$dit_dir:$mx_dir
+script_dir=$dit_dir/scripts
+export PYTHONPATH=$root_dir:$dit_dir:$mx_dir:$script_dir
 
+mode=MXINT4
 model_dir=/work/tttpd9bjo/diffusion/DiT/DiT-XL-2-256x256
-sample_dir=$model_dir/samples/all_ex
+sample_dir=$model_dir/samples/thesis_use
+
+mkdir -p $sample_dir
 
 ## DiT-XL/2 256x256
 
@@ -22,23 +18,23 @@ python sample.py \
     --ckpt $model_dir/pretrained_models/DiT-XL-2-256x256.pt \
     --image-size 256 \
     --vae mse \
-    --num-sampling-steps 20 \
+    --num-sampling-steps 100 \
     --seed 0 \
     --sample-dir $sample_dir \
     --mx-quant \
     --top-k \
-    --k 179
-    # --ex-pred \
-    # --pred-mode "ex_pred"
-    # --top-k \
-    # --k 102 \
-    # --anal
+    --k 154 \
+    --approx-flag \
+    --pred-mode "$mode"
 
-    # --ex-pred \
-    # --pred-mode "ex_pred"
-    # --anal
-    # --pred-mode "ex_pred" \
-    # --ex-pred
+## argument explanation
+# --sample-dir: directory to save the generated images
+# --mx-quant: whether to use MXINT8 quantization
+# --top-k: whether to use top-k
+# --k: the value of k for top-k
+# --approx-flag: whether to use approximate top-k or MXINT8 top-k
+# --pred-mode: the mode of prediction (ex_pred (proposed), MXINT4 (Sanger), two_step_leading_ones (EXION), ELSA)
+
 
 ## DiT-XL/2 512x512
 

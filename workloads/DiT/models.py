@@ -17,8 +17,9 @@ from timm.models.vision_transformer import PatchEmbed
 from timm.layers.helpers import to_2tuple
 from functools import partial
 
-from funcs import exponent_approximation, save_idx_file, diff_idx_analysis, save_diff_score_file
+from funcs import exponent_approximation, elsa_approximation, save_idx_file, diff_idx_analysis, save_diff_score_file, _create_structured_orthogonal_matrix, total_chosen_k
 from mx import Linear, matmul
+from scipy.stats import spearmanr
 
 def modulate(x, shift, scale):
     return x * (1 + scale.unsqueeze(1)) + shift.unsqueeze(1)
@@ -121,6 +122,7 @@ class Attention(nn.Module):
             file_name_dict: dict=None,
             block_idx: int=None,
             exclude_timesteps: list=None,
+            orthogonal_matrix: torch.Tensor=None,
     ) -> None:
         super().__init__()
         assert dim % num_heads == 0, 'dim should be divisible by num_heads'
@@ -141,6 +143,8 @@ class Attention(nn.Module):
         self.k = k
         self.ex_pred = ex_pred
         self.exponent_based_obj = None
+        self.elsa_based_obj = None
+        self.orthogonal_matrix = orthogonal_matrix
         self.pred_mode = pred_mode
         self.anal = anal
         self.file_name_dict = file_name_dict
@@ -167,27 +171,42 @@ class Attention(nn.Module):
 
             if self.top_k and self.current_timestep not in self.exclude_timesteps:
                 if self.ex_pred:
-                    self.exponent_based_obj = exponent_approximation(Q=q, K=k, mx_specs=self.mx_specs)
-                    if self.pred_mode == "ex_pred":
-                        ex_quant_q, ex_quant_k = self.exponent_based_obj.exponent_based_sign()
-                    elif self.pred_mode == "true_ex":
-                        ex_quant_q, ex_quant_k = self.exponent_based_obj.exponent_based_sign_leading_ones()
+                    if self.pred_mode != "ELSA":
+                        self.exponent_based_obj = exponent_approximation(Q=q, K=k, mx_specs=self.mx_specs)
+                        if self.pred_mode == "ex_pred":
+                            ex_quant_q, ex_quant_k = self.exponent_based_obj.exponent_based_sign()
+                        elif self.pred_mode == "partial_Q":
+                            ex_quant_q, ex_quant_k = self.exponent_based_obj.partial_Q()
+                        elif self.pred_mode == "partial_K":
+                            ex_quant_q, ex_quant_k = self.exponent_based_obj.partial_K()
+                        elif self.pred_mode == "two_step_leading_ones":
+                            ex_quant_q, ex_quant_k = self.exponent_based_obj.two_step_leading_ones()
+                        elif self.pred_mode == "MXINT4":
+                            ex_quant_q, ex_quant_k = self.exponent_based_obj.MXINT4()
+                        pred_scores = ex_quant_q @ (ex_quant_k.transpose(-2, -1))
+                    else:
+                        self.elsa_based_obj = elsa_approximation(Q=q, K=k, mx_specs=self.mx_specs, orthogonal_matrix=self.orthogonal_matrix)
+                        pred_scores = self.elsa_based_obj.approximation_scores()
 
-                    pred_scores = ex_quant_q @ (ex_quant_k.transpose(-2, -1))
+                    # rho, _ = spearmanr(pred_scores.detach().cpu().numpy().flatten(), true_scores.detach().cpu().numpy().flatten())
+                    # print(f"Spearman correlation: {rho:.3f}")
+
                     _, idx = torch.topk(pred_scores, self.k, dim=-1, largest=True, sorted=True)
-                    # idx = torch.randint(0, pred_scores.shape[-1], (pred_scores.shape[0], pred_scores.shape[1], pred_scores.shape[2], self.k), device=pred_scores.device)
                     vals = true_scores.gather(dim=-1, index=idx)
-                    del pred_scores, ex_quant_q, ex_quant_k, self.exponent_based_obj
+                    del pred_scores
+                    self.exponent_based_obj, self.elsa_based_obj = None, None
                     torch.cuda.empty_cache()
                 else:
                     vals, idx = torch.topk(true_scores, self.k, dim=-1, largest=True, sorted=True)
 
                 if self.anal:
+                    avg_chosen_k = total_chosen_k(idx)
+                    print(f"Average chosen k: {avg_chosen_k:.3f}")
                     post_softmax_vals = torch.softmax(true_scores, dim=-1)
                     scores = post_softmax_vals.gather(dim=-1, index=idx)
                     true_vals, true_idx = torch.topk(post_softmax_vals, self.k, dim=-1, largest=True, sorted=True)
-                    save_idx_file(idx, self.file_name_dict[self.current_timestep]['idx'], block_idx=self.block_idx)
-                    save_idx_file(scores, self.file_name_dict[self.current_timestep]['vals'], block_idx=self.block_idx)
+                    # save_idx_file(idx, self.file_name_dict[self.current_timestep]['idx'], block_idx=self.block_idx)
+                    # save_idx_file(scores, self.file_name_dict[self.current_timestep]['vals'], block_idx=self.block_idx)
                     diff_score = diff_idx_analysis(true_vals, scores)
                     save_diff_score_file(diff_score, self.file_name_dict[self.current_timestep]['diff_idx'], block_idx=self.block_idx)
                     del post_softmax_vals, scores
@@ -258,10 +277,10 @@ class DiTBlock(nn.Module):
     """
     A DiT block with adaptive layer norm zero (adaLN-Zero) conditioning.
     """
-    def __init__(self, hidden_size, num_heads, mlp_ratio=4.0, mx_quant=True, mx_specs=None, top_k=False, k=20, ex_pred=True, pred_mode="ex_pred", anal=False, file_name_dict=None, block_idx=None, exclude_timesteps=None, **block_kwargs):
+    def __init__(self, hidden_size, num_heads, mlp_ratio=4.0, mx_quant=True, mx_specs=None, top_k=False, k=20, ex_pred=True, pred_mode="ex_pred", anal=False, file_name_dict=None, block_idx=None, exclude_timesteps=None, orthogonal_matrix=None, **block_kwargs):
         super().__init__()
         self.norm1 = nn.LayerNorm(hidden_size, elementwise_affine=False, eps=1e-6)
-        self.attn = Attention(hidden_size, num_heads=num_heads, qkv_bias=True, mx_quant=mx_quant, mx_specs=mx_specs, top_k=top_k, k=k, ex_pred=ex_pred, pred_mode=pred_mode, anal=anal, file_name_dict=file_name_dict, block_idx=block_idx, exclude_timesteps=exclude_timesteps)
+        self.attn = Attention(hidden_size, num_heads=num_heads, qkv_bias=True, mx_quant=mx_quant, mx_specs=mx_specs, top_k=top_k, k=k, ex_pred=ex_pred, pred_mode=pred_mode, anal=anal, file_name_dict=file_name_dict, block_idx=block_idx, exclude_timesteps=exclude_timesteps, orthogonal_matrix=orthogonal_matrix)
         self.norm2 = nn.LayerNorm(hidden_size, elementwise_affine=False, eps=1e-6)
         mlp_hidden_dim = int(hidden_size * mlp_ratio)
         approx_gelu = lambda: nn.GELU(approximate="tanh")
@@ -337,12 +356,15 @@ class DiT(nn.Module):
         num_patches = self.x_embedder.num_patches
         # Will use fixed sin-cos embedding:
         self.pos_embed = nn.Parameter(torch.zeros(1, num_patches, hidden_size), requires_grad=False)
+        orthogonal_matrix = None
+        if pred_mode == "ELSA":
+            orthogonal_matrix = _create_structured_orthogonal_matrix(dim=72)
         # self.flag=False
         self.blocks = nn.ModuleList([
             DiTBlock(
                 hidden_size, 
                 num_heads, 
-                mlp_ratio=mlp_ratio, 
+                mlp_ratio=mlp_ratio,
                 mx_quant=mx_quant,
                 mx_specs=mx_specs,
                 top_k=top_k if exclude_blocks is None or i not in exclude_blocks else False,
@@ -352,7 +374,8 @@ class DiT(nn.Module):
                 anal=anal,
                 file_name_dict=file_name_dict,
                 block_idx=i,
-                exclude_timesteps=exclude_timesteps
+                exclude_timesteps=exclude_timesteps,
+                orthogonal_matrix = orthogonal_matrix
             ) for i in range(depth)
         ])
         self.final_layer = FinalLayer(hidden_size, patch_size, self.out_channels, mx_quant=mx_quant, mx_specs=mx_specs)

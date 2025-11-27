@@ -1,6 +1,0 @@
-source run_dit_metric_block21.sh
-source run_dit_metric_block22.sh
-source run_dit_metric_block23.sh
-source run_dit_metric_block24.sh
-source run_dit_metric_block25.sh
-source run_dit_metric_block26.sh
