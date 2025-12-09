@@ -9,7 +9,7 @@ Target workloads
    - DeiT-tiny, DeiT-small, DeiT-base
 - Diffusion transformer
    - DiT-XL/2 (256x256)
-   - PixArt- $\alpha$ (256x256)
+   - PixArt$-\alpha$ (256x256)
 
 #### This repo contains:
 - Running MXINT dynamic quantization
