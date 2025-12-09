@@ -9,10 +9,10 @@ Propose MXINT8 shared exponent and element sign approximated Q, K for lightweigh
 - Diffusion transformer: DiT-XL/2 (256x256), PixArt- $\alpha$ (256x256)
 
 #### This repo contains:
-1. Running MXINT dynamic quantization
-2. Running approximated top-k attention pruning
+- Running MXINT dynamic quantization
+- Running approximated top-k attention pruning
    - Proposed: MXINT8 shared exponent and element sign
    - Sanger (related work): MXINT4
    - EXION (related work): Two-step leading one
    - ELSA (related work): Sign orthogonal projection    
-4. Evaluation (accuracy for **deit**, FID for **DiT, PixArt - $\alpha$**)
+- Evaluation (accuracy for **deit**, FID for **DiT, PixArt - $\alpha$**)
