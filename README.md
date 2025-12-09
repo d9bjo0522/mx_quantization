@@ -22,7 +22,7 @@ This repo contains:
 
 ## Setup
 First, download and set up the repo:
-'''
+```
 git clone https://github.com/d9bjo0522/mx_quantization.git
 
-'''
+```
