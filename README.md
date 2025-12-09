@@ -21,3 +21,7 @@ This repo contains:
 - Evaluation (accuracy for **deit**, FID for **DiT, PixArt - $\alpha$**)
 
 ## Setup
+First, download and set up the repo:
+'''
+git clone
+'''
