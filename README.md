@@ -4,6 +4,7 @@
 Propose MXINT8 shared exponent and element sign approximated Q, K for lightweight Q*K used for attention pruning
 - reduce compute power and memory transfer in approximated Q*K stage
 
+
 Target workloads
 - Vision transformer
    - DeiT-tiny, DeiT-small, DeiT-base
