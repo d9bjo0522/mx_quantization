@@ -32,6 +32,6 @@ cd workloads
 ```
 
 ## Details
-``funcs\``: directory for different approximation methods
-``microxcaling\``: directory for mx library
-``workloads\``: directory for main functions
+- ``funcs\``: directory for different approximation methods
+- ``microxcaling\``: directory for mx library
+- ``workloads\``: directory for main functions
