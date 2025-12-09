@@ -24,5 +24,14 @@ This repo contains:
 First, download and set up the repo:
 ```
 git clone https://github.com/d9bjo0522/mx_quantization.git
-
+cd mx_quantization
 ```
+Next, to run different models:
+```
+cd workloads
+```
+
+## Details
+``funcs\``: directory for different approximation methods
+``microxcaling\``: directory for mx library
+``workloads\``: directory for main functions
