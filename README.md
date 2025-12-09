@@ -2,8 +2,7 @@
 
 ## Overview
 Propose MXINT8 shared exponent and element sign approximated Q, K for lightweight Q*K used for attention pruning
-- reduce compute power and memory transfer in approximated Q*K stage \
-
+- reduce compute power and memory transfer in approximated Q*K stage
 
 Target workloads
 - Vision transformer
@@ -20,3 +19,5 @@ This repo contains:
    - EXION (related work): Two-step leading one
    - ELSA (related work): Sign orthogonal projection    
 - Evaluation (accuracy for **deit**, FID for **DiT, PixArt - $\alpha$**)
+
+## Setup
