@@ -9,9 +9,9 @@ Target workloads
    - DeiT-tiny, DeiT-small, DeiT-base
 - Diffusion transformer
    - DiT-XL/2 (256x256)
-   - PixArt$-\alpha$ (256x256)
+   - PixArt - $\alpha$ (256x256)
 
-#### This repo contains:
+This repo contains:
 - Running MXINT dynamic quantization
 - Running approximated top-k attention pruning
    - Proposed: MXINT8 shared exponent and element sign
