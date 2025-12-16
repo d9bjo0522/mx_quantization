@@ -26,7 +26,7 @@ First, download and set up the repo:
 git clone https://github.com/d9bjo0522/mx_quantization.git
 cd mx_quantization
 ```
-Next, to run different models:
+Next, to run different models for MXINT quantization and top-k pruning inference:
 ```
 cd workloads
 ```
